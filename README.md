@@ -1,2 +1,2 @@
-py-elm
-======
+Python bindings for EFL
+=======================
