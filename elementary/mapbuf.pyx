@@ -1,0 +1,81 @@
+# Copyright (c)  2012 Davide Andreoli <dave@gurumeditation.it>
+#
+# This file is part of python-elementary.
+#
+# python-elementary is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Lesser General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# python-elementary is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License
+# along with python-elementary.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+include "widget_header.pxi"
+
+cdef class Mapbuf(Object):
+
+    """This holds one content object and uses an Evas Map of transformation
+    points to be later used with this content. So the content will be
+    moved, resized, etc as a single image. So it will improve performance
+    when you have a complex interface, with a lot of elements, and will
+    need to resize or move it frequently (the content object and its
+    children).
+
+    """
+
+    def __init__(self, evasObject parent):
+        Object.__init__(self, parent.evas)
+        self._set_obj(elm_mapbuf_add(parent.obj))
+
+    property enabled:
+        """The enabled state of the map.
+
+        :type: bool
+
+        """
+        def __get__(self):
+            return bool(elm_mapbuf_enabled_get(self.obj))
+
+        def __set__(self, enabled):
+            elm_mapbuf_enabled_set(self.obj, enabled)
+
+    property smooth:
+        """Smooth map rendering.
+
+        This sets smoothing for map rendering. If the object is a type that has
+        its own smoothing settings, then both the smooth settings for this object
+        and the map must be turned off.
+
+        By default smooth maps are enabled.
+
+        :type: bool
+
+        """
+        def __get__(self):
+            return bool(elm_mapbuf_smooth_get(self.obj))
+
+        def __set__(self, smooth):
+            elm_mapbuf_smooth_set(self.obj, smooth)
+
+    property alpha:
+        """The alpha state of the map.
+
+        :type: bool
+
+        """
+        def __get__(self):
+            return bool(elm_mapbuf_alpha_get(self.obj))
+
+        def __set__(self, alpha):
+            elm_mapbuf_alpha_set(self.obj, alpha)
+
+
+_elm_widget_type_register("mapbuf", Mapbuf)
+
+_install_metaclass(Mapbuf)

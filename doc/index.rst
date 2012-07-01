@@ -1,0 +1,177 @@
+Python Bindings for EFL Elementary
+==================================
+
+What is Elementary?
+-------------------
+
+This is a VERY SIMPLE toolkit. It is not meant for writing extensive desktop
+applications (yet). Small simple ones with simple needs.
+
+It is meant to make the programmers work almost brainless but give them lots
+of flexibility.
+
+To write an Elementary app, you can get started with the following::
+
+    from elementary import *
+
+    # create window(s) here and do any application init
+    run() # run main loop
+    shutdown() # after mainloop finishes running, shutdown
+
+
+There is a more advanced way of making use of the quicklaunch infrastructure
+in Elementary (which will not be covered here due to its more advanced
+nature).
+
+Now let's actually create an interactive "Hello World" gui that you can
+click the ok button to exit. It's more code because this now does something
+much more significant, but it's still very simple::
+
+    from elementary import *
+
+    def on_done(obj):
+        # quit the mainloop
+        exit()
+
+    class Spam:
+        def __init__(self):
+            # new window - do the usual and give it a name (hello) and title (Hello)
+            win = StandardWindow("hello", "Hello")
+            # when the user clicks "close" on a window there is a request to delete
+            win.callback_delete_request_add(on_done)
+
+            # add a box object - default is vertical. a box holds children in a row,
+            # either horizontally or vertically. nothing more.
+            box = Box(win)
+            # make the box horizontal
+            box.horizontal = True
+            # add object as a resize object for the window (controls window minimum
+            # size as well as gets resized if window is resized)
+            win.resize_object_add(box)
+            box.show()
+
+            # add a label widget, set the text and put it in the pad frame
+            lab = Label(win)
+            # set default text of the label
+            lab.text = "Hello out there world!"
+            # pack the label at the end of the box
+            box.pack_end(lab)
+            lab.show()
+
+            # add an ok button
+            btn = Button(win)
+            # set default text of button to "OK"
+            btn.text = "OK"
+            # pack the button at the end of the box
+            box.pack_end(btn)
+            btn.show()
+            # call on_done when button is clicked
+            btn.callback_clicked_add(on_done)
+
+            # now we are done, show the window
+            win.show()
+
+    if __name__ == "__main__":
+        food = Spam()
+        # run the mainloop and process events and callbacks
+        run()
+        shutdown()
+
+
+Acknowledgements
+----------------
+
+There is a lot that goes into making a widget set, and they don't happen out
+of nothing. It's like trying to make everyone everywhere happy, regardless
+of age, gender, race or nationality - and that is really tough. So thanks to
+people and organizations behind this, as listed below:
+
+:Copyright:
+    Elementary is Copyright (C) 2008-2012 Carsten Haitzler and various
+    contributors (see AUTHORS).
+
+:License:
+    Elementary is licensed LGPL-2.1 (see its COPYING file), the python
+    bindings LGPL-2.1 or LGPL-3 (see COPYING).
+
+:Authors:
+    - `Carsten Haitzler <mailto:raster@rasterman.com>`_
+    - `Gustavo Sverzut Barbieri <mailto:barbieri@profusion.mobi>`_
+    - `Cedric Bail <mailto:cedric.bail@free.fr>`_
+    - `Vincent Torri <mailto:vtorri@univ-evry.fr>`_
+    - `Daniel Kolesa <mailto:quaker66@gmail.com>`_
+    - `Jaime Thomas <mailto:avi.thomas@gmail.com>`_
+    - `Swisscom <http://www.swisscom.ch/>`_
+    - `Christopher Michael <mailto:devilhorns@comcast.net>`_
+    - `Marco Trevisan (Treviño) <mailto:mail@3v1n0.net>`_
+    - `Michael Bouchaud <mailto:michael.bouchaud@gmail.com>`_
+    - `Jonathan Atton (Watchwolf) <mailto:jonathan.atton@gmail.com>`_
+    - `Brian Wang <mailto:brian.wang.0721@gmail.com>`_
+    - `Mike Blumenkrantz (discomfitor/zmike) <mailto:michael.blumenkrantz@gmail.com>`_
+    - Samsung Electronics tbd
+    - Samsung SAIT tbd
+    - `Brett Nash <mailto:nash@nash.id.au>`_
+    - `Bruno Dilly <mailto:bdilly@profusion.mobi>`_
+    - `Rafael Fonseca <mailto:rfonseca@profusion.mobi>`_
+    - `Chuneon Park <mailto:hermet@hermet.pe.kr>`_
+    - `Woohyun Jung <mailto:wh0705.jung@samsung.com>`_
+    - `Jaehwan Kim <mailto:jae.hwan.kim@samsung.com>`_
+    - `Wonguk Jeong <mailto:wonguk.jeong@samsung.com>`_
+    - `Leandro A. F. Pereira <mailto:leandro@profusion.mobi>`_
+    - `Helen Fornazier <mailto:helen.fornazier@profusion.mobi>`_
+    - `Gustavo Lima Chaves <mailto:glima@profusion.mobi>`_
+    - `Fabiano Fidêncio <mailto:fidencio@profusion.mobi>`_
+    - `Tiago Falcão <mailto:tiago@profusion.mobi>`_
+    - `Otavio Pontes <mailto:otavio@profusion.mobi>`_
+    - `Viktor Kojouharov <mailto:vkojouharov@gmail.com>`_
+    - `Daniel Juyung Seo (SeoZ) <mailto:juyung.seo@samsung.com>`_ (`alt <mailto:seojuyung2@gmail.com>`_)
+    - `Sangho Park <mailto:sangho.g.park@samsung.com>`_ (`alt <mailto:gouache95@gmail.com>`_)
+    - `Rajeev Ranjan (Rajeev) <mailto:rajeev.r@samsung.com>`_ (`alt <mailto:rajeev.jnnce@gmail.com>`_)
+    - `Seunggyun Kim <mailto:sgyun.kim@samsung.com>`_ (`alt <mailto:tmdrbs@gmail.com>`_)
+    - `Sohyun Kim <mailto:anna1014.kim@samsung.com>`_ (`alt <mailto:sohyun.anna@gmail.com>`_)
+    - `Jihoon Kim <mailto:jihoon48.kim@samsung.com>`_
+    - `Jeonghyun Yun (arosis) <mailto:jh0506.yun@samsung.com>`_
+    - `Tom Hacohen <mailto:tom@stosb.com>`_
+    - `Aharon Hillel <mailto:a.hillel@samsung.com>`_
+    - `Jonathan Atton (Watchwolf) <mailto:jonathan.atton@gmail.com>`_
+    - `Shinwoo Kim <mailto:kimcinoo@gmail.com>`_
+    - `Govindaraju SM  <mailto:govi.sm@samsung.com>`_ (`alt <mailto:govism@gmail.com>`_)
+    - `Prince Kumar Dubey <mailto:prince.dubey@samsung.com>`_ (`alt <mailto:prince.dubey@gmail.com>`_)
+    - `Sung W. Park <mailto:sungwoo@gmail.com>`_
+    - `Thierry el Borgi <mailto:thierry@substantiel.fr>`_
+    - `Shilpa Singh  <mailto:shilpa.singh@samsung.com>`_ (`alt <mailto:shilpasingh.o@gmail.com>`_)
+    - `Chanwook Jung <mailto:joey.jung@samsung.com>`_
+    - `Hyoyoung Chang <mailto:hyoyoung.chang@samsung.com>`_
+    - `Guillaume "Kuri" Friloux <mailto:guillaume.friloux@asp64.com>`_
+    - `Kim Yunhan <mailto:spbear@gmail.com>`_
+    - `Bluezery <mailto:ohpowel@gmail.com>`_
+    - `Nicolas Aguirre <mailto:aguirre.nicolas@gmail.com>`_
+    - `Sanjeev BA <mailto:iamsanjeev@gmail.com>`_
+    - `Hyunsil Park <mailto:hyunsil.park@samsung.com>`_
+    - `Goun Lee <mailto:gouni.lee@samsung.com>`_
+    - `Mikael Sans <mailto:sans.mikael@gmail.com>`_
+    - `Doyoun Kang <mailto:doyoun.kang@samsung.com>`_
+    - `M.V.K. Sumanth <mailto:sumanth.m@samsung.com>`_ (`alt <mailto:mvksumanth@gmail.com>`_)
+    - `Jérôme Pinot <mailto:ngc891@gmail.com>`_
+    - `Davide Andreoli (davemds) <mailto:dave@gurumeditation.it>`_
+    - `Michal Pakula vel Rutka <mailto:m.pakula@samsung.com>`_
+
+:Contact: `Enlightenment developer mailing list <mailto:enlightenment-devel@lists.sourceforge.net>`_
+
+
+Reference
+=========
+
+.. toctree::
+   :maxdepth: 4
+
+   elementary
+
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+
