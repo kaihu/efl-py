@@ -313,6 +313,8 @@ cdef class ListItem(ObjectItem):
 
     def selected_get(self):
         return bool(elm_list_item_selected_get(self.item))
+    def selected_set(self, selected):
+        elm_list_item_selected_set(self.item, selected)
 
     property separator:
         """Set or unset item as a separator.

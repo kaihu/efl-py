@@ -48,9 +48,9 @@ cdef class HoverselItem(ObjectItem):
         :type callback: function
 
         """
-        self.label = label
-        self.icon_file = icon_file
-        self.icon_type = icon_type
+        self.label = unicode(label)
+        self.icon_file = unicode(icon_file)
+        self.icon_type = unicode(icon_type)
 
         if callback:
             if not callable(callback):
@@ -244,6 +244,9 @@ cdef class Hoversel(Button):
 
     def items_get(self):
         return _object_item_list_to_python(elm_hoversel_items_get(self.obj))
+
+    def item_add(self, label = None, icon_file = None, icon_type = ELM_ICON_NONE, callback = None, *args, **kwargs):
+        return HoverselItem(label, icon_file, icon_type, callback, *args, **kwargs).add_to(self)
 
     def callback_clicked_add(self, func, *args, **kwargs):
         """The user clicked the hoversel button and popped up the sel."""
