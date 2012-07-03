@@ -1,8 +1,6 @@
 #!/usr/bin/python
 # encoding: utf-8
 import elementary
-import edje
-import ecore
 import evas
 
 class Test(Window):

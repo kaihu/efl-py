@@ -2,8 +2,6 @@
 # encoding: utf-8
 import os
 import elementary
-import edje
-import ecore
 import evas
 
 #----- Ctxpopup -{{{-
@@ -149,6 +147,8 @@ def ctxpopup_clicked(obj):
     win = elementary.Window("ctxpopup", elementary.ELM_WIN_BASIC)
     win.title = "Context popup test"
     win.autodel = True
+    if obj is None:
+        win.callback_delete_request_add(lambda o: elementary.exit())
 
     bg = elementary.Background(win)
     win.resize_object_add(bg)

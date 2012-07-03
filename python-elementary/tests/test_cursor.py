@@ -3,8 +3,6 @@
 import os
 import elementary
 from elementary import cursors
-import edje
-import ecore
 import evas
 
 #----- Cursors -{{{-

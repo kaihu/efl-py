@@ -2,8 +2,6 @@
 # encoding: utf-8
 import os
 import elementary
-import edje
-import ecore
 import evas
 
 # ----- Progressbar {{{
@@ -55,6 +53,8 @@ def my_progressbar_destroy(obj, *args):
 def progressbar_clicked(obj):
     win = elementary.Window("progressbar", elementary.ELM_WIN_BASIC)
     win.title_set("Progressbar test")
+    if obj is None:
+        win.callback_delete_request_add(lambda o: elementary.exit())
 
     bg = elementary.Background(win)
     win.resize_object_add(bg)

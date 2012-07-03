@@ -2,8 +2,6 @@
 # encoding: utf-8
 import os
 import elementary
-import edje
-import ecore
 import evas
 
 #----- Spinner -{{{-
@@ -11,6 +9,8 @@ def spinner_clicked(obj):
     win = elementary.Window("spinner", elementary.ELM_WIN_BASIC)
     win.title_set("Spinner test")
     win.autodel_set(True)
+    if obj is None:
+        win.callback_delete_request_add(lambda o: elementary.exit())
 
     bg = elementary.Background(win)
     win.resize_object_add(bg)

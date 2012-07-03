@@ -2,8 +2,6 @@
 # encoding: utf-8
 import os
 import elementary
-import edje
-import ecore
 import evas
 
 #----- Buttons -{{{-
@@ -12,6 +10,8 @@ def buttons_clicked(obj):
     win.title_set("Buttons")
     win.focus_highlight_enabled_set(True)
     win.autodel_set(True)
+    if obj is None:
+        win.callback_delete_request_add(lambda o: elementary.exit())
 
     bg = elementary.Background(win)
     win.resize_object_add(bg)
@@ -19,8 +19,6 @@ def buttons_clicked(obj):
     bg.show()
 
     bx = elementary.Box(win)
-    print(type(bx))
-    print(dir(bx))
     win.resize_object_add(bx)
     bx.size_hint_weight_set(evas.EVAS_HINT_EXPAND, evas.EVAS_HINT_EXPAND)
     bx.show()

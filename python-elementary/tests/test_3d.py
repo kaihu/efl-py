@@ -2,8 +2,6 @@
 # encoding: utf-8
 import os
 import elementary
-import edje
-import ecore
 import evas
 
 #----- 3d -{{{-
@@ -153,6 +151,8 @@ def evas3d_clicked(obj, item=None):
     win = elementary.Window("evas3d", elementary.ELM_WIN_BASIC)
     win.title_set("Evas 3d test")
     win.autodel_set(True)
+    if obj is None:
+        win.callback_delete_request_add(lambda o: elementary.exit())
 
     bg = elementary.Background(win)
     win.resize_object_add(bg)

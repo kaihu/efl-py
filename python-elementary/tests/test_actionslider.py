@@ -2,8 +2,6 @@
 # encoding: utf-8
 import os
 import elementary
-import edje
-import ecore
 import evas
 
 def _pos_selected_cb(obj, event_info):
@@ -71,6 +69,8 @@ def actionslider_clicked(obj):
     win = elementary.Window("actionslider", elementary.ELM_WIN_BASIC)
     win.title_set("Actionslider")
     win.autodel_set(True)
+    if obj is None:
+        win.callback_delete_request_add(lambda o: elementary.exit())
 
     bg = elementary.Background(win)
     bg.size_hint_weight_set(evas.EVAS_HINT_EXPAND, evas.EVAS_HINT_EXPAND)

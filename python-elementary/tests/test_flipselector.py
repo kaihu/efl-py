@@ -2,8 +2,6 @@
 # encoding: utf-8
 import os
 from elementary import *
-import edje
-import ecore
 import evas
 
 
