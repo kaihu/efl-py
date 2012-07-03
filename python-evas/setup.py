@@ -1,42 +1,49 @@
 #!/usr/bin/python
 
-import os
-import commands
 from distutils.core import setup
 from distutils.extension import Extension
 from Cython.Distutils import build_ext
 from Cython.Build import cythonize
+import commands
 
-includedir = commands.getoutput("pkg-config --variable includedir evas")
-include_dirs = [
-    ".",
-    os.path.join(includedir, "evas-1"),
-    os.path.join(includedir, "eina-1"),
-    os.path.join(includedir, "eina-1", "eina"),
+def pkgconfig(*packages, **kw):
+    flag_map = {'-I': 'include_dirs', '-L': 'library_dirs', '-l': 'libraries'}
+    for token in commands.getoutput("pkg-config --libs --cflags %s" % ' '.join(packages)).split():
+        if flag_map.has_key(token[:2]):
+            kw.setdefault(flag_map.get(token[:2]), []).append(token[2:])
+        else: # throw others to extra_link_args
+            kw.setdefault('extra_link_args', []).append(token)
+    for k, v in kw.iteritems(): # remove duplicated
+        kw[k] = list(set(v))
+    return kw
+
+modules=[
+    "callbacks",
+    "canvas",
+    "canvas_callbacks",
+    "events",
+    "general",
+    "map",
+    "object",
+    "object_box",
+    "object_line",
+    "object_polygon",
+    "object_rectangle",
+    "object_smart",
+    "object_text",
+    "rect",
+    "textblock",
 ]
 
-libraries = [
-    "evas",
-]
+ext_modules=[]
 
-ext_modules=[
-    Extension("evas.callbacks", ["evas/callbacks.pyx"], include_dirs = include_dirs, libraries = libraries),
-    Extension("evas.canvas", ["evas/canvas.pyx"], include_dirs = include_dirs, libraries = libraries),
-    Extension("evas.canvas_callbacks", ["evas/canvas_callbacks.pyx"], include_dirs = include_dirs, libraries = libraries),
-    Extension("evas.events", ["evas/events.pyx"], include_dirs = include_dirs, libraries = libraries),
-    Extension("evas.general", ["evas/general.pyx"], include_dirs = include_dirs, libraries = libraries),
-    Extension("evas.map", ["evas/map.pyx"], include_dirs = include_dirs, libraries = libraries),
-    Extension("evas.object", ["evas/object.pyx"], include_dirs = include_dirs, libraries = libraries),
-    Extension("evas.object_box", ["evas/object_box.pyx"], include_dirs = include_dirs, libraries = libraries),
-    Extension("evas.object_image", ["evas/object_image.pyx", "evas/evas_object_image_rotate.c", "evas/evas_object_image_mask.c"], include_dirs = include_dirs, libraries = libraries),
-    Extension("evas.object_line", ["evas/object_line.pyx"], include_dirs = include_dirs, libraries = libraries),
-    Extension("evas.object_polygon", ["evas/object_polygon.pyx"], include_dirs = include_dirs, libraries = libraries),
-    Extension("evas.object_rectangle", ["evas/object_rectangle.pyx"], include_dirs = include_dirs, libraries = libraries),
-    Extension("evas.object_smart", ["evas/object_smart.pyx"], include_dirs = include_dirs, libraries = libraries),
-    Extension("evas.object_text", ["evas/object_text.pyx"], include_dirs = include_dirs, libraries = libraries),
-    Extension("evas.rect", ["evas/rect.pyx"], include_dirs = include_dirs, libraries = libraries),
-    Extension("evas.textblock", ["evas/textblock.pyx"], include_dirs = include_dirs, libraries = libraries),
-]
+for m in modules:
+    ext_modules.append(Extension("evas."+m, ["evas/"+m+".pyx"], **pkgconfig("evas")))
+
+ext_modules.append(Extension("evas.object_image", ["evas/object_image.pyx", "evas/evas_object_image_rotate.c", "evas/evas_object_image_mask.c"], **pkgconfig("evas")))
+
+for e in ext_modules:
+    e.pyrex_directives = {"embedsignature": True}
 
 setup(
     name = "evas",
