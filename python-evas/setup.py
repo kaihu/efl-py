@@ -1,15 +1,18 @@
 #!/usr/bin/python
 
+import os
+import commands
 from distutils.core import setup
 from distutils.extension import Extension
 from Cython.Distutils import build_ext
 from Cython.Build import cythonize
 
+includedir = commands.getoutput("pkg-config --variable includedir evas")
 include_dirs = [
     ".",
-    "/usr/include/evas-1",
-    "/usr/include/eina-1",
-    "/usr/include/eina-1/eina",
+    os.path.join(includedir, "evas-1"),
+    os.path.join(includedir, "eina-1"),
+    os.path.join(includedir, "eina-1", "eina"),
 ]
 
 libraries = [
@@ -37,6 +40,8 @@ ext_modules=[
 
 setup(
     name = "evas",
+    version = "1.7.0",
+    description = "Python binding for Evas",
     cmdclass = {'build_ext': build_ext},
     packages = ["evas"],
     ext_modules = cythonize(ext_modules),
