@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
-from distutils.core import setup
-from distutils.extension import Extension
+from setuptools import setup
+from setuptools import Extension
 from Cython.Distutils import build_ext
 from Cython.Build import cythonize
 import commands
@@ -48,7 +48,7 @@ for e in ext_modules:
 setup(
     name = "evas",
     version = "1.7.0",
-    description = "Python binding for Evas",
+    description = "Python bindings for EFL Evas",
     cmdclass = {'build_ext': build_ext},
     packages = ["evas"],
     ext_modules = cythonize(ext_modules),

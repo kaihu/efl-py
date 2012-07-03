@@ -97,6 +97,8 @@ for e in ext_modules:
 
 setup(
     name = "elementary",
+    version = "1.7.0",
+    description = "Python bindings for EFL Elementary",
     cmdclass = {'build_ext': build_ext},
     packages = ["elementary"],
     ext_modules = cythonize(ext_modules),
