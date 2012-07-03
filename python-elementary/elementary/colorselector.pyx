@@ -46,6 +46,13 @@ cdef class ColorselectorPaletteItem(ObjectItem):
             r, g, b, a = value
             elm_colorselector_palette_item_color_set(self.item, r, g, b, a)
 
+    def color_get(self):
+        cdef int r, g, b, a
+        elm_colorselector_palette_item_color_get(self.item, &r, &g, &b, &a)
+        return (r, g, b, a)
+    def color_set(self, r, g, b, a):
+        elm_colorselector_palette_item_color_set(self.item, r, g, b, a)
+
 cdef class Colorselector(LayoutClass):
 
     """A Colorselector is a color selection widget.
@@ -87,6 +94,13 @@ cdef class Colorselector(LayoutClass):
             r, g, b, a = value
             elm_colorselector_color_set(self.obj, r, g, b, a)
 
+    def color_set(self, r, g, b, a):
+        elm_colorselector_color_set(self.obj, r, g, b, a)
+    def color_get(self):
+        cdef int r, g, b, a
+        elm_colorselector_color_get(self.obj, &r, &g, &b, &a)
+        return (r, g, b, a)
+
     property mode:
         """Colorselector's mode.
 
@@ -99,6 +113,11 @@ cdef class Colorselector(LayoutClass):
             return elm_colorselector_mode_get(self.obj)
         def __set__(self, mode):
             elm_colorselector_mode_set(self.obj, mode)
+
+    def mode_set(self, mode):
+        elm_colorselector_mode_set(self.obj, mode)
+    def mode_get(self):
+        return elm_colorselector_mode_get(self.obj)
 
     def palette_color_add(self, r, g, b, a):
         """Add a new color item to palette.
@@ -135,6 +154,11 @@ cdef class Colorselector(LayoutClass):
             return _ctouni(elm_colorselector_palette_name_get(self.obj))
         def __set__(self, palette_name):
             elm_colorselector_palette_name_set(self.obj, _cfruni(palette_name))
+
+    def palette_name_set(self, palette_name):
+        elm_colorselector_palette_name_set(self.obj, _cfruni(palette_name))
+    def palette_name_get(self):
+        return _ctouni(elm_colorselector_palette_name_get(self.obj))
 
     def callback_changed_add(self, func, *args, **kwargs):
         """When the color value changes on selector"""

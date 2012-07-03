@@ -329,6 +329,11 @@ cdef class Entry(Object):
         def __set__(self, single_line):
             elm_entry_single_line_set(self.obj, single_line)
 
+    def single_line_set(self, single_line):
+        elm_entry_single_line_set(self.obj, single_line)
+    def single_line_get(self):
+        return bool(elm_entry_single_line_get(self.obj))
+
     property password:
         """Sets the entry to password mode.
 
@@ -344,6 +349,11 @@ cdef class Entry(Object):
         def __set__(self, password):
             elm_entry_password_set(self.obj, password)
 
+    def password_set(self, password):
+        elm_entry_password_set(self.obj, password)
+    def password_get(self):
+        return bool(elm_entry_password_get(self.obj))
+
     property entry:
         """The text displayed within the entry to *entry*.
 
@@ -357,6 +367,11 @@ cdef class Entry(Object):
 
         def __set__(self, entry):
             elm_entry_entry_set(self.obj, _cfruni(entry))
+
+    def entry_set(self, entry):
+        elm_entry_entry_set(self.obj, _cfruni(entry))
+    def entry_get(self):
+        return _ctouni(elm_entry_entry_get(self.obj))
 
     def entry_append(self, text):
         """Appends ``entry`` to the text of the entry.
@@ -404,6 +419,9 @@ cdef class Entry(Object):
         def __get__(self):
             return _ctouni(elm_entry_selection_get(self.obj))
 
+    def selection_get(self):
+        return _ctouni(elm_entry_selection_get(self.obj))
+
     property textblock:
         """Returns the actual textblock object of the entry.
 
@@ -435,6 +453,11 @@ cdef class Entry(Object):
             cdef Evas_Object *o
             o = elm_entry_textblock_get(self.obj)
             return Object_from_instance(o)
+
+    def textblock_get(self):
+        cdef Evas_Object *o
+        o = elm_entry_textblock_get(self.obj)
+        return Object_from_instance(o)
 
     def calc_force(self):
         """Forces calculation of the entry size and text layouting.
@@ -486,6 +509,11 @@ cdef class Entry(Object):
         def __set__(self, wrap):
             elm_entry_line_wrap_set(self.obj, wrap)
 
+    def line_wrap_set(self, wrap):
+        elm_entry_line_wrap_set(self.obj, wrap)
+    def line_wrap_get(self):
+        return elm_entry_line_wrap_get(self.obj)
+
     property editable:
         """If the entry is to be editable or not.
 
@@ -505,6 +533,11 @@ cdef class Entry(Object):
 
         def __set__(self, editable):
             elm_entry_editable_set(self.obj, editable)
+
+    def editable_set(self, editable):
+        elm_entry_editable_set(self.obj, editable)
+    def editable_get(self):
+        return bool(elm_entry_editable_get(self.obj))
 
     def select_none(self):
         """This drops any existing text selection within the entry."""
@@ -651,6 +684,11 @@ cdef class Entry(Object):
         def __set__(self, pos):
             elm_entry_cursor_pos_set(self.obj, pos)
 
+    def cursor_pos_set(self, pos):
+        elm_entry_cursor_pos_set(self.obj, pos)
+    def cursor_pos_get(self):
+        return elm_entry_cursor_pos_get(self.obj)
+
     def selection_cut(self):
         """This executes a "cut" action on the selected text in the entry."""
         elm_entry_selection_cut(self.obj)
@@ -708,6 +746,10 @@ cdef class Entry(Object):
         def __set__(self, disabled):
             elm_entry_context_menu_disabled_set(self.obj, disabled)
 
+    def context_menu_disabled_set(self, disabled):
+        elm_entry_context_menu_disabled_set(self.obj, disabled)
+    def context_menu_disabled_get(self):
+        return elm_entry_context_menu_disabled_get(self.obj)
 
     # elm_entry_item_provider_append() # TODO XXX
 
@@ -748,6 +790,14 @@ cdef class Entry(Object):
             file, format = value
             elm_entry_file_set(self.obj, _cfruni(file), format)
 
+    def file_set(self, file, format):
+        return bool(elm_entry_file_set(self.obj, _cfruni(file), format))
+    def file_get(self):
+        cdef const_char_ptr file
+        cdef Elm_Text_Format format
+        elm_entry_file_get(self.obj, &file, &format)
+        return (_ctouni(file), format)
+
     def file_save(self):
         """This function writes any changes made to the file set with
         :py:attr:`file`.
@@ -767,6 +817,11 @@ cdef class Entry(Object):
         def __set__(self, autosave):
             elm_entry_autosave_set(self.obj, autosave)
 
+    def autosave_set(self, autosave):
+        elm_entry_autosave_set(self.obj, autosave)
+    def autosave_get(self):
+        return elm_entry_autosave_get(self.obj)
+
     property scrollable:
         """Enable or disable scrolling in entry
 
@@ -781,6 +836,11 @@ cdef class Entry(Object):
         def __set__(self, scrollable):
             elm_entry_scrollable_set(self.obj, scrollable)
 
+    def scrollable_set(self, scrollable):
+        elm_entry_scrollable_set(self.obj, scrollable)
+    def scrollable_get(self):
+        return bool(elm_entry_scrollable_get(self.obj))
+
     property icon_visible:
         """Sets the visibility of the end widget of the entry, set by
         *Object.part_content_set("end", content)*.
@@ -790,6 +850,9 @@ cdef class Entry(Object):
         """
         def __set__(self, visible):
             elm_entry_icon_visible_set(self.obj, visible)
+
+    def icon_visible_set(self, visible):
+        elm_entry_icon_visible_set(self.obj, visible)
 
     property scrollbar_policy:
         """This sets the entry's scrollbar policy (i.e. enabling/disabling
@@ -806,6 +869,9 @@ cdef class Entry(Object):
             cdef Elm_Scroller_Policy h, v
             h, v = value
             elm_entry_scrollbar_policy_set(self.obj, h, v)
+
+    def scrollbar_policy_set(self, Elm_Scroller_Policy h, Elm_Scroller_Policy v):
+        elm_entry_scrollbar_policy_set(self.obj, h, v)
 
     property bounce:
         """Whether the entry will bounce when scrolling reaches
@@ -824,6 +890,13 @@ cdef class Entry(Object):
             h_bounce, v_bounce = value
             elm_entry_bounce_set(self.obj, h_bounce, v_bounce)
 
+    def bounce_set(self, h_bounce, v_bounce):
+        elm_entry_bounce_set(self.obj, h_bounce, v_bounce)
+    def bounce_get(self):
+        cdef Eina_Bool h_bounce, v_bounce
+        elm_entry_bounce_get(self.obj, &h_bounce, &v_bounce)
+        return (h_bounce, v_bounce)
+
     property input_panel_layout:
         """The input panel layout of the entry
 
@@ -836,6 +909,11 @@ cdef class Entry(Object):
         def __set__(self, layout):
             elm_entry_input_panel_layout_set(self.obj, layout)
 
+    def input_panel_layout_set(self, layout):
+        elm_entry_input_panel_layout_set(self.obj, layout)
+    def input_panel_layout_get(self):
+        return elm_entry_input_panel_layout_get(self.obj)
+
     property input_panel_enabled:
         """Whether to show the input panel automatically or not.
 
@@ -847,6 +925,11 @@ cdef class Entry(Object):
 
         def __set__(self, enabled):
             elm_entry_input_panel_enabled_set(self.obj, enabled)
+
+    def input_panel_enabled_set(self, enabled):
+        elm_entry_input_panel_enabled_set(self.obj, enabled)
+    def input_panel_enabled_get(self):
+        return bool(elm_entry_input_panel_enabled_get(self.obj))
 
     def input_panel_show(self):
         """Show the input panel (virtual keyboard) based on the input panel
@@ -885,6 +968,11 @@ cdef class Entry(Object):
         def __set__(self, lang):
             elm_entry_input_panel_language_set(self.obj, lang)
 
+    def input_panel_language_set(self, lang):
+        elm_entry_input_panel_language_set(self.obj, lang)
+    def input_panel_language_get(self):
+        return elm_entry_input_panel_language_get(self.obj)
+
     # TODO XXX elm_entry_input_panel_imdata_set() ??
 
     # TODO XXX elm_entry_input_panel_imdata_get() ??
@@ -904,6 +992,11 @@ cdef class Entry(Object):
         def __set__(self, return_key_type):
             elm_entry_input_panel_return_key_type_set(self.obj, return_key_type)
 
+    def input_panel_return_key_type_set(self, return_key_type):
+        elm_entry_input_panel_return_key_type_set(self.obj, return_key_type)
+    def input_panel_return_key_type_get(self):
+        return elm_entry_input_panel_return_key_type_get(self.obj)
+
     property input_panel_return_key_disabled:
         """Whether the return key on the input panel is disabled or not.
 
@@ -915,6 +1008,11 @@ cdef class Entry(Object):
 
         def __set__(self, disabled):
             elm_entry_input_panel_return_key_disabled_set(self.obj, disabled)
+
+    def input_panel_return_key_disabled_set(self, disabled):
+        elm_entry_input_panel_return_key_disabled_set(self.obj, disabled)
+    def input_panel_return_key_disabled_get(self):
+        return elm_entry_input_panel_return_key_disabled_get(self.obj)
 
     property input_panel_return_key_autoenabled:
         """Set whether the return key on the input panel is disabled automatically when entry has no text.
@@ -928,6 +1026,9 @@ cdef class Entry(Object):
         """
         def __set__(self, enabled):
             elm_entry_input_panel_return_key_autoenabled_set(self.obj, enabled)
+
+    def input_panel_return_key_autoenabled_set(self, enabled):
+        elm_entry_input_panel_return_key_autoenabled_set(self.obj, enabled)
 
     def imf_context_reset(self):
         """Reset the input method context of the entry if needed.
@@ -950,6 +1051,11 @@ cdef class Entry(Object):
         def __set__(self, allow):
             elm_entry_prediction_allow_set(self.obj, allow)
 
+    def prediction_allow_set(self, allow):
+        elm_entry_prediction_allow_set(self.obj, allow)
+    def prediction_allow_get(self):
+        return elm_entry_prediction_allow_get(self.obj)
+
     # TODO XXX elm_entry_filter_accept_set()
     # TODO XXX elm_entry_imf_context_get() ??
 
@@ -971,6 +1077,11 @@ cdef class Entry(Object):
         def __set__(self, mode):
             elm_entry_cnp_mode_set(self.obj, mode)
 
+    def cnp_mode_set(self, mode):
+        elm_entry_cnp_mode_set(self.obj, mode)
+    def cnp_mode_get(self):
+        return elm_entry_cnp_mode_get(self.obj)
+
     property anchor_hover_parent:
         """Parent of the hover popup
 
@@ -988,6 +1099,13 @@ cdef class Entry(Object):
 
         def __set__(self, evasObject anchor_hover_parent):
             elm_entry_anchor_hover_parent_set(self.obj, anchor_hover_parent.obj)
+
+    def anchor_hover_parent_set(self, evasObject anchor_hover_parent):
+        elm_entry_anchor_hover_parent_set(self.obj, anchor_hover_parent.obj)
+    def anchor_hover_parent_get(self):
+        cdef Evas_Object *anchor_hover_parent
+        anchor_hover_parent = elm_entry_anchor_hover_parent_get(self.obj)
+        return Object_from_instance(anchor_hover_parent)
 
     property anchor_hover_style:
         """The style that the hover should use
@@ -1007,6 +1125,11 @@ cdef class Entry(Object):
 
         def __set__(self, style):
             elm_entry_anchor_hover_style_set(self.obj, _cfruni(style))
+
+    def anchor_hover_style_set(self, style):
+        elm_entry_anchor_hover_style_set(self.obj, _cfruni(style))
+    def anchor_hover_style_get(self):
+        return _ctouni(elm_entry_anchor_hover_style_get(self.obj))
 
     def anchor_hover_end(self):
         """Ends the hover popup in the entry

@@ -79,6 +79,13 @@ cdef class Image(Object):
             elm_image_file_get(self.obj, &filename, &group)
             return (_ctouni(filename), _ctouni(group))
 
+    def file_set(self, filename, group = None):
+        elm_image_file_set(self.obj, _cfruni(filename), _cfruni(group) if group is not None else NULL)
+    def file_get(self):
+        cdef const_char_ptr filename, group
+        elm_image_file_get(self.obj, &filename, &group)
+        return (_ctouni(filename), _ctouni(group))
+
     property smooth:
         """The smooth effect for an image.
 
@@ -99,6 +106,11 @@ cdef class Image(Object):
         def __set__(self, smooth):
             elm_image_smooth_set(self.obj, smooth)
 
+    def smooth_set(self, smooth):
+        elm_image_smooth_set(self.obj, smooth)
+    def smooth_get(self):
+        return bool(elm_image_smooth_get(self.obj))
+
     property object_size:
         """The current size of the image.
 
@@ -111,6 +123,11 @@ cdef class Image(Object):
             cdef int width, height
             elm_image_object_size_get(self.obj, &width, &height)
             return (width, height)
+
+    def object_size_get(self):
+        cdef int width, height
+        elm_image_object_size_get(self.obj, &width, &height)
+        return (width, height)
 
     property no_scale:
         """Whether to disable scaling of this object.
@@ -131,6 +148,11 @@ cdef class Image(Object):
         def __set__(self, no_scale):
             elm_image_no_scale_set(self.obj, no_scale)
 
+    def no_scale_set(self, no_scale):
+        elm_image_no_scale_set(self.obj, no_scale)
+    def no_scale_get(self):
+        return bool(elm_image_no_scale_get(self.obj))
+
     property resizable:
         """Whether the object is (up/down) resizable.
 
@@ -149,6 +171,13 @@ cdef class Image(Object):
         def __set__(self, value):
             size_up, size_down = value
             elm_image_resizable_set(self.obj, size_up, size_down)
+
+    def resizable_set(self, size_up, size_down):
+        elm_image_resizable_set(self.obj, size_up, size_down)
+    def resizable_get(self):
+        cdef Eina_Bool size_up, size_down
+        elm_image_resizable_get(self.obj, &size_up, &size_down)
+        return (size_up, size_down)
 
     property fill_outside:
         """Whether the image fills the entire object area, when keeping the
@@ -175,6 +204,11 @@ cdef class Image(Object):
         def __set__(self, fill_outside):
             elm_image_fill_outside_set(self.obj, fill_outside)
 
+    def fill_outside_set(self, fill_outside):
+        elm_image_fill_outside_set(self.obj, fill_outside)
+    def fill_outside_get(self):
+        return bool(elm_image_fill_outside_get(self.obj))
+
     property preload_disabled:
         """Enable or disable preloading of the image
 
@@ -183,6 +217,9 @@ cdef class Image(Object):
         """
         def __set__(self, disabled):
             elm_image_preload_disabled_set(self.obj, disabled)
+
+    def preload_disabled_set(self, disabled):
+        elm_image_preload_disabled_set(self.obj, disabled)
 
     property prescale:
         """The prescale size for the image
@@ -209,6 +246,11 @@ cdef class Image(Object):
         def __set__(self, size):
             elm_image_prescale_set(self.obj, size)
 
+    def prescale_set(self, size):
+        elm_image_prescale_set(self.obj, size)
+    def prescale_get(self):
+        return elm_image_prescale_get(self.obj)
+
     property orient:
         """The image orientation.
 
@@ -221,6 +263,11 @@ cdef class Image(Object):
             return elm_image_orient_get(self.obj)
         def __set__(self, orientation):
             elm_image_orient_set(self.obj, orientation)
+
+    def orient_set(self, orientation):
+        elm_image_orient_set(self.obj, orientation)
+    def orient_get(self):
+        return elm_image_orient_get(self.obj)
 
     property editable:
         """Whether the image is 'editable'.
@@ -235,6 +282,11 @@ cdef class Image(Object):
             return bool(elm_image_editable_get(self.obj))
         def __set__(self, editable):
             elm_image_editable_set(self.obj, editable)
+
+    def editable_set(self, editable):
+        elm_image_editable_set(self.obj, editable)
+    def editable_get(self):
+        return bool(elm_image_editable_get(self.obj))
 
     property object:
         """Get the inlined image object of the image widget.
@@ -251,6 +303,9 @@ cdef class Image(Object):
         """
         def __get__(self):
             return Object_from_instance(elm_image_object_get(self.obj))
+
+    def object_get(self):
+        return Object_from_instance(elm_image_object_get(self.obj))
 
     property aspect_fixed:
         """Whether the original aspect ratio of the image should be kept on resize.
@@ -270,6 +325,11 @@ cdef class Image(Object):
         def __set__(self, fixed):
             elm_image_aspect_fixed_set(self.obj, fixed)
 
+    def aspect_fixed_set(self, fixed):
+        elm_image_aspect_fixed_set(self.obj, fixed)
+    def aspect_fixed_get(self):
+        return bool(elm_image_aspect_fixed_get(self.obj))
+
     property animated_available:
         """Whether an image object supports animation or not.
 
@@ -285,6 +345,9 @@ cdef class Image(Object):
         """
         def __get__(self):
             return bool(elm_image_animated_available_get(self.obj))
+
+    def animated_available_get(self):
+        return bool(elm_image_animated_available_get(self.obj))
 
     property animated:
         """Whether an image object (which supports animation) is to
@@ -305,6 +368,11 @@ cdef class Image(Object):
             return bool(elm_image_animated_get(self.obj))
         def __set__(self, animated):
             elm_image_animated_set(self.obj, animated)
+
+    def animated_set(self, animated):
+        elm_image_animated_set(self.obj, animated)
+    def animated_get(self):
+        return bool(elm_image_animated_get(self.obj))
 
     property animated_play:
         """Start or stop an image object's animation.
@@ -330,6 +398,11 @@ cdef class Image(Object):
             return bool(elm_image_animated_play_get(self.obj))
         def __set__(self, play):
             elm_image_animated_play_set(self.obj, play)
+
+    def animated_play_set(self, play):
+        elm_image_animated_play_set(self.obj, play)
+    def animated_play_get(self):
+        return bool(elm_image_animated_play_get(self.obj))
 
     def callback_clicked_add(self, func, *args, **kwargs):
         """This is called when a user has clicked the image."""

@@ -384,6 +384,14 @@ cdef class Object(object):
         if name:
             self.name_set(name)
 
+    def evas_get(self):
+        """evas_get()
+
+        @rtype: L{Canvas}
+
+        """
+        return self.evas
+
     property type:
         """Type name, ie: "rectangle".
 
@@ -392,6 +400,10 @@ cdef class Object(object):
         """
         def __get__(self):
             return self.type_get()
+
+    def type_get(self):
+        if self.obj:
+            return _ctouni(evas_object_type_get(self.obj))
 
     property layer:
         """Object's layer number.
@@ -404,6 +416,11 @@ cdef class Object(object):
 
         def __get__(self):
             return evas_object_layer_get(self.obj)
+
+    def layer_set(self, int layer):
+        evas_object_layer_set(self.obj, layer)
+    def layer_get(self):
+        return evas_object_layer_get(self.obj)
 
     def raise_(self):
         """raise_()
@@ -454,6 +471,11 @@ cdef class Object(object):
             other = evas_object_above_get(self.obj)
             return Object_from_instance(other)
 
+    def above_get(self):
+        cdef Evas_Object *other
+        other = evas_object_above_get(self.obj)
+        return Object_from_instance(other)
+
     property below:
         """The object below this.
 
@@ -465,6 +487,11 @@ cdef class Object(object):
             other = evas_object_below_get(self.obj)
             return Object_from_instance(other)
 
+    def below_get(self):
+        cdef Evas_Object *other
+        other = evas_object_below_get(self.obj)
+        return Object_from_instance(other)
+
     property top:
         """The topmost object. (Same as self.evas.top_get()).
 
@@ -474,6 +501,9 @@ cdef class Object(object):
         def __get__(self):
             return self.evas.top_get()
 
+    def top_get(self):
+        return self.evas.top_get()
+
     property bottom:
         """The bottommost object. (Same as self.evas.bottom_get()).
 
@@ -482,6 +512,9 @@ cdef class Object(object):
         """
         def __get__(self):
             return self.evas.bottom_get()
+
+    def bottom_get(self):
+        return self.evas.bottom_get()
 
     property geometry:
         """Object's position and size (X, Y, W, H).
@@ -500,6 +533,14 @@ cdef class Object(object):
             evas_object_move(self.obj, x, y)
             evas_object_resize(self.obj, w, h)
 
+    def geometry_get(self):
+        cdef int x, y, w, h
+        evas_object_geometry_get(self.obj, &x, &y, &w, &h)
+        return (x, y, w, h)
+    def geometry_set(self, int x, int y, int w, int h):
+        evas_object_move(self.obj, x, y)
+        evas_object_resize(self.obj, w, h)
+
     property size:
         """Object's size (width and height).
 
@@ -515,6 +556,13 @@ cdef class Object(object):
             cdef int w, h
             w, h = spec
             evas_object_resize(self.obj, w, h)
+
+    def size_get(self):
+        cdef int w, h
+        evas_object_geometry_get(self.obj, NULL, NULL, &w, &h)
+        return (w, h)
+    def size_set(self, int w, int h):
+        evas_object_resize(self.obj, w, h)
 
     def resize(self, int w, int h):
         """resize(w, h)
@@ -545,6 +593,13 @@ cdef class Object(object):
             x, y = spec
             evas_object_move(self.obj, x, y)
 
+    def pos_get(self):
+        cdef int x, y
+        evas_object_geometry_get(self.obj, &x, &y, NULL, NULL)
+        return (x, y)
+    def pos_set(self, int x, int y):
+        evas_object_move(self.obj, x, y)
+
     property top_left:
         """Object's top-left corner coordinates.
 
@@ -560,6 +615,13 @@ cdef class Object(object):
             cdef int x, y
             x, y = spec
             evas_object_move(self.obj, x, y)
+
+    def top_left_get(self):
+        cdef int x, y
+        evas_object_geometry_get(self.obj, &x, &y, NULL, NULL)
+        return (x, y)
+    def top_left_set(self, int x, int y):
+        evas_object_move(self.obj, x, y)
 
     property top_center:
         """The coordinates of the top-center position.
@@ -578,6 +640,15 @@ cdef class Object(object):
             evas_object_geometry_get(self.obj, NULL, NULL, &w, NULL)
             evas_object_move(self.obj, x - w/2, y)
 
+    def top_center_get(self):
+        cdef int x, y, w
+        evas_object_geometry_get(self.obj, &x, &y, &w, NULL)
+        return (x + w/2, y)
+    def top_center_set(self, int x, int y):
+        cdef int w
+        evas_object_geometry_get(self.obj, NULL, NULL, &w, NULL)
+        evas_object_move(self.obj, x - w/2, y)
+
     property top_right:
         """Object's top-right corner coordinates.
 
@@ -594,6 +665,15 @@ cdef class Object(object):
             x, y = spec
             evas_object_geometry_get(self.obj, NULL, NULL, &w, NULL)
             evas_object_move(self.obj, x - w, y)
+
+    def top_right_get(self):
+        cdef int x, y, w
+        evas_object_geometry_get(self.obj, &x, &y, &w, NULL)
+        return (x + w, y)
+    def top_right_set(self, int x, int y):
+        cdef int w
+        evas_object_geometry_get(self.obj, NULL, NULL, &w, NULL)
+        evas_object_move(self.obj, x - w, y)
 
     property left_center:
         """The coordinates of the left-center position.
@@ -612,6 +692,15 @@ cdef class Object(object):
             evas_object_geometry_get(self.obj, NULL, NULL, NULL, &h)
             evas_object_move(self.obj, x, y - h/2)
 
+    def left_center_get(self):
+        cdef int x, y, h
+        evas_object_geometry_get(self.obj, &x, &y, NULL, &h)
+        return (x, y + h/2)
+    def left_center_set(self, int x, int y):
+        cdef int h
+        evas_object_geometry_get(self.obj, NULL, NULL, NULL, &h)
+        evas_object_move(self.obj, x, y - h/2)
+
     property right_center:
         """The coordinates of the right-center position.
 
@@ -628,6 +717,15 @@ cdef class Object(object):
             x, y = spec
             evas_object_geometry_get(self.obj, NULL, NULL, &w, &h)
             evas_object_move(self.obj, x - w, y - h/2)
+
+    def right_center_get(self):
+        cdef int x, y, w, h
+        evas_object_geometry_get(self.obj, &x, &y, &w, &h)
+        return (x + w, y + h/2)
+    def right_center_set(self, int x, int y):
+        cdef int w, h
+        evas_object_geometry_get(self.obj, NULL, NULL, &w, &h)
+        evas_object_move(self.obj, x - w, y - h/2)
 
     property bottom_left:
         """Object's bottom-left corner coordinates.
@@ -646,6 +744,15 @@ cdef class Object(object):
             evas_object_geometry_get(self.obj, NULL, NULL, NULL, &h)
             evas_object_move(self.obj, x, y - h)
 
+    def bottom_left_get(self):
+        cdef int x, y, h
+        evas_object_geometry_get(self.obj, &x, &y, NULL, &h)
+        return (x, y + h)
+    def bottom_left_set(self, int x, int y):
+        cdef int h
+        evas_object_geometry_get(self.obj, NULL, NULL, NULL, &h)
+        evas_object_move(self.obj, x, y - h)
+
     property bottom_center:
         """Object's bottom-center coordinates.
 
@@ -662,6 +769,15 @@ cdef class Object(object):
             x, y = spec
             evas_object_geometry_get(self.obj, NULL, NULL, &w, &h)
             evas_object_move(self.obj, x - w/2, y - h)
+
+    def bottom_center_get(self):
+        cdef int x, y, w, h
+        evas_object_geometry_get(self.obj, &x, &y, &w, &h)
+        return (x + w/2, y + h)
+    def bottom_center_set(self, int x, int y):
+        cdef int w, h
+        evas_object_geometry_get(self.obj, NULL, NULL, &w, &h)
+        evas_object_move(self.obj, x - w/2, y - h)
 
     property bottom_right:
         """Object's bottom-right corner coordinates.
@@ -680,6 +796,15 @@ cdef class Object(object):
             evas_object_geometry_get(self.obj, NULL, NULL, &w, &h)
             evas_object_move(self.obj, x - w, y - h)
 
+    def bottom_right_get(self):
+        cdef int x, y, w, h
+        evas_object_geometry_get(self.obj, &x, &y, &w, &h)
+        return (x + w, y + h)
+    def bottom_right_set(self, int x, int y):
+        cdef int w, h
+        evas_object_geometry_get(self.obj, NULL, NULL, &w, &h)
+        evas_object_move(self.obj, x - w, y - h)
+
     property center:
         """Object's center coordinates.
 
@@ -696,6 +821,15 @@ cdef class Object(object):
             x, y = spec
             evas_object_geometry_get(self.obj, NULL, NULL, &w, &h)
             evas_object_move(self.obj, x - w/2, y - h/2)
+
+    def center_get(self):
+        cdef int x, y, w, h
+        evas_object_geometry_get(self.obj, &x, &y, &w, &h)
+        return (x + w/2, y + h/2)
+    def center_set(self, int x, int y):
+        cdef int w, h
+        evas_object_geometry_get(self.obj, NULL, NULL, &w, &h)
+        evas_object_move(self.obj, x - w/2, y - h/2)
 
     property rect:
         """A rectangle representing the object's geometry.
@@ -748,6 +882,13 @@ cdef class Object(object):
             w, h = spec
             evas_object_size_hint_min_set(self.obj, w, h)
 
+    def size_hint_min_get(self):
+        cdef int w, h
+        evas_object_size_hint_min_get(self.obj, &w, &h)
+        return (w, h)
+    def size_hint_min_set(self, int w, int h):
+        evas_object_size_hint_min_set(self.obj, w, h)
+
     property size_hint_max:
         """Hint about maximum size.
 
@@ -771,6 +912,13 @@ cdef class Object(object):
             w, h = spec
             evas_object_size_hint_max_set(self.obj, w, h)
 
+    def size_hint_max_get(self):
+        cdef int w, h
+        evas_object_size_hint_max_get(self.obj, &w, &h)
+        return (w, h)
+    def size_hint_max_set(self, int w, int h):
+        evas_object_size_hint_max_set(self.obj, w, h)
+
     property size_hint_request:
         """Hint about request size.
 
@@ -793,6 +941,13 @@ cdef class Object(object):
         def __set__(self, spec):
             w, h = spec
             evas_object_size_hint_request_set(self.obj, w, h)
+
+    def size_hint_request_get(self):
+        cdef int w, h
+        evas_object_size_hint_request_get(self.obj, &w, &h)
+        return (w, h)
+    def size_hint_request_set(self, int w, int h):
+        evas_object_size_hint_request_set(self.obj, w, h)
 
     property size_hint_aspect:
         """Hint about aspect.
@@ -820,6 +975,15 @@ cdef class Object(object):
                                                 <Evas_Aspect_Control>aspect,
                                                 w, h)
 
+    def size_hint_aspect_get(self):
+        cdef int w, h
+        cdef Evas_Aspect_Control aspect
+        evas_object_size_hint_aspect_get(self.obj, &aspect, &w, &h)
+        return (<int>aspect, w, h)
+    def size_hint_aspect_set(self, int aspect, int w, int h):
+        evas_object_size_hint_aspect_set(self.obj, <Evas_Aspect_Control>aspect,
+                                         w, h)
+
     property size_hint_align:
         """Hint about alignment.
 
@@ -845,6 +1009,13 @@ cdef class Object(object):
             x, y = spec
             evas_object_size_hint_align_set(self.obj, x, y)
 
+    def size_hint_align_get(self):
+        cdef double x, y
+        evas_object_size_hint_align_get(self.obj, &x, &y)
+        return (x, y)
+    def size_hint_align_set(self, float x, float y):
+        evas_object_size_hint_align_set(self.obj, x, y)
+
     property size_hint_weight:
         """Hint about weight.
 
@@ -868,6 +1039,13 @@ cdef class Object(object):
             x, y = spec
             evas_object_size_hint_weight_set(self.obj, x, y)
 
+    def size_hint_weight_get(self):
+        cdef double x, y
+        evas_object_size_hint_weight_get(self.obj, &x, &y)
+        return (x, y)
+    def size_hint_weight_set(self, float x, float y):
+        evas_object_size_hint_weight_set(self.obj, x, y)
+
     property size_hint_padding:
         """Hint about padding.
 
@@ -886,6 +1064,13 @@ cdef class Object(object):
         def __set__(self, spec):
             l, r, t, b = spec
             evas_object_size_hint_padding_set(self.obj, l, r, t, b)
+
+    def size_hint_padding_get(self):
+        cdef int l, r, t, b
+        evas_object_size_hint_padding_get(self.obj, &l, &r, &t, &b)
+        return (l, r, t, b)
+    def size_hint_padding_set(self, int l, int r, int t, int b):
+        evas_object_size_hint_padding_set(self.obj, l, r, t, b)
 
     def move(self, int x, int y):
         """move(x, y)
@@ -936,6 +1121,14 @@ cdef class Object(object):
             else:
                 self.hide()
 
+    def visible_get(self):
+        return bool(evas_object_visible_get(self.obj))
+    def visible_set(self, spec):
+        if spec:
+            self.show()
+        else:
+            self.hide()
+
     property static_clip:
         """A hint flag on the object, whether this is used as a static clipper
         or not.
@@ -949,6 +1142,11 @@ cdef class Object(object):
         def __set__(self, value):
             evas_object_static_clip_set(self.obj, value)
 
+    def static_clip_get(self):
+        return bool(evas_object_static_clip_get(self.obj))
+    def static_clip_set(self, int value):
+        evas_object_static_clip_set(self.obj, value)
+
     property render_op:
         """Render operation used at drawing.
 
@@ -961,6 +1159,11 @@ cdef class Object(object):
         def __set__(self, int value):
             evas_object_render_op_set(self.obj, <Evas_Render_Op>value)
 
+    def render_op_get(self):
+        return evas_object_render_op_get(self.obj)
+    def render_op_set(self, int value):
+        evas_object_render_op_set(self.obj, <Evas_Render_Op>value)
+
     property anti_alias:
         """If anti-aliased primitives should be used.
 
@@ -972,6 +1175,11 @@ cdef class Object(object):
 
         def __set__(self, int value):
             evas_object_anti_alias_set(self.obj, value)
+
+    def anti_alias_get(self):
+        return bool(evas_object_anti_alias_get(self.obj))
+    def anti_alias_set(self, int value):
+        evas_object_anti_alias_set(self.obj, value)
 
     property color:
         """Object's (r, g, b, a) color, in pre-multiply colorspace.
@@ -988,6 +1196,13 @@ cdef class Object(object):
         def __set__(self, color):
             r, g, b, a = color
             evas_object_color_set(self.obj, r, g, b, a)
+
+    def color_set(self, int r, int g, int b, int a):
+        evas_object_color_set(self.obj, r, g, b, a)
+    def color_get(self):
+        cdef int r, g, b, a
+        evas_object_color_get(self.obj, &r, &g, &b, &a)
+        return (r, g, b, a)
 
     property clip:
         """Object's clipper.
@@ -1015,6 +1230,24 @@ cdef class Object(object):
         def __del__(self):
             evas_object_clip_unset(self.obj)
 
+    def clip_get(self):
+        cdef Evas_Object *clip
+        clip = evas_object_clip_get(self.obj)
+        return Object_from_instance(clip)
+    def clip_set(self, value):
+        cdef Evas_Object *clip
+        cdef Object o
+        if value is None:
+            evas_object_clip_unset(self.obj)
+        elif isinstance(value, Object):
+            o = <Object>value
+            clip = o.obj
+            evas_object_clip_set(self.obj, clip)
+        else:
+            raise ValueError("clip must be evas.Object or None")
+    def clip_unset(self):
+        evas_object_clip_unset(self.obj)
+
     property clipees:
         """Objects that this object clips.
 
@@ -1032,6 +1265,17 @@ cdef class Object(object):
                 itr = itr.next
             return tuple(ret)
 
+    def clipees_get(self):
+        cdef const_Eina_List *itr
+        cdef Object o
+        ret = []
+        itr = evas_object_clipees_get(self.obj)
+        while itr:
+            o = Object_from_instance(<Evas_Object*>itr.data)
+            ret.append(o)
+            itr = itr.next
+        return tuple(ret)
+
     property name:
         """Object name or *None*.
 
@@ -1044,6 +1288,11 @@ cdef class Object(object):
         def __set__(self, value):
             evas_object_name_set(self.obj, _cfruni(value))
 
+    def name_get(self):
+        return _ctouni(evas_object_name_get(self.obj))
+    def name_set(self, value):
+        evas_object_name_set(self.obj, _cfruni(value))
+
     property focus:
         """Whenever object currently have the focus.
 
@@ -1055,6 +1304,11 @@ cdef class Object(object):
 
         def __set__(self, int value):
             evas_object_focus_set(self.obj, value)
+
+    def focus_get(self):
+        return bool(evas_object_focus_get(self.obj))
+    def focus_set(self, value):
+        evas_object_focus_set(self.obj, value)
 
     def event_callback_add(self, int type, func, *args, **kargs):
         """event_callback_add(type, func, *args, **kwargs)
@@ -1379,6 +1633,11 @@ cdef class Object(object):
         def __set__(self, int value):
             evas_object_pass_events_set(self.obj, value)
 
+    def pass_events_get(self):
+        return bool(evas_object_pass_events_get(self.obj))
+    def pass_events_set(self, value):
+        evas_object_pass_events_set(self.obj, value)
+
     property repeat_events:
         """Whenever object should process and then repeat events.
 
@@ -1395,6 +1654,11 @@ cdef class Object(object):
         def __set__(self, int value):
             evas_object_repeat_events_set(self.obj, value)
 
+    def repeat_events_get(self):
+        return bool(evas_object_repeat_events_get(self.obj))
+    def repeat_events_set(self, value):
+        evas_object_repeat_events_set(self.obj, value)
+
     property propagate_events:
         """Whenever object should propagate events to its parent.
 
@@ -1409,6 +1673,11 @@ cdef class Object(object):
 
         def __set__(self, int value):
             evas_object_propagate_events_set(self.obj, value)
+
+    def propagate_events_get(self):
+        return bool(evas_object_propagate_events_get(self.obj))
+    def propagate_events_set(self, value):
+        evas_object_propagate_events_set(self.obj, value)
 
     property pointer_mode:
         """If pointer should be grabbed while processing events.
@@ -1431,6 +1700,11 @@ cdef class Object(object):
         def __set__(self, int value):
             evas_object_pointer_mode_set(self.obj, <Evas_Object_Pointer_Mode>value)
 
+    def pointer_mode_get(self):
+        return <int>evas_object_pointer_mode_get(self.obj)
+    def pointer_mode_set(self, int value):
+        evas_object_pointer_mode_set(self.obj, <Evas_Object_Pointer_Mode>value)
+
     property parent:
         """:py:class:`Object` that this object is member of, or *None*.
 
@@ -1442,11 +1716,21 @@ cdef class Object(object):
             obj = evas_object_smart_parent_get(self.obj)
             return Object_from_instance(obj)
 
+    def parent_get(self):
+        cdef Evas_Object *obj
+        obj = evas_object_smart_parent_get(self.obj)
+        return Object_from_instance(obj)
+
     property map_enabled:
         def __get__(self):
             return bool(evas_object_map_enable_get(self.obj))
         def __set__(self, value):
             evas_object_map_enable_set(self.obj, bool(value))
+
+    def map_enabled_set(self, enabled):
+        evas_object_map_enable_set(self.obj, bool(enabled))
+    def map_enabled_get(self):
+        return bool(evas_object_map_enable_get(self.obj))
 
     property map:
         def __get__(self):
@@ -1454,6 +1738,13 @@ cdef class Object(object):
         def __set__(self, Map map):
             evas_object_map_set(self.obj, map.map)
 
+    def map_set(self, Map map):
+        evas_object_map_set(self.obj, map.map)
+
+    def map_get(self):
+        # TODO dunno how to do this in a sane way
+        #return evas_object_map_get(self.obj)
+        return None
 
 _install_metaclass(Object)
 

@@ -54,6 +54,11 @@ cdef class Panel(Object):
         def __get__(self):
             return elm_panel_orient_get(self.obj)
 
+    def orient_set(self, orient):
+        elm_panel_orient_set(self.obj, orient)
+    def orient_get(self):
+        return elm_panel_orient_get(self.obj)
+
     property hidden:
         """The hidden state of the panel.
 
@@ -64,6 +69,11 @@ cdef class Panel(Object):
             elm_panel_hidden_set(self.obj, hidden)
         def __get__(self):
             return elm_panel_hidden_get(self.obj)
+
+    def hidden_set(self, hidden):
+        elm_panel_orient_set(self.obj, hidden)
+    def hidden_get(self):
+        return elm_panel_hidden_get(self.obj)
 
     def toggle(self):
         """toggle()

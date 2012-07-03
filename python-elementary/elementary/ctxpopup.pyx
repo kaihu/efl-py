@@ -84,6 +84,11 @@ cdef class Ctxpopup(Object):
         def __set__(self, evasObject parent):
             elm_ctxpopup_hover_parent_set(self.obj, parent.obj)
 
+    def hover_parent_set(self, evasObject parent):
+        elm_ctxpopup_hover_parent_set(self.obj, parent.obj)
+    def hover_parent_get(self):
+        return Object_from_instance(elm_ctxpopup_hover_parent_get(self.obj))
+
     def clear(self):
         """Clear all items in the given ctxpopup object."""
         elm_ctxpopup_clear(self.obj)
@@ -99,6 +104,11 @@ cdef class Ctxpopup(Object):
 
         def __set__(self, horizontal):
             elm_ctxpopup_horizontal_set(self.obj, horizontal)
+
+    def horizontal_set(self, horizontal):
+        elm_ctxpopup_horizontal_set(self.obj, horizontal)
+    def horizontal_get(self):
+        return bool(elm_ctxpopup_horizontal_get(self.obj))
 
     def item_append(self, label, evasObject icon = None, func = None, *args, **kwargs):
         """Add a new item to a ctxpopup object.
@@ -141,6 +151,13 @@ cdef class Ctxpopup(Object):
             first, second, third, fourth = priority
             elm_ctxpopup_direction_priority_set(self.obj, first, second, third, fourth)
 
+    def direction_priority_set(self, first, second, third, fourth):
+        elm_ctxpopup_direction_priority_set(self.obj, first, second, third, fourth)
+    def direction_priority_get(self):
+        cdef Elm_Ctxpopup_Direction first, second, third, fourth
+        elm_ctxpopup_direction_priority_get(self.obj, &first, &second, &third, &fourth)
+        return (first, second, third, fourth)
+
     property direction:
         """Get the current direction of a ctxpopup.
 
@@ -152,6 +169,9 @@ cdef class Ctxpopup(Object):
         """
         def __get__(self):
             return elm_ctxpopup_direction_get(self.obj)
+
+    def direction_get(self):
+        return elm_ctxpopup_direction_get(self.obj)
 
     def dismiss(self):
         """Dismiss a ctxpopup object

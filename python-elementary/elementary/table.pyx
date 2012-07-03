@@ -54,6 +54,11 @@ cdef class Table(Object):
         def __set__(self, homogeneous):
             elm_table_homogeneous_set(self.obj, homogeneous)
 
+    def homogeneous_set(self, homogeneous):
+        elm_table_homogeneous_set(self.obj, homogeneous)
+    def homogeneous_get(self):
+        return elm_table_homogeneous_get(self.obj)
+
     property padding:
         """Padding between cells.
 
@@ -70,6 +75,13 @@ cdef class Table(Object):
         def __set__(self, value):
             horizontal, vertical = value
             elm_table_padding_set(self.obj, horizontal, vertical)
+
+    def padding_set(self, horizontal, vertical):
+        elm_table_padding_set(self.obj, horizontal, vertical)
+    def padding_get(self):
+        cdef Evas_Coord horizontal, vertical
+        elm_table_padding_get(self.obj, &horizontal, &vertical)
+        return (horizontal, vertical)
 
     def pack(self, evasObject subobj, x, y, w, h):
         """pack(subobj, x, y, w, h)

@@ -329,13 +329,22 @@ cdef class GenlistItem(ObjectItem):
         def __get__(self):
             return self.params[1]
 
+    def data_get(self):
+        return self.params[1]
+
     property next:
         def __get__(self):
             return _object_item_to_python(elm_genlist_item_next_get(self.item))
 
+    def next_get(self):
+        return _object_item_to_python(elm_genlist_item_next_get(self.item))
+
     property prev:
         def __get__(self):
             return _object_item_to_python(elm_genlist_item_prev_get(self.item))
+
+    def prev_get(self):
+        return _object_item_to_python(elm_genlist_item_prev_get(self.item))
 
     property selected:
         def __get__(self):
@@ -343,6 +352,11 @@ cdef class GenlistItem(ObjectItem):
 
         def __set__(self, selected):
             elm_genlist_item_selected_set(self.item, bool(selected))
+
+    def selected_set(self, selected):
+        elm_genlist_item_selected_set(self.item, bool(selected))
+    def selected_get(self):
+        return bool(elm_genlist_item_selected_get(self.item))
 
     def show(self, scrollto_type = ELM_GENLIST_ITEM_SCROLLTO_IN):
         elm_genlist_item_show(self.item, scrollto_type)
@@ -358,6 +372,10 @@ cdef class GenlistItem(ObjectItem):
 
     #def item_class_get(self):
         #return elm_genlist_item_item_class_get(self.item)
+
+    property index:
+        def __get__(self):
+            return elm_genlist_item_index_get(self.item)
 
     def index_get(self):
         return elm_genlist_item_index_get(self.item)
@@ -479,6 +497,9 @@ cdef class GenlistItem(ObjectItem):
         def __get__(self):
             return _object_item_to_python(elm_genlist_item_parent_get(self.item))
 
+    def parent_get(self):
+        return _object_item_to_python(elm_genlist_item_parent_get(self.item))
+
     def subitems_clear(self):
         elm_genlist_item_subitems_clear(self.item)
 
@@ -488,6 +509,11 @@ cdef class GenlistItem(ObjectItem):
 
         def __set__(self, expanded):
             elm_genlist_item_expanded_set(self.item, bool(expanded))
+
+    def expanded_set(self, expanded):
+        elm_genlist_item_expanded_set(self.item, bool(expanded))
+    def expanded_get(self, ):
+        return bool(elm_genlist_item_expanded_get(self.item))
 
     def expanded_depth_get(self):
         return elm_genlist_item_expanded_depth_get(self.item)
@@ -807,6 +833,9 @@ cdef class Genlist(Object):
         def __get__(self):
             return _object_item_to_python(elm_genlist_selected_item_get(self.obj))
 
+    def selected_item_get(self):
+        return _object_item_to_python(elm_genlist_selected_item_get(self.obj))
+
     def selected_items_get(self):
         return _object_item_list_to_python(elm_genlist_selected_items_get(self.obj))
 
@@ -817,9 +846,15 @@ cdef class Genlist(Object):
         def __get__(self):
             return _object_item_to_python(elm_genlist_first_item_get(self.obj))
 
+    def first_item_get(self):
+        return _object_item_to_python(elm_genlist_first_item_get(self.obj))
+
     property last_item:
         def __get__(self):
             return _object_item_to_python(elm_genlist_last_item_get(self.obj))
+
+    def last_item_get(self):
+        return _object_item_to_python(elm_genlist_last_item_get(self.obj))
 
     def scroller_policy_set(self, policy_h, policy_v):
         elm_genlist_scroller_policy_set(self.obj, policy_h, policy_v)

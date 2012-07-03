@@ -66,6 +66,11 @@ cdef class Frame(LayoutClass):
         def __set__(self, autocollapse):
             elm_frame_autocollapse_set(self.obj, autocollapse)
 
+    def autocollapse_set(self, autocollapse):
+        elm_frame_autocollapse_set(self.obj, autocollapse)
+    def autocollapse_get(self):
+        return elm_frame_autocollapse_get(self.obj)
+
     property collapse:
         """The collapse state of a frame, bypassing animations
 
@@ -77,6 +82,11 @@ cdef class Frame(LayoutClass):
 
         def __set__(self, autocollapse):
             elm_frame_collapse_set(self.obj, autocollapse)
+
+    def collapse_set(self, autocollapse):
+        elm_frame_collapse_set(self.obj, autocollapse)
+    def collapse_get(self):
+        return elm_frame_collapse_get(self.obj)
 
     def collapse_go(self, collapse):
         """Manually collapse a frame with animations

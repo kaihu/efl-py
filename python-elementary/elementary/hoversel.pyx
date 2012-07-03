@@ -105,6 +105,14 @@ cdef class HoverselItem(ObjectItem):
             elm_hoversel_item_icon_get(self.item, &cicon_file, &cicon_group, &cicon_type)
             return (_ctouni(cicon_file), _ctouni(cicon_group), cicon_type)
 
+    def icon_set(self, icon_file, icon_group, icon_type):
+        elm_hoversel_item_icon_set(self.item, _cfruni(icon_file), _cfruni(icon_group), icon_type)
+    def icon_get(self):
+        cdef const_char_ptr cicon_file, cicon_group
+        cdef Elm_Icon_Type cicon_type
+        elm_hoversel_item_icon_get(self.item, &cicon_file, &cicon_group, &cicon_type)
+        return (_ctouni(cicon_file), _ctouni(cicon_group), cicon_type)
+
 cdef class Hoversel(Button):
 
     """A hoversel is a button that pops up a list of items (automatically
@@ -153,6 +161,11 @@ cdef class Hoversel(Button):
         def __get__(self):
             return bool(elm_hoversel_horizontal_get(self.obj))
 
+    def horizontal_set(self, horizontal):
+        elm_hoversel_horizontal_set(self.obj, horizontal)
+    def horizontal_get(self):
+        return bool(elm_hoversel_horizontal_get(self.obj))
+
     property hover_parent:
         """The Hover parent.
 
@@ -169,6 +182,11 @@ cdef class Hoversel(Button):
 
         def __get__(self):
             return Object_from_instance(elm_hoversel_hover_parent_get(self.obj))
+
+    def hover_parent_set(self, evasObject parent):
+        elm_hoversel_hover_parent_set(self.obj, parent.obj)
+    def hover_parent_get(self):
+        return Object_from_instance(elm_hoversel_hover_parent_get(self.obj))
 
     def hover_begin(self):
         """hover_begin()
@@ -197,6 +215,9 @@ cdef class Hoversel(Button):
         def __get__(self):
             return bool(elm_hoversel_expanded_get(self.obj))
 
+    def expanded_get(self):
+        return bool(elm_hoversel_expanded_get(self.obj))
+
     def clear(self):
         """clear()
 
@@ -220,6 +241,9 @@ cdef class Hoversel(Button):
         """
         def __get__(self):
             return _object_item_list_to_python(elm_hoversel_items_get(self.obj))
+
+    def items_get(self):
+        return _object_item_list_to_python(elm_hoversel_items_get(self.obj))
 
     def callback_clicked_add(self, func, *args, **kwargs):
         """The user clicked the hoversel button and popped up the sel."""

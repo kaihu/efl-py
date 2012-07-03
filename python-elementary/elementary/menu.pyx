@@ -67,6 +67,9 @@ cdef class MenuItem(ObjectItem):
         def __get__(self):
             return Object_from_instance(elm_menu_item_object_get(self.item))
 
+    def object_get(self):
+        return Object_from_instance(elm_menu_item_object_get(self.item))
+
     property icon_name:
         """The standard icon name of a menu item
 
@@ -81,6 +84,11 @@ cdef class MenuItem(ObjectItem):
         def __set__(self, icon):
             elm_menu_item_icon_name_set(self.item, _cfruni(icon))
 
+    def icon_name_set(self, icon):
+        elm_menu_item_icon_name_set(self.item, _cfruni(icon))
+    def icon_name_get(self):
+        return _ctouni(elm_menu_item_icon_name_get(self.item))
+
     property selected:
         """The selected state of the item.
 
@@ -92,6 +100,11 @@ cdef class MenuItem(ObjectItem):
 
         def __set__(self, selected):
             elm_menu_item_selected_set(self.item, selected)
+
+    def selected_set(self, selected):
+        elm_menu_item_selected_set(self.item, selected)
+    def selected_get(self):
+        return elm_menu_item_selected_get(self.item)
 
     property is_separator:
         """is_separator()
@@ -115,6 +128,9 @@ cdef class MenuItem(ObjectItem):
         def __get__(self):
             return _object_item_list_to_python(elm_menu_item_subitems_get(self.item))
 
+    def subitems_get(self):
+        return _object_item_list_to_python(elm_menu_item_subitems_get(self.item))
+
     property index:
         """Get the position of a menu item
 
@@ -130,6 +146,9 @@ cdef class MenuItem(ObjectItem):
         def __get__(self):
             return elm_menu_item_index_get(self.item)
 
+    def index_get(self):
+        return elm_menu_item_index_get(self.item)
+
     property next:
         """Get the next item in the menu.
 
@@ -139,6 +158,9 @@ cdef class MenuItem(ObjectItem):
         def __get__(self):
             return _object_item_to_python(elm_menu_item_next_get(self.item))
 
+    def next_get(self):
+        return _object_item_to_python(elm_menu_item_next_get(self.item))
+
     property prev:
         """Get the previous item in the menu.
 
@@ -147,6 +169,9 @@ cdef class MenuItem(ObjectItem):
         """
         def __get__(self):
             return _object_item_to_python(elm_menu_item_prev_get(self.item))
+
+    def prev_get(self):
+        return _object_item_to_python(elm_menu_item_prev_get(self.item))
 
 cdef class MenuSeparatorItem(ObjectItem):
     def __init__(self, evasObject menu, MenuItem parent):
@@ -209,6 +234,9 @@ cdef class Menu(Object):
         def __set__(self, evasObject parent):
             elm_menu_parent_set(self.obj, parent.obj)
 
+    def parent_get(self):
+        return Object_from_instance(elm_menu_parent_get(self.obj))
+
     def move(self, x, y):
         """move(x, y)
 
@@ -244,6 +272,9 @@ cdef class Menu(Object):
         """
         def __get__(self):
             return _object_item_list_to_python(elm_menu_items_get(self.obj))
+
+    def items_get(self):
+        return _object_item_list_to_python(elm_menu_items_get(self.obj))
 
     def item_add(self, parent = None, label = None, icon = None, callback = None, *args, **kwargs):
         """item_add(parent=None, label=None, icon=None, callback=None, *args, **kwargs)
@@ -291,6 +322,9 @@ cdef class Menu(Object):
         def __get__(self):
             return _object_item_to_python(elm_menu_selected_item_get(self.obj))
 
+    def selected_item_get(self):
+        return _object_item_to_python(elm_menu_selected_item_get(self.obj))
+
     property last_item:
         """The last item in the menu
 
@@ -300,6 +334,9 @@ cdef class Menu(Object):
         def __get__(self):
             return _object_item_to_python(elm_menu_last_item_get(self.obj))
 
+    def last_item_get(self):
+        return _object_item_to_python(elm_menu_last_item_get(self.obj))
+
     property first_item:
         """The first item in the menu
 
@@ -308,6 +345,9 @@ cdef class Menu(Object):
         """
         def __get__(self):
             return _object_item_to_python(elm_menu_first_item_get(self.obj))
+
+    def first_item_get(self):
+        return _object_item_to_python(elm_menu_first_item_get(self.obj))
 
     def callback_clicked_add(self, func, *args, **kwargs):
         """The user clicked the empty space in the menu to dismiss."""

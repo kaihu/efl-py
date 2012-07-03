@@ -116,6 +116,7 @@ from hover import Hover
 from hoversel import Hoversel, HoverselItem
 from icon import Icon
 from image import Image
+from index import Index, IndexItem
 from innerwindow import InnerWindow
 from label import Label
 from layout import Layout
@@ -136,6 +137,7 @@ from photo import Photo
 from photocam import Photocam
 from plug import Plug
 from popup import Popup, PopupItem
+from progressbar import Progressbar
 from radio import Radio
 from scroller import Scroller
 from segment_control import SegmentControl, SegmentControlItem

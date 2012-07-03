@@ -82,6 +82,13 @@ cdef class Clock(LayoutClass):
             hrs, min, sec = value
             elm_clock_time_set(self.obj, hrs, min, sec)
 
+    def time_set(self, hours, minutes, seconds):
+        elm_clock_time_set(self.obj, hours, minutes, seconds)
+    def time_get(self):
+        cdef int hrs, min, sec
+        elm_clock_time_get(self.obj, &hrs, &min, &sec)
+        return (hrs, min, sec)
+
     property edit:
         """Whether a given clock widget is under **edition mode** or under
         (default) displaying-only mode.
@@ -103,6 +110,11 @@ cdef class Clock(LayoutClass):
         def __set__(self, edit):
             elm_clock_edit_set(self.obj, edit)
 
+    def edit_set(self, edit):
+        elm_clock_edit_set(self.obj, edit)
+    def edit_get(self, edit):
+        return bool(elm_clock_edit_get(self.obj))
+
     property edit_mode:
         """Which digits of the given clock widget should be editable when in
         edition mode.
@@ -115,6 +127,11 @@ cdef class Clock(LayoutClass):
 
         def __set__(self, mode):
             elm_clock_edit_mode_set(self.obj, mode)
+
+    def edit_mode_set(self, mode):
+        elm_clock_edit_mode_set(self.obj, mode)
+    def edit_mode_get(self):
+        return elm_clock_edit_mode_get(self.obj)
 
     property show_am_pm:
         """Whether the given clock widget must show hours in military or
@@ -136,6 +153,11 @@ cdef class Clock(LayoutClass):
         def __set__(self, am_pm):
             elm_clock_show_am_pm_set(self.obj, am_pm)
 
+    def show_am_pm_set(self, am_pm):
+        elm_clock_show_am_pm_set(self.obj, am_pm)
+    def show_am_pm_get(self):
+        return elm_clock_show_am_pm_get(self.obj)
+
     property show_seconds:
         """Whether the given clock widget must show time with seconds or not
 
@@ -149,6 +171,11 @@ cdef class Clock(LayoutClass):
 
         def __set__(self, seconds):
             elm_clock_show_seconds_set(self.obj, seconds)
+
+    def show_seconds_set(self, seconds):
+        elm_clock_show_seconds_set(self.obj, seconds)
+    def show_seconds_get(self):
+        return elm_clock_show_seconds_get(self.obj)
 
     property first_interval:
         """The first interval on time updates for a user mouse button hold
@@ -177,6 +204,11 @@ cdef class Clock(LayoutClass):
 
         def __set__(self, interval):
             elm_clock_first_interval_set(self.obj, interval)
+
+    def first_interval_set(self, interval):
+        elm_clock_first_interval_set(self.obj, interval)
+    def first_interval_get(self):
+        return elm_clock_first_interval_get(self.obj)
 
     def callback_changed_add(self, func, *args, **kwargs):
         """The clock's user changed the time"""

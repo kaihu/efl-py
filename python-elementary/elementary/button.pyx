@@ -79,6 +79,11 @@ cdef class Button(LayoutClass):
         def __set__(self, on):
             elm_button_autorepeat_set(self.obj, on)
 
+    def autorepeat_set(self, on):
+        elm_button_autorepeat_set(self.obj, on)
+    def autorepeat_get(self):
+        return bool(elm_button_autorepeat_get(self.obj))
+
     property autorepeat_initial_timeout:
         """The initial timeout before the autorepeat event is generated
 
@@ -97,6 +102,11 @@ cdef class Button(LayoutClass):
         def __set__(self, t):
             elm_button_autorepeat_initial_timeout_set(self.obj, t)
 
+    def autorepeat_initial_timeout_set(self, t):
+        elm_button_autorepeat_initial_timeout_set(self.obj, t)
+    def autorepeat_initial_timeout_get(self):
+        return elm_button_autorepeat_initial_timeout_get(self.obj)
+
     property autorepeat_gap_timeout:
         """The interval between each generated autorepeat event
 
@@ -112,6 +122,11 @@ cdef class Button(LayoutClass):
             return elm_button_autorepeat_gap_timeout_get(self.obj)
         def __set__(self, t):
             elm_button_autorepeat_gap_timeout_set(self.obj, t)
+
+    def autorepeat_gap_timeout_set(self, t):
+        elm_button_autorepeat_gap_timeout_set(self.obj, t)
+    def autorepeat_gap_timeout_get(self):
+        return elm_button_autorepeat_gap_timeout_get(self.obj)
 
     def callback_clicked_add(self, func, *args, **kwargs):
         """The user clicked the button (press/release)."""

@@ -44,6 +44,11 @@ cdef class Separator(LayoutClass):
         def __set__(self, b):
             elm_separator_horizontal_set(self.obj, b)
 
+    def horizontal_set(self, b):
+        elm_separator_horizontal_set(self.obj, b)
+    def horizontal_get(self):
+        return elm_separator_horizontal_get(self.obj)
+
 _elm_widget_type_register("separator", Separator)
 
 _install_metaclass(Separator)

@@ -84,6 +84,11 @@ cdef class Bubble(LayoutClass):
         def __set__(self, value):
             elm_bubble_pos_set(self.obj, value)
 
+    def pos_set(self, pos):
+        elm_bubble_pos_set(self.obj, pos)
+    def pos_get(self):
+        return elm_bubble_pos_get(self.obj)
+
     def callback_clicked_add(self, func, *args, **kwargs):
         """This is called when a user has clicked the bubble."""
         self._callback_add("clicked", func, *args, **kwargs)

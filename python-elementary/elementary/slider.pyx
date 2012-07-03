@@ -92,6 +92,11 @@ cdef class Slider(LayoutClass):
         def __set__(self, size):
             elm_slider_span_size_set(self.obj, size)
 
+    def span_size_set(self, size):
+        elm_slider_span_size_set(self.obj, size)
+    def span_size_get(self):
+        return elm_slider_span_size_get(self.obj)
+
     property unit_format:
         """The format string for the unit label.
 
@@ -116,6 +121,11 @@ cdef class Slider(LayoutClass):
 
         def __set__(self, format):
             elm_slider_unit_format_set(self.obj, _cfruni(format))
+
+    def unit_format_set(self, format):
+        elm_slider_unit_format_set(self.obj, _cfruni(format))
+    def unit_format_get(self):
+        return _ctouni(elm_slider_unit_format_get(self.obj))
 
     property indicator_format:
         """The format string for the indicator label.
@@ -142,6 +152,11 @@ cdef class Slider(LayoutClass):
 
         def __set__(self, format):
             elm_slider_indicator_format_set(self.obj, _cfruni(format))
+
+    def indicator_format_set(self, format):
+        elm_slider_indicator_format_set(self.obj, _cfruni(format))
+    def indicator_format_get(self):
+        return _ctouni(elm_slider_indicator_format_get(self.obj))
 
     #TODO: def indicator_format_function_set(self, func, free_func)
 #~         """Set the format function pointer for the indicator label
@@ -190,6 +205,11 @@ cdef class Slider(LayoutClass):
         def __set__(self, horizontal):
             elm_slider_horizontal_set(self.obj, horizontal)
 
+    def horizontal_set(self, horizontal):
+        elm_slider_horizontal_set(self.obj, horizontal)
+    def horizontal_get(self):
+        return bool(elm_slider_horizontal_get(self.obj))
+
     property min_max:
         """The minimum and maximum values for the slider.
 
@@ -214,6 +234,13 @@ cdef class Slider(LayoutClass):
             min, max = value
             elm_slider_min_max_set(self.obj, min, max)
 
+    def min_max_set(self, min, max):
+        elm_slider_min_max_set(self.obj, min, max)
+    def min_max_get(self):
+        cdef double min, max
+        elm_slider_min_max_get(self.obj, &min, &max)
+        return (min, max)
+
     property value:
         """The value displayed in the slider.
 
@@ -237,6 +264,11 @@ cdef class Slider(LayoutClass):
         def __set__(self, value):
             elm_slider_value_set(self.obj, value)
 
+    def value_set(self, value):
+        elm_slider_value_set(self.obj, value)
+    def value_get(self):
+        return elm_slider_value_get(self.obj)
+
     property inverted:
         """Invert a given slider widget's displaying values order
 
@@ -255,6 +287,11 @@ cdef class Slider(LayoutClass):
         def __set__(self, inverted):
             elm_slider_inverted_set(self.obj, inverted)
 
+    def inverted_set(self, inverted):
+        elm_slider_inverted_set(self.obj, inverted)
+    def inverted_get(self):
+        return bool(elm_slider_inverted_get(self.obj))
+
     property indicator_show:
         """Whether to enlarge slider indicator (augmented knob) or not.
 
@@ -271,6 +308,11 @@ cdef class Slider(LayoutClass):
 
         def __set__(self, show):
             elm_slider_indicator_show_set(self.obj, show)
+
+    def indicator_show_set(self, show):
+        elm_slider_indicator_show_set(self.obj, show)
+    def indicator_show_get(self):
+        return bool(elm_slider_indicator_show_get(self.obj))
 
     def callback_changed_add(self, func, *args, **kwargs):
         """Whenever the slider value is changed by the user."""

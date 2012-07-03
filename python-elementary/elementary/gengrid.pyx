@@ -328,17 +328,29 @@ cdef class GengridItem(ObjectItem):
         def __get__(self):
             return self.params[1]
 
+    def data_get(self):
+        return self.params[1]
+
     property next:
         def __get__(self):
             return _object_item_to_python(elm_gengrid_item_next_get(self.item))
+
+    def next_get(self):
+        return _object_item_to_python(elm_gengrid_item_next_get(self.item))
 
     property prev:
         def __get__(self):
             return _object_item_to_python(elm_gengrid_item_prev_get(self.item))
 
+    def prev_get(self):
+        return _object_item_to_python(elm_gengrid_item_prev_get(self.item))
+
     property index:
         def __get__(self):
             return elm_gengrid_item_index_get(self.item)
+
+    def index_get(self):
+        return elm_gengrid_item_index_get(self.item)
 
     def update(self):
         elm_gengrid_item_update(self.item)
@@ -350,11 +362,22 @@ cdef class GengridItem(ObjectItem):
         def __set__(self, selected):
             elm_gengrid_item_selected_set(self.item, bool(selected))
 
+    def selected_set(self, selected):
+        elm_gengrid_item_selected_set(self.item, bool(selected))
+    def selected_get(self):
+        return bool(elm_gengrid_item_selected_get(self.item))
+
     def show(self, scrollto_type = ELM_GENLIST_ITEM_SCROLLTO_IN):
         elm_gengrid_item_show(self.item, scrollto_type)
 
     def bring_in(self, scrollto_type = ELM_GENLIST_ITEM_SCROLLTO_IN):
         elm_gengrid_item_bring_in(self.item, scrollto_type)
+
+    property pos:
+        def __get__(self):
+            cdef unsigned int x, y
+            elm_gengrid_item_pos_get(self.item, &x, &y)
+            return (x, y)
 
     def pos_get(self):
         cdef unsigned int x, y
@@ -413,14 +436,22 @@ cdef class GengridItem(ObjectItem):
         elm_gengrid_item_tooltip_unset(self.item)
 
     property tooltip_style:
+        """Style for this object tooltip.
+
+        @note: before you set a style you should define a tooltip with
+            elm_gengrid_item_tooltip_content_cb_set() or
+            elm_gengrid_item_tooltip_text_set()
+        """
         def __get__(self):
             return _ctouni(elm_gengrid_item_tooltip_style_get(self.item))
 
         def __set__(self, style):
-            if style:
-                elm_gengrid_item_tooltip_style_set(self.item, _cfruni(style))
-            else:
-                elm_gengrid_item_tooltip_style_set(self.item, NULL)
+            elm_gengrid_item_tooltip_style_set(self.item, _cfruni(style) if style is not None else NULL)
+
+    def tooltip_style_set(self, style=None):
+        elm_gengrid_item_tooltip_style_set(self.item, _cfruni(style) if style is not None else NULL)
+    def tooltip_style_get(self):
+        return _ctouni(elm_gengrid_item_tooltip_style_get(self.item))
 
     property tooltip_window_mode:
         def __get__(self):
@@ -428,6 +459,11 @@ cdef class GengridItem(ObjectItem):
 
         def __set__(self, disable):
             elm_gengrid_item_tooltip_window_mode_set(self.item, bool(disable))
+
+    def tooltip_window_mode_set(self, disable):
+        elm_gengrid_item_tooltip_window_mode_set(self.item, bool(disable))
+    def tooltip_window_mode_get(self):
+        return bool(elm_gengrid_item_tooltip_window_mode_get(self.item))
 
     property cursor:
         """The cursor that will be displayed when mouse is over the item.
@@ -441,8 +477,14 @@ cdef class GengridItem(ObjectItem):
         def __set__(self, cursor):
             elm_gengrid_item_cursor_set(self.item, _cfruni(cursor))
 
+        def __del__(self):
+            elm_gengrid_item_cursor_unset(self.item)
+
+    def cursor_set(self, char *cursor):
+        elm_gengrid_item_cursor_set(self.item, _cfruni(cursor))
+    def cursor_get(self):
+        return _ctouni(elm_gengrid_item_cursor_get(self.item))
     def cursor_unset(self):
-        """Unset the cursor to be shown when mouse is over the gengrid item."""
         elm_gengrid_item_cursor_unset(self.item)
 
     property cursor_style:
@@ -450,10 +492,12 @@ cdef class GengridItem(ObjectItem):
             return _ctouni(elm_gengrid_item_cursor_style_get(self.item))
 
         def __set__(self, style):
-            if style:
-                elm_gengrid_item_cursor_style_set(self.item, _cfruni(style))
-            else:
-                elm_gengrid_item_cursor_style_set(self.item, NULL)
+            elm_gengrid_item_cursor_style_set(self.item, _cfruni(style) if style is not None else NULL)
+
+    def cursor_style_set(self, style=None):
+        elm_gengrid_item_cursor_style_set(self.item, _cfruni(style) if style is not None else NULL)
+    def cursor_style_get(self):
+        return _ctouni(elm_gengrid_item_cursor_style_get(self.item))
 
     property cursor_engine_only:
         def __get__(self):
@@ -462,12 +506,22 @@ cdef class GengridItem(ObjectItem):
         def __set__(self, engine_only):
             elm_gengrid_item_cursor_engine_only_set(self.item, bool(engine_only))
 
+    def cursor_engine_only_set(self, engine_only):
+        elm_gengrid_item_cursor_engine_only_set(self.item, bool(engine_only))
+    def cursor_engine_only_get(self):
+        return elm_gengrid_item_cursor_engine_only_get(self.item)
+
     property select_mode:
         def __get__(self):
             return elm_gengrid_item_select_mode_get(self.item)
 
         def __set__(self, mode):
             elm_gengrid_item_select_mode_set(self.item, mode)
+
+    def select_mode_set(self, mode):
+        elm_gengrid_item_select_mode_set(self.item, mode)
+    def select_mode_get(self):
+        return elm_gengrid_item_select_mode_get(self.item)
 
 cdef class Gengrid(Object):
     """Creates a generic, scalable and extensible grid widget.
@@ -491,12 +545,22 @@ cdef class Gengrid(Object):
         def __set__(self, multi):
             elm_gengrid_multi_select_set(self.obj, bool(multi))
 
+    def multi_select_set(self, multi):
+        elm_gengrid_multi_select_set(self.obj, bool(multi))
+    def multi_select_get(self):
+        return bool(elm_gengrid_multi_select_get(self.obj))
+
     property horizontal:
         def __get__(self):
             return bool(elm_gengrid_horizontal_get(self.obj))
 
         def __set__(self, setting):
             elm_gengrid_horizontal_set(self.obj, bool(setting))
+
+    def horizontal_set(self, setting):
+        elm_gengrid_horizontal_set(self.obj, bool(setting))
+    def horizontal_get(self):
+        return bool(elm_gengrid_horizontal_get(self.obj))
 
     property bounce:
         def __get__(self):
@@ -507,6 +571,13 @@ cdef class Gengrid(Object):
         def __set__(self, value):
             h_bounce, v_bounce = value
             elm_gengrid_bounce_set(self.obj, bool(h_bounce), bool(v_bounce))
+
+    def bounce_set(self, h_bounce, v_bounce):
+        elm_gengrid_bounce_set(self.obj, bool(h_bounce), bool(v_bounce))
+    def bounce_get(self):
+        cdef Eina_Bool h_bounce, v_bounce
+        elm_gengrid_bounce_get(self.obj, &h_bounce, &v_bounce)
+        return (h_bounce, v_bounce)
 
     def item_append(self, GengridItemClass item_class not None,
                     item_data, func=None):
@@ -699,13 +770,22 @@ cdef class Gengrid(Object):
         def __get__(self):
             return _object_item_to_python(elm_gengrid_selected_item_get(self.obj))
 
+    def selected_item_get(self):
+        return _object_item_to_python(elm_gengrid_selected_item_get(self.obj))
+
     property selected_items:
         def __get__(self):
             return _object_item_list_to_python(elm_gengrid_selected_items_get(self.obj))
 
+    def selected_items_get(self):
+        return _object_item_list_to_python(elm_gengrid_selected_items_get(self.obj))
+
     property realized_items:
         def __get__(self):
             return _object_item_list_to_python(elm_gengrid_realized_items_get(self.obj))
+
+    def realized_items_get(self):
+        return _object_item_list_to_python(elm_gengrid_realized_items_get(self.obj))
 
     def realized_items_update(self):
         elm_gengrid_realized_items_update(self.obj)
@@ -714,9 +794,15 @@ cdef class Gengrid(Object):
         def __get__(self):
             return _object_item_to_python(elm_gengrid_first_item_get(self.obj))
 
+    def first_item_get(self):
+        return _object_item_to_python(elm_gengrid_first_item_get(self.obj))
+
     property last_item:
         def __get__(self):
             return _object_item_to_python(elm_gengrid_last_item_get(self.obj))
+
+    def last_item_get(self):
+        return _object_item_to_python(elm_gengrid_last_item_get(self.obj))
 
     property scroller_policy:
         def __get__(self):
@@ -727,6 +813,13 @@ cdef class Gengrid(Object):
         def __set__(self, value):
             policy_h, policy_v = value
             elm_gengrid_scroller_policy_set(self.obj, policy_h, policy_v)
+
+    def scroller_policy_set(self, policy_h, policy_v):
+        elm_gengrid_scroller_policy_set(self.obj, policy_h, policy_v)
+    def scroller_policy_get(self):
+        cdef Elm_Scroller_Policy policy_h, policy_v
+        elm_gengrid_scroller_policy_get(self.obj, &policy_h, &policy_v)
+        return (policy_h, policy_v)
 
     def items_count(self):
         return elm_gengrid_items_count(self.obj)
@@ -741,6 +834,13 @@ cdef class Gengrid(Object):
             w, h = value
             elm_gengrid_item_size_set(self.obj, w, h)
 
+    def item_size_set(self, w, h):
+        elm_gengrid_item_size_set(self.obj, w, h)
+    def item_size_get(self):
+        cdef Evas_Coord x, y
+        elm_gengrid_item_size_get(self.obj, &x, &y)
+        return (x, y)
+
     property group_item_size:
         def __get__(self):
             cdef Evas_Coord w, h
@@ -750,6 +850,13 @@ cdef class Gengrid(Object):
         def __set__(self, value):
             w, h = value
             elm_gengrid_group_item_size_set(self.obj, w, h)
+
+    def group_item_size_set(self, w, h):
+        elm_gengrid_group_item_size_set(self.obj, w, h)
+    def group_item_size_get(self):
+        cdef Evas_Coord w, h
+        elm_gengrid_group_item_size_get(self.obj, &w, &h)
+        return (w, h)
 
     property align:
         def __get__(self):
@@ -761,12 +868,24 @@ cdef class Gengrid(Object):
             align_x, align_y = value
             elm_gengrid_align_set(self.obj, align_x, align_y)
 
+    def align_set(self, align_x, align_y):
+        elm_gengrid_align_set(self.obj, align_x, align_y)
+    def align_get(self):
+        cdef double align_x, align_y
+        elm_gengrid_align_get(self.obj, &align_x, &align_y)
+        return (align_x, align_y)
+
     property reorder_mode:
         def __get__(self):
             return bool(elm_gengrid_reorder_mode_get(self.obj))
 
         def __set__(self, mode):
             elm_gengrid_reorder_mode_set(self.obj, bool(mode))
+
+    def reorder_mode_set(self, mode):
+        elm_gengrid_reorder_mode_set(self.obj, bool(mode))
+    def reorder_mode_get(self, mode):
+        return bool(elm_gengrid_reorder_mode_get(self.obj))
 
     property page_relative:
         def __get__(self):
@@ -778,6 +897,13 @@ cdef class Gengrid(Object):
             h_pagerel, v_pagerel = value
             elm_gengrid_page_relative_set(self.obj, h_pagerel, v_pagerel)
 
+    def page_relative_set(self, h_pagerel, v_pagerel):
+        elm_gengrid_page_relative_set(self.obj, h_pagerel, v_pagerel)
+    def page_relative_get(self):
+        cdef double h_pagerel, v_pagerel
+        elm_gengrid_page_relative_get(self.obj, &h_pagerel, &v_pagerel)
+        return (h_pagerel, v_pagerel)
+
     def page_size_set(self, h_pagesize, v_pagesize):
         elm_gengrid_page_size_set(self.obj, h_pagesize, v_pagesize)
 
@@ -787,11 +913,21 @@ cdef class Gengrid(Object):
             elm_gengrid_current_page_get(self.obj, &h_pagenum, &v_pagenum)
             return (h_pagenum, v_pagenum)
 
+    def current_page_get(self):
+        cdef int h_pagenum, v_pagenum
+        elm_gengrid_current_page_get(self.obj, &h_pagenum, &v_pagenum)
+        return (h_pagenum, v_pagenum)
+
     property last_page:
         def __get__(self):
             cdef int h_pagenum, v_pagenum
             elm_gengrid_last_page_get(self.obj, &h_pagenum, &v_pagenum)
             return (h_pagenum, v_pagenum)
+
+    def last_page_get(self):
+        cdef int h_pagenum, v_pagenum
+        elm_gengrid_last_page_get(self.obj, &h_pagenum, &v_pagenum)
+        return (h_pagenum, v_pagenum)
 
     def page_show(self, h_pagenum, v_pagenum):
         elm_gengrid_page_show(self.obj, h_pagenum, v_pagenum)
@@ -806,6 +942,11 @@ cdef class Gengrid(Object):
         def __set__(self, fill):
             elm_gengrid_filled_set(self.obj, bool(fill))
 
+    def filled_set(self, fill):
+        elm_gengrid_filled_set(self.obj, bool(fill))
+    def filled_get(self, fill):
+        return bool(elm_gengrid_filled_get(self.obj))
+
     property select_mode:
         def __get__(self):
             return elm_gengrid_select_mode_get(self.obj)
@@ -813,12 +954,22 @@ cdef class Gengrid(Object):
         def __set__(self, mode):
             elm_gengrid_select_mode_set(self.obj, mode)
 
+    def select_mode_set(self, mode):
+        elm_gengrid_select_mode_set(self.obj, mode)
+    def select_mode_get(self):
+        return elm_gengrid_select_mode_get(self.obj)
+
     property highlight_mode:
         def __get__(self):
             return bool(elm_gengrid_highlight_mode_get(self.obj))
 
         def __set__(self, highlight):
             elm_gengrid_highlight_mode_set(self.obj, bool(highlight))
+
+    def highlight_mode_set(self, highlight):
+        elm_gengrid_highlight_mode_set(self.obj, bool(highlight))
+    def highlight_mode_get(self, fill):
+        return bool(elm_gengrid_highlight_mode_get(self.obj))
 
     def callback_clicked_double_add(self, func, *args, **kwargs):
         self._callback_add_full("clicked,double", _cb_object_item_conv,

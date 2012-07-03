@@ -57,6 +57,9 @@ cdef class ToolbarItem(ObjectItem):
         def __get__(self):
             return _object_item_to_python(elm_toolbar_item_next_get(self.item))
 
+    def next_get(self):
+        return _object_item_to_python(elm_toolbar_item_next_get(self.item))
+
     property prev:
         """Get the item before ``item`` in toolbar.
 
@@ -69,6 +72,9 @@ cdef class ToolbarItem(ObjectItem):
         """
         def __get__(self):
             return _object_item_to_python(elm_toolbar_item_prev_get(self.item))
+
+    def prev_get(self):
+        return _object_item_to_python(elm_toolbar_item_prev_get(self.item))
 
     property priority:
         """The priority of a toolbar item.
@@ -88,6 +94,11 @@ cdef class ToolbarItem(ObjectItem):
 
         def __set__(self, priority):
             elm_toolbar_item_priority_set(self.item, priority)
+
+    def priority_set(self, priority):
+        elm_toolbar_item_priority_set(self.item, priority)
+    def priority_get(self):
+        return elm_toolbar_item_priority_get(self.item)
 
     property selected:
         """The selected state of an item.
@@ -112,6 +123,11 @@ cdef class ToolbarItem(ObjectItem):
         def __get__(self):
             return elm_toolbar_item_selected_get(self.item)
 
+    def selected_get(self):
+        return elm_toolbar_item_selected_get(self.item)
+    def selected_set(self, selected):
+        elm_toolbar_item_selected_set(self.item, selected)
+
     property icon:
         """The icon associated with the item.
 
@@ -130,6 +146,11 @@ cdef class ToolbarItem(ObjectItem):
         def __set__(self, ic):
             elm_toolbar_item_icon_set(self.item, _cfruni(ic))
 
+    def icon_set(self, ic):
+        elm_toolbar_item_icon_set(self.item, _cfruni(ic))
+    def icon_get(self):
+        return _ctouni(elm_toolbar_item_icon_get(self.item))
+
     property object:
         """Get the object of item.
 
@@ -138,6 +159,9 @@ cdef class ToolbarItem(ObjectItem):
         """
         def __get__(self):
             return Object_from_instance(elm_toolbar_item_object_get(self.item))
+
+    def object_get(self):
+        return Object_from_instance(elm_toolbar_item_object_get(self.item))
 
     property icon_object:
         """Get the icon object of item.
@@ -149,6 +173,9 @@ cdef class ToolbarItem(ObjectItem):
         """
         def __get__(self):
             return Object_from_instance(elm_toolbar_item_icon_object_get(self.item))
+
+    def icon_object_get(self):
+        return Object_from_instance(elm_toolbar_item_icon_object_get(self.item))
 
     def icon_memfile_set(self, img, size, format, key):
         """Set the icon associated with item to an image in a binary buffer.
@@ -190,6 +217,9 @@ cdef class ToolbarItem(ObjectItem):
             # TODO: check return status
             elm_toolbar_item_icon_file_set(self.item, _cfruni(file), _cfruni(key))
 
+    def icon_file_set(self, file, key):
+        return bool(elm_toolbar_item_icon_file_set(self.item, _cfruni(file), _cfruni(key)))
+
     property separator:
         """Whether item is a separator or not.
 
@@ -206,6 +236,11 @@ cdef class ToolbarItem(ObjectItem):
 
         def __get__(self):
             return elm_toolbar_item_separator_get(self.item)
+
+    def separator_set(self, separator):
+        elm_toolbar_item_separator_set(self.item, separator)
+    def separator_get(self):
+        return elm_toolbar_item_separator_get(self.item)
 
     property menu:
         """This property has two diffent functionalities. The object you get
@@ -244,6 +279,16 @@ cdef class ToolbarItem(ObjectItem):
 
         def __set__(self, menu):
             elm_toolbar_item_menu_set(self.item, menu)
+
+    def menu_set(self, menu):
+        elm_toolbar_item_menu_set(self.item, menu)
+    def menu_get(self):
+        cdef Evas_Object *menu
+        menu = elm_toolbar_item_menu_get(self.item)
+        if menu == NULL:
+            return None
+        else:
+            return Menu(None, <object>menu)
 
 
     #TODO def state_add(self, icon, label, func, data):
@@ -312,6 +357,11 @@ cdef class Toolbar(Object):
         def __get__(self):
             return elm_toolbar_icon_size_get(self.obj)
 
+    def icon_size_set(self, icon_size):
+        elm_toolbar_icon_size_set(self.obj, icon_size)
+    def icon_size_get(self):
+        return elm_toolbar_icon_size_get(self.obj)
+
     property icon_order_lookup:
         """Icon lookup order, for toolbar items' icons.
 
@@ -326,6 +376,11 @@ cdef class Toolbar(Object):
 
         def __get__(self):
             return elm_toolbar_icon_order_lookup_get(self.obj)
+
+    def icon_order_lookup_set(self, order):
+        elm_toolbar_icon_order_lookup_set(self.obj, order)
+    def icon_order_lookup_get(self):
+        return elm_toolbar_icon_order_lookup_get(self.obj)
 
     def item_append(self, icon, label, callback = None, *args, **kargs):
         """item_append(icon, label, callback, *args, **kargs)
@@ -480,6 +535,9 @@ cdef class Toolbar(Object):
         def __get__(self):
             return _object_item_to_python(elm_toolbar_first_item_get(self.obj))
 
+    def first_item_get(self):
+        return _object_item_to_python(elm_toolbar_first_item_get(self.obj))
+
     property last_item:
         """Get the last item in the given toolbar widget's list of items.
 
@@ -491,6 +549,9 @@ cdef class Toolbar(Object):
         """
         def __get__(self):
             return _object_item_to_python(elm_toolbar_last_item_get(self.obj))
+
+    def last_item_get(self):
+        return _object_item_to_python(elm_toolbar_last_item_get(self.obj))
 
     def item_find_by_label(self, label):
         """item_find_by_label(label)
@@ -520,6 +581,9 @@ cdef class Toolbar(Object):
         def __get__(self):
             return _object_item_to_python(elm_toolbar_selected_item_get(self.obj))
 
+    def selected_item_get(self):
+        return _object_item_to_python(elm_toolbar_selected_item_get(self.obj))
+
     property more_item:
         """Get the more item.
 
@@ -531,6 +595,9 @@ cdef class Toolbar(Object):
         """
         def __get__(self):
             return _object_item_to_python(elm_toolbar_more_item_get(self.obj))
+
+    def more_item_get(self):
+        return _object_item_to_python(elm_toolbar_more_item_get(self.obj))
 
     property shrink_mode:
         """The shrink state of toolbar.
@@ -550,6 +617,11 @@ cdef class Toolbar(Object):
         def __set__(self, mode):
             elm_toolbar_shrink_mode_set(self.obj, mode)
 
+    def shrink_mode_set(self, mode):
+        elm_toolbar_shrink_mode_set(self.obj, mode)
+    def shrink_mode_get(self):
+        return elm_toolbar_shrink_mode_get(self.obj)
+
     property homogeneous:
         """Homogeneous mode.
 
@@ -563,6 +635,11 @@ cdef class Toolbar(Object):
 
         def __get__(self):
             return elm_toolbar_homogeneous_get(self.obj)
+
+    def homogeneous_set(self, homogeneous):
+        elm_toolbar_homogeneous_set(self.obj, homogeneous)
+    def homogeneous_get(self):
+        return elm_toolbar_homogeneous_get(self.obj)
 
     property menu_parent:
         """The parent object of the toolbar items' menus.
@@ -584,6 +661,11 @@ cdef class Toolbar(Object):
         def __set__(self, evasObject parent):
             elm_toolbar_menu_parent_set(self.obj, parent.obj)
 
+    def menu_parent_set(self, evasObject parent):
+        elm_toolbar_menu_parent_set(self.obj, parent.obj)
+    def menu_parent_get(self):
+        return Object_from_instance(elm_toolbar_menu_parent_get(self.obj))
+
     property align:
         """The alignment of the items.
 
@@ -602,6 +684,11 @@ cdef class Toolbar(Object):
         def __get__(self):
             return elm_toolbar_align_get(self.obj)
 
+    def align_set(self, align):
+        elm_toolbar_align_set(self.obj, align)
+    def align_get(self):
+        return elm_toolbar_align_get(self.obj)
+
     property horizontal:
         """A toolbar's orientation
 
@@ -616,6 +703,11 @@ cdef class Toolbar(Object):
 
         def __get__(self):
             return elm_toolbar_horizontal_get(self.obj)
+
+    def horizontal_set(self, horizontal):
+        elm_toolbar_horizontal_set(self.obj, horizontal)
+    def horizontal_get(self):
+        return elm_toolbar_horizontal_get(self.obj)
 
     def items_count(self):
         """Get the number of items in a toolbar
@@ -663,6 +755,11 @@ cdef class Toolbar(Object):
 
         def __set__(self, mode):
             elm_toolbar_select_mode_set(self.obj, mode)
+
+    def select_mode_set(self, mode):
+        elm_toolbar_select_mode_set(self.obj, mode)
+    def select_mode_get(self):
+        return elm_toolbar_select_mode_get(self.obj)
 
     def callback_clicked_add(self, func, *args, **kwargs):
         """When the user clicks on a toolbar item and becomes selected."""

@@ -119,6 +119,9 @@ cdef class ObjectItem(object):
         def __get__(self):
             return Object_from_instance(elm_object_item_widget_get(self.item))
 
+    def widget_get(self):
+        return Object_from_instance(elm_object_item_widget_get(self.item))
+
     def part_content_set(self, part, Object content not None):
         """part_content_set(part, content)
 
@@ -177,6 +180,13 @@ cdef class ObjectItem(object):
         def __del__(self):
             elm_object_item_content_unset(self.item)
 
+    def content_set(self, Object content not None):
+        elm_object_item_content_set(self.item, content.obj)
+    def content_get(self):
+        return Object_from_instance(elm_object_item_content_get(self.item))
+    def content_unset(self):
+        return Object_from_instance(elm_object_item_content_unset(self.item))
+
     def part_text_set(self, part, text):
         """part_text_set(part, text)
 
@@ -219,6 +229,11 @@ cdef class ObjectItem(object):
         def __set__(self, text):
             elm_object_item_text_set(self.item, _cfruni(text))
 
+    def text_set(self, text):
+        elm_object_item_text_set(self.item, _cfruni(text))
+    def text_get(self):
+        return _ctouni(elm_object_item_text_get(self.item))
+
     property access_info:
         """Set the text to read out when in accessibility mode
 
@@ -227,6 +242,9 @@ cdef class ObjectItem(object):
         """
         def __set__(self, txt):
             elm_object_item_access_info_set(self.item, _cfruni(txt))
+
+    def access_info_set(self, txt):
+        elm_object_item_access_info_set(self.item, _cfruni(txt))
 
     property data:
         def __get__(self):
@@ -237,6 +255,13 @@ cdef class ObjectItem(object):
             callback, a, ka = self.params
             args, kwargs = data
             self.params = tuple(callback, *args, **kwargs)
+
+    def data_get(self):
+        (callback, a, ka) = self.params
+        return (a, ka)
+    def data_set(self, *args, **kwargs):
+        (callback, a, ka) = self.params
+        self.params = tuple(callback, *args, **kwargs)
 
     def signal_emit(self, emission, source):
         """signal_emit(emission, source)
@@ -272,6 +297,11 @@ cdef class ObjectItem(object):
         def __set__(self, disabled):
             elm_object_item_disabled_set(self.item, disabled)
 
+    def disabled_set(self, disabled):
+        elm_object_item_disabled_set(self.item, disabled)
+    def disabled_get(self):
+        return bool(elm_object_item_disabled_get(self.item))
+
     #def delete_cb_set(self, del_cb):
         #elm_object_item_del_cb_set(self.item, del_cb)
 
@@ -300,6 +330,11 @@ cdef class ObjectItem(object):
 
         def __get__(self):
             return bool(elm_object_item_tooltip_window_mode_get(self.item))
+
+    def tooltip_window_mode_set(self, disable):
+        return bool(elm_object_item_tooltip_window_mode_set(self.item, disable))
+    def tooltip_window_mode_get(self):
+        return bool(elm_object_item_tooltip_window_mode_get(self.item))
 
     def tooltip_content_cb_set(self, func, *args, **kargs):
         """tooltip_content_cb_set(func, *args, **kargs)
@@ -357,6 +392,11 @@ cdef class ObjectItem(object):
         def __del__(self):
             elm_object_item_tooltip_style_set(self.item, NULL)
 
+    def tooltip_style_set(self, style=None):
+        elm_object_item_tooltip_style_set(self.item, _cfruni(style) if style is not None else NULL)
+    def tooltip_style_get(self):
+        return _ctouni(elm_object_item_tooltip_style_get(self.item))
+
     property cursor:
         """The cursor that will be displayed when mouse is over the object.
         The object can have only one cursor set to it, so if this function
@@ -371,6 +411,13 @@ cdef class ObjectItem(object):
 
         def __del__(self):
             elm_object_item_cursor_unset(self.item)
+
+    def cursor_set(self, char *cursor):
+        elm_object_item_cursor_set(self.item, _cfruni(cursor))
+    def cursor_get(self):
+        return _ctouni(elm_object_item_cursor_get(self.item))
+    def cursor_unset(self):
+        elm_object_item_cursor_unset(self.item)
 
     property cursor_style:
         """The style for this object cursor.
@@ -388,6 +435,11 @@ cdef class ObjectItem(object):
         def __del__(self):
             elm_object_item_cursor_style_set(self.item, NULL)
 
+    def cursor_style_set(self, style=None):
+        elm_object_item_cursor_style_set(self.item, _cfruni(style) if style is not None else NULL)
+    def cursor_style_get(self):
+        return _ctouni(elm_object_item_cursor_style_get(self.item))
+
     property cursor_engine_only:
         """cursor_engine_only_set(engine_only)
 
@@ -402,3 +454,8 @@ cdef class ObjectItem(object):
 
         def __get__(self):
             return elm_object_item_cursor_engine_only_get(self.item)
+
+    def cursor_engine_only_set(self, engine_only):
+        elm_object_item_cursor_engine_only_set(self.item, bool(engine_only))
+    def cursor_engine_only_get(self):
+        return elm_object_item_cursor_engine_only_get(self.item)

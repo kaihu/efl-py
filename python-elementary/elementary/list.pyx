@@ -56,7 +56,7 @@ cdef class ListItem(ObjectItem):
         :type   callback: function
 
         """
-        self.label = label
+        self.label = unicode(label)
 
         if icon is not None:
             self.icon_obj = icon.obj
@@ -311,6 +311,9 @@ cdef class ListItem(ObjectItem):
         def __set__(self, selected):
             elm_list_item_selected_set(self.item, selected)
 
+    def selected_get(self):
+        return bool(elm_list_item_selected_get(self.item))
+
     property separator:
         """Set or unset item as a separator.
 
@@ -327,6 +330,11 @@ cdef class ListItem(ObjectItem):
 
         def __set__(self, separator):
             elm_list_item_separator_set(self.item, separator)
+
+    def separator_set(self, separator):
+        elm_list_item_separator_set(self.item, separator)
+    def separator_get(self):
+        return bool(elm_list_item_separator_get(self.item))
 
     def show(self):
         """show()
@@ -368,6 +376,9 @@ cdef class ListItem(ObjectItem):
         def __get__(self):
             return Object_from_instance(elm_list_item_object_get(self.item))
 
+    def object_get(self):
+        return Object_from_instance(elm_list_item_object_get(self.item))
+
     property prev:
         """The item before this item in the list.
 
@@ -383,6 +394,9 @@ cdef class ListItem(ObjectItem):
         def __get__(self):
             return _object_item_to_python(elm_list_item_prev(self.item))
 
+    def prev_get(self):
+        return _object_item_to_python(elm_list_item_prev(self.item))
+
     property next:
         """The item after this item in the list.
 
@@ -397,6 +411,9 @@ cdef class ListItem(ObjectItem):
         """
         def __get__(self):
             return _object_item_to_python(elm_list_item_next(self.item))
+
+    def next_get(self):
+        return _object_item_to_python(elm_list_item_next(self.item))
 
 cdef class List(Object):
 
@@ -480,6 +497,11 @@ cdef class List(Object):
         def __set__(self, multi):
             elm_list_multi_select_set(self.obj, multi)
 
+    def multi_select_set(self, multi):
+        elm_list_multi_select_set(self.obj, multi)
+    def multi_select_get(self):
+        return bool(elm_list_multi_select_get(self.obj))
+
     property mode:
         """Which mode to use for the list object.
 
@@ -499,6 +521,11 @@ cdef class List(Object):
 
         def __set__(self, Elm_List_Mode mode):
             elm_list_mode_set(self.obj, mode)
+
+    def mode_set(self, Elm_List_Mode mode):
+        elm_list_mode_set(self.obj, mode)
+    def mode_get(self):
+        return elm_list_mode_get(self.obj)
 
     property horizontal:
         """Enable or disable horizontal mode on the list object.
@@ -545,6 +572,11 @@ cdef class List(Object):
         def __get__(self):
             return elm_list_select_mode_get(self.obj)
 
+    def select_mode_set(self, mode):
+        elm_list_select_mode_set(self.obj, mode)
+    def select_mode_get(self):
+        return elm_list_select_mode_get(self.obj)
+
     property bounce:
         """The bouncing behaviour when the scrolled content reaches an edge.
 
@@ -562,6 +594,13 @@ cdef class List(Object):
             cdef Eina_Bool h, v
             elm_list_bounce_get(self.obj, &h, &v)
             return (h, v)
+
+    def bounce_set(self, h, v):
+        elm_list_bounce_set(self.obj, h, v)
+    def bounce_get(self):
+        cdef Eina_Bool h, v
+        elm_list_bounce_get(self.obj, &h, &v)
+        return (h, v)
 
     property scroller_policy:
         """The scrollbar policy.
@@ -586,6 +625,30 @@ cdef class List(Object):
             cdef Elm_Scroller_Policy policy_h, policy_v
             elm_list_scroller_policy_get(self.obj, &policy_h, &policy_v)
             return (policy_h, policy_v)
+
+    def scroller_policy_set(self, policy_h, policy_v):
+        elm_list_scroller_policy_set(self.obj, policy_h, policy_v)
+    def scroller_policy_get(self):
+        cdef Elm_Scroller_Policy policy_h, policy_v
+        elm_list_scroller_policy_get(self.obj, &policy_h, &policy_v)
+        return (policy_h, policy_v)
+
+
+    def item_append(self, label, evasObject icon = None,
+                    evasObject end = None, callback = None, *args, **kargs):
+        return ListItem(label, icon, end, callback, *args, **kargs).append_to(self)
+
+    def item_prepend(self, label, evasObject icon = None,
+                    evasObject end = None, callback = None, *args, **kargs):
+        return ListItem(label, icon, end, callback, *args, **kargs).prepend_to(self)
+
+    def item_insert_before(self, ListItem before, label, evasObject icon = None,
+                    evasObject end = None, callback = None, *args, **kargs):
+        return ListItem(label, icon, end, callback, *args, **kargs).insert_before(before)
+
+    def item_insert_after(self, ListItem after, label, evasObject icon = None,
+                    evasObject end = None, callback = None, *args, **kargs):
+        return ListItem(label, icon, end, callback, *args, **kargs).insert_after(after)
 
     def clear(self):
         """clear()
@@ -613,6 +676,9 @@ cdef class List(Object):
         def __get__(self):
             return _object_item_list_to_python(elm_list_items_get(self.obj))
 
+    def items_get(self):
+        return _object_item_list_to_python(elm_list_items_get(self.obj))
+
     property selected_item:
         """Get the selected item.
 
@@ -627,6 +693,9 @@ cdef class List(Object):
         """
         def __get__(self):
             return _object_item_to_python(elm_list_selected_item_get(self.obj))
+
+    def selected_item_get(self):
+        return _object_item_to_python(elm_list_selected_item_get(self.obj))
 
     property selected_items:
         """Return a list of the currently selected list items.
@@ -643,6 +712,9 @@ cdef class List(Object):
         def __get__(self):
             return _object_item_list_to_python(elm_list_selected_items_get(self.obj))
 
+    def selected_items_get(self):
+        return _object_item_list_to_python(elm_list_selected_items_get(self.obj))
+
     property first_item:
         """The first item in the list
 
@@ -652,6 +724,9 @@ cdef class List(Object):
         def __get__(self):
             return _object_item_to_python(elm_list_first_item_get(self.obj))
 
+    def first_item_get(self):
+        return _object_item_to_python(elm_list_first_item_get(self.obj))
+
     property last_item:
         """The last item in the list
 
@@ -660,6 +735,9 @@ cdef class List(Object):
         """
         def __get__(self):
             return _object_item_to_python(elm_list_last_item_get(self.obj))
+
+    def last_item_get(self):
+        return _object_item_to_python(elm_list_last_item_get(self.obj))
 
     def callback_activated_add(self, func, *args, **kwargs):
         """The user has double-clicked or pressed (enter|return|spacebar) on

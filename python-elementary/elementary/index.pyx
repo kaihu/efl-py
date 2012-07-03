@@ -78,6 +78,9 @@ cdef class IndexItem(ObjectItem):
         def __set__(self, selected):
             elm_index_item_selected_set(self.item, selected)
 
+    def selected_set(self, selected):
+        elm_index_item_selected_set(self.item, selected)
+
     property letter:
         """Get the letter (string) set on a given index widget item.
 
@@ -86,6 +89,9 @@ cdef class IndexItem(ObjectItem):
         """
         def __get__(self):
             return _ctouni(elm_index_item_letter_get(self.item))
+
+    def letter_get(self):
+        return _ctouni(elm_index_item_letter_get(self.item))
 
 cdef Elm_Object_Item *_elm_index_item_from_python(IndexItem item):
     if item is None:
@@ -150,6 +156,11 @@ cdef class Index(LayoutClass):
         def __set__(self, disabled):
             elm_index_autohide_disabled_set(self.obj, disabled)
 
+    def autohide_disabled_set(self, disabled):
+        elm_index_autohide_disabled_set(self.obj, disabled)
+    def autohide_disabled_get(self):
+        return bool(elm_index_autohide_disabled_get(self.obj))
+
     property item_level:
         """The items level for a given index widget.
 
@@ -162,6 +173,11 @@ cdef class Index(LayoutClass):
             return elm_index_item_level_get(self.obj)
         def __set__(self, level):
             elm_index_item_level_set(self.obj, level)
+
+    def item_level_set(self, level):
+        elm_index_item_level_set(self.obj, level)
+    def item_level_get(self):
+        return elm_index_item_level_get(self.obj)
 
     def selected_item_get(self, level):
         """selected_item_get(level)
@@ -367,6 +383,11 @@ cdef class Index(LayoutClass):
         def __set__(self, disabled):
             elm_index_indicator_disabled_set(self.obj, disabled)
 
+    def indicator_disabled_set(self, disabled):
+        elm_index_indicator_disabled_set(self.obj, disabled)
+    def indicator_disabled_get(self):
+        return bool(elm_index_indicator_disabled_get(self.obj))
+
     property horizontal:
         """Enable or disable horizontal mode on the index object
 
@@ -384,6 +405,11 @@ cdef class Index(LayoutClass):
             return bool(elm_index_horizontal_get(self.obj))
         def __set__(self, horizontal):
             elm_index_horizontal_set(self.obj, horizontal)
+
+    def horizontal_set(self, horizontal):
+        elm_index_horizontal_set(self.obj, horizontal)
+    def horizontal_get(self):
+        return bool(elm_index_horizontal_get(self.obj))
 
     def callback_changed_add(self, func, *args, **kwargs):
         """When the selected index item changes. ``event_info`` is the selected

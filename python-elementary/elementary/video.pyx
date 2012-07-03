@@ -50,6 +50,9 @@ cdef class Video(LayoutClass):
             # TODO: check return value
             elm_video_file_set(self.obj, _cfruni(filename))
 
+    def video_file_set(self, filename):
+        return bool(elm_video_file_set(self.obj, _cfruni(filename)))
+
     property emotion:
         """The underlying Emotion object.
 
@@ -58,6 +61,9 @@ cdef class Video(LayoutClass):
         """
         def __get__(self):
             return Object_from_instance(elm_video_emotion_get(self.obj))
+
+    def emotion_get(self):
+        return Object_from_instance(elm_video_emotion_get(self.obj))
 
     def play(self):
         """play()
@@ -95,6 +101,9 @@ cdef class Video(LayoutClass):
         def __get__(self):
             return bool(elm_video_is_playing_get(self.obj))
 
+    def is_playing_get(self):
+        return bool(elm_video_is_playing_get(self.obj))
+
     property is_seekable:
         """Is it possible to seek inside the video.
 
@@ -103,6 +112,9 @@ cdef class Video(LayoutClass):
         """
         def __get__(self):
             return bool(elm_video_is_seekable_get(self.obj))
+
+    def is_seekable_get(self):
+        return bool(elm_video_is_seekable_get(self.obj))
 
     property audio_mute:
         """Is the audio muted.
@@ -116,6 +128,11 @@ cdef class Video(LayoutClass):
         def __set__(self, mute):
             elm_video_audio_mute_set(self.obj, mute)
 
+    def audio_mute_get(self):
+        return bool(elm_video_audio_mute_get(self.obj))
+    def audio_mute_set(self, mute):
+        elm_video_audio_mute_set(self.obj, mute)
+
     property audio_level:
         """The audio level of the current video.
 
@@ -127,6 +144,11 @@ cdef class Video(LayoutClass):
 
         def __set__(self, volume):
             elm_video_audio_level_set(self.obj, volume)
+
+    def audio_level_get(self):
+        return elm_video_audio_level_get(self.obj)
+    def audio_level_set(self, double volume):
+        elm_video_audio_level_set(self.obj, volume)
 
     property play_position:
         """Get the current position (in seconds) being played in the Video
@@ -141,6 +163,11 @@ cdef class Video(LayoutClass):
         def __set__(self, position):
             elm_video_play_position_set(self.obj, position)
 
+    def play_position_get(self):
+        return elm_video_play_position_get(self.obj)
+    def play_position_set(self, double position):
+        elm_video_play_position_set(self.obj, position)
+
     property play_length:
         """The total playing time (in seconds) of the Video object.
 
@@ -149,6 +176,9 @@ cdef class Video(LayoutClass):
         """
         def __get__(self):
             return elm_video_play_length_get(self.obj)
+
+    def play_length_get(self):
+        return elm_video_play_length_get(self.obj)
 
     property remember_position:
         """Whether the object can remember the last played position.
@@ -164,6 +194,11 @@ cdef class Video(LayoutClass):
         def __set__(self, remember):
             elm_video_remember_position_set(self.obj, remember)
 
+    def remember_position_set(self, remember):
+        elm_video_remember_position_set(self.obj, remember)
+    def remember_position_get(self):
+        return bool(elm_video_remember_position_get(self.obj))
+
     property title:
         """The title (for instance DVD title) from this emotion object.
 
@@ -176,6 +211,9 @@ cdef class Video(LayoutClass):
         """
         def __get__(self):
             return _ctouni(elm_video_title_get(self.obj))
+
+    def title_get(self):
+        return _ctouni(elm_video_title_get(self.obj))
 
 _elm_widget_type_register("video", Video)
 

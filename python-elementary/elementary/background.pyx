@@ -85,6 +85,17 @@ cdef class Background(LayoutClass):
                 group = ""
             elm_bg_file_set(self.obj, _cfruni(filename), _cfruni(group))
 
+    def file_set(self, filename, group = ""):
+        return bool(elm_bg_file_set(self.obj, _cfruni(filename), _cfruni(group)))
+    def file_get(self):
+        cdef const_char_ptr filename, group
+        elm_bg_file_get(self.obj, &filename, &group)
+        if filename == NULL:
+            filename = ""
+        if group == NULL:
+            group = ""
+        return (_ctouni(filename), _ctouni(group))
+
     property option:
         """The mode of display for a given background widget's image.
 
@@ -101,6 +112,11 @@ cdef class Background(LayoutClass):
 
         def __set__(self, value):
             elm_bg_option_set(self.obj, value)
+
+    def option_set(self, option):
+        elm_bg_option_set(self.obj, option)
+    def option_get(self):
+        return elm_bg_option_get(self.obj)
 
     property color:
         """The color on a given background widget.
@@ -124,6 +140,13 @@ cdef class Background(LayoutClass):
             cdef int r, g, b
             r, g, b = value
             elm_bg_color_set(self.obj, r, g, b)
+
+    def color_set(self, r, g, b):
+        elm_bg_color_set(self.obj, r, g, b)
+    def color_get(self):
+        cdef int r, g, b
+        elm_bg_color_get(self.obj, &r, &g, &b)
+        return (r, g, b)
 
     property load_size:
         """The size of the pixmap representation of the image set on a given
@@ -149,6 +172,9 @@ cdef class Background(LayoutClass):
             cdef Evas_Coord w, h
             w, h = value
             elm_bg_load_size_set(self.obj, w, h)
+
+    def load_size_set(self, w, h):
+        elm_bg_load_size_set(self.obj, w, h)
 
 _elm_widget_type_register("bg", Background)
 

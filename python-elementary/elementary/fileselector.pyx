@@ -97,6 +97,11 @@ cdef class Fileselector(LayoutClass):
         def __set__(self, is_save):
             elm_fileselector_is_save_set(self.obj, is_save)
 
+    def is_save_set(self, is_save):
+        elm_fileselector_is_save_set(self.obj, is_save)
+    def is_save_get(self):
+        return elm_fileselector_is_save_get(self.obj)
+
     property folder_only:
         """Enable/disable folder-only view for a given file selector widget
 
@@ -111,6 +116,11 @@ cdef class Fileselector(LayoutClass):
 
         def __set__(self, folder_only):
             elm_fileselector_folder_only_set(self.obj, folder_only)
+
+    def folder_only_set(self, folder_only):
+        elm_fileselector_folder_only_set(self.obj, folder_only)
+    def folder_only_get(self):
+        return elm_fileselector_folder_only_get(self.obj)
 
     property buttons_ok_cancel:
         """Enable/disable the "ok" and "cancel" buttons on a given file
@@ -128,6 +138,11 @@ cdef class Fileselector(LayoutClass):
 
         def __set__(self, buttons):
             elm_fileselector_buttons_ok_cancel_set(self.obj, buttons)
+
+    def buttons_ok_cancel_set(self, buttons):
+        elm_fileselector_buttons_ok_cancel_set(self.obj, buttons)
+    def buttons_ok_cancel_get(self):
+        return elm_fileselector_buttons_ok_cancel_get(self.obj)
 
     property expandable:
         """Enable/disable a tree view in the given file selector widget,
@@ -148,6 +163,11 @@ cdef class Fileselector(LayoutClass):
         def __set__(self, expand):
             elm_fileselector_expandable_set(self.obj, expand)
 
+    def expandable_set(self, expand):
+        elm_fileselector_expandable_set(self.obj, expand)
+    def expandable_get(self):
+        return elm_fileselector_expandable_get(self.obj)
+
     property path:
         """The **directory** that a given file selector widget will display
         contents from
@@ -165,6 +185,11 @@ cdef class Fileselector(LayoutClass):
         def __set__(self, path):
             elm_fileselector_path_set(self.obj, _cfruni(path))
 
+    def path_set(self, path):
+        elm_fileselector_path_set(self.obj, _cfruni(path))
+    def path_get(self):
+        return _ctouni(elm_fileselector_path_get(self.obj))
+
     property selected:
         """The currently selected file/directory in the given file selector
         widget
@@ -178,6 +203,11 @@ cdef class Fileselector(LayoutClass):
         def __set__(self, path):
             #TODO: Check return value for success
             elm_fileselector_selected_set(self.obj, _cfruni(path))
+
+    def selected_set(self, path):
+        return elm_fileselector_selected_set(self.obj, _cfruni(path))
+    def selected_get(self):
+        return _ctouni(elm_fileselector_selected_get(self.obj))
 
     property mode:
         """The mode in which a given file selector widget will display
@@ -202,6 +232,11 @@ cdef class Fileselector(LayoutClass):
 
         def __set__(self, mode):
             elm_fileselector_mode_set(self.obj, mode)
+
+    def mode_set(self, mode):
+        elm_fileselector_mode_set(self.obj, mode)
+    def mode_get(self):
+        return elm_fileselector_mode_get(self.obj)
 
     def callback_selected_add(self, func, *args, **kwargs):
         """The user has clicked on a file (when not in folders-only mode) or

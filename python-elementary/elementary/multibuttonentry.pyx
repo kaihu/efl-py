@@ -97,14 +97,24 @@ cdef class MultiButtonEntryItem(ObjectItem):
         def __set__(self, selected):
             elm_multibuttonentry_item_selected_set(self.item, bool(selected))
 
+    def selected_set(self, selected):
+        elm_multibuttonentry_item_selected_set(self.item, bool(selected))
+    def selected_get(self):
+        return bool(elm_multibuttonentry_item_selected_get(self.item))
+
     property prev:
         def __get__(self):
             return _object_item_to_python(elm_multibuttonentry_item_prev_get(self.item))
+
+    def prev_get(self):
+        return _object_item_to_python(elm_multibuttonentry_item_prev_get(self.item))
 
     property next:
         def __get__(self):
             return _object_item_to_python(elm_multibuttonentry_item_next_get(self.item))
 
+    def next_get(self):
+        return _object_item_to_python(elm_multibuttonentry_item_next_get(self.item))
 
 cdef class MultiButtonEntry(Object):
 
@@ -140,6 +150,9 @@ cdef class MultiButtonEntry(Object):
         def __get__(self):
             return Object_from_instance(elm_multibuttonentry_entry_get(self.obj))
 
+    def entry_get(self):
+        return Object_from_instance(elm_multibuttonentry_entry_get(self.obj))
+
     property expanded:
         """The expanded state of the multibuttonentry.
 
@@ -151,6 +164,11 @@ cdef class MultiButtonEntry(Object):
 
         def __set__(self, enabled):
             elm_multibuttonentry_expanded_set(self.obj, bool(enabled))
+
+    def expanded_set(self, enabled):
+        elm_multibuttonentry_expanded_set(self.obj, bool(enabled))
+    def expanded_get(self):
+        return bool(elm_multibuttonentry_expanded_get(self.obj))
 
     def item_prepend(self, label, func = None, *args, **kwargs):
         return MultiButtonEntryItem(ELM_MULTIBUTTONENTRY_INSERT_PREPEND,
@@ -172,17 +190,29 @@ cdef class MultiButtonEntry(Object):
         def __get__(self):
             return _object_item_list_to_python(elm_multibuttonentry_items_get(self.obj))
 
+    def items_get(self):
+        return _object_item_list_to_python(elm_multibuttonentry_items_get(self.obj))
+
     property first_item:
         def __get__(self):
             return _object_item_to_python(elm_multibuttonentry_first_item_get(self.obj))
+
+    def first_item_get(self):
+        return _object_item_to_python(elm_multibuttonentry_first_item_get(self.obj))
 
     property last_item:
         def __get__(self):
             return _object_item_to_python(elm_multibuttonentry_last_item_get(self.obj))
 
+    def last_item_get(self):
+        return _object_item_to_python(elm_multibuttonentry_last_item_get(self.obj))
+
     property selected_item:
         def __get__(self):
             return _object_item_to_python(elm_multibuttonentry_selected_item_get(self.obj))
+
+    def selected_item_get(self):
+        return _object_item_to_python(elm_multibuttonentry_selected_item_get(self.obj))
 
     def clear(self):
         elm_multibuttonentry_clear(self.obj)

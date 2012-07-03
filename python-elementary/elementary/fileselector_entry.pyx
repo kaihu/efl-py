@@ -103,6 +103,11 @@ cdef class FileselectorEntry(Object):
         def __set__(self, title):
             elm_fileselector_entry_window_title_set(self.obj, _cfruni(title))
 
+    def window_title_set(self, title):
+        elm_fileselector_entry_window_title_set(self.obj, _cfruni(title))
+    def window_title_get(self):
+        return _ctouni(elm_fileselector_entry_window_title_get(self.obj))
+
     property window_size:
         """The size of a given file selector entry widget's window,
         holding the file selector itself.
@@ -124,6 +129,13 @@ cdef class FileselectorEntry(Object):
             w, h = value
             elm_fileselector_entry_window_size_set(self.obj, w, h)
 
+    def window_size_set(self, width, height):
+        elm_fileselector_entry_window_size_set(self.obj, width, height)
+    def window_size_get(self):
+        cdef Evas_Coord w, h
+        elm_fileselector_entry_window_size_get(self.obj, &w, &h)
+        return (w, h)
+
     property path:
         """The initial file system path and the entry's path string for
         a given file selector entry widget
@@ -140,6 +152,11 @@ cdef class FileselectorEntry(Object):
 
         def __set__(self, path):
             elm_fileselector_entry_path_set(self.obj, _cfruni(path))
+
+    def path_set(self, path):
+        elm_fileselector_entry_path_set(self.obj, _cfruni(path))
+    def path_get(self):
+        return _ctouni(elm_fileselector_entry_path_get(self.obj))
 
     property expandable:
         """Enable/disable a tree view in the given file selector entry
@@ -162,6 +179,11 @@ cdef class FileselectorEntry(Object):
         def __set__(self, expand):
             elm_fileselector_entry_expandable_set(self.obj, expand)
 
+    def expandable_set(self, expand):
+        elm_fileselector_entry_expandable_set(self.obj, expand)
+    def expandable_get(self):
+        return bool(elm_fileselector_entry_expandable_get(self.obj))
+
     property folder_only:
         """Whether a given file selector entry widget's internal file
         selector is to display folders only or the directory contents,
@@ -179,6 +201,11 @@ cdef class FileselectorEntry(Object):
 
         def __set__(self, folder_only):
             elm_fileselector_entry_folder_only_set(self.obj, folder_only)
+
+    def folder_only_set(self, folder_only):
+        elm_fileselector_entry_folder_only_set(self.obj, folder_only)
+    def folder_only_get(self):
+        return bool(elm_fileselector_entry_folder_only_get(self.obj))
 
     property is_save:
         """Enable/disable the file name entry box where the user can type
@@ -198,6 +225,11 @@ cdef class FileselectorEntry(Object):
         def __set__(self, is_save):
             elm_fileselector_entry_is_save_set(self.obj, is_save)
 
+    def is_save_set(self, is_save):
+        elm_fileselector_entry_is_save_set(self.obj, is_save)
+    def is_save_get(self):
+        return bool(elm_fileselector_entry_is_save_get(self.obj))
+
     property inwin_mode:
         """Whether a given file selector entry widget's internal file
         selector will raise an Elementary "inner window", instead of a
@@ -213,6 +245,11 @@ cdef class FileselectorEntry(Object):
 
         def __set__(self, inwin_mode):
             elm_fileselector_entry_inwin_mode_set(self.obj, inwin_mode)
+
+    def inwin_mode_set(self, inwin_mode):
+        elm_fileselector_entry_inwin_mode_set(self.obj, inwin_mode)
+    def inwin_mode_get(self):
+        return bool(elm_fileselector_entry_inwin_mode_get(self.obj))
 
     property selected:
         """The initial file system path for a given file selector entry
@@ -230,6 +267,11 @@ cdef class FileselectorEntry(Object):
 
         def __set__(self, path):
             elm_fileselector_entry_selected_set(self.obj, _cfruni(path))
+
+    def selected_set(self, path):
+        elm_fileselector_entry_selected_set(self.obj, _cfruni(path))
+    def selected_get(self):
+        return _ctouni(elm_fileselector_entry_selected_get(self.obj))
 
     def callback_changed_add(self, func, *args, **kwargs):
         """The text within the entry was changed."""

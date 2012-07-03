@@ -51,12 +51,12 @@ cdef class Notify(Object):
             return Object_from_instance(elm_notify_parent_get(self.obj))
 
         def __set__(self, evasObject parent):
-            cdef Evas_Object *o
-            if parent is not None:
-                o = parent.obj
-            else:
-                o = NULL
-            elm_notify_parent_set(self.obj, o)
+            elm_notify_parent_set(self.obj, parent.obj if parent is not None else NULL)
+
+    def parent_set(self, evasObject parent):
+        elm_notify_parent_set(self.obj, parent.obj if parent is not None else NULL)
+    def parent_get(self):
+        return Object_from_instance(elm_notify_parent_get(self.obj))
 
     property orient:
         """The position in which the notify will appear in its parent.
@@ -69,6 +69,11 @@ cdef class Notify(Object):
 
         def __set__(self, orient):
             elm_notify_orient_set(self.obj, orient)
+
+    def orient_set(self, int orient):
+        elm_notify_orient_set(self.obj, orient)
+    def orient_get(self):
+        return elm_notify_orient_get(self.obj)
 
     property timeout:
         """The time interval after which the notify window is going to be
@@ -94,6 +99,11 @@ cdef class Notify(Object):
         def __set__(self, timeout):
             elm_notify_timeout_set(self.obj, timeout)
 
+    def timeout_set(self, double timeout):
+        elm_notify_timeout_set(self.obj, timeout)
+    def timeout_get(self):
+        return elm_notify_timeout_get(self.obj)
+
     property allow_events:
         """Whether events should be passed to by a click outside its area.
 
@@ -110,6 +120,11 @@ cdef class Notify(Object):
 
         def __set__(self, allow_events):
             elm_notify_allow_events_set(self.obj, allow_events)
+
+    def allow_events_set(self, repeat):
+        elm_notify_allow_events_set(self.obj, repeat)
+    def allow_events_get(self):
+        return bool(elm_notify_allow_events_get(self.obj))
 
     def callback_timeout_add(self, func, *args, **kwargs):
         """When timeout happens on notify and it's hidden."""

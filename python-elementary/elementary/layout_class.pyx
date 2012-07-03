@@ -58,6 +58,9 @@ cdef class LayoutClass(Object):
             # TODO: check return value
             elm_layout_file_set(self.obj, _cfruni(filename), _cfruni(group))
 
+    def file_set(self, filename, group):
+        return bool(elm_layout_file_set(self.obj, _cfruni(filename), _cfruni(group)))
+
     property theme:
         """Set the edje group class, group name and style from the elementary
         theme that will be used as layout.
@@ -72,6 +75,9 @@ cdef class LayoutClass(Object):
             clas, group, style = theme
             # TODO: check return value
             elm_layout_theme_set(self.obj, _cfruni(clas), _cfruni(group), _cfruni(style))
+
+    def theme_set(self, clas, group, style):
+        return bool(elm_layout_theme_set(self.obj, _cfruni(clas), _cfruni(group), _cfruni(style)))
 
     def signal_emit(self, emission, source):
         """signal_emit(emission, source)
@@ -408,6 +414,9 @@ cdef class LayoutClass(Object):
         def __get__(self):
             return Object_from_instance(elm_layout_edje_get(self.obj))
 
+    def edje_get(self):
+        return Object_from_instance(elm_layout_edje_get(self.obj))
+
     def data_get(self, key):
         """data_get(key)
 
@@ -587,6 +596,11 @@ cdef class LayoutClass(Object):
         def __set__(self, evasObject icon):
             elm_layout_icon_set(self.obj, icon.obj if icon else NULL)
 
+    def icon_set(self, evasObject icon):
+        elm_layout_icon_set(self.obj, icon.obj if icon else NULL)
+    def icon_get(self):
+        return Object_from_instance(elm_layout_icon_get(self.obj))
+
     property end:
         """The end object in a layout that follows the Elementary naming
         convention for its parts.
@@ -599,6 +613,11 @@ cdef class LayoutClass(Object):
 
         def __set__(self, evasObject end):
             elm_layout_end_set(self.obj, end.obj if end else NULL)
+
+    def end_set(self, evasObject end):
+        elm_layout_end_set(self.obj, end.obj if end else NULL)
+    def end_get(self):
+        return Object_from_instance(elm_layout_end_get(self.obj))
 
     def callback_theme_changed_add(self, func, *args, **kwargs):
         """The theme was changed."""

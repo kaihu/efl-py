@@ -95,6 +95,11 @@ cdef class Radio(LayoutClass):
         def __set__(self, value):
             elm_radio_state_value_set(self.obj, value)
 
+    def state_value_set(self, value):
+        elm_radio_state_value_set(self.obj, value)
+    def state_value_get(self):
+        return elm_radio_state_value_get(self.obj)
+
     property value:
         """The value of the radio group.
 
@@ -110,6 +115,11 @@ cdef class Radio(LayoutClass):
 
         def __set__(self, value):
             elm_radio_value_set(self.obj, value)
+
+    def value_set(self, value):
+        elm_radio_value_set(self.obj, value)
+    def value_get(self):
+        return elm_radio_value_get(self.obj)
 
     #TODO: Check whether this actually works
     def value_pointer_set(self, value):
@@ -137,13 +147,10 @@ cdef class Radio(LayoutClass):
 
         """
         def __get__(self):
-            cdef Radio r = Radio()
-            cdef Evas_Object *selected = elm_radio_selected_object_get(self.obj)
-            if selected == NULL:
-                return None
-            else:
-                r.obj = selected
-                return r
+            return Object_from_instance(elm_radio_selected_object_get(self.obj))
+
+    def selected_object_get(self):
+        return Object_from_instance(elm_radio_selected_object_get(self.obj))
 
     def callback_changed_add(self, func, *args, **kwargs):
         """This is called whenever the user changes the state of one of the

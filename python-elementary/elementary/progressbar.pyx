@@ -125,6 +125,11 @@ cdef class Progressbar(LayoutClass):
         def __set__(self, value):
             elm_progressbar_value_set(self.obj, value)
 
+    def value_set(self, value):
+        elm_progressbar_value_set(self.obj, value)
+    def value_get(self):
+        return elm_progressbar_value_get(self.obj)
+
     property span_size:
         """The (exact) length of the bar region of a given progress bar widget.
 
@@ -147,6 +152,11 @@ cdef class Progressbar(LayoutClass):
         def __set__(self, size):
             elm_progressbar_span_size_set(self.obj, size)
 
+    def span_size_set(self, size):
+        elm_progressbar_span_size_set(self.obj, size)
+    def span_size_get(self):
+        return elm_progressbar_span_size_get(self.obj)
+
     property unit_format:
         """The format string for a given progress bar widget's units label.
 
@@ -167,10 +177,12 @@ cdef class Progressbar(LayoutClass):
             return _ctouni(elm_progressbar_unit_format_get(self.obj))
 
         def __set__(self, format):
-            if format is None:
-                elm_progressbar_unit_format_set(self.obj, NULL)
-            else:
-                elm_progressbar_unit_format_set(self.obj, _cfruni(format))
+            elm_progressbar_unit_format_set(self.obj, _cfruni(format) if format is not None else NULL)
+
+    def unit_format_set(self, format):
+        elm_progressbar_unit_format_set(self.obj, _cfruni(format) if format is not None else NULL)
+    def unit_format_get(self):
+        return _ctouni(elm_progressbar_unit_format_get(self.obj))
 
     property horizontal:
         """The orientation of a given progress bar widget.
@@ -186,6 +198,11 @@ cdef class Progressbar(LayoutClass):
 
         def __set__(self, horizontal):
             elm_progressbar_horizontal_set(self.obj, horizontal)
+
+    def horizontal_set(self, horizontal):
+        elm_progressbar_horizontal_set(self.obj, horizontal)
+    def horizontal_get(self):
+        return bool(elm_progressbar_horizontal_get(self.obj))
 
     property inverted:
         """Whether a given progress bar widget's displaying values are
@@ -205,6 +222,11 @@ cdef class Progressbar(LayoutClass):
 
         def __set__(self, inverted):
             elm_progressbar_inverted_set(self.obj, inverted)
+
+    def inverted_set(self, inverted):
+        elm_progressbar_inverted_set(self.obj, inverted)
+    def inverted_get(self):
+        return bool(elm_progressbar_inverted_get(self.obj))
 
 _elm_widget_type_register("progressbar", Progressbar)
 

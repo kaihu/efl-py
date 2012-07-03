@@ -61,19 +61,22 @@ cdef class Flip(Object):
         def __get__(self):
             return elm_flip_front_visible_get(self.obj)
 
-    def perspective_set(self, foc, x, y):
+    def front_visible_get(self):
+        return elm_flip_front_visible_get(self.obj)
+
+    property perspective:
         """Set flip perspective
 
         .. warning:: This function currently does nothing.
 
-        :param foc: The coordinate to set the focus on
-        :type foc: Evas_Coord (int)
-        :param x: The X coordinate
-        :type x: Evas_Coord (int)
-        :param y: The Y coordinate
-        :type y: Evas_Coord (int)
+        :type: tuple of Evas_Coords (int)
 
         """
+        def __set__(self, value):
+            foc, x, y = value
+            elm_flip_perspective_set(self.obj, foc, x, y)
+
+    def perspective_set(self, foc, x, y):
         elm_flip_perspective_set(self.obj, foc, x, y)
 
     def go(self, flip_mode):
@@ -83,38 +86,39 @@ cdef class Flip(Object):
         effectively hides the currently visible content and shows the hidden one.
 
         There a number of possible animations to use for the flipping:
-            - ELM_FLIP_ROTATE_X_CENTER_AXIS - Rotate the currently visible content
-              around a horizontal axis in the middle of its height, the other content
-              is shown as the other side of the flip.
-            - ELM_FLIP_ROTATE_Y_CENTER_AXIS - Rotate the currently visible content
-              around a vertical axis in the middle of its width, the other content is
-              shown as the other side of the flip.
-            - ELM_FLIP_ROTATE_XZ_CENTER_AXIS - Rotate the currently visible content
-              around a diagonal axis in the middle of its width, the other content is
-              shown as the other side of the flip.
-            - ELM_FLIP_ROTATE_YZ_CENTER_AXIS - Rotate the currently visible content
-              around a diagonal axis in the middle of its height, the other content is
-              shown as the other side of the flip.
-            - ELM_FLIP_CUBE_LEFT - Rotate the currently visible content to the left
-              as if the flip was a cube, the other content is show as the right face of
-              the cube.
-            - ELM_FLIP_CUBE_RIGHT - Rotate the currently visible content to the
-              right as if the flip was a cube, the other content is show as the left
-              face of the cube.
-            - ELM_FLIP_CUBE_UP - Rotate the currently visible content up as if the
-              flip was a cube, the other content is show as the bottom face of the cube.
-            - ELM_FLIP_CUBE_DOWN - Rotate the currently visible content down as if
-              the flip was a cube, the other content is show as the upper face of the
-              cube.
-            - ELM_FLIP_PAGE_LEFT - Move the currently visible content to the left as
-              if the flip was a book, the other content is shown as the page below that.
-            - ELM_FLIP_PAGE_RIGHT - Move the currently visible content to the right
-              as if the flip was a book, the other content is shown as the page below
-              that.
-            - ELM_FLIP_PAGE_UP - Move the currently visible content up as if the
-              flip was a book, the other content is shown as the page below that.
-            - ELM_FLIP_PAGE_DOWN - Move the currently visible content down as if the
-              flip was a book, the other content is shown as the page below that.
+
+        - ELM_FLIP_ROTATE_X_CENTER_AXIS - Rotate the currently visible content
+          around a horizontal axis in the middle of its height, the other content
+          is shown as the other side of the flip.
+        - ELM_FLIP_ROTATE_Y_CENTER_AXIS - Rotate the currently visible content
+          around a vertical axis in the middle of its width, the other content is
+          shown as the other side of the flip.
+        - ELM_FLIP_ROTATE_XZ_CENTER_AXIS - Rotate the currently visible content
+          around a diagonal axis in the middle of its width, the other content is
+          shown as the other side of the flip.
+        - ELM_FLIP_ROTATE_YZ_CENTER_AXIS - Rotate the currently visible content
+          around a diagonal axis in the middle of its height, the other content is
+          shown as the other side of the flip.
+        - ELM_FLIP_CUBE_LEFT - Rotate the currently visible content to the left
+          as if the flip was a cube, the other content is show as the right face of
+          the cube.
+        - ELM_FLIP_CUBE_RIGHT - Rotate the currently visible content to the
+          right as if the flip was a cube, the other content is show as the left
+          face of the cube.
+        - ELM_FLIP_CUBE_UP - Rotate the currently visible content up as if the
+          flip was a cube, the other content is show as the bottom face of the cube.
+        - ELM_FLIP_CUBE_DOWN - Rotate the currently visible content down as if
+          the flip was a cube, the other content is show as the upper face of the
+          cube.
+        - ELM_FLIP_PAGE_LEFT - Move the currently visible content to the left as
+          if the flip was a book, the other content is shown as the page below that.
+        - ELM_FLIP_PAGE_RIGHT - Move the currently visible content to the right
+          as if the flip was a book, the other content is shown as the page below
+          that.
+        - ELM_FLIP_PAGE_UP - Move the currently visible content up as if the
+          flip was a book, the other content is shown as the page below that.
+        - ELM_FLIP_PAGE_DOWN - Move the currently visible content down as if the
+          flip was a book, the other content is shown as the page below that.
 
         :param mode: The mode type
         :type mode: Elm_Flip_Mode
@@ -134,10 +138,11 @@ cdef class Flip(Object):
         :py:func:`interaction_direction_hitsize_set()`
 
         The four available mode of interaction are:
-            - ELM_FLIP_INTERACTION_NONE - No interaction is allowed
-            - ELM_FLIP_INTERACTION_ROTATE - Interaction will cause rotate animation
-            - ELM_FLIP_INTERACTION_CUBE - Interaction will cause cube animation
-            - ELM_FLIP_INTERACTION_PAGE - Interaction will cause page animation
+
+        - ELM_FLIP_INTERACTION_NONE - No interaction is allowed
+        - ELM_FLIP_INTERACTION_ROTATE - Interaction will cause rotate animation
+        - ELM_FLIP_INTERACTION_CUBE - Interaction will cause cube animation
+        - ELM_FLIP_INTERACTION_PAGE - Interaction will cause page animation
 
         .. note:: ELM_FLIP_INTERACTION_ROTATE won't cause
             ELM_FLIP_ROTATE_XZ_CENTER_AXIS or ELM_FLIP_ROTATE_YZ_CENTER_AXIS to
@@ -151,6 +156,11 @@ cdef class Flip(Object):
 
         def __set__(self, mode):
             elm_flip_interaction_set(self.obj, mode)
+
+    def interaction_set(self, mode):
+        elm_flip_interaction_set(self.obj, mode)
+    def interaction_get(self):
+        return elm_flip_interaction_get(self.obj)
 
     def interaction_direction_enabled_set(self, direction, enable):
         """Set which directions of the flip respond to interactive flip

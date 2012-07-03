@@ -68,6 +68,9 @@ cdef class Actionslider(LayoutClass):
         def __get__(self):
             return elm_actionslider_selected_label_get(self.obj)
 
+    def selected_label_get(self):
+        return elm_actionslider_selected_label_get(self.obj)
+
     property indicator_pos:
         """Indicator position.
 
@@ -78,6 +81,11 @@ cdef class Actionslider(LayoutClass):
             return elm_actionslider_indicator_pos_get(self.obj)
         def __set__(self, pos):
             elm_actionslider_indicator_pos_set(self.obj, pos)
+
+    def indicator_pos_set(self, pos):
+        elm_actionslider_indicator_pos_set(self.obj, pos)
+    def indicator_pos_get(self):
+        return elm_actionslider_indicator_pos_get(self.obj)
 
     property magnet_pos:
         """The actionslider magnet position. To make multiple positions
@@ -91,6 +99,11 @@ cdef class Actionslider(LayoutClass):
             return self.magnet_pos_get()
         def __set__(self, pos):
             self.magnet_pos_set(pos)
+
+    def magnet_pos_set(self, pos):
+        elm_actionslider_magnet_pos_set(self.obj, pos)
+    def magnet_pos_get(self):
+        return elm_actionslider_magnet_pos_get(self.obj)
 
     property enabled_pos:
         """The actionslider enabled position. To set multiple positions as
@@ -106,6 +119,11 @@ cdef class Actionslider(LayoutClass):
             return elm_actionslider_enabled_pos_get(self.obj)
         def __set__(self, pos):
             elm_actionslider_enabled_pos_set(self.obj, pos)
+
+    def enabled_pos_set(self, pos):
+        elm_actionslider_enabled_pos_set(self.obj, pos)
+    def enabled_pos_get(self):
+        return elm_actionslider_enabled_pos_get(self.obj)
 
     def callback_selected_add(self, func, *args, **kwargs):
         """Called when user selects an enabled position. The label is passed

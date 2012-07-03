@@ -71,6 +71,11 @@ cdef class Label(LayoutClass):
         def __set__(self, wrap):
             elm_label_line_wrap_set(self.obj, wrap)
 
+    def line_wrap_set(self, Elm_Wrap_Type wrap):
+        elm_label_line_wrap_set(self.obj, wrap)
+    def line_wrap_get(self):
+        return elm_label_line_wrap_get(self.obj)
+
     property wrap_width:
         """Wrap width of the label
 
@@ -86,6 +91,11 @@ cdef class Label(LayoutClass):
 
         def __set__(self, w):
             elm_label_wrap_width_set(self.obj, w)
+
+    def wrap_width_set(self, int w):
+        elm_label_wrap_width_set(self.obj, w)
+    def wrap_width_get(self):
+        return elm_label_wrap_width_get(self.obj)
 
     property ellipsis:
         """The ellipsis behavior of the label
@@ -105,6 +115,11 @@ cdef class Label(LayoutClass):
         def __set__(self, ellipsis):
             elm_label_ellipsis_set(self.obj, ellipsis)
 
+    def ellipsis_set(self, bint ellipsis):
+        elm_label_ellipsis_set(self.obj, ellipsis)
+    def ellipsis_get(self):
+        return elm_label_ellipsis_get(self.obj)
+
     property slide:
         """The sliding effect of the label widget.
 
@@ -123,6 +138,11 @@ cdef class Label(LayoutClass):
         def __set__(self, slide):
             elm_label_slide_set(self.obj, slide)
 
+    def slide_set(self, bint slide):
+        elm_label_slide_set(self.obj, slide)
+    def slide_get(self):
+        return elm_label_slide_get(self.obj)
+
     property slide_duration:
         """The duration time in moving text from slide begin position to slide end position
 
@@ -134,6 +154,11 @@ cdef class Label(LayoutClass):
 
         def __set__(self, duration):
             elm_label_slide_duration_set(self.obj, duration)
+
+    def slide_duration_set(self, duration):
+        elm_label_slide_duration_set(self.obj, duration)
+    def slide_duration_get(self):
+        return elm_label_slide_duration_get(self.obj)
 
     def callback_language_changed_add(self, func, *args, **kwargs):
         """The program's language changed."""

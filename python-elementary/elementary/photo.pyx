@@ -49,10 +49,10 @@ cdef class Photo(Object):
         """
         def __set__(self, filename):
             # TODO: check return status
-            if filename:
-               elm_photo_file_set(self.obj, _cfruni(filename))
-            else:
-               elm_photo_file_set(self.obj, NULL)
+            elm_photo_file_set(self.obj, _cfruni(filename) if filename is not None else NULL)
+
+    def file_set(self, filename):
+        return bool(elm_photo_file_set(self.obj, _cfruni(filename) if filename is not None else NULL))
 
     property thumb:
         """Set the file that will be used as thumbnail in the photo.
@@ -68,6 +68,9 @@ cdef class Photo(Object):
                 group = None
             elm_photo_thumb_set(self.obj, _cfruni(filename), _cfruni(group))
 
+    def thumb_set(self, filename, group):
+        elm_photo_thumb_set(self.obj, _cfruni(filename), _cfruni(group))
+
     property size:
         """Set the size that will be used on the photo.
 
@@ -77,6 +80,9 @@ cdef class Photo(Object):
         def __set__(self, size):
             elm_photo_size_set(self.obj, size)
 
+    def size_set(self, size):
+        elm_photo_size_set(self.obj, size)
+
     property fill_inside:
         """Set if the photo should be completely visible or not.
 
@@ -85,6 +91,9 @@ cdef class Photo(Object):
         """
         def __set__(self, fill):
             elm_photo_fill_inside_set(self.obj, fill)
+
+    def fill_inside_set(self, fill):
+        elm_photo_fill_inside_set(self.obj, fill)
 
     property editable:
         """Set editability of the photo.
@@ -98,6 +107,9 @@ cdef class Photo(Object):
         """
         def __set__(self, fill):
             elm_photo_editable_set(self.obj, fill)
+
+    def editable_set(self, fill):
+        elm_photo_editable_set(self.obj, fill)
 
     property aspect_fixed:
         """Whether the original aspect ratio of the photo should be kept on resize.
@@ -115,6 +127,11 @@ cdef class Photo(Object):
 
         def __set__(self, fixed):
             elm_photo_aspect_fixed_set(self.obj, fixed)
+
+    def aspect_fixed_set(self, fixed):
+        elm_photo_aspect_fixed_set(self.obj, fixed)
+    def aspect_fixed_get(self):
+        return elm_photo_aspect_fixed_get(self.obj)
 
     def callback_clicked_add(self, func, *args, **kwargs):
         """This is called when a user has clicked the photo."""

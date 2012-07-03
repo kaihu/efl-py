@@ -53,6 +53,13 @@ cdef class Grid(Object):
             elm_grid_size_get(self.obj, &w, &h)
             return (w, h)
 
+    def size_set(self, w, h):
+        elm_grid_size_set(self.obj, w, h)
+    def size_get(self):
+        cdef Evas_Coord w, h
+        elm_grid_size_get(self.obj, &w, &h)
+        return (w, h)
+
     def pack(self, evasObject subobj, x, y, w, h):
         """pack(subobj, x, y, w, h)
 
@@ -102,6 +109,9 @@ cdef class Grid(Object):
         """
         def __get__(self):
             return _object_list_to_python(elm_grid_children_get(self.obj))
+
+    def children_get(self):
+        return _object_list_to_python(elm_grid_children_get(self.obj))
 
 def grid_pack_set(evasObject subobj, x, y, w, h):
     """pack_set(subobj, x, y, w, h)

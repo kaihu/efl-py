@@ -61,7 +61,7 @@ cdef class NaviframeItem(ObjectItem):
         :type item_style: string
 
         """
-        self.label = title_label
+        self.label = unicode(title_label)
 
         if prev_btn is not None:
             self.prev_btn = prev_btn.obj
@@ -213,6 +213,11 @@ cdef class NaviframeItem(ObjectItem):
         def __set__(self, style):
             elm_naviframe_item_style_set(self.item, _cfruni(style))
 
+    def style_set(self, style):
+        elm_naviframe_item_style_set(self.item, _cfruni(style))
+    def style_get(self):
+        return _ctouni(elm_naviframe_item_style_get(self.item))
+
     property title_visible:
         """Show/Hide the title area
 
@@ -227,6 +232,11 @@ cdef class NaviframeItem(ObjectItem):
 
         def __set__(self, visible):
             elm_naviframe_item_title_visible_set(self.item, visible)
+
+    def title_visible_set(self, visible):
+        elm_naviframe_item_title_visible_set(self.item, visible)
+    def title_visible_get(self):
+        return bool(elm_naviframe_item_title_visible_get(self.item))
 
 cdef class Naviframe(LayoutClass):
 
@@ -306,6 +316,15 @@ cdef class Naviframe(LayoutClass):
         Object.__init__(self, parent.evas)
         self._set_obj(elm_naviframe_add(parent.obj))
 
+    def item_push(self, title_label, evasObject prev_btn, evasObject next_btn, evasObject content, const_char_ptr item_style):
+        return NaviframeItem(title_label, prev_btn, next_btn, content, item_style).push_to(self)
+
+    def item_insert_before(self, NaviframeItem before, title_label, evasObject prev_btn, evasObject next_btn, evasObject content, const_char_ptr item_style):
+        return NaviframeItem(title_label, prev_btn, next_btn, content, item_style).insert_before(before)
+
+    def item_insert_after(self, NaviframeItem after, title_label, evasObject prev_btn, evasObject next_btn, evasObject content, const_char_ptr item_style):
+        return NaviframeItem(title_label, prev_btn, next_btn, content, item_style).insert_after(after)
+
     def item_pop(self):
         """item_pop()
 
@@ -319,7 +338,7 @@ cdef class Naviframe(LayoutClass):
 
         :return: ``None`` or the content object(if
             :py:attr:`content_preserve_on_pop` is True).
-        :rtype: :py:class:`NaviframeItem`
+        :rtype: :py:class:`evas.object.Object`
 
         """
         return Object_from_instance(elm_naviframe_item_pop(self.obj))
@@ -335,6 +354,11 @@ cdef class Naviframe(LayoutClass):
         def __set__(self, preserve):
             elm_naviframe_content_preserve_on_pop_set(self.obj, preserve)
 
+    def content_preserve_on_pop_set(self, preserve):
+        elm_naviframe_content_preserve_on_pop_set(self.obj, preserve)
+    def content_preserve_on_pop_get(self):
+        return bool(elm_naviframe_content_preserve_on_pop_get(self.obj))
+
     property top_item:
         """Get a top item on the naviframe stack
 
@@ -344,6 +368,9 @@ cdef class Naviframe(LayoutClass):
         def __get__(self):
             return _object_item_to_python(elm_naviframe_top_item_get(self.obj))
 
+    def top_item_get(self):
+        return _object_item_to_python(elm_naviframe_top_item_get(self.obj))
+
     property bottom_item:
         """Get a bottom item on the naviframe stack
 
@@ -352,6 +379,9 @@ cdef class Naviframe(LayoutClass):
         """
         def __get__(self):
             return _object_item_to_python(elm_naviframe_bottom_item_get(self.obj))
+
+    def bottom_item_get(self):
+        return _object_item_to_python(elm_naviframe_bottom_item_get(self.obj))
 
     property prev_btn_auto_pushed:
         """Whether prev button(back button) will be created automatically or
@@ -367,6 +397,11 @@ cdef class Naviframe(LayoutClass):
         def __set__(self, auto_pushed):
             elm_naviframe_prev_btn_auto_pushed_set(self.obj, auto_pushed)
 
+    def prev_btn_auto_pushed_set(self, auto_pushed):
+        elm_naviframe_prev_btn_auto_pushed_set(self.obj, auto_pushed)
+    def prev_btn_auto_pushed_get(self):
+        return bool(elm_naviframe_prev_btn_auto_pushed_get(self.obj))
+
     property items:
         """Get a list of all the naviframe items.
 
@@ -375,6 +410,9 @@ cdef class Naviframe(LayoutClass):
         """
         def __get__(self):
             return _object_item_list_to_python(elm_naviframe_items_get(self.obj))
+
+    def items_get(self):
+        return _object_item_list_to_python(elm_naviframe_items_get(self.obj))
 
     property event_enabled:
         """Whether the event when pushing/popping items is enabled
@@ -395,6 +433,11 @@ cdef class Naviframe(LayoutClass):
             return bool(elm_naviframe_event_enabled_get(self.obj))
         def __set__(self, enabled):
             elm_naviframe_event_enabled_set(self.obj, enabled)
+
+    def event_enabled_set(self, enabled):
+        elm_naviframe_event_enabled_set(self.obj, enabled)
+    def event_enabled_get(self):
+        return bool(elm_naviframe_event_enabled_get(self.obj))
 
     def item_simple_push(self, evasObject content):
         """item_simple_push(content)

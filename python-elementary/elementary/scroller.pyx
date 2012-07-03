@@ -136,6 +136,13 @@ cdef class Scroller(Object):
             policy_h, policy_v = value
             elm_scroller_policy_set(self.obj, policy_h, policy_v)
 
+    def policy_set(self, policy_h, policy_v):
+        elm_scroller_policy_set(self.obj, policy_h, policy_v)
+    def policy_get(self):
+        cdef Elm_Scroller_Policy policy_h, policy_v
+        elm_scroller_policy_get(self.obj, &policy_h, &policy_v)
+        return (policy_h, policy_v)
+
     property region:
         """Get the currently visible content region
 
@@ -155,6 +162,11 @@ cdef class Scroller(Object):
             elm_scroller_region_get(self.obj, &x, &y, &w, &h)
             return (x, y, w, h)
 
+    def region_get(self):
+        cdef Evas_Coord x, y, w, h
+        elm_scroller_region_get(self.obj, &x, &y, &w, &h)
+        return (x, y, w, h)
+
     property child_size:
         """Get the size of the content object
 
@@ -167,6 +179,11 @@ cdef class Scroller(Object):
             cdef Evas_Coord w, h
             elm_scroller_child_size_get(self.obj, &w, &h)
             return (w, h)
+
+    def child_size_get(self):
+        cdef Evas_Coord w, h
+        elm_scroller_child_size_get(self.obj, &w, &h)
+        return (w, h)
 
     property bounce:
         """The bouncing behavior
@@ -190,6 +207,13 @@ cdef class Scroller(Object):
             h, v = value
             elm_scroller_bounce_set(self.obj, h, v)
 
+    def bounce_set(self, h, v):
+        elm_scroller_bounce_set(self.obj, h, v)
+    def bounce_get(self):
+        cdef Eina_Bool h, v
+        elm_scroller_bounce_get(self.obj, &h, &v)
+        return (h, v)
+
     property page_relative:
         """Set scroll page size relative to viewport size.
 
@@ -211,6 +235,9 @@ cdef class Scroller(Object):
             h_pagerel, v_pagerel = value
             elm_scroller_page_relative_set(self.obj, h_pagerel, v_pagerel)
 
+    def page_relative_set(self, h_pagerel, v_pagerel):
+        elm_scroller_page_relative_set(self.obj, h_pagerel, v_pagerel)
+
     property page_size:
         """Set scroll page size.
 
@@ -225,6 +252,9 @@ cdef class Scroller(Object):
         def __set__(self, value):
             h_pagesize, v_pagesize = value
             elm_scroller_page_size_set(self.obj, h_pagesize, v_pagesize)
+
+    def page_size_set(self, h_pagesize, v_pagesize):
+        elm_scroller_page_size_set(self.obj, h_pagesize, v_pagesize)
 
     property current_page:
         """Get scroll current page number.
@@ -247,6 +277,11 @@ cdef class Scroller(Object):
             elm_scroller_current_page_get(self.obj, &h_pagenumber, &v_pagenumber)
             return (h_pagenumber, v_pagenumber)
 
+    def current_page_get(self):
+        cdef int h_pagenumber, v_pagenumber
+        elm_scroller_current_page_get(self.obj, &h_pagenumber, &v_pagenumber)
+        return (h_pagenumber, v_pagenumber)
+
     property last_page:
         """Get scroll last page number.
 
@@ -265,6 +300,11 @@ cdef class Scroller(Object):
             cdef int h_pagenumber, v_pagenumber
             elm_scroller_last_page_get(self.obj, &h_pagenumber, &v_pagenumber)
             return (h_pagenumber, v_pagenumber)
+
+    def last_page_get(self):
+        cdef int h_pagenumber, v_pagenumber
+        elm_scroller_last_page_get(self.obj, &h_pagenumber, &v_pagenumber)
+        return (h_pagenumber, v_pagenumber)
 
     def page_show(self, h_pagenumber, v_pagenumber):
         """page_show(h_pagenumber, v_pagenumber)
@@ -360,6 +400,11 @@ cdef class Scroller(Object):
         def __set__(self, propagation):
             elm_scroller_propagate_events_set(self.obj, propagation)
 
+    def propagate_events_set(self, propagation):
+        elm_scroller_propagate_events_set(self.obj, propagation)
+    def propagate_events_get(self):
+        return bool(elm_scroller_propagate_events_get(self.obj))
+
     property gravity:
         """Scrolling gravity on a scroller
 
@@ -386,6 +431,13 @@ cdef class Scroller(Object):
         def __set__(self, value):
             x, y = value
             elm_scroller_gravity_set(self.obj, x, y)
+
+    def gravity_set(self, x, y):
+        elm_scroller_gravity_set(self.obj, x, y)
+    def gravity_get(self):
+        cdef double x, y
+        elm_scroller_gravity_get(self.obj, &x, &y)
+        return (x, y)
 
     def callback_edge_left_add(self, func, *args, **kwargs):
         """The left edge of the content has been reached."""

@@ -64,6 +64,11 @@ cdef class Check(LayoutClass):
         def __set__(self, value):
             elm_check_state_set(self.obj, value)
 
+    def state_set(self, value):
+        elm_check_state_set(self.obj, value)
+    def state_get(self):
+        return bool(elm_check_state_get(self.obj))
+
     def callback_changed_add(self, func, *args, **kwargs):
         """This is called whenever the user changes the state of the check
         objects."""

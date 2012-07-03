@@ -141,6 +141,11 @@ cdef class Box(Object):
         def __set__(self, value):
             elm_box_horizontal_set(self.obj, value)
 
+    def horizontal_set(self, horizontal):
+        elm_box_horizontal_set(self.obj, horizontal)
+    def horizontal_get(self):
+        return elm_box_horizontal_get(self.obj)
+
     property homogeneous:
         """Whether the box is using homogeneous mode or not
 
@@ -157,6 +162,11 @@ cdef class Box(Object):
 
         def __set__(self, value):
             elm_box_homogeneous_set(self.obj, value)
+
+    def homogeneous_set(self, homogeneous):
+        elm_box_homogeneous_set(self.obj, homogeneous)
+    def homogeneous_get(self):
+        return bool(elm_box_homogeneous_get(self.obj))
 
     def pack_start(self, evasObject obj):
         """Add an object to the beginning of the pack list.
@@ -320,6 +330,20 @@ cdef class Box(Object):
         def __del__(self):
             elm_box_clear(self.obj)
 
+    def children_get(self):
+        cdef Evas_Object *o
+        cdef Object obj
+        cdef const_Eina_List *lst
+
+        ret = []
+        lst = elm_box_children_get(self.obj)
+        while lst:
+            o = <Evas_Object *> lst.data
+            obj = <Object>evas_object_data_get(o, "python-evas")
+            ret.append(obj)
+            lst = lst.next
+        return ret
+
     property padding:
         """The space (padding) between the box's elements.
 
@@ -341,6 +365,13 @@ cdef class Box(Object):
             horizontal, vertical = value
             elm_box_padding_set(self.obj, horizontal, vertical)
 
+    def padding_set(self, horizontal, vertical):
+        elm_box_padding_set(self.obj, horizontal, vertical)
+    def padding_get(self):
+        cdef int horizontal, vertical
+        elm_box_padding_get(self.obj, &horizontal, &vertical)
+        return (horizontal, vertical)
+
     property align:
         """Set the alignment of the whole bounding box of contents.
 
@@ -360,6 +391,13 @@ cdef class Box(Object):
             cdef double horizontal, vertical
             horizontal, vertical = value
             elm_box_align_set(self.obj, horizontal, vertical)
+
+    def align_set(self, horizontal, vertical):
+        elm_box_align_set(self.obj, horizontal, vertical)
+    def align_get(self):
+        cdef double horizontal, vertical
+        elm_box_align_get(self.obj, &horizontal, &vertical)
+        return (horizontal, vertical)
 
     def recalculate(self):
         """Force the box to recalculate its children packing.
@@ -399,6 +437,11 @@ cdef class Box(Object):
             cdef Evas_Object_Box_Layout ly
             ly = _py_elm_box_layout_resolv(layout)
             elm_box_layout_set(self.obj, ly, NULL, NULL)
+
+    def layout_set(self, layout):
+        cdef Evas_Object_Box_Layout ly
+        ly = _py_elm_box_layout_resolv(layout)
+        elm_box_layout_set(self.obj, ly, NULL, NULL)
 
     def layout_transition(self, duration, from_layout, to_layout):
         """Perform an animation between two given different layout.

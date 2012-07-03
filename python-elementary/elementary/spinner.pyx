@@ -73,6 +73,11 @@ cdef class Spinner(LayoutClass):
         def __set__(self, format):
             elm_spinner_label_format_set(self.obj, _cfruni(format))
 
+    def label_format_set(self, format):
+        elm_spinner_label_format_set(self.obj, _cfruni(format))
+    def label_format_get(self):
+        return _ctouni(elm_spinner_label_format_get(self.obj))
+
     property min_max:
         """The minimum and maximum values for the spinner.
 
@@ -96,6 +101,13 @@ cdef class Spinner(LayoutClass):
             min, max = value
             elm_spinner_min_max_set(self.obj, min, max)
 
+    def min_max_set(self, min, max):
+        elm_spinner_min_max_set(self.obj, min, max)
+    def min_max_get(self):
+        cdef double min, max
+        elm_spinner_min_max_get(self.obj, &min, &max)
+        return (min, max)
+
     property step:
         """The step used to increment or decrement the spinner value.
 
@@ -118,6 +130,11 @@ cdef class Spinner(LayoutClass):
         def __set__(self, step):
             elm_spinner_step_set(self.obj, step)
 
+    def step_set(self, step):
+        elm_spinner_step_set(self.obj, step)
+    def step_get(self):
+        return elm_spinner_step_get(self.obj)
+
     property value:
         """The value the spinner displays.
 
@@ -137,6 +154,11 @@ cdef class Spinner(LayoutClass):
             return elm_spinner_value_get(self.obj)
         def __set__(self, value):
             elm_spinner_value_set(self.obj, value)
+
+    def value_set(self, value):
+        elm_spinner_value_set(self.obj, value)
+    def value_get(self):
+        return elm_spinner_value_get(self.obj)
 
     property wrap:
         """Whether the spinner should wrap when it reaches its minimum or
@@ -171,6 +193,11 @@ cdef class Spinner(LayoutClass):
         def __set__(self, wrap):
             elm_spinner_wrap_set(self.obj, wrap)
 
+    def wrap_set(self, wrap):
+        elm_spinner_wrap_set(self.obj, wrap)
+    def wrap_get(self):
+        return elm_spinner_wrap_get(self.obj)
+
     property editable:
         """Whether the spinner can be directly edited by the user or not.
 
@@ -189,6 +216,11 @@ cdef class Spinner(LayoutClass):
             return elm_spinner_editable_get(self.obj)
         def __set__(self, editable):
             elm_spinner_editable_set(self.obj, editable)
+
+    def editable_set(self, editable):
+        elm_spinner_editable_set(self.obj, editable)
+    def editable_get(self):
+        return elm_spinner_editable_get(self.obj)
 
     def special_value_add(self, value, label):
         """special_value_add(value, label)
@@ -241,6 +273,11 @@ cdef class Spinner(LayoutClass):
         def __set__(self, interval):
             elm_spinner_interval_set(self.obj, interval)
 
+    def interval_set(self, interval):
+        elm_spinner_interval_set(self.obj, interval)
+    def interval_get(self):
+        return elm_spinner_interval_get(self.obj)
+
     property base:
         """The base for rounding
 
@@ -271,6 +308,11 @@ cdef class Spinner(LayoutClass):
         def __set__(self, base):
             elm_spinner_base_set(self.obj, base)
 
+    def base_set(self, base):
+        elm_spinner_base_set(self.obj, base)
+    def base_get(self):
+        return elm_spinner_base_get(self.obj)
+
     property round:
         """The rounding value used for value rounding in the spinner.
 
@@ -284,6 +326,11 @@ cdef class Spinner(LayoutClass):
 
         def __set__(self, rnd):
             elm_spinner_round_set(self.obj, rnd)
+
+    def round_set(self, rnd):
+        elm_spinner_round_set(self.obj, rnd)
+    def round_get(self):
+        return elm_spinner_round_get(self.obj)
 
     def callback_changed_add(self, func, *args, **kwargs):
         """Whenever the spinner value is changed."""

@@ -123,6 +123,9 @@ cdef class Icon(Image):
             # TODO: check return value
             elm_icon_thumb_set(self.obj, _cfruni(filename), _cfruni(group))
 
+    def thumb_set(self, filename, group = None):
+        elm_icon_thumb_set(self.obj, _cfruni(filename), _cfruni(group) if group is not None else NULL)
+
     property standard:
         """The icon standards name.
 
@@ -149,6 +152,11 @@ cdef class Icon(Image):
             # TODO: check return value
             elm_icon_standard_set(self.obj, _cfruni(name))
 
+    def standard_set(self, name):
+        return bool(elm_icon_standard_set(self.obj, _cfruni(name)))
+    def standard_get(self):
+        return _ctouni(elm_icon_standard_get(self.obj))
+
     property order_lookup:
         """The icon lookup order used by :py:attr:`standard`.
 
@@ -159,6 +167,11 @@ cdef class Icon(Image):
             return elm_icon_order_lookup_get(self.obj)
         def __set__(self, order):
             elm_icon_order_lookup_set(self.obj, order)
+
+    def order_lookup_set(self, order):
+        elm_icon_order_lookup_set(self.obj, order)
+    def order_lookup_get(self):
+        return elm_icon_order_lookup_get(self.obj)
 
     def callback_thumb_done_add(self, func, *args, **kwargs):
         """Setting :py:attr:`thumb` has completed with success."""
