@@ -1,4 +1,5 @@
 # Copyright (c) 2008-2009 Simon Busch
+# Copyright 2012 Kai Huuhko <kai.huuhko@gmail.com>
 #
 # This file is part of python-elementary.
 #
@@ -66,10 +67,10 @@ cdef class Photo(Object):
             else:
                 filename = value
                 group = None
-            elm_photo_thumb_set(self.obj, _cfruni(filename), _cfruni(group))
+            elm_photo_thumb_set(self.obj, _cfruni(filename) if filename is not None else NULL, _cfruni(group) if group is not None else NULL)
 
     def thumb_set(self, filename, group):
-        elm_photo_thumb_set(self.obj, _cfruni(filename), _cfruni(group))
+        elm_photo_thumb_set(self.obj, _cfruni(filename) if filename is not None else NULL, _cfruni(group) if group is not None else NULL)
 
     property size:
         """Set the size that will be used on the photo.

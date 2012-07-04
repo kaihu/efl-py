@@ -176,7 +176,7 @@ cdef class Slider(LayoutClass):
     #TODO: def units_format_function_set(self, func, free_func)
 #~         """Set the format function pointer for the units label
 #~
-#~         Set the callback function to format the indicator string.
+#~         Set the callback function to format the units string.
 #~
 #~         .. seealso:: L{units_format_set() for more info on how this works.
 #~

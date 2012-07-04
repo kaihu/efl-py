@@ -1,9 +1,10 @@
 #!/usr/bin/python
 
-from setuptools import setup
-from setuptools import Extension
+from distutils.core import setup
+from distutils.extension import Extension
 from Cython.Distutils import build_ext
 from Cython.Build import cythonize
+from sphinx.setup_command import BuildDoc
 import commands
 
 def pkgconfig(*packages, **kw):
@@ -31,7 +32,7 @@ modules=[
     "conformant",
     "ctxpopup",
     "dayselector",
-    "datetime",
+    "datetime_elm",
     "diskselector",
     "entry",
     "fileselector",
@@ -99,7 +100,7 @@ setup(
     name = "elementary",
     version = "1.7.0",
     description = "Python bindings for EFL Elementary",
-    cmdclass = {'build_ext': build_ext},
+    cmdclass = {'build_ext': build_ext, 'build_sphinx': BuildDoc},
     packages = ["elementary"],
     ext_modules = cythonize(ext_modules),
     requires = [

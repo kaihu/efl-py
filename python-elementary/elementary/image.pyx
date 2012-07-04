@@ -72,7 +72,7 @@ cdef class Image(Object):
                 filename = value
                 group = None
             # TODO: check return value
-            elm_image_file_set(self.obj, _cfruni(filename), _cfruni(group))
+            elm_image_file_set(self.obj, _cfruni(filename) if filename is not None else NULL, _cfruni(group) if group is not None else NULL)
 
         def __get__(self):
             cdef const_char_ptr filename, group
@@ -80,7 +80,7 @@ cdef class Image(Object):
             return (_ctouni(filename), _ctouni(group))
 
     def file_set(self, filename, group = None):
-        elm_image_file_set(self.obj, _cfruni(filename), _cfruni(group) if group is not None else NULL)
+        elm_image_file_set(self.obj, _cfruni(filename) if filename is not None else NULL, _cfruni(group) if group is not None else NULL)
     def file_get(self):
         cdef const_char_ptr filename, group
         elm_image_file_get(self.obj, &filename, &group)

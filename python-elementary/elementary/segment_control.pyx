@@ -142,7 +142,7 @@ cdef class SegmentControl(LayoutClass):
         cdef SegmentControlItem ret = SegmentControlItem()
         cdef Elm_Object_Item *item
 
-        item = elm_segment_control_item_add(self.obj, icon.obj, _cfruni(label))
+        item = elm_segment_control_item_add(self.obj, icon.obj, _cfruni(label) if label is not None else NULL)
         if item != NULL:
             ret._set_obj(item)
             return ret
@@ -186,7 +186,7 @@ cdef class SegmentControl(LayoutClass):
         cdef SegmentControlItem ret = SegmentControlItem()
         cdef Elm_Object_Item *item
 
-        item = elm_segment_control_item_insert_at(self.obj, icon.obj, _cfruni(label), index)
+        item = elm_segment_control_item_insert_at(self.obj, icon.obj, _cfruni(label) if label is not None else NULL, index)
         if item != NULL:
             ret._set_obj(item)
             return ret

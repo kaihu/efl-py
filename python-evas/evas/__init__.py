@@ -1,4 +1,5 @@
 # Copyright (C) 2007-2008 Gustavo Sverzut Barbieri, Caio Marcelo de Oliveira Filho, Ulisses Furquim
+# Copyright 2012 Kai Huuhko <kai.huuhko@gmail.com>
 #
 # This file is part of Python-Evas.
 #
@@ -16,24 +17,6 @@
 # along with this Python-Evas.  If not, see <http://www.gnu.org/licenses/>.
 
 #!/usr/bin/env python2
-
-
-__all__ = [
-    "canvas",
-    "events",
-    "general",
-    "map",
-    "object",
-    "object_box",
-    "object_image",
-    "object_line",
-    "object_polygon",
-    "object_rectangle",
-    "object_smart",
-    "object_text",
-    "rect",
-    "textblock",
-]
 
 from canvas import Canvas, render_method_list, render_method_lookup
 from events import async_events_fd_get, async_events_process
@@ -151,3 +134,22 @@ EVAS_ASPECT_CONTROL_VERTICAL = 3
 EVAS_ASPECT_CONTROL_BOTH = 4
 
 init()
+
+"""
+__all__ = [
+    "canvas",
+    "events",
+    "general",
+    "map",
+    "object",
+    "object_box",
+    "object_image",
+    "object_line",
+    "object_polygon",
+    "object_rectangle",
+    "object_smart",
+    "object_text",
+    "rect",
+    "textblock",
+]
+"""

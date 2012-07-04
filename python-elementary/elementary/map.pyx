@@ -649,12 +649,17 @@ cdef public class Map(Object)[object PyElementaryMap, type PyElementaryMap_Type]
     def overlay_route_add(self, route):
         return MapOverlayRoute(self, route)
 
-    property tile_load_status_get:
+    property tile_load_status:
         def __get__(self):
             cdef int try_num, finish_num
 
             elm_map_tile_load_status_get(self.obj, &try_num, &finish_num)
             return (try_num, finish_num)
+
+    def tile_load_status_get(self):
+        cdef int try_num, finish_num
+        elm_map_tile_load_status_get(self.obj, &try_num, &finish_num)
+        return (try_num, finish_num)
 
     def sources_get(self, type):
         cdef const_char_ptr *lst

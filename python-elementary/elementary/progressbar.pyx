@@ -43,14 +43,21 @@ cdef class Progressbar(LayoutClass):
 
     This widget emits the following signals, besides the ones sent from
     :py:class:`elementary.layout.Layout`:
+
+        - C{"changed"} - when the value is changed
+
+    This widget has the following styles:
+
         - ``"default"``
-        - ``"wheel"`` (simple style, no text, no progression, only
-          "pulse" effect is available)
+        - ``"wheel"`` (simple style, no text, no progression, only "pulse"
+            effect is available)
 
     Default text parts of the progressbar widget that you can use for are:
+
         - "default" - Label of the progressbar
 
     Default content parts of the progressbar widget that you can use for are:
+
         - "icon" - An icon of the progressbar
 
     """
@@ -184,6 +191,21 @@ cdef class Progressbar(LayoutClass):
     def unit_format_get(self):
         return _ctouni(elm_progressbar_unit_format_get(self.obj))
 
+    property unit_format_function:
+        """Set the callback function to format the unit string.
+
+        @see: L{unit_format} for more info on how this works.
+
+        @type: function
+
+        """
+        def __set__(self, func not None):
+            pass
+            #if not callable(func):
+                #raise TypeError("func is not callable")
+            #TODO: char * func(double value)
+            #elm_progressbar_unit_format_function_set(self.obj, func, NULL)
+
     property horizontal:
         """The orientation of a given progress bar widget.
 
@@ -227,6 +249,13 @@ cdef class Progressbar(LayoutClass):
         elm_progressbar_inverted_set(self.obj, inverted)
     def inverted_get(self):
         return bool(elm_progressbar_inverted_get(self.obj))
+
+    def callback_changed_add(self, func, *args, **kwargs):
+        """When the value is changed."""
+        self._callback_add("changed", func, *args, **kwargs)
+
+    def callback_changed_del(self, func):
+        self._callback_del("changed", func)
 
 _elm_widget_type_register("progressbar", Progressbar)
 

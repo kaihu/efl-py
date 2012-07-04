@@ -1,9 +1,10 @@
 #!/usr/bin/python
 
-from setuptools import setup
-from setuptools import Extension
+from distutils.core import setup
+from distutils.extension import Extension
 from Cython.Distutils import build_ext
 from Cython.Build import cythonize
+from sphinx.setup_command import BuildDoc
 import commands
 
 def pkgconfig(*packages, **kw):
@@ -49,7 +50,7 @@ setup(
     name = "evas",
     version = "1.7.0",
     description = "Python bindings for EFL Evas",
-    cmdclass = {'build_ext': build_ext},
+    cmdclass = {'build_ext': build_ext, 'build_sphinx': BuildDoc},
     packages = ["evas"],
     ext_modules = cythonize(ext_modules),
     package_data = {"evas": ["*.pxd"]},

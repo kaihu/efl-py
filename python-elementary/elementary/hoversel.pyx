@@ -50,7 +50,7 @@ cdef class HoverselItem(ObjectItem):
         """
         self.label = unicode(label)
         self.icon_file = unicode(icon_file)
-        self.icon_type = unicode(icon_type)
+        self.icon_type = icon_type
 
         if callback:
             if not callable(callback):

@@ -28,7 +28,8 @@ from object_item import _cb_object_item_conv
 cdef _py_elm_slideshow_item_call(func, Evas_Object *obj, data) with gil:
     try:
         o = Object_from_instance(obj)
-        return func(o, data)
+        (args, kwargs) = data
+        return func(o, *args, **kwargs)
     except Exception as e:
         traceback.print_exc()
         return None
@@ -179,14 +180,21 @@ cdef class SlideshowItem(ObjectItem):
 
     """An item for Slideshow."""
 
-    def __init__(self, item, params):
-        pass
+    cdef int _set_obj(self, Elm_Object_Item *item, params=None) except 0:
+        assert self.item == NULL, "Object must be clean"
+        self.item = item
+        Py_INCREF(self)
+        return 1
+
+    cdef void _unset_obj(self):
+        assert self.item != NULL, "Object must wrap something"
+        self.item = NULL
 
     def __str__(self):
         return "%s(item_class=%s, func=%s, item_data=%s)" % \
                (self.__class__.__name__,
                 self.params[0].__class__.__name__,
-                self.params[3],
+                self.params[2],
                 self.params[1])
 
     def __repr__(self):
@@ -197,7 +205,7 @@ cdef class SlideshowItem(ObjectItem):
                 PY_REFCOUNT(self),
                 <unsigned long>self.obj,
                 self.params[0].__class__.__name__,
-                self.params[3],
+                self.params[2],
                 self.params[1])
 
     property object:
@@ -319,9 +327,10 @@ cdef class Slideshow(LayoutClass):
         cdef Elm_Object_Item *item
 
         item_data = (args, kwargs)
+        ret.params = (item_class, item_data)
         item = elm_slideshow_item_add(self.obj, &item_class.obj, <void*>ret)
         if item != NULL:
-            ret.item = item
+            ret._set_obj(item)
             return ret
         else:
             return None
@@ -367,7 +376,7 @@ cdef class Slideshow(LayoutClass):
         ret.params = (item_class, item_data, func)
         item = elm_slideshow_item_sorted_insert(self.obj, &item_class.obj, <void*>ret, compare)
         if item != NULL:
-            ret.item = item
+            ret._set_obj(item)
             return ret
         else:
             return None

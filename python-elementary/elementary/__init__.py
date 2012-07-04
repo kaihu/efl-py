@@ -1,4 +1,5 @@
 # Copyright (c) 2008 Simon Busch
+# Copyright 2012 Kai Huuhko <kai.huuhko@gmail.com>
 #
 # This file is part of python-elementary.
 #
@@ -16,76 +17,6 @@
 # along with python-elementary.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-__all__ = [
-    "actionslider",
-    "background",
-    "box",
-    "bubble",
-    "button",
-    "calendar",
-    "check",
-    "clock",
-    "colorselector",
-    "configuration",
-    "conformant",
-    "ctxpopup",
-    "datetime",
-    "dayselector",
-    "diskselector",
-    "entry",
-    "fileselector",
-    "fileselector_button",
-    "fileselector_entry",
-    "flip",
-    "frame",
-    "general",
-    "gengrid",
-    "genlist",
-    "gesture_layer",
-    "grid",
-    "hover",
-    "hoversel",
-    "icon",
-    "image",
-    "index",
-    "innerwindow",
-    "label",
-    "layout_class",
-    "layout",
-    "list",
-    "map",
-    "mapbuf",
-    "menu",
-    "multibuttonentry",
-    "naviframe",
-    "need",
-    "notify",
-    "object",
-    "object_item",
-    "panel",
-    "panes",
-    "photo",
-    "photocam",
-    "plug",
-    "popup",
-    "progressbar",
-    "radio",
-    "scroller",
-    "segment_control",
-    "separator",
-    "slider",
-    "slideshow",
-    "spinner",
-    "table",
-    "theme",
-    "thumb",
-    "toolbar",
-    "transit",
-    "video",
-    "web",
-    "window",
-]
-
 from actionslider import Actionslider
 from background import Background
 from box import Box
@@ -98,7 +29,7 @@ from colorselector import Colorselector, ColorselectorPaletteItem
 from configuration import Configuration
 from conformant import Conformant
 from ctxpopup import Ctxpopup, CtxpopupItem
-from datetime import Datetime
+from datetime_elm import Datetime
 from dayselector import Dayselector
 from diskselector import Diskselector, DiskselectorItem
 from entry import Entry
@@ -186,6 +117,7 @@ ELM_CALENDAR_DAILY = 1
 ELM_CALENDAR_WEEKLY = 2
 ELM_CALENDAR_MONTHLY = 3
 ELM_CALENDAR_ANNUALLY = 4
+ELM_CALENDAR_LAST_DAY_OF_MONTH = 5
 
 ELM_CALENDAR_SELECT_MODE_DEFAULT = 0
 ELM_CALENDAR_SELECT_MODE_ALWAYS = 1
@@ -494,3 +426,75 @@ ELM_WRAP_WORD = 2
 ELM_WRAP_MIXED = 3
 
 init()
+
+"""
+__all__ = [
+    "actionslider",
+    "background",
+    "box",
+    "bubble",
+    "button",
+    "calendar",
+    "check",
+    "clock",
+    "colorselector",
+    "configuration",
+    "conformant",
+    "ctxpopup",
+    "datetime_elm",
+    "dayselector",
+    "diskselector",
+    "entry",
+    "fileselector",
+    "fileselector_button",
+    "fileselector_entry",
+    "flip",
+    "frame",
+    "general",
+    "gengrid",
+    "genlist",
+    "gesture_layer",
+    "grid",
+    "hover",
+    "hoversel",
+    "icon",
+    "image",
+    "index",
+    "innerwindow",
+    "label",
+    "layout_class",
+    "layout",
+    "list",
+    "map",
+    "mapbuf",
+    "menu",
+    "multibuttonentry",
+    "naviframe",
+    "need",
+    "notify",
+    "object",
+    "object_item",
+    "panel",
+    "panes",
+    "photo",
+    "photocam",
+    "plug",
+    "popup",
+    "progressbar",
+    "radio",
+    "scroller",
+    "segment_control",
+    "separator",
+    "slider",
+    "slideshow",
+    "spinner",
+    "table",
+    "theme",
+    "thumb",
+    "toolbar",
+    "transit",
+    "video",
+    "web",
+    "window",
+]
+"""
