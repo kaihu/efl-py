@@ -325,6 +325,7 @@ cdef class GengridItem(ObjectItem):
                 self.params[1])
 
     property data:
+        """User data for the item."""
         def __get__(self):
             return self.params[1]
 
@@ -332,6 +333,10 @@ cdef class GengridItem(ObjectItem):
         return self.params[1]
 
     property next:
+        """This returns the item placed after the item, on the container
+        gengrid.
+
+        """
         def __get__(self):
             return _object_item_to_python(elm_gengrid_item_next_get(self.item))
 
@@ -339,6 +344,10 @@ cdef class GengridItem(ObjectItem):
         return _object_item_to_python(elm_gengrid_item_next_get(self.item))
 
     property prev:
+        """This returns the item placed before the item, on the container
+        gengrid.
+
+        """
         def __get__(self):
             return _object_item_to_python(elm_gengrid_item_prev_get(self.item))
 
@@ -346,6 +355,9 @@ cdef class GengridItem(ObjectItem):
         return _object_item_to_python(elm_gengrid_item_prev_get(self.item))
 
     property index:
+        """Get the index of the item. It is only valid once displayed.
+
+        """
         def __get__(self):
             return elm_gengrid_item_index_get(self.item)
 
@@ -353,9 +365,23 @@ cdef class GengridItem(ObjectItem):
         return elm_gengrid_item_index_get(self.item)
 
     def update(self):
+        """This updates an item by calling all the item class functions
+        again to get the contents, texts and states. Use this when the
+        original item data has changed and you want the changes to be
+        reflected.
+
+        """
         elm_gengrid_item_update(self.item)
 
     property selected:
+        """This sets the selected state of an item. If multi-selection is
+        not enabled on the containing gengrid and *selected* is ``True``,
+        any other previously selected items will get unselected in favor of
+        this new one.
+
+        .. seealso:: :py:func:`item_selected_get()`
+
+        """
         def __get__(self):
             return bool(elm_gengrid_item_selected_get(self.item))
 
@@ -368,9 +394,27 @@ cdef class GengridItem(ObjectItem):
         return bool(elm_gengrid_item_selected_get(self.item))
 
     def show(self, scrollto_type = ELM_GENLIST_ITEM_SCROLLTO_IN):
+        """This causes gengrid to **redraw** its viewport's contents to the
+        region containing the given @p item item, if it is not fully
+        visible.
+
+        .. seealso:: :py:func:`item_bring_in()`
+
+        :param type: Where to position the item in the viewport.
+
+        """
         elm_gengrid_item_show(self.item, scrollto_type)
 
     def bring_in(self, scrollto_type = ELM_GENLIST_ITEM_SCROLLTO_IN):
+        """This causes gengrid to jump to the item and show
+        it (by scrolling), if it is not fully visible. This will use
+        animation to do so and take a period of time to complete.
+
+        .. seealso:: :py:func:`item_show()`
+
+        :param type: Where to position the item in the viewport.
+
+        """
         elm_gengrid_item_bring_in(self.item, scrollto_type)
 
     property pos:
@@ -389,15 +433,16 @@ cdef class GengridItem(ObjectItem):
     # XXX TODO elm_gengrid_item_item_class_get
 
     def tooltip_text_set(self, text):
+        elm_gengrid_item_tooltip_text_set(self.item, _cfruni(text))
+
+    property tooltip_text:
         """Set the text to be shown in the tooltip object
 
         Setup the text as tooltip object. The object can have only one
         tooltip, so any previous tooltip data is removed.
-        Internaly, this method call :py:func:`tooltip_content_cb_set`
-        """
-        elm_gengrid_item_tooltip_text_set(self.item, _cfruni(text))
+        Internally, this method calls :py:func:`tooltip_content_cb_set`
 
-    property tooltip_text:
+        """
         def __get__(self):
             return self.tooltip_text_get()
 
@@ -412,6 +457,7 @@ cdef class GengridItem(ObjectItem):
 
         :param func: Function to be create tooltip content, called when
             need show tooltip.
+
         """
         if not callable(func):
             raise TypeError("func must be callable")
@@ -429,18 +475,21 @@ cdef class GengridItem(ObjectItem):
     def item_tooltip_unset(self):
         """ Unset tooltip from object
 
-        Remove tooltip from object. If used the :py:func:`tooltip_text_set` the internal
-        copy of label will be removed correctly. If used
-        :py:func:`tooltip_content_cb_set`, the data will be unreferred but no freed.
+        Remove tooltip from object. If used the :py:func:`tooltip_text_set`
+        the internal copy of label will be removed correctly. If used
+        :py:func:`tooltip_content_cb_set`, the data will be unreferred but
+        no freed.
+
         """
         elm_gengrid_item_tooltip_unset(self.item)
 
     property tooltip_style:
         """Style for this object tooltip.
 
-        @note: before you set a style you should define a tooltip with
+        .. note::: before you set a style you should define a tooltip with
             elm_gengrid_item_tooltip_content_cb_set() or
             elm_gengrid_item_tooltip_text_set()
+
         """
         def __get__(self):
             return _ctouni(elm_gengrid_item_tooltip_style_get(self.item))
@@ -524,21 +573,219 @@ cdef class GengridItem(ObjectItem):
         return elm_gengrid_item_select_mode_get(self.item)
 
 cdef class Gengrid(Object):
-    """Creates a generic, scalable and extensible grid widget.
 
-    Like :py:class:`elementary.genlist.Genlist`, this widget allows more
-    items while keeping performance. The items may have different look and
-    feel, not being restricted only to icon and label.
+    """This widget aims to position objects in a grid layout while actually
+    creating and rendering only the visible ones, using the same idea as the
+    :py:class:`elementary.genlist.Genlist`: the user defines a **class** for
+    each item, specifying functions that will be called at object creation,
+    deletion, etc. When those items are selected by the user, a callback
+    function is issued. Users may interact with a gengrid via the mouse (by
+    clicking on items to select them and clicking on the grid's viewport and
+    swiping to pan the whole view) or via the keyboard, navigating through
+    item with the arrow keys.
+
+    .. rubric:: Gengrid layouts
+
+    Gengrid may layout its items in one of two possible layouts:
+
+    - horizontal or
+    - vertical.
+
+    When in "horizontal mode", items will be placed in **columns**, from top
+    to bottom and, when the space for a column is filled, another one is
+    started on the right, thus expanding the grid horizontally, making for
+    horizontal scrolling. When in "vertical mode" , though, items will be
+    placed in **rows**, from left to right and, when the space for a row is
+    filled, another one is started below, thus expanding the grid vertically
+    (and making for vertical scrolling).
+
+    .. rubric:: Gengrid items
+
+    An item in a gengrid can have 0 or more texts (they can be regular text
+    or textblock Evas objects - that's up to the style to determine), 0 or
+    more contents (which are simply objects swallowed into the gengrid
+    item's theming Edje object) and 0 or more **boolean states**, which
+    have the behavior left to the user to define. The Edje part names for
+    each of these properties will be looked up, in the theme file for the
+    gengrid, under the Edje (string) data items named ``"texts"``,
+    ``"contents"`` and ``"states"``, respectively. For each of those
+    properties, if more than one part is provided, they must have names
+    listed separated by spaces in the data fields. For the default gengrid
+    item theme, we have **one** text part (``"elm.text"),`` **two** content
+    parts (``"elm.swalllow.icon"`` and ``"elm.swallow.end")`` and **no**
+    state parts.
+
+    A gengrid item may be at one of several styles. Elementary provides one
+    by default - "default", but this can be extended by system or
+    application custom themes/overlays/extensions (see @ref Theme "themes"
+    for more details).
+
+    .. rubric:: Gengrid item classes
+
+    In order to have the ability to add and delete items on the fly, gengrid
+    implements a class (callback) system where the application provides a
+    structure with information about that type of item (gengrid may contain
+    multiple different items with different classes, states and styles).
+    Gengrid will call the functions in this struct (methods) when an item is
+    "realized" (i.e., created dynamically, while the user is scrolling the
+    grid). All objects will simply be deleted when no longer needed with
+    evas_object_del(). The #Elm_Gengrid_Item_Class structure contains the
+    following members:
+
+    - ``item_style`` - This is a constant string and simply defines the name
+      of the item style. It **must** be specified and the default should be
+      ``"default".``
+    - ``func.text_get`` - This function is called when an item object is
+      actually created. The ``data`` parameter will point to the same data
+      passed to elm_gengrid_item_append() and related item creation
+      functions. The ``obj`` parameter is the gengrid object itself, while
+      the ``part`` one is the name string of one of the existing text parts
+      in the Edje group implementing the item's theme. This function
+      **must** return a strdup'()ed string, as the caller will free() it
+      when done. See #Elm_Gengrid_Item_Text_Get_Cb.
+    - ``func.content_get`` - This function is called when an item object is
+      actually created. The ``data`` parameter will point to the same data
+      passed to elm_gengrid_item_append() and related item creation
+      functions. The ``obj`` parameter is the gengrid object itself, while
+      the ``part`` one is the name string of one of the existing (content)
+      swallow parts in the Edje group implementing the item's theme. It must
+      return ``NULL,`` when no content is desired, or a valid object handle,
+      otherwise. The object will be deleted by the gengrid on its deletion
+      or when the item is "unrealized". See #Elm_Gengrid_Item_Content_Get_Cb.
+    - ``func.state_get`` - This function is called when an item object is
+      actually created. The ``data`` parameter will point to the same data
+      passed to elm_gengrid_item_append() and related item creation
+      functions. The ``obj`` parameter is the gengrid object itself, while
+      the ``part`` one is the name string of one of the state parts in the
+      Edje group implementing the item's theme. Return ``EINA_FALSE`` for
+      false/off or ``EINA_TRUE`` for true/on. Gengrids will emit a signal to
+      its theming Edje object with ``"elm,state,xxx,active"`` and ``"elm"``
+      as "emission" and "source" arguments, respectively, when the state is
+      true (the default is false), where ``xxx`` is the name of the (state)
+      part. See #Elm_Gengrid_Item_State_Get_Cb.
+    - ``func.del`` - This is called when elm_object_item_del() is called on
+      an item or elm_gengrid_clear() is called on the gengrid. This is
+      intended for use when gengrid items are deleted, so any data attached
+      to the item (e.g. its data parameter on creation) can be deleted. See
+      #Elm_Gengrid_Item_Del_Cb.
+
+    .. rubric:: Usage hints
+
+    If the user wants to have multiple items selected at the same time,
+    elm_gengrid_multi_select_set() will permit it. If the gengrid is
+    single-selection only (the default), then elm_gengrid_select_item_get()
+    will return the selected item or ``NULL,`` if none is selected. If the
+    gengrid is under multi-selection, then elm_gengrid_selected_items_get()
+    will return a list (that is only valid as long as no items are modified
+    (added, deleted, selected or unselected) of child items on a gengrid.
+
+    If an item changes (internal (boolean) state, text or content changes),
+    then use elm_gengrid_item_update() to have gengrid update the item with
+    the new state. A gengrid will re-"realize" the item, thus calling the
+    functions in the #Elm_Gengrid_Item_Class set for that item.
+
+    To programmatically (un)select an item, use
+    elm_gengrid_item_selected_set(). To get its selected state use
+    elm_gengrid_item_selected_get(). To make an item disabled (unable to be
+    selected and appear differently) use elm_object_item_disabled_set() to
+    set this and elm_object_item_disabled_get() to get the disabled state.
+
+    Grid cells will only have their selection smart callbacks called when
+    firstly getting selected. Any further clicks will do nothing, unless you
+    enable the "always select mode", with elm_gengrid_select_mode_set() as
+    ELM_OBJECT_SELECT_MODE_ALWAYS, thus making every click to issue
+    selection callbacks. elm_gengrid_select_mode_set() as
+    ELM_OBJECT_SELECT_MODE_NONE will turn off the ability to select items
+    entirely in the widget and they will neither appear selected nor call
+    the selection smart callbacks.
+
+    Remember that you can create new styles and add your own theme
+    augmentation per application with elm_theme_extension_add(). If you
+    absolutely must have a specific style that overrides any theme the user
+    or system sets up you can use elm_theme_overlay_add() to add such a file.
+
+    .. rubric:: Gengrid smart events
+
+    Smart events that you can add callbacks for are:
+
+    - ``"activated"`` - The user has double-clicked or pressed
+      (enter|return|spacebar) on an item. The ``event_info`` parameter
+      is the gengrid item that was activated.
+    - ``"clicked,double"`` - The user has double-clicked an item.
+      The ``event_info`` parameter is the gengrid item that was double-clicked.
+    - ``"longpressed"`` - This is called when the item is pressed for a certain
+      amount of time. By default it's 1 second.
+    - ``"selected"`` - The user has made an item selected. The
+      ``event_info`` parameter is the gengrid item that was selected.
+    - ``"unselected"`` - The user has made an item unselected. The
+      ``event_info`` parameter is the gengrid item that was unselected.
+    - ``"realized"`` - This is called when the item in the gengrid
+      has its implementing Evas object instantiated, de facto. @c
+      event_info is the gengrid item that was created. The object
+      may be deleted at any time, so it is highly advised to the
+      caller **not** to use the object pointer returned from
+      elm_gengrid_item_object_get(), because it may point to freed
+      objects.
+    - ``"unrealized"`` - This is called when the implementing Evas
+      object for this item is deleted. ``event_info`` is the gengrid
+      item that was deleted.
+    - ``"changed"`` - Called when an item is added, removed, resized
+      or moved and when the gengrid is resized or gets "horizontal"
+      property changes.
+    - ``"scroll,anim,start"`` - This is called when scrolling animation has
+      started.
+    - ``"scroll,anim,stop"`` - This is called when scrolling animation has
+      stopped.
+    - ``"drag,start,up"`` - Called when the item in the gengrid has
+      been dragged (not scrolled) up.
+    - ``"drag,start,down"`` - Called when the item in the gengrid has
+      been dragged (not scrolled) down.
+    - ``"drag,start,left"`` - Called when the item in the gengrid has
+      been dragged (not scrolled) left.
+    - ``"drag,start,right"`` - Called when the item in the gengrid has
+      been dragged (not scrolled) right.
+    - ``"drag,stop"`` - Called when the item in the gengrid has
+      stopped being dragged.
+    - ``"drag"`` - Called when the item in the gengrid is being
+      dragged.
+    - ``"scroll"`` - called when the content has been scrolled
+      (moved).
+    - ``"scroll,drag,start"`` - called when dragging the content has
+      started.
+    - ``"scroll,drag,stop"`` - called when dragging the content has
+      stopped.
+    - ``"edge,top"`` - This is called when the gengrid is scrolled until
+      the top edge.
+    - ``"edge,bottom"`` - This is called when the gengrid is scrolled
+      until the bottom edge.
+    - ``"edge,left"`` - This is called when the gengrid is scrolled
+      until the left edge.
+    - ``"edge,right"`` - This is called when the gengrid is scrolled
+      until the right edge.
 
     """
+
     def __init__(self, evasObject parent):
         Object.__init__(self, parent.evas)
         self._set_obj(elm_gengrid_add(parent.obj))
 
     def clear(self):
+        """Remove all items from a given gengrid widget."""
         elm_gengrid_clear(self.obj)
 
     property multi_select:
+        """Multi-selection is the ability to have **more** than one
+        item selected, on a given gengrid, simultaneously. When it is
+        enabled, a sequence of clicks on different items will make them
+        all selected, progressively. A click on an already selected item
+        will unselect it. If interacting via the keyboard,
+        multi-selection is enabled while holding the "Shift" key.
+
+        .. note:: By default, multi-selection is **disabled** on gengrids.
+
+        :type: bool
+
+        """
         def __get__(self):
             return bool(elm_gengrid_multi_select_get(self.obj))
 
@@ -551,6 +798,17 @@ cdef class Gengrid(Object):
         return bool(elm_gengrid_multi_select_get(self.obj))
 
     property horizontal:
+        """When in "horizontal mode" (``EINA_TRUE),`` items will be placed
+        in **columns**, from top to bottom and, when the space for a
+        column is filled, another one is started on the right, thus
+        expanding the grid horizontally. When in "vertical mode"
+        (``EINA_FALSE),`` though, items will be placed in **rows**, from left
+        to right and, when the space for a row is filled, another one is
+        started below, thus expanding the grid vertically.
+
+        :type: bool
+
+        """
         def __get__(self):
             return bool(elm_gengrid_horizontal_get(self.obj))
 
@@ -563,6 +821,14 @@ cdef class Gengrid(Object):
         return bool(elm_gengrid_horizontal_get(self.obj))
 
     property bounce:
+        """The bouncing effect occurs whenever one reaches the gengrid's
+        edge's while panning it -- it will scroll past its limits a
+        little bit and return to the edge again, in a animated for,
+        automatically.
+
+        .. note:: By default, gengrids have bouncing enabled on both axis
+
+        """
         def __get__(self):
             cdef Eina_Bool h_bounce, v_bounce
             elm_gengrid_bounce_get(self.obj, &h_bounce, &v_bounce)
@@ -767,6 +1033,14 @@ cdef class Gengrid(Object):
     # XXX TODO elm_gengrid_item_sorted_insert()
 
     property selected_item:
+        """This returns the selected item in @p obj. If multi selection is
+        enabled on @p obj (.. seealso:: :py:func:`multi_select_set()),` only
+        the first item in the list is selected, which might not be very
+        useful. For that case, see elm_gengrid_selected_items_get().
+
+        :type: :py:class:`GenlistItem`
+
+        """
         def __get__(self):
             return _object_item_to_python(elm_gengrid_selected_item_get(self.obj))
 
@@ -774,6 +1048,14 @@ cdef class Gengrid(Object):
         return _object_item_to_python(elm_gengrid_selected_item_get(self.obj))
 
     property selected_items:
+        """This returns a tuple of the selected items, in the order that they
+        appear in the grid.
+
+        .. seealso:: :py:func:`selected_item`
+
+        :type: tuple of :py:class:`GenlistItem`
+
+        """
         def __get__(self):
             return _object_item_list_to_python(elm_gengrid_selected_items_get(self.obj))
 
@@ -781,6 +1063,13 @@ cdef class Gengrid(Object):
         return _object_item_list_to_python(elm_gengrid_selected_items_get(self.obj))
 
     property realized_items:
+        """This returns a tuple of the realized items in the gengrid.
+
+        .. seealso:: :py:func:`realized_items_update()`
+
+        :type: tuple of :py:class:`GenlistItem`
+
+        """
         def __get__(self):
             return _object_item_list_to_python(elm_gengrid_realized_items_get(self.obj))
 
@@ -788,9 +1077,24 @@ cdef class Gengrid(Object):
         return _object_item_list_to_python(elm_gengrid_realized_items_get(self.obj))
 
     def realized_items_update(self):
+        """This updates all realized items by calling all the item class functions again
+        to get the contents, texts and states. Use this when the original
+        item data has changed and the changes are desired to be reflected.
+
+        To update just one item, use elm_gengrid_item_update().
+
+        .. seealso:: :py:func:`realized_items_get()`
+        .. seealso:: :py:func:`item_update()`
+
+        """
         elm_gengrid_realized_items_update(self.obj)
 
     property first_item:
+        """Get the first item in the gengrid widget.
+
+        :type: :py:class:`GenlistItem`
+
+        """
         def __get__(self):
             return _object_item_to_python(elm_gengrid_first_item_get(self.obj))
 
@@ -798,6 +1102,11 @@ cdef class Gengrid(Object):
         return _object_item_to_python(elm_gengrid_first_item_get(self.obj))
 
     property last_item:
+        """Get the last item in the gengrid widget.
+
+        :type: :py:class:`GenlistItem`
+
+        """
         def __get__(self):
             return _object_item_to_python(elm_gengrid_last_item_get(self.obj))
 
@@ -805,6 +1114,15 @@ cdef class Gengrid(Object):
         return _object_item_to_python(elm_gengrid_last_item_get(self.obj))
 
     property scroller_policy:
+        """This sets the scrollbar visibility policy for the given gengrid
+        scroller. #ELM_SCROLLER_POLICY_AUTO means the scrollbar is made
+        visible if it is needed, and otherwise kept hidden.
+        #ELM_SCROLLER_POLICY_ON turns it on all the time, and
+        #ELM_SCROLLER_POLICY_OFF always keeps it off. This applies
+        respectively for the horizontal and vertical scrollbars. Default is
+        #ELM_SCROLLER_POLICY_AUTO
+
+        """
         def __get__(self):
             cdef Elm_Scroller_Policy policy_h, policy_v
             elm_gengrid_scroller_policy_get(self.obj, &policy_h, &policy_v)
@@ -821,10 +1139,23 @@ cdef class Gengrid(Object):
         elm_gengrid_scroller_policy_get(self.obj, &policy_h, &policy_v)
         return (policy_h, policy_v)
 
-    def items_count(self):
-        return elm_gengrid_items_count(self.obj)
+    property items_count:
+        """Return how many items are currently in a list.
+
+        :type: int
+
+        """
+        def __get__(self):
+            return elm_gengrid_items_count(self.obj)
 
     property item_size:
+        """A gengrid, after creation, has still no information on the size
+        to give to each of its cells. So, you most probably will end up
+        with squares one @ref Fingers "finger" wide, the default
+        size. Use this property to force a custom size for you items,
+        making them as big as you wish.
+
+        """
         def __get__(self):
             cdef Evas_Coord x, y
             elm_gengrid_item_size_get(self.obj, &x, &y)
@@ -842,6 +1173,13 @@ cdef class Gengrid(Object):
         return (x, y)
 
     property group_item_size:
+        """A gengrid, after creation, has still no information on the size
+        to give to each of its cells. So, you most probably will end up
+        with squares one @ref Fingers "finger" wide, the default
+        size. Use this function to force a custom size for you group items,
+        making them as big as you wish.
+
+        """
         def __get__(self):
             cdef Evas_Coord w, h
             elm_gengrid_group_item_size_get(self.obj, &w, &h)
@@ -859,6 +1197,16 @@ cdef class Gengrid(Object):
         return (w, h)
 
     property align:
+        """This sets the alignment of the whole grid of items of a gengrid
+        within its given viewport. By default, those values are both
+        0.5, meaning that the gengrid will have its items grid placed
+        exactly in the middle of its viewport.
+
+        .. note:: If given alignment values are out of the cited ranges,
+            they'll be changed to the nearest boundary values on the valid
+            ranges.
+
+        """
         def __get__(self):
             cdef double align_x, align_y
             elm_gengrid_align_get(self.obj, &align_x, &align_y)
@@ -876,6 +1224,17 @@ cdef class Gengrid(Object):
         return (align_x, align_y)
 
     property reorder_mode:
+        """If a gengrid is set to allow reordering, a click held for more
+        than 0.5 over a given item will highlight it specially,
+        signaling the gengrid has entered the reordering state. From
+        that time on, the user will be able to, while still holding the
+        mouse button down, move the item freely in the gengrid's
+        viewport, replacing to said item to the locations it goes to.
+        The replacements will be animated and, whenever the user
+        releases the mouse button, the item being replaced gets a new
+        definitive place in the grid.
+
+        """
         def __get__(self):
             return bool(elm_gengrid_reorder_mode_get(self.obj))
 
@@ -888,6 +1247,27 @@ cdef class Gengrid(Object):
         return bool(elm_gengrid_reorder_mode_get(self.obj))
 
     property page_relative:
+        """The gengrid's scroller is capable of binding scrolling by the
+        user to "pages". It means that, while scrolling and, specially
+        after releasing the mouse button, the grid will **snap** to the
+        nearest displaying page's area. When page sizes are set, the
+        grid's continuous content area is split into (equal) page sized
+        pieces.
+
+        This function sets the size of a page <b>relatively to the
+        viewport dimensions</b> of the gengrid, for each axis. A value
+        ``1.0`` means "the exact viewport's size", in that axis, while @c
+        0.0 turns paging off in that axis. Likewise, ``0.5`` means "half
+        a viewport". Sane usable values are, than, between ``0.0`` and @c
+        1.0. Values beyond those will make it behave behave
+        inconsistently. If you only want one axis to snap to pages, use
+        the value ``0.0`` for the other one.
+
+        There is a function setting page size values in **absolute**
+        values, too -- elm_gengrid_page_size_set(). Naturally, its use
+        is mutually exclusive to this one.
+
+        """
         def __get__(self):
             cdef double h_pagerel, v_pagerel
             elm_gengrid_page_relative_get(self.obj, &h_pagerel, &v_pagerel)
@@ -904,10 +1284,43 @@ cdef class Gengrid(Object):
         elm_gengrid_page_relative_get(self.obj, &h_pagerel, &v_pagerel)
         return (h_pagerel, v_pagerel)
 
+    property page_size:
+        """The gengrid's scroller is capable of binding scrolling by the
+        user to "pages". It means that, while scrolling and, specially
+        after releasing the mouse button, the grid will **snap** to the
+        nearest displaying page's area. When page sizes are set, the
+        grid's continuous content area is split into (equal) page sized
+        pieces.
+
+        This function sets the size of a page of the gengrid, in pixels,
+        for each axis. Sane usable values are, between ``0`` and the
+        dimensions of @p obj, for each axis. Values beyond those will
+        make it behave behave inconsistently. If you only want one axis
+        to snap to pages, use the value ``0`` for the other one.
+
+        There is a function setting page size values in **relative**
+        values, too -- elm_gengrid_page_relative_set(). Naturally, its
+        use is mutually exclusive to this one.
+
+        """
+        def __set__(self, value):
+            h_pagesize, v_pagesize = value
+            elm_gengrid_page_size_set(self.obj, h_pagesize, v_pagesize)
+
     def page_size_set(self, h_pagesize, v_pagesize):
         elm_gengrid_page_size_set(self.obj, h_pagesize, v_pagesize)
 
     property current_page:
+        """The page number starts from 0. 0 is the first page.
+        Current page means the page which meet the top-left of the viewport.
+        If there are two or more pages in the viewport, it returns the number of page
+        which meet the top-left of the viewport.
+
+        .. seealso:: :py:func:`last_page_get()`
+        .. seealso:: :py:func:`page_show()`
+        .. seealso:: :py:func:`page_bring_in()`
+
+        """
         def __get__(self):
             cdef int h_pagenum, v_pagenum
             elm_gengrid_current_page_get(self.obj, &h_pagenum, &v_pagenum)
@@ -919,6 +1332,14 @@ cdef class Gengrid(Object):
         return (h_pagenum, v_pagenum)
 
     property last_page:
+        """The page number starts from 0. 0 is the first page.
+        This returns the last page number among the pages.
+
+        .. seealso:: :py:func:`current_page_get()`
+        .. seealso:: :py:func:`page_show()`
+        .. seealso:: :py:func:`page_bring_in()`
+
+        """
         def __get__(self):
             cdef int h_pagenum, v_pagenum
             elm_gengrid_last_page_get(self.obj, &h_pagenum, &v_pagenum)
@@ -930,12 +1351,60 @@ cdef class Gengrid(Object):
         return (h_pagenum, v_pagenum)
 
     def page_show(self, h_pagenum, v_pagenum):
+        """Show a specific virtual region within the gengrid content object
+        by page number.
+
+        :param h_pagenumber: The horizontal page number
+        :param v_pagenumber: The vertical page number
+
+        0, 0 of the indicated page is located at the top-left of the viewport.
+        This will jump to the page directly without animation.
+
+        Example of usage::
+
+            sc = elm_gengrid_add(win);
+            elm_gengrid_content_set(sc, content);
+            elm_gengrid_page_relative_set(sc, 1, 0);
+            elm_gengrid_current_page_get(sc, &h_page, &v_page);
+            elm_gengrid_page_show(sc, h_page + 1, v_page);
+
+        .. seealso:: :py:func:`page_bring_in()`
+
+        """
         elm_gengrid_page_show(self.obj, h_pagenum, v_pagenum)
 
     def page_bring_in(self, h_pagenum, v_pagenum):
+        """Show a specific virtual region within the gengrid content object
+        by page number.
+
+        :param h_pagenumber: The horizontal page number
+        :param v_pagenumber: The vertical page number
+
+        0, 0 of the indicated page is located at the top-left of the viewport.
+        This will slide to the page with animation.
+
+        Example of usage::
+
+            sc = elm_gengrid_add(win);
+            elm_gengrid_content_set(sc, content);
+            elm_gengrid_page_relative_set(sc, 1, 0);
+            elm_gengrid_last_page_get(sc, &h_page, &v_page);
+            elm_gengrid_page_bring_in(sc, h_page, v_page);
+
+        .. seealso:: :py:func:`page_show()`
+
+        """
         elm_gengrid_page_bring_in(self.obj, h_pagenum, v_pagenum)
 
     property filled:
+        """The fill state of the whole grid of items of a gengrid
+        within its given viewport. By default, this value is False, meaning
+        that if the first line of items grid's isn't filled, the items are
+        centered with the alignment.
+
+        :type: bool
+
+        """
         def __get__(self):
             return bool(elm_gengrid_filled_get(self.obj))
 
@@ -948,6 +1417,18 @@ cdef class Gengrid(Object):
         return bool(elm_gengrid_filled_get(self.obj))
 
     property select_mode:
+        """Item select mode in the gengrid widget. Possible values are:
+
+        - ELM_OBJECT_SELECT_MODE_DEFAULT : Items will only call their
+            selection func and callback when first becoming selected. Any
+            further clicks will do nothing, unless you set always select mode.
+        - ELM_OBJECT_SELECT_MODE_ALWAYS :  This means that, even if selected,
+            every click will make the selected callbacks be called.
+        - ELM_OBJECT_SELECT_MODE_NONE : This will turn off the ability to
+            select items entirely and they will neither appear selected nor
+            call selected callback functions.
+
+        """
         def __get__(self):
             return elm_gengrid_select_mode_get(self.obj)
 
@@ -960,6 +1441,13 @@ cdef class Gengrid(Object):
         return elm_gengrid_select_mode_get(self.obj)
 
     property highlight_mode:
+        """This will turn on/off the highlight effect when items are
+        selected and they will or will not be highlighted. The selected and
+        clicked callback functions will still be called.
+
+        Highlight is enabled by default.
+
+        """
         def __get__(self):
             return bool(elm_gengrid_highlight_mode_get(self.obj))
 
