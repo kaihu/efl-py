@@ -177,6 +177,10 @@ cdef class NaviframeItem(ObjectItem):
         else:
             return None
 
+    def item_pop_to(self):
+        _METHOD_DEPRECATED(self, "pop_to")
+        elm_naviframe_item_pop_to(self.item)
+
     def pop_to(self):
         """pop_to()
 
@@ -184,6 +188,10 @@ cdef class NaviframeItem(ObjectItem):
 
         """
         elm_naviframe_item_pop_to(self.item)
+
+    def item_promote(self):
+        _METHOD_DEPRECATED(self, "promote")
+        elm_naviframe_item_promote(self.item)
 
     def promote(self):
         """promote()
