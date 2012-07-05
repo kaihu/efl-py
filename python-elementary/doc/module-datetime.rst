@@ -1,4 +1,4 @@
-:mod:`datetime` Module
-------------------------
+:mod:`datetime_elm` Module
+--------------------------
 
-.. automodule:: elementary.datetime
+.. automodule:: elementary.datetime_elm
