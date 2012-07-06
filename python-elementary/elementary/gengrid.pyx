@@ -657,8 +657,8 @@ cdef class Gengrid(Object):
       passed to elm_gengrid_item_append() and related item creation
       functions. The ``obj`` parameter is the gengrid object itself, while
       the ``part`` one is the name string of one of the state parts in the
-      Edje group implementing the item's theme. Return ``EINA_FALSE`` for
-      false/off or ``EINA_TRUE`` for true/on. Gengrids will emit a signal to
+      Edje group implementing the item's theme. Return ``False`` for
+      false/off or ``True`` for true/on. Gengrids will emit a signal to
       its theming Edje object with ``"elm,state,xxx,active"`` and ``"elm"``
       as "emission" and "source" arguments, respectively, when the state is
       true (the default is false), where ``xxx`` is the name of the (state)
@@ -798,11 +798,11 @@ cdef class Gengrid(Object):
         return bool(elm_gengrid_multi_select_get(self.obj))
 
     property horizontal:
-        """When in "horizontal mode" (``EINA_TRUE),`` items will be placed
+        """When in "horizontal mode" (``True),`` items will be placed
         in **columns**, from top to bottom and, when the space for a
         column is filled, another one is started on the right, thus
         expanding the grid horizontally. When in "vertical mode"
-        (``EINA_FALSE),`` though, items will be placed in **rows**, from left
+        (``False),`` though, items will be placed in **rows**, from left
         to right and, when the space for a row is filled, another one is
         started below, thus expanding the grid vertically.
 

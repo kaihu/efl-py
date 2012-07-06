@@ -128,7 +128,8 @@ cdef class GenlistItemClass:
     This class should be created and handled to the Genlist itself.
 
     It may be subclassed, in this case the methods :py:func:`text_get()`,
-    :py:func:`content_get()`, :py:func:`state_get()` and ``delete()`` will be used.
+    :py:func:`content_get()`, :py:func:`state_get()` and ``delete()`` will
+    be used.
 
     It may also be instantiated directly, given getters to override as
     constructor parameters.
@@ -254,6 +255,7 @@ cdef class GenlistItemClass:
                 self._del_func)
 
     property item_style:
+        """The style of this item class."""
         def __get__(self):
             return self._item_style
 
@@ -326,6 +328,7 @@ cdef class GenlistItem(ObjectItem):
                 self.params[1])
 
     property data:
+        """User data for the item."""
         def __get__(self):
             return self.params[1]
 
@@ -333,6 +336,12 @@ cdef class GenlistItem(ObjectItem):
         return self.params[1]
 
     property next:
+        """This returns the item placed after the ``item``, on the container
+        genlist.
+
+        .. seealso:: :py:func:`item_prev_get()`
+
+        """
         def __get__(self):
             return _object_item_to_python(elm_genlist_item_next_get(self.item))
 
@@ -340,6 +349,12 @@ cdef class GenlistItem(ObjectItem):
         return _object_item_to_python(elm_genlist_item_next_get(self.item))
 
     property prev:
+        """This returns the item placed before the ``item``, on the container
+        genlist.
+
+        .. seealso:: :py:func:`item_next_get()`
+
+        """
         def __get__(self):
             return _object_item_to_python(elm_genlist_item_prev_get(self.item))
 
@@ -347,6 +362,10 @@ cdef class GenlistItem(ObjectItem):
         return _object_item_to_python(elm_genlist_item_prev_get(self.item))
 
     property selected:
+        """This sets the selected state of an item. If multi selection is
+        not enabled on the containing genlist and ``selected`` is ``True``,
+        any other previously selected items will get unselected in favor of
+        this new one.  """
         def __get__(self):
             return bool(elm_genlist_item_selected_get(self.item))
 
@@ -359,21 +378,56 @@ cdef class GenlistItem(ObjectItem):
         return bool(elm_genlist_item_selected_get(self.item))
 
     def show(self, scrollto_type = ELM_GENLIST_ITEM_SCROLLTO_IN):
+        """This causes genlist to jump to the item and show it (by
+        jumping to that position), if it is not fully visible.
+
+        .. seealso:: :py:func:`item_bring_in()`
+
+        """
         elm_genlist_item_show(self.item, scrollto_type)
 
     def bring_in(self, scrollto_type = ELM_GENLIST_ITEM_SCROLLTO_IN):
+        """This causes genlist to jump to the item and show it (by
+        animatedly scrolling), if it is not fully visible.
+        This may use animation and take a some time to do so.
+
+        .. seealso:: :py:func:`item_show()`
+
+        """
         elm_genlist_item_bring_in(self.item, scrollto_type)
 
     def update(self):
+        """This updates an item by calling all the item class functions again
+        to get the contents, texts and states. Use this when the original
+        item data has changed and the changes are desired to be reflected.
+
+        Use elm_genlist_realized_items_update() to update all already realized
+        items.
+
+        .. seealso:: :py:func:`realized_items_update()`
+
+        """
         elm_genlist_item_update(self.item)
 
     #def item_class_update(self, Elm_Genlist_Item_Class itc):
+        """This sets another class of the item, changing the way that it is
+        displayed. After changing the item class, elm_genlist_item_update() is
+        called on the item.
+
+        """
         #elm_genlist_item_item_class_update(self.item, itc)
 
     #def item_class_get(self):
+        """This returns the Genlist_Item_Class for the given item. It can be
+        used to examine the function pointers and item_style.
+
+        """
         #return elm_genlist_item_item_class_get(self.item)
 
     property index:
+        """Get the index of the item. It is only valid once displayed.
+
+        """
         def __get__(self):
             return elm_genlist_item_index_get(self.item)
 
@@ -394,9 +448,9 @@ cdef class GenlistItem(ObjectItem):
 
         Setup the tooltip to object. The object can have only one tooltip,
         so any previews tooltip data is removed. ``func(args,kargs)`` will
-        be called every time that need show the tooltip and it should return a
-        valid Evas_Object. This object is then managed fully by tooltip system
-        and is deleted when the tooltip is gone.
+        be called every time that need show the tooltip and it should return
+        a valid Evas_Object. This object is then managed fully by tooltip
+        system and is deleted when the tooltip is gone.
 
         :param func: Function to be create tooltip content, called when
             need show tooltip.
@@ -415,85 +469,122 @@ cdef class GenlistItem(ObjectItem):
                                                 _tooltip_item_data_del_cb)
 
     def tooltip_unset(self):
-        """ Unset tooltip from object
+        """Unset tooltip from object
 
-        Remove tooltip from object. If used the :py:func:`tooltip_text_set` the internal
-        copy of label will be removed correctly. If used
-        :py:func:`tooltip_content_cb_set`, the data will be unreferred but no freed.
+        Remove tooltip from object. If used the :py:func:`tooltip_text_set`
+        the internal copy of label will be removed correctly. If used
+        :py:func:`tooltip_content_cb_set`, the data will be unreferred but
+        no freed.
         """
         elm_genlist_item_tooltip_unset(self.item)
 
-    def tooltip_style_set(self, style=None):
-        """ Sets a different style for this object tooltip.
+    property tooltip_style:
+        """Tooltips can have **alternate styles** to be displayed on,
+        which are defined by the theme set on Elementary. This function
+        works analogously as elm_object_tooltip_style_set(), but here
+        applied only to genlist item objects. The default style for
+        tooltips is ``"default"``.
 
         .. note:: before you set a style you should define a tooltip with
             elm_genlist_item_tooltip_content_cb_set() or
             elm_genlist_item_tooltip_text_set()
-        """
-        if style:
-            elm_genlist_item_tooltip_style_set(self.item, _cfruni(style))
-        else:
-            elm_genlist_item_tooltip_style_set(self.item, NULL)
 
-    def tooltip_style_get(self):
-        """ Get the style for this object tooltip.
         """
+        def __set__(self, style):
+            elm_genlist_item_tooltip_style_set(self.item, _cfruni(style) if style is not None else NULL)
+
+        def __get__(self):
+            return _ctouni(elm_genlist_item_tooltip_style_get(self.item))
+
+    def tooltip_style_set(self, style=None):
+        elm_genlist_item_tooltip_style_set(self.item, _cfruni(style) if style is not None else NULL)
+    def tooltip_style_get(self):
         return _ctouni(elm_genlist_item_tooltip_style_get(self.item))
+
+    property tooltip_window_mode:
+        """This property allows a tooltip to expand beyond its parent window's canvas.
+        It will instead be limited only by the size of the display.
+
+        """
+        def __set__(self, disable):
+            #TODO: check rval
+            elm_genlist_item_tooltip_window_mode_set(self.item, disable)
+
+        def __get__(self):
+            return bool(elm_genlist_item_tooltip_window_mode_get(self.item))
 
     def tooltip_window_mode_set(self, disable):
         return bool(elm_genlist_item_tooltip_window_mode_set(self.item, disable))
-
     def tooltip_window_mode_get(self):
         return bool(elm_genlist_item_tooltip_window_mode_get(self.item))
 
-    def cursor_set(self, cursor):
-        """ Set the cursor to be shown when mouse is over the genlist item
-
-        Set the cursor that will be displayed when mouse is over the
+    property cursor:
+        """Set the cursor that will be displayed when mouse is over the
         item. The item can have only one cursor set to it, so if
         this function is called twice for an item, the previous set
         will be unset.
-        """
-        elm_genlist_item_cursor_set(self.item, _cfruni(cursor))
 
+        """
+        def __set__(self, cursor):
+            elm_genlist_item_cursor_set(self.item, _cfruni(cursor))
+
+        def __get__(self):
+            return _ctouni(elm_genlist_item_cursor_get(self.item))
+
+        def __del__(self):
+            elm_genlist_item_cursor_unset(self.item)
+
+    def cursor_set(self, cursor):
+        elm_genlist_item_cursor_set(self.item, _cfruni(cursor))
     def cursor_get(self):
         return _ctouni(elm_genlist_item_cursor_get(self.item))
-
     def cursor_unset(self):
-        """  Unset the cursor to be shown when mouse is over the genlist item
-        """
         elm_genlist_item_cursor_unset(self.item)
 
-    def cursor_style_set(self, style=None):
-        """ Sets a different style for this object cursor.
+    property cursor_style:
+        """Sets a different style for this object cursor.
 
         .. note:: before you set a style you should define a cursor with
             elm_genlist_item_cursor_set()
+
         """
+        def __set__(self, style):
+            elm_genlist_item_cursor_style_set(self.item, _cfruni(style) if style is not None else NULL)
+
+        def __get__(self):
+            return _ctouni(elm_genlist_item_cursor_style_get(self.item))
+
+    def cursor_style_set(self, style=None):
         if style:
             elm_genlist_item_cursor_style_set(self.item, _cfruni(style))
         else:
             elm_genlist_item_cursor_style_set(self.item, NULL)
-
     def cursor_style_get(self):
-        """ Get the style for this object cursor.
-        """
         return _ctouni(elm_genlist_item_cursor_style_get(self.item))
 
-    def cursor_engine_only_set(self, engine_only):
+    property cursor_engine_only:
         """ Sets cursor engine only usage for this object.
 
-        .. note:: before you set engine only usage you should define a cursor with
-            elm_genlist_item_cursor_set()
-        """
-        elm_genlist_item_cursor_engine_only_set(self.item, bool(engine_only))
+        .. note:: before you set engine only usage you should define a
+            cursor with elm_genlist_item_cursor_set()
 
-    def cursor_engine_only_get(self):
-        """ Get the engine only usage for this object.
         """
+        def __set__(self, engine_only):
+            elm_genlist_item_cursor_engine_only_set(self.item, bool(engine_only))
+
+        def __get__(self):
+            return elm_genlist_item_cursor_engine_only_get(self.item)
+
+    def cursor_engine_only_set(self, engine_only):
+        elm_genlist_item_cursor_engine_only_set(self.item, bool(engine_only))
+    def cursor_engine_only_get(self):
         return elm_genlist_item_cursor_engine_only_get(self.item)
 
     property parent:
+        """This returns the item that was specified as parent of the item
+        on elm_genlist_item_append() and insertion related functions.
+
+        """
         def __get__(self):
             return _object_item_to_python(elm_genlist_item_parent_get(self.item))
 
@@ -501,9 +592,25 @@ cdef class GenlistItem(ObjectItem):
         return _object_item_to_python(elm_genlist_item_parent_get(self.item))
 
     def subitems_clear(self):
+        """This removes all items that are children (and their descendants)
+        of the item.
+
+        """
         elm_genlist_item_subitems_clear(self.item)
 
     property expanded:
+        """This function flags the item of type #ELM_GENLIST_ITEM_TREE as
+        expanded or not.
+
+        The theme will respond to this change visually, and a signal
+        "expanded" or "contracted" will be sent from the genlist with a
+        pointer to the item that has been expanded/contracted.
+
+        Calling this function won't show or hide any child of this item (if
+        it is a parent). You must manually delete and create them on the
+        callbacks of the "expanded" or "contracted" signals.
+
+        """
         def __get__(self):
             return bool(elm_genlist_item_expanded_get(self.item))
 
@@ -516,6 +623,9 @@ cdef class GenlistItem(ObjectItem):
         return bool(elm_genlist_item_expanded_get(self.item))
 
     property expanded_depth:
+        """Get the depth of expanded item
+
+        """
         def __get__(self):
             return elm_genlist_item_expanded_depth_get(self.item)
 
@@ -523,20 +633,77 @@ cdef class GenlistItem(ObjectItem):
         return elm_genlist_item_expanded_depth_get(self.item)
 
     def all_contents_unset(self):
+        """This instructs genlist to release references to contents in the
+        item, meaning that they will no longer be managed by genlist and are
+        floating "orphans" that can be re-used elsewhere if the user wants to.
+
+        """
         cdef Eina_List *lst
         elm_genlist_item_all_contents_unset(self.item, &lst)
         return _object_item_list_to_python(lst)
 
     def promote(self):
+        """Promote an item to the top of the list
+
+        """
         elm_genlist_item_promote(self.item)
 
     def demote(self):
+        """Demote an item to the end of the list
+
+        """
         elm_genlist_item_demote(self.item)
 
     def fields_update(self, parts, itf):
+        """This updates an item's part by calling item's fetching functions again
+        to get the contents, texts and states. Use this when the original
+        item data has changed and the changes are desired to be reflected.
+        Second parts argument is used for globbing to match '*', '?', and '.'
+        It can be used at updating multi fields.
+
+        Use elm_genlist_realized_items_update() to update an item's all
+        property.
+
+        .. seealso:: :py:func:`item_update()`
+
+        """
         elm_genlist_item_fields_update(self.item, _cfruni(parts), itf)
 
     property decorate_mode:
+        """A genlist mode is a different way of selecting an item. Once a
+        mode is activated on an item, any other selected item is immediately
+        unselected. This feature provides an easy way of implementing a new
+        kind of animation for selecting an item, without having to entirely
+        rewrite the item style theme. However, the elm_genlist_selected_*
+        API can't be used to get what item is activate for a mode.
+
+        The current item style will still be used, but applying a genlist
+        mode to an item will select it using a different kind of animation.
+
+        The current active item for a mode can be found by
+        elm_genlist_decorated_item_get().
+
+        The characteristics of genlist mode are:
+
+        - Only one mode can be active at any time, and for only one item.
+        - Genlist handles deactivating other items when one item is activated.
+        - A mode is defined in the genlist theme (edc), and more modes can
+          easily be added.
+        - A mode style and the genlist item style are different things. They
+          can be combined to provide a default style to the item, with some
+          kind of animation for that item when the mode is activated.
+
+        When a mode is activated on an item, a new view for that item is
+        created. The theme of this mode defines the animation that will be
+        used to transit the item from the old view to the new view. This
+        second (new) view will be active for that item while the mode is
+        active on the item, and will be destroyed after the mode is totally
+        deactivated from that item.
+
+        .. seealso:: :py:func:`mode_get()`
+        .. seealso:: :py:func:`decorated_item_get()`
+
+        """
         def __set__(self, value):
             decorate_it_type, decorate_it_set = value
             elm_genlist_item_decorate_mode_set(self.item, _cfruni(decorate_it_type), decorate_it_set)
@@ -550,6 +717,10 @@ cdef class GenlistItem(ObjectItem):
         return _ctouni(elm_genlist_item_decorate_mode_get(self.item))
 
     property type:
+        """This function returns the item's type. Normally the item's type.
+        If it failed, return value is ELM_GENLIST_ITEM_MAX
+
+        """
         def __get__(self):
             cdef Elm_Genlist_Item_Type ittype = elm_genlist_item_type_get(self.item)
             return <Elm_Genlist_Item_Type>ittype
@@ -559,6 +730,12 @@ cdef class GenlistItem(ObjectItem):
         return <Elm_Genlist_Item_Type>ittype
 
     property flip:
+        """This function sets the flip state of a given genlist item.
+        Flip mode overrides current item object.
+        It can be used for on-the-fly item replace.
+        Flip mode can be used with/without decorate mode.
+
+        """
         def __set__(self, flip):
             elm_genlist_item_flip_set(self.item, flip)
 
@@ -571,6 +748,25 @@ cdef class GenlistItem(ObjectItem):
         return bool(elm_genlist_item_flip_get(self.item))
 
     property select_mode:
+        """Item's select mode. Possible values are:
+
+        - ELM_OBJECT_SELECT_MODE_DEFAULT : The item will only call their
+            selection func and callback when first becoming selected. Any
+            further clicks will do nothing, unless you set always select mode.
+        - ELM_OBJECT_SELECT_MODE_ALWAYS : This means that, even if selected,
+             every click will make the selected callbacks be called.
+        - ELM_OBJECT_SELECT_MODE_NONE : This will turn off the ability to
+            select the item entirely and they will neither appear selected
+            nor call selected callback functions.
+        - ELM_OBJECT_SELECT_MODE_DISPLAY_ONLY : This will apply
+            no-finger-size rule with ELM_OBJECT_SELECT_MODE_NONE.
+            No-finger-size rule makes an item can be smaller than lower
+            limit. Clickable objects should be bigger than human touch point
+            device (your finger) for some touch or small screen devices. So
+            it is enabled, the item can be shrink than predefined
+            finger-size value. And the item will be updated.
+
+        """
         def __set__(self, mode):
             elm_genlist_item_select_mode_set(self.item, mode)
 
@@ -641,7 +837,7 @@ cdef class Genlist(Object):
       #Elm_Genlist_Item_Content_Get_Cb.
     - ``func.state_get`` - The ``part`` parameter is the name string of one of
       the state parts in the Edje group implementing the item's theme. Return
-      ``EINA_FALSE`` for false/off or ``EINA_TRUE`` for true/on. Genlists will
+      ``False`` for false/off or ``True`` for true/on. Genlists will
       emit a signal to its theming Edje object with ``"elm,state,xxx,active"``
       and ``"elm"`` as "emission" and "source" arguments, respectively, when
       the state is true (the default is false), where ``xxx`` is the name of
@@ -682,7 +878,7 @@ cdef class Genlist(Object):
     An item in a genlist can have 0 or more texts (they can be regular text
     or textblock Evas objects - that's up to the style to determine), 0 or
     more contents (which are simply objects swallowed into the genlist item's
-    theming Edje object) and 0 or more <b>boolean states</b>, which have the
+    theming Edje object) and 0 or more **boolean states**, which have the
     behavior left to the user to define. The Edje part names for each of
     these properties will be looked up, in the theme file for the genlist,
     under the Edje (string) data items named ``"labels",`` ``"contents"``
@@ -924,9 +1120,19 @@ cdef class Genlist(Object):
         self._set_obj(elm_genlist_add(parent.obj))
 
     def clear(self):
+        """Remove all items from a given genlist widget.
+
+        .. seealso:: :py:func:`elm_object_item_del()`, to remove just one item.
+
+        """
         elm_genlist_clear(self.obj)
 
     property multi_select:
+        """This enables (``True``) or disables (``False``) multi-selection in
+        the list. This allows more than 1 item to be selected. To retrieve the list
+        of selected items, use elm_genlist_selected_items_get().
+
+        """
         def __set__(self, multi):
             elm_genlist_multi_select_set(self.obj, bool(multi))
 
@@ -939,6 +1145,29 @@ cdef class Genlist(Object):
         return bool(elm_genlist_multi_select_get(self.obj))
 
     property mode:
+        """This sets the mode used for sizing items horizontally. Valid modes
+        are #ELM_LIST_LIMIT, #ELM_LIST_SCROLL, and #ELM_LIST_COMPRESS. The
+        default is ELM_LIST_SCROLL. This mode means that if items are too
+        wide to fit, the scroller will scroll horizontally. Otherwise items
+        are expanded to fill the width of the viewport of the scroller. If
+        it is ELM_LIST_LIMIT, items will be expanded to the viewport width
+        and limited to that size. If it is ELM_LIST_COMPRESS, the item width
+        will be fixed (restricted to a minimum of) to the list width when
+        calculating its size in order to allow the height to be calculated
+        based on it. This allows, for instance, text block to wrap lines if
+        the Edje part is configured with "text.min: 0 1".
+
+        .. note:: ELM_LIST_COMPRESS will make list resize slower as it will
+            have to recalculate every item height again whenever the list
+            width changes!
+        .. note:: Homogeneous mode is for that all items in the genlist same
+            width/height. With ELM_LIST_COMPRESS, it makes genlist items to
+            fast initializing. However there's no sub-objects in genlist
+            which can be on the flying resizable (such as TEXTBLOCK). If
+            then, some dynamic resizable objects in genlist would not
+            diplayed properly.
+
+        """
         def __set__(self, mode):
             elm_genlist_mode_set(self.obj, mode)
 
@@ -951,6 +1180,10 @@ cdef class Genlist(Object):
         return elm_genlist_mode_get(self.obj)
 
     property bounce:
+        """This will enable or disable the scroller bouncing effect for the
+        genlist. See elm_scroller_bounce_set() for details.
+
+        """
         def __set__(self, value):
             h_bounce, v_bounce = value
             elm_genlist_bounce_set(self.obj, bool(h_bounce), bool(v_bounce))
@@ -987,9 +1220,11 @@ cdef class Genlist(Object):
             None. The parent must have the flag
             ``ELM_GENLIST_ITEM_SUBITEMS`` set.
         :param flags: defines special behavior of this item:
+
             - ELM_GENLIST_ITEM_NONE = 0
             - ELM_GENLIST_ITEM_SUBITEMS = 1
             - ELM_GENLIST_ITEM_GROUP = 2
+
         :param func: if not None, this must be a callable to be
             called back when the item is selected. The function
             signature is:
@@ -1046,9 +1281,11 @@ cdef class Genlist(Object):
             None. The parent must have the flag
             ``ELM_GENLIST_ITEM_SUBITEMS`` set.
         :param flags: defines special behavior of this item:
+
             - ELM_GENLIST_ITEM_NONE = 0
             - ELM_GENLIST_ITEM_SUBITEMS = 1
             - ELM_GENLIST_ITEM_GROUP = 2
+
         :param func: if not None, this must be a callable to be
             called back when the item is selected. The function
             signature is:
@@ -1207,6 +1444,16 @@ cdef class Genlist(Object):
     #Elm_Object_Item         *elm_genlist_item_sorted_insert(self.obj, Elm_Genlist_Item_Class *itc, void *data, Elm_Object_Item *parent, Elm_Genlist_Item_Type flags, Eina_Compare_Cb comp, Evas_Smart_Cb func, void *func_data)
 
     property selected_item:
+        """This gets the selected item in the list (if multi-selection is
+        enabled, only the item that was first selected in the list is
+        returned - which is not very useful, so see
+        elm_genlist_selected_items_get() for when multi-selection is used).
+
+        If no item is selected, None is returned.
+
+        .. seealso:: :py:func:`selected_items_get()`
+
+        """
         def __get__(self):
             return _object_item_to_python(elm_genlist_selected_item_get(self.obj))
 
@@ -1214,6 +1461,20 @@ cdef class Genlist(Object):
         return _object_item_to_python(elm_genlist_selected_item_get(self.obj))
 
     property selected_items:
+        """It returns a list of the selected items. This list pointer is
+        only valid so long as the selection doesn't change (no items are
+        selected or unselected, or unselected implicitly by deletion). The
+        list contains genlist items pointers. The order of the items in this
+        list is the order which they were selected, i.e. the first item in
+        this list is the first item that was selected, and so on.
+
+        .. note:: If not in multi-select mode, consider using function
+            elm_genlist_selected_item_get() instead.
+
+        .. seealso:: :py:func:`multi_select_set()`
+        .. seealso:: :py:func:`selected_item_get()`
+
+        """
         def __get__(self):
             return _object_item_list_to_python(elm_genlist_selected_items_get(self.obj))
 
@@ -1221,6 +1482,15 @@ cdef class Genlist(Object):
         return _object_item_list_to_python(elm_genlist_selected_items_get(self.obj))
 
     property realized_items:
+        """This returns a list of the realized items in the genlist. The list
+        contains genlist item pointers. The list must be freed by the
+        caller when done with eina_list_free(). The item pointers in the
+        list are only valid so long as those items are not deleted or the
+        genlist is not deleted.
+
+        .. seealso:: :py:func:`realized_items_update()`
+
+        """
         def __get__(self):
             return _object_item_list_to_python(elm_genlist_realized_items_get(self.obj))
 
@@ -1228,6 +1498,9 @@ cdef class Genlist(Object):
         return _object_item_list_to_python(elm_genlist_realized_items_get(self.obj))
 
     property first_item:
+        """This returns the first item in the list.
+
+        """
         def __get__(self):
             return _object_item_to_python(elm_genlist_first_item_get(self.obj))
 
@@ -1235,6 +1508,9 @@ cdef class Genlist(Object):
         return _object_item_to_python(elm_genlist_first_item_get(self.obj))
 
     property last_item:
+        """This returns the last item in the list.
+
+        """
         def __get__(self):
             return _object_item_to_python(elm_genlist_last_item_get(self.obj))
 
@@ -1242,6 +1518,15 @@ cdef class Genlist(Object):
         return _object_item_to_python(elm_genlist_last_item_get(self.obj))
 
     property scroller_policy:
+        """This sets the scrollbar visibility policy for the given genlist
+        scroller. #ELM_SCROLLER_POLICY_AUTO means the scrollbar is made
+        visible if it is needed, and otherwise kept hidden.
+        #ELM_SCROLLER_POLICY_ON turns it on all the time, and
+        #ELM_SCROLLER_POLICY_OFF always keeps it off. This applies
+        respectively for the horizontal and vertical scrollbars. Default is
+        #ELM_SCROLLER_POLICY_AUTO
+
+        """
         def __set__(self, value):
             policy_h, policy_v = value
             elm_genlist_scroller_policy_set(self.obj, policy_h, policy_v)
@@ -1259,13 +1544,34 @@ cdef class Genlist(Object):
         return (policy_h, policy_v)
 
     def realized_items_update(self):
+        """This updates all realized items by calling all the item class
+        functions again to get the contents, texts and states. Use this when
+        the original item data has changed and the changes are desired to be
+        reflected.
+
+        To update just one item, use elm_genlist_item_update().
+
+        .. seealso:: :py:func:`realized_items_get()`
+        .. seealso:: :py:func:`item_update()`
+
+        """
         elm_genlist_realized_items_update(self.obj)
 
     property items_count:
+        """Return how many items are currently in a list
+
+        """
         def __get__(self):
             return elm_genlist_items_count(self.obj)
 
     property homogeneous:
+        """This will enable the homogeneous mode where items are of the same
+        height and width so that genlist may do the lazy-loading at its
+        maximum (which increases the performance for scrolling the list).
+
+        .. seealso:: :py:func:`mode_set()`
+
+        """
         def __set__(self, homogeneous):
             elm_genlist_homogeneous_set(self.obj, bool(homogeneous))
 
@@ -1278,6 +1584,20 @@ cdef class Genlist(Object):
         return bool(elm_genlist_homogeneous_get(self.obj))
 
     property block_count:
+        """This will configure the block count to tune to the target with
+        particular performance matrix.
+
+        A block of objects will be used to reduce the number of operations
+        due to many objects in the screen. It can determine the visibility,
+        or if the object has changed, it theme needs to be updated, etc.
+        doing this kind of calculation to the entire block, instead of per
+        object.
+
+        The default value for the block count is enough for most lists, so
+        unless you know you will have a lot of objects visible in the screen
+        at the same time, don't try to change this.
+
+        """
         def __set__(self, int n):
             elm_genlist_block_count_set(self.obj, n)
 
@@ -1290,6 +1610,15 @@ cdef class Genlist(Object):
         return elm_genlist_block_count_get(self.obj)
 
     property longpress_timeout:
+        """This option will change how long it takes to send an event
+        "longpressed" after the mouse down signal is sent to the list. If
+        this event occurs, no "clicked" event will be sent.
+
+        .. warning:: If you set the longpress timeout value with this API,
+            your genlist will not be affected by the longpress value of
+            elementary config value later.
+
+        """
         def __set__(self, timeout):
             elm_genlist_longpress_timeout_set(self.obj, timeout)
 
@@ -1302,9 +1631,34 @@ cdef class Genlist(Object):
         return elm_genlist_longpress_timeout_get(self.obj)
 
     def at_xy_item_get(self, int x, int y):
+        """Get the item that is at the x, y canvas coords.
+
+        :param x: The input x coordinate
+        :param y: The input y coordinate
+        :param posret: The position relative to the item returned here
+        :return: The item at the coordinates or NULL if none
+
+        This returns the item at the given coordinates (which are canvas
+        relative, not object-relative). If an item is at that coordinate,
+        that item handle is returned, and if ``posret`` is not NULL, the
+        integer pointed to is set to a value of -1, 0 or 1, depending if
+        the coordinate is on the upper portion of that item (-1), on the
+        middle section (0) or on the lower part (1). If NULL is returned as
+        an item (no item found there), then posret may indicate -1 or 1
+        based if the coordinate is above or below all items respectively in
+        the genlist.
+
+        """
         return _object_item_to_python(elm_genlist_at_xy_item_get(self.obj, x, y, NULL))
 
     property decorated_item:
+        """This function returns the item that was activated with a mode, by
+        the function elm_genlist_item_decorate_mode_set().
+
+        .. seealso:: :py:func:`item_decorate_mode_set()`
+        .. seealso:: :py:func:`mode_get()`
+
+        """
         def __get__(self):
             return _object_item_to_python(elm_genlist_decorated_item_get(self.obj))
 
@@ -1312,6 +1666,9 @@ cdef class Genlist(Object):
         return _object_item_to_python(elm_genlist_decorated_item_get(self.obj))
 
     property reorder_mode:
+        """Reorder mode.
+
+        """
         def __set__(self, reorder_mode):
             elm_genlist_reorder_mode_set(self.obj, reorder_mode)
 
@@ -1324,6 +1681,9 @@ cdef class Genlist(Object):
         return bool(elm_genlist_reorder_mode_get(self.obj))
 
     property decorate_mode:
+        """Genlist decorate mode for all items.
+
+        """
         def __set__(self, decorated):
             elm_genlist_decorate_mode_set(self.obj, decorated)
 
@@ -1336,6 +1696,9 @@ cdef class Genlist(Object):
         return bool(elm_genlist_decorate_mode_get(self.obj))
 
     property tree_effect_enabled:
+        """Genlist tree effect.
+
+        """
         def __set__(self, enabled):
             elm_genlist_tree_effect_enabled_set(self.obj, enabled)
 
@@ -1348,6 +1711,12 @@ cdef class Genlist(Object):
         return bool(elm_genlist_tree_effect_enabled_get(self.obj))
 
     property highlight_mode:
+        """Whether the item will, or will not highlighted on selection. The
+        selected and clicked callback functions will still be called.
+
+        Highlight is enabled by default.
+
+        """
         def __set__(self, highlight):
             elm_genlist_highlight_mode_set(self.obj, highlight)
 
@@ -1360,6 +1729,19 @@ cdef class Genlist(Object):
         return bool(elm_genlist_highlight_mode_get(self.obj))
 
     property select_mode:
+        """elm_genlist_select_mode_set() changes item select mode in the
+        genlist widget.
+
+        - ELM_OBJECT_SELECT_MODE_DEFAULT : Items will only call their
+            selection func and callback when first becoming selected. Any
+            further clicks will do nothing, unless you set always select mode.
+        - ELM_OBJECT_SELECT_MODE_ALWAYS :  This means that, even if selected,
+            every click will make the selected callbacks be called.
+        - ELM_OBJECT_SELECT_MODE_NONE : This will turn off the ability to
+            select items entirely and they will neither appear selected nor
+            call selected callback functions.
+
+        """
         def __set__(self, mode):
             elm_genlist_select_mode_set(self.obj, mode)
 
