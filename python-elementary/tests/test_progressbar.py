@@ -3,6 +3,7 @@
 import os
 import elementary
 import evas
+import ecore
 
 # ----- Progressbar {{{
 my_progressbar_run = False

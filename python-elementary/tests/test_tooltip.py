@@ -3,6 +3,7 @@
 import os
 import elementary
 import evas
+import ecore
 
 def _tt_icon(obj, *args, **kargs):
     ic = elementary.Icon(obj)
