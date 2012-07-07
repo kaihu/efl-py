@@ -44,5 +44,6 @@ setup(
     packages = ["emotion"],
     ext_modules = cythonize(ext_modules),
     package_data = {"emotion": ["*.pxd"]},
+    requires = ["evas", "ecore", "edje"],
     provides = ["emotion"],
 )

@@ -4,8 +4,17 @@ from distutils.core import setup
 from distutils.extension import Extension
 from Cython.Distutils import build_ext
 from Cython.Build import cythonize
-from sphinx.setup_command import BuildDoc
 import commands
+
+try:
+    from sphinx.setup_command import BuildDoc
+except:
+    class BuildDoc(Command):
+        description = "build documentation using sphinx, that must be installed."
+        user_options = []
+        def initialize_options(self): pass
+        def finalize_options(self): pass
+        def run(self): print("Error: sphinx not found")
 
 def pkgconfig(*packages, **kw):
     flag_map = {'-I': 'include_dirs', '-L': 'library_dirs', '-l': 'libraries'}
@@ -48,9 +57,10 @@ setup(
     name = "ecore",
     version = "1.7.0",
     description = "Python bindings for EFL Ecore",
-    cmdclass = {'build_ext': build_ext, 'build_sphinx': BuildDoc},
+    cmdclass = {'build_ext': build_ext, 'build_sphinx': BuildDoc, 'build_doc': BuildDoc},
     packages = ["ecore"],
     ext_modules = cythonize(ext_modules),
     package_data = {"ecore": ["*.pxd"]},
+    requires = ["evas"],
     provides = ["ecore"],
 )
