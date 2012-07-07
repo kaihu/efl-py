@@ -398,7 +398,7 @@ cdef class GengridItem(ObjectItem):
         region containing the given @p item item, if it is not fully
         visible.
 
-        .. seealso:: :py:func:`item_bring_in()`
+        .. seealso:: :py:func:`bring_in()`
 
         :param type: Where to position the item in the viewport.
 
@@ -410,7 +410,7 @@ cdef class GengridItem(ObjectItem):
         it (by scrolling), if it is not fully visible. This will use
         animation to do so and take a period of time to complete.
 
-        .. seealso:: :py:func:`item_show()`
+        .. seealso:: :py:func:`show()`
 
         :param type: Where to position the item in the viewport.
 
@@ -858,8 +858,10 @@ cdef class Gengrid(Object):
             provided to ``func`` as its last parameter.
         :param func: if not None, this must be a callable to be
             called back when the item is selected. The function
-            signature is:
-            ``func(item, obj, item_data)``
+            signature is::
+
+                func(item, obj, item_data)
+
             Where ``item`` is the handle, ``obj`` is the Evas object
             that represents this item, and ``item_data`` is the
             value given as parameter to this function.
@@ -902,8 +904,10 @@ cdef class Gengrid(Object):
             provided to ``func`` as its last parameter.
         :param func: if not None, this must be a callable to be
             called back when the item is selected. The function
-            signature is:
-            ``func(item, obj, item_data)``
+            signature is::
+
+                func(item, obj, item_data)
+
             Where ``item`` is the handle, ``obj`` is the Evas object
             that represents this item, and ``item_data`` is the
             value given as parameter to this function.
@@ -948,8 +952,10 @@ cdef class Gengrid(Object):
             will be inserted before it.
         :param func: if not None, this must be a callable to be
             called back when the item is selected. The function
-            signature is:
-            ``func(item, obj, item_data)``
+            signature is::
+
+                func(item, obj, item_data)
+
             Where ``item`` is the handle, ``obj`` is the Evas object
             that represents this item, and ``item_data`` is the
             value given as parameter to this function.
@@ -997,8 +1003,10 @@ cdef class Gengrid(Object):
             will be inserted after it.
         :param func: if not None, this must be a callable to be
             called back when the item is selected. The function
-            signature is:
-            ``func(item, obj, item_data)``
+            signature is::
+
+                func(item, obj, item_data)
+
             Where ``item`` is the handle, ``obj`` is the Evas object
             that represents this item, and ``item_data`` is the
             value given as parameter to this function.
@@ -1038,7 +1046,7 @@ cdef class Gengrid(Object):
         the first item in the list is selected, which might not be very
         useful. For that case, see elm_gengrid_selected_items_get().
 
-        :type: :py:class:`GenlistItem`
+        :type: :py:class:`GengridItem`
 
         """
         def __get__(self):
@@ -1051,9 +1059,9 @@ cdef class Gengrid(Object):
         """This returns a tuple of the selected items, in the order that they
         appear in the grid.
 
-        .. seealso:: :py:func:`selected_item`
+        .. seealso:: :py:attr:`selected_item`
 
-        :type: tuple of :py:class:`GenlistItem`
+        :type: tuple of :py:class:`GengridItem`
 
         """
         def __get__(self):
@@ -1067,7 +1075,7 @@ cdef class Gengrid(Object):
 
         .. seealso:: :py:func:`realized_items_update()`
 
-        :type: tuple of :py:class:`GenlistItem`
+        :type: tuple of :py:class:`GengridItem`
 
         """
         def __get__(self):
@@ -1083,8 +1091,7 @@ cdef class Gengrid(Object):
 
         To update just one item, use elm_gengrid_item_update().
 
-        .. seealso:: :py:func:`realized_items_get()`
-        .. seealso:: :py:func:`item_update()`
+        .. seealso:: :py:attr:`realized_items` :py:func:`GengridItem.update()`
 
         """
         elm_gengrid_realized_items_update(self.obj)
@@ -1092,7 +1099,7 @@ cdef class Gengrid(Object):
     property first_item:
         """Get the first item in the gengrid widget.
 
-        :type: :py:class:`GenlistItem`
+        :type: :py:class:`GengridItem`
 
         """
         def __get__(self):
@@ -1104,7 +1111,7 @@ cdef class Gengrid(Object):
     property last_item:
         """Get the last item in the gengrid widget.
 
-        :type: :py:class:`GenlistItem`
+        :type: :py:class:`GengridItem`
 
         """
         def __get__(self):
@@ -1121,6 +1128,8 @@ cdef class Gengrid(Object):
         #ELM_SCROLLER_POLICY_OFF always keeps it off. This applies
         respectively for the horizontal and vertical scrollbars. Default is
         #ELM_SCROLLER_POLICY_AUTO
+
+        :type: Elm_Scroller_Policy
 
         """
         def __get__(self):
@@ -1206,6 +1215,8 @@ cdef class Gengrid(Object):
             they'll be changed to the nearest boundary values on the valid
             ranges.
 
+        :type: tuple of floats
+
         """
         def __get__(self):
             cdef double align_x, align_y
@@ -1234,6 +1245,8 @@ cdef class Gengrid(Object):
         releases the mouse button, the item being replaced gets a new
         definitive place in the grid.
 
+        :type: bool
+
         """
         def __get__(self):
             return bool(elm_gengrid_reorder_mode_get(self.obj))
@@ -1254,18 +1267,20 @@ cdef class Gengrid(Object):
         grid's continuous content area is split into (equal) page sized
         pieces.
 
-        This function sets the size of a page <b>relatively to the
-        viewport dimensions</b> of the gengrid, for each axis. A value
-        ``1.0`` means "the exact viewport's size", in that axis, while @c
-        0.0 turns paging off in that axis. Likewise, ``0.5`` means "half
-        a viewport". Sane usable values are, than, between ``0.0`` and @c
-        1.0. Values beyond those will make it behave behave
-        inconsistently. If you only want one axis to snap to pages, use
-        the value ``0.0`` for the other one.
+        This function sets the size of a page **relatively to the viewport
+        dimensions** of the gengrid, for each axis. A value ``1.0`` means
+        "the exact viewport's size", in that axis, while ``0.0`` turns
+        paging off in that axis. Likewise, ``0.5`` means "half a viewport".
+        Sane usable values are, than, between ``0.0`` and ``1.0``. Values
+        beyond those will make it behave behave inconsistently. If you only
+        want one axis to snap to pages, use the value ``0.0`` for the other
+        one.
 
-        There is a function setting page size values in **absolute**
-        values, too -- elm_gengrid_page_size_set(). Naturally, its use
-        is mutually exclusive to this one.
+        There is a function setting page size values in **absolute** values,
+        too -- elm_gengrid_page_size_set(). Naturally, its use is mutually
+        exclusive to this one.
+
+        :type: tuple of floats
 
         """
         def __get__(self):
@@ -1313,12 +1328,15 @@ cdef class Gengrid(Object):
     property current_page:
         """The page number starts from 0. 0 is the first page.
         Current page means the page which meet the top-left of the viewport.
-        If there are two or more pages in the viewport, it returns the number of page
-        which meet the top-left of the viewport.
+        If there are two or more pages in the viewport, it returns the
+        number of page which meet the top-left of the viewport.
 
-        .. seealso:: :py:func:`last_page_get()`
-        .. seealso:: :py:func:`page_show()`
-        .. seealso:: :py:func:`page_bring_in()`
+        .. seealso::
+            :py:attr:`last_page`
+            :py:func:`page_show()`
+            :py:func:`page_bring_in()`
+
+        :type: tuple of ints
 
         """
         def __get__(self):
@@ -1335,9 +1353,12 @@ cdef class Gengrid(Object):
         """The page number starts from 0. 0 is the first page.
         This returns the last page number among the pages.
 
-        .. seealso:: :py:func:`current_page_get()`
-        .. seealso:: :py:func:`page_show()`
-        .. seealso:: :py:func:`page_bring_in()`
+        .. seealso::
+            :py:attr:`current_page`
+            :py:func:`page_show()`
+            :py:func:`page_bring_in()`
+
+        :type: tuple of ints
 
         """
         def __get__(self):
@@ -1362,11 +1383,11 @@ cdef class Gengrid(Object):
 
         Example of usage::
 
-            sc = elm_gengrid_add(win);
-            elm_gengrid_content_set(sc, content);
-            elm_gengrid_page_relative_set(sc, 1, 0);
-            elm_gengrid_current_page_get(sc, &h_page, &v_page);
-            elm_gengrid_page_show(sc, h_page + 1, v_page);
+            sc = Gengrid(win)
+            sc.content = content
+            sc.page_relative = (1, 0)
+            h_page, v_page = sc.current_page
+            sc.page_show(h_page + 1, v_page)
 
         .. seealso:: :py:func:`page_bring_in()`
 
@@ -1385,11 +1406,11 @@ cdef class Gengrid(Object):
 
         Example of usage::
 
-            sc = elm_gengrid_add(win);
-            elm_gengrid_content_set(sc, content);
-            elm_gengrid_page_relative_set(sc, 1, 0);
-            elm_gengrid_last_page_get(sc, &h_page, &v_page);
-            elm_gengrid_page_bring_in(sc, h_page, v_page);
+            sc = Gengrid(win)
+            sc.content = content
+            sc.page_relative = (1, 0)
+            h_page, v_page = sc.current_page
+            sc.page_bring_in(h_page + 1, v_page)
 
         .. seealso:: :py:func:`page_show()`
 
