@@ -379,7 +379,7 @@ cdef public class Edje(Object) [object PyEdje, type PyEdje_Type]:
         """
         cdef const_Evas_Object *o
         o = edje_object_part_object_get(self.obj, part)
-        return <const_Evas_Object *>Object_from_instance(<Evas_Object *>o)
+        return Object_from_instance(<Evas_Object *>o)
 
     def part_geometry_get(self, char *part):
         "@rtype: tuple of int"
