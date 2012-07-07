@@ -299,6 +299,69 @@ cdef class GenlistItem(ObjectItem):
 
     """An item for the :py:class:`Genlist` widget."""
 
+    cdef Elm_Genlist_Item_Class *item_class
+    cdef Elm_Object_Item *parent_item
+    cdef int flags
+    cdef Evas_Smart_Cb cb
+
+    def __cinit__(self):
+        self.item_class = NULL
+        self.parent_item = NULL
+        self.flags = 0
+        self.cb = NULL
+
+    def __init__(   self,
+                    GenlistItemClass item_class not None,
+                    #TODO: item data separate from data?
+                    GenlistItem parent_item=None,
+                    int flags=ELM_GENLIST_ITEM_NONE,
+                    func=None, *args, **kwargs):
+        """Create a new GenlistItem.
+
+        :param item_class: a valid instance that defines the
+            behavior of this row. See :py:class:`GenlistItemClass`.
+        :param item_data: some data that defines the model of this
+            row. This value will be given to methods of
+            ``item_class`` such as
+            :py:func:`GenlistItemClass.text_get()`. It will also be
+            provided to ``func`` as its last parameter.
+        :param parent_item: if this is a tree child, then the
+            parent item must be given here, otherwise it may be
+            None. The parent must have the flag
+            ``ELM_GENLIST_ITEM_SUBITEMS`` set.
+        :param flags: defines special behavior of this item:
+
+            - ELM_GENLIST_ITEM_NONE = 0
+            - ELM_GENLIST_ITEM_SUBITEMS = 1
+            - ELM_GENLIST_ITEM_GROUP = 2
+
+        :param func: if not None, this must be a callable to be
+            called back when the item is selected. The function
+            signature is::
+
+                func(item, obj, item_data)
+
+            Where ``item`` is the handle, ``obj`` is the Evas object
+            that represents this item, and ``item_data`` is the
+            value given as parameter to this function.
+
+        """
+
+        self.item_class = &item_class.obj
+
+        self.parent_item = _object_item_from_python(parent_item) if parent_item is not None else NULL
+
+        self.flags = flags
+
+        if func is not None:
+            if not callable(func):
+                raise TypeError("func is not None or callable")
+            self.cb = _py_elm_genlist_item_func
+
+        item_data = (args, kwargs)
+
+        self.params = (item_class, item_data, func)
+
     cdef int _set_obj(self, Elm_Object_Item *item, params=None) except 0:
         assert self.item == NULL, "Object must be clean"
         self.item = item
@@ -327,6 +390,114 @@ cdef class GenlistItem(ObjectItem):
                 self.params[2],
                 self.params[1])
 
+    def append_to(self, Genlist genlist):
+        """Append a new item (add as last row) to this genlist.
+
+        :param genlist: The Genlist upon which this item is to be appended.
+        :type genlist: :py:class:`Genlist`
+
+        """
+        cdef Elm_Object_Item *item
+
+        item = elm_genlist_item_append( genlist.obj,
+                                        self.item_class,
+                                        <void*>self,
+                                        self.parent_item,
+                                        <Elm_Genlist_Item_Type>self.flags,
+                                        self.cb,
+                                        <void*>self)
+
+        if item != NULL:
+            self._set_obj(item)
+            return self
+        else:
+            Py_DECREF(self)
+            return None
+
+    def prepend_to(self, Genlist genlist):
+        """Prepend a new item (add as first row) to this Genlist.
+
+        :param genlist: The Genlist upon which this item is to be prepended.
+        :type genlist: :py:class:`Genlist`
+
+        """
+        cdef Elm_Object_Item *item
+
+        item = elm_genlist_item_prepend(genlist.obj,
+                                        self.item_class,
+                                        <void*>self,
+                                        self.parent_item,
+                                        <Elm_Genlist_Item_Type>self.flags,
+                                        self.cb,
+                                        <void*>self)
+
+        if item != NULL:
+            self._set_obj(item)
+            return self
+        else:
+            Py_DECREF(self)
+            return None
+
+    def insert_before(self, GenlistItem before_item=None):
+        """Insert a new item (row) before another item in this genlist.
+
+        :param before_item: a reference item to use, the new item
+            will be inserted before it.
+
+        """
+        cdef Genlist genlist
+        cdef Elm_Object_Item *item, *before
+
+        genlist = before_item.widget
+        before = _object_item_from_python(before_item)
+
+        item = elm_genlist_item_insert_before(  genlist.obj,
+                                                self.item_class,
+                                                <void*>self,
+                                                self.parent_item,
+                                                before,
+                                                <Elm_Genlist_Item_Type>self.flags,
+                                                self.cb,
+                                                <void*>self)
+
+        if item != NULL:
+            self._set_obj(item)
+            return self
+        else:
+            Py_DECREF(self)
+            return None
+
+    def insert_after(self, GenlistItem after_item=None):
+        """Insert a new item (row) after another item in this genlist.
+
+        :param after_item: a reference item to use, the new item
+            will be inserted after it.
+
+        """
+        cdef Genlist genlist
+        cdef Elm_Object_Item *item, *after
+
+        genlist = after_item.widget
+        after = _object_item_from_python(after_item)
+
+        item = elm_genlist_item_insert_after(   genlist.obj,
+                                                self.item_class,
+                                                <void*>self,
+                                                self.parent_item,
+                                                after,
+                                                <Elm_Genlist_Item_Type>self.flags,
+                                                self.cb,
+                                                <void*>self)
+
+        if item != NULL:
+            self._set_obj(item)
+            return self
+        else:
+            Py_DECREF(self)
+            return None
+
+    #Elm_Object_Item         *elm_genlist_item_sorted_insert(self.obj, Elm_Genlist_Item_Class *itc, void *data, Elm_Object_Item *parent, Elm_Genlist_Item_Type flags, Eina_Compare_Cb comp, Evas_Smart_Cb func, void *func_data)
+
     property data:
         """User data for the item."""
         def __get__(self):
@@ -339,7 +510,9 @@ cdef class GenlistItem(ObjectItem):
         """This returns the item placed after the ``item``, on the container
         genlist.
 
-        .. seealso:: :py:func:`item_prev_get()`
+        .. seealso:: :py:attr:`prev`
+
+        :type: :py:class:`GenlistItem`
 
         """
         def __get__(self):
@@ -352,7 +525,9 @@ cdef class GenlistItem(ObjectItem):
         """This returns the item placed before the ``item``, on the container
         genlist.
 
-        .. seealso:: :py:func:`item_next_get()`
+        .. seealso:: :py:attr:`next`
+
+        :type: :py:class:`GenlistItem`
 
         """
         def __get__(self):
@@ -365,7 +540,11 @@ cdef class GenlistItem(ObjectItem):
         """This sets the selected state of an item. If multi selection is
         not enabled on the containing genlist and ``selected`` is ``True``,
         any other previously selected items will get unselected in favor of
-        this new one.  """
+        this new one.
+
+        :type: bool
+
+        """
         def __get__(self):
             return bool(elm_genlist_item_selected_get(self.item))
 
@@ -381,7 +560,7 @@ cdef class GenlistItem(ObjectItem):
         """This causes genlist to jump to the item and show it (by
         jumping to that position), if it is not fully visible.
 
-        .. seealso:: :py:func:`item_bring_in()`
+        .. seealso:: :py:func:`bring_in()`
 
         """
         elm_genlist_item_show(self.item, scrollto_type)
@@ -391,7 +570,7 @@ cdef class GenlistItem(ObjectItem):
         animatedly scrolling), if it is not fully visible.
         This may use animation and take a some time to do so.
 
-        .. seealso:: :py:func:`item_show()`
+        .. seealso:: :py:func:`show()`
 
         """
         elm_genlist_item_bring_in(self.item, scrollto_type)
@@ -404,7 +583,7 @@ cdef class GenlistItem(ObjectItem):
         Use elm_genlist_realized_items_update() to update all already realized
         items.
 
-        .. seealso:: :py:func:`realized_items_update()`
+        .. seealso:: :py:func:`Genlist.realized_items_update()`
 
         """
         elm_genlist_item_update(self.item)
@@ -427,6 +606,8 @@ cdef class GenlistItem(ObjectItem):
     property index:
         """Get the index of the item. It is only valid once displayed.
 
+        :type: int
+
         """
         def __get__(self):
             return elm_genlist_item_index_get(self.item)
@@ -440,6 +621,7 @@ cdef class GenlistItem(ObjectItem):
         Setup the text as tooltip object. The object can have only one
         tooltip, so any previous tooltip data is removed.
         Internally, this method calls :py:func:`tooltip_content_cb_set`
+
         """
         elm_genlist_item_tooltip_text_set(self.item, _cfruni(text))
 
@@ -454,6 +636,7 @@ cdef class GenlistItem(ObjectItem):
 
         :param func: Function to be create tooltip content, called when
             need show tooltip.
+
         """
         if not callable(func):
             raise TypeError("func must be callable")
@@ -475,6 +658,7 @@ cdef class GenlistItem(ObjectItem):
         the internal copy of label will be removed correctly. If used
         :py:func:`tooltip_content_cb_set`, the data will be unreferred but
         no freed.
+
         """
         elm_genlist_item_tooltip_unset(self.item)
 
@@ -488,6 +672,8 @@ cdef class GenlistItem(ObjectItem):
         .. note:: before you set a style you should define a tooltip with
             elm_genlist_item_tooltip_content_cb_set() or
             elm_genlist_item_tooltip_text_set()
+
+        :type: string
 
         """
         def __set__(self, style):
@@ -584,6 +770,8 @@ cdef class GenlistItem(ObjectItem):
         """This returns the item that was specified as parent of the item
         on elm_genlist_item_append() and insertion related functions.
 
+        :type: :py:class:`GenlistItem`
+
         """
         def __get__(self):
             return _object_item_to_python(elm_genlist_item_parent_get(self.item))
@@ -610,6 +798,8 @@ cdef class GenlistItem(ObjectItem):
         it is a parent). You must manually delete and create them on the
         callbacks of the "expanded" or "contracted" signals.
 
+        :type: bool
+
         """
         def __get__(self):
             return bool(elm_genlist_item_expanded_get(self.item))
@@ -623,7 +813,9 @@ cdef class GenlistItem(ObjectItem):
         return bool(elm_genlist_item_expanded_get(self.item))
 
     property expanded_depth:
-        """Get the depth of expanded item
+        """Get the depth of expanded item.
+
+        :type: int
 
         """
         def __get__(self):
@@ -664,7 +856,7 @@ cdef class GenlistItem(ObjectItem):
         Use elm_genlist_realized_items_update() to update an item's all
         property.
 
-        .. seealso:: :py:func:`item_update()`
+        .. seealso:: :py:func:`update()`
 
         """
         elm_genlist_item_fields_update(self.item, _cfruni(parts), itf)
@@ -700,8 +892,7 @@ cdef class GenlistItem(ObjectItem):
         active on the item, and will be destroyed after the mode is totally
         deactivated from that item.
 
-        .. seealso:: :py:func:`mode_get()`
-        .. seealso:: :py:func:`decorated_item_get()`
+        .. seealso:: :py:attr:`mode` :py:attr:`decorated_item`
 
         """
         def __set__(self, value):
@@ -730,10 +921,11 @@ cdef class GenlistItem(ObjectItem):
         return <Elm_Genlist_Item_Type>ittype
 
     property flip:
-        """This function sets the flip state of a given genlist item.
-        Flip mode overrides current item object.
-        It can be used for on-the-fly item replace.
+        """The flip state of a given genlist item. Flip mode overrides
+        current item object. It can be used for on-the-fly item replace.
         Flip mode can be used with/without decorate mode.
+
+        :type: bool
 
         """
         def __set__(self, flip):
@@ -846,28 +1038,24 @@ cdef class Genlist(Object):
       so any data attached to the item (e.g. its data parameter on creation)
       can be deleted. See #Elm_Genlist_Item_Del_Cb.
 
-    available item styles:
+    Available item styles:
 
     - default
     - default_style - The text part is a textblock
 
-    @image html img/widget/genlist/preview-04.png
-    @image latex img/widget/genlist/preview-04.eps
+    .. image:: img/widget/genlist/preview-04.*
 
     - double_label
 
-    @image html img/widget/genlist/preview-01.png
-    @image latex img/widget/genlist/preview-01.eps
+    .. image:: img/widget/genlist/preview-01.*
 
     - icon_top_text_bottom
 
-    @image html img/widget/genlist/preview-02.png
-    @image latex img/widget/genlist/preview-02.eps
+    .. image:: img/widget/genlist/preview-02.*
 
     - group_index
 
-    @image html img/widget/genlist/preview-03.png
-    @image latex img/widget/genlist/preview-03.eps
+    .. image:: img/widget/genlist/preview-03.*
 
     - one_icon - Only 1 icon (left) @since 1.1
     - end_icon - Only 1 icon (at end/right) @since 1.1
@@ -1122,15 +1310,15 @@ cdef class Genlist(Object):
     def clear(self):
         """Remove all items from a given genlist widget.
 
-        .. seealso:: :py:func:`elm_object_item_del()`, to remove just one item.
-
         """
         elm_genlist_clear(self.obj)
 
     property multi_select:
         """This enables (``True``) or disables (``False``) multi-selection in
-        the list. This allows more than 1 item to be selected. To retrieve the list
-        of selected items, use elm_genlist_selected_items_get().
+        the list. This allows more than 1 item to be selected. To retrieve
+        the list of selected items, use elm_genlist_selected_items_get().
+
+        :type: bool
 
         """
         def __set__(self, multi):
@@ -1183,6 +1371,8 @@ cdef class Genlist(Object):
         """This will enable or disable the scroller bouncing effect for the
         genlist. See elm_scroller_bounce_set() for details.
 
+        :type: tuple of bools
+
         """
         def __set__(self, value):
             h_bounce, v_bounce = value
@@ -1206,60 +1396,7 @@ cdef class Genlist(Object):
                     GenlistItem parent_item=None,
                     int flags=ELM_GENLIST_ITEM_NONE,
                     func=None):
-        """Append a new item (add as last row) to this genlist.
-
-        :param item_class: a valid instance that defines the
-            behavior of this row. See :py:class:`GenlistItemClass`.
-        :param item_data: some data that defines the model of this
-            row. This value will be given to methods of
-            ``item_class`` such as
-            :py:func:`GenlistItemClass.text_get()`. It will also be
-            provided to ``func`` as its last parameter.
-        :param parent_item: if this is a tree child, then the
-            parent item must be given here, otherwise it may be
-            None. The parent must have the flag
-            ``ELM_GENLIST_ITEM_SUBITEMS`` set.
-        :param flags: defines special behavior of this item:
-
-            - ELM_GENLIST_ITEM_NONE = 0
-            - ELM_GENLIST_ITEM_SUBITEMS = 1
-            - ELM_GENLIST_ITEM_GROUP = 2
-
-        :param func: if not None, this must be a callable to be
-            called back when the item is selected. The function
-            signature is:
-            ``func(item, obj, item_data)``
-            Where ``item`` is the handle, ``obj`` is the Evas object
-            that represents this item, and ``item_data`` is the
-            value given as parameter to this function.
-        """
-        cdef GenlistItem ret = GenlistItem()
-        cdef Elm_Object_Item *item, *parent
-        cdef Evas_Smart_Cb cb
-
-        parent = _object_item_from_python(parent_item) if parent_item is not None else NULL
-
-        if func is None:
-            cb = NULL
-        elif callable(func):
-            cb = _py_elm_genlist_item_func
-        else:
-            raise TypeError("func is not None or callable")
-
-        ret.params = (item_class, item_data, func)
-        item = elm_genlist_item_append( self.obj,
-                                        &item_class.obj,
-                                        <void*>ret,
-                                        parent,
-                                        <Elm_Genlist_Item_Type>flags,
-                                        cb,
-                                        <void*>ret)
-        if item != NULL:
-            ret._set_obj(item)
-            return ret
-        else:
-            Py_DECREF(ret)
-            return None
+        return GenlistItem(item_class, parent_item, flags, func, *item_data).append_to(self)
 
     def item_prepend(   self,
                         GenlistItemClass item_class not None,
@@ -1267,60 +1404,7 @@ cdef class Genlist(Object):
                         GenlistItem parent_item=None,
                         int flags=ELM_GENLIST_ITEM_NONE,
                         func=None):
-        """Prepend a new item (add as first row) to this genlist.
-
-        :param item_class: a valid instance that defines the
-            behavior of this row. See :py:class:`GenlistItemClass`.
-        :param item_data: some data that defines the model of this
-            row. This value will be given to methods of
-            ``item_class`` such as
-            :py:func:`GenlistItemClass.text_get()`. It will also be
-            provided to ``func`` as its last parameter.
-        :param parent_item: if this is a tree child, then the
-            parent item must be given here, otherwise it may be
-            None. The parent must have the flag
-            ``ELM_GENLIST_ITEM_SUBITEMS`` set.
-        :param flags: defines special behavior of this item:
-
-            - ELM_GENLIST_ITEM_NONE = 0
-            - ELM_GENLIST_ITEM_SUBITEMS = 1
-            - ELM_GENLIST_ITEM_GROUP = 2
-
-        :param func: if not None, this must be a callable to be
-            called back when the item is selected. The function
-            signature is:
-            ``func(item, obj, item_data)``
-            Where ``item`` is the handle, ``obj`` is the Evas object
-            that represents this item, and ``item_data`` is the
-            value given as parameter to this function.
-        """
-        cdef GenlistItem ret = GenlistItem()
-        cdef Elm_Object_Item *item, *parent
-        cdef Evas_Smart_Cb cb
-
-        parent = _object_item_from_python(parent_item) if parent_item is not None else NULL
-
-        if func is None:
-            cb = NULL
-        elif callable(func):
-            cb = _py_elm_genlist_item_func
-        else:
-            raise TypeError("func is not None or callable")
-
-        ret.params = (item_class, item_data, func)
-        item = elm_genlist_item_prepend(self.obj,
-                                        &item_class.obj,
-                                        <void*>ret,
-                                        parent,
-                                        <Elm_Genlist_Item_Type>flags,
-                                        cb,
-                                        <void*>ret)
-        if item != NULL:
-            ret._set_obj(item)
-            return ret
-        else:
-            Py_DECREF(ret)
-            return None
+        return GenlistItem(item_class, parent_item, flags, func, *item_data).prepend_to(self)
 
     def item_insert_before( self,
                             GenlistItemClass item_class not None,
@@ -1331,56 +1415,7 @@ cdef class Genlist(Object):
                             func=None
                             #API XXX: *args, **kwargs
                             ):
-        """Insert a new item (row) before another item in this genlist.
-
-        :param item_class: a valid instance that defines the
-            behavior of this row. See :py:class:`GenlistItemClass`.
-        :param item_data: some data that defines the model of this
-            row. This value will be given to methods of
-            ``item_class`` such as
-            :py:func:`GenlistItemClass.text_get()`. It will also be
-            provided to ``func`` as its last parameter.
-        :param before_item: a reference item to use, the new item
-            will be inserted before it.
-        :param flags: defines special behavior of this item:
-            - ELM_GENLIST_ITEM_NONE = 0
-            - ELM_GENLIST_ITEM_SUBITEMS = 1
-            - ELM_GENLIST_ITEM_GROUP = 2
-        :param func: if not None, this must be a callable to be
-            called back when the item is selected. The function
-            signature is:
-            ``func(item, obj, item_data)``
-            Where ``item`` is the handle, ``obj`` is the Evas object
-            that represents this item, and ``item_data`` is the
-            value given as parameter to this function.
-        """
-        cdef GenlistItem ret = GenlistItem()
-        cdef Elm_Object_Item *item, *before
-        cdef Evas_Smart_Cb cb
-
-        before = _object_item_from_python(before_item)
-
-        if func is None:
-            cb = NULL
-        elif callable(func):
-            cb = _py_elm_genlist_item_func
-        else:
-            raise TypeError("func is not None or callable")
-
-        ret.params = (item_class, item_data, func)
-        item = elm_genlist_item_insert_before(  self.obj,
-                                                &item_class.obj,
-                                                <void*>ret,
-                                                NULL,
-                                                before,
-                                                <Elm_Genlist_Item_Type>flags, cb,
-                                                <void*>ret)
-        if item != NULL:
-            ret._set_obj(item)
-            return ret
-        else:
-            Py_DECREF(ret)
-            return None
+        return GenlistItem(item_class, None, flags, func, *item_data).insert_before(before_item)
 
     def item_insert_after(  self,
                             GenlistItemClass item_class not None,
@@ -1391,55 +1426,7 @@ cdef class Genlist(Object):
                             func=None
                             #API XXX: *args, **kwargs
                             ):
-        """Insert a new item (row) after another item in this genlist.
-
-        :param item_class: a valid instance that defines the
-            behavior of this row. See :py:class:`GenlistItemClass`.
-        :param item_data: some data that defines the model of this
-            row. This value will be given to methods of
-            ``item_class`` such as
-            :py:func:`GenlistItemClass.text_get()`. It will also be
-            provided to ``func`` as its last parameter.
-        :param after_item: a reference item to use, the new item
-            will be inserted after it.
-        :param flags: defines special behavior of this item:
-            - ELM_GENLIST_ITEM_NONE = 0
-            - ELM_GENLIST_ITEM_SUBITEMS = 1
-            - ELM_GENLIST_ITEM_GROUP = 2
-        :param func: if not None, this must be a callable to be
-            called back when the item is selected. The function
-            signature is:
-            ``func(item, obj, item_data)``
-            Where ``item`` is the handle, ``obj`` is the Evas object
-            that represents this item, and ``item_data`` is the
-            value given as parameter to this function.
-        """
-        cdef GenlistItem ret = GenlistItem()
-        cdef Elm_Object_Item *item, *after
-        cdef Evas_Smart_Cb cb
-
-        after = _object_item_from_python(after_item)
-
-        if func is None:
-            cb = NULL
-        elif callable(func):
-            cb = _py_elm_genlist_item_func
-        else:
-            raise TypeError("func is not None or callable")
-
-        ret.params = (item_class, item_data, func)
-        item = elm_genlist_item_insert_after(self.obj, &item_class.obj,
-                                             <void*>ret,
-                                             NULL,
-                                             after,
-                                             <Elm_Genlist_Item_Type>flags, cb,
-                                             <void*>ret)
-        if item != NULL:
-            ret._set_obj(item)
-            return ret
-        else:
-            Py_DECREF(ret)
-            return None
+        return GenlistItem(item_class, None, flags, func, *item_data).insert_after(after_item)
 
     #Elm_Object_Item         *elm_genlist_item_sorted_insert(self.obj, Elm_Genlist_Item_Class *itc, void *data, Elm_Object_Item *parent, Elm_Genlist_Item_Type flags, Eina_Compare_Cb comp, Evas_Smart_Cb func, void *func_data)
 
@@ -1451,7 +1438,9 @@ cdef class Genlist(Object):
 
         If no item is selected, None is returned.
 
-        .. seealso:: :py:func:`selected_items_get()`
+        .. seealso:: :py:attr:`selected_items`
+
+        :type: :py:class:`GenlistItem`
 
         """
         def __get__(self):
@@ -1471,12 +1460,13 @@ cdef class Genlist(Object):
         .. note:: If not in multi-select mode, consider using function
             elm_genlist_selected_item_get() instead.
 
-        .. seealso:: :py:func:`multi_select_set()`
-        .. seealso:: :py:func:`selected_item_get()`
+        .. seealso:: :py:attr:`multi_select` :py:attr:`selected_item`
+
+        :type: tuple of :py:class:`GenlistItem`
 
         """
         def __get__(self):
-            return _object_item_list_to_python(elm_genlist_selected_items_get(self.obj))
+            return tuple(_object_item_list_to_python(elm_genlist_selected_items_get(self.obj)))
 
     def selected_items_get(self):
         return _object_item_list_to_python(elm_genlist_selected_items_get(self.obj))
@@ -1490,6 +1480,8 @@ cdef class Genlist(Object):
 
         .. seealso:: :py:func:`realized_items_update()`
 
+        :type: tuple of :py:class:`GenlistItem`
+
         """
         def __get__(self):
             return _object_item_list_to_python(elm_genlist_realized_items_get(self.obj))
@@ -1500,6 +1492,8 @@ cdef class Genlist(Object):
     property first_item:
         """This returns the first item in the list.
 
+        :type: :py:class:`GenlistItem`
+
         """
         def __get__(self):
             return _object_item_to_python(elm_genlist_first_item_get(self.obj))
@@ -1509,6 +1503,8 @@ cdef class Genlist(Object):
 
     property last_item:
         """This returns the last item in the list.
+
+        :type: :py:class:`GenlistItem`
 
         """
         def __get__(self):
@@ -1525,6 +1521,8 @@ cdef class Genlist(Object):
         #ELM_SCROLLER_POLICY_OFF always keeps it off. This applies
         respectively for the horizontal and vertical scrollbars. Default is
         #ELM_SCROLLER_POLICY_AUTO
+
+        :type: Elm_Scroller_Policy
 
         """
         def __set__(self, value):
@@ -1551,14 +1549,15 @@ cdef class Genlist(Object):
 
         To update just one item, use elm_genlist_item_update().
 
-        .. seealso:: :py:func:`realized_items_get()`
-        .. seealso:: :py:func:`item_update()`
+        .. seealso:: :py:attr:`realized_items` :py:func:`item_update()`
 
         """
         elm_genlist_realized_items_update(self.obj)
 
     property items_count:
         """Return how many items are currently in a list
+
+        :type: int
 
         """
         def __get__(self):
@@ -1569,7 +1568,9 @@ cdef class Genlist(Object):
         height and width so that genlist may do the lazy-loading at its
         maximum (which increases the performance for scrolling the list).
 
-        .. seealso:: :py:func:`mode_set()`
+        .. seealso:: :py:attr:`mode`
+
+        :type: bool
 
         """
         def __set__(self, homogeneous):
@@ -1636,14 +1637,14 @@ cdef class Genlist(Object):
         :param x: The input x coordinate
         :param y: The input y coordinate
         :param posret: The position relative to the item returned here
-        :return: The item at the coordinates or NULL if none
+        :return: The item at the coordinates or None if none
 
         This returns the item at the given coordinates (which are canvas
         relative, not object-relative). If an item is at that coordinate,
-        that item handle is returned, and if ``posret`` is not NULL, the
+        that item handle is returned, and if ``posret`` is not None, the
         integer pointed to is set to a value of -1, 0 or 1, depending if
         the coordinate is on the upper portion of that item (-1), on the
-        middle section (0) or on the lower part (1). If NULL is returned as
+        middle section (0) or on the lower part (1). If None is returned as
         an item (no item found there), then posret may indicate -1 or 1
         based if the coordinate is above or below all items respectively in
         the genlist.
@@ -1655,8 +1656,9 @@ cdef class Genlist(Object):
         """This function returns the item that was activated with a mode, by
         the function elm_genlist_item_decorate_mode_set().
 
-        .. seealso:: :py:func:`item_decorate_mode_set()`
-        .. seealso:: :py:func:`mode_get()`
+        .. seealso:: :py:attr:`GenlistItem.decorate_mode` :py:attr:`mode`
+
+        :type: :py:class:`GenlistItem`
 
         """
         def __get__(self):
@@ -1667,6 +1669,8 @@ cdef class Genlist(Object):
 
     property reorder_mode:
         """Reorder mode.
+
+        :type: bool
 
         """
         def __set__(self, reorder_mode):
@@ -1683,6 +1687,8 @@ cdef class Genlist(Object):
     property decorate_mode:
         """Genlist decorate mode for all items.
 
+        :type: bool
+
         """
         def __set__(self, decorated):
             elm_genlist_decorate_mode_set(self.obj, decorated)
@@ -1697,6 +1703,8 @@ cdef class Genlist(Object):
 
     property tree_effect_enabled:
         """Genlist tree effect.
+
+        :type: bool
 
         """
         def __set__(self, enabled):
@@ -1716,6 +1724,8 @@ cdef class Genlist(Object):
 
         Highlight is enabled by default.
 
+        :type: bool
+
         """
         def __set__(self, highlight):
             elm_genlist_highlight_mode_set(self.obj, highlight)
@@ -1729,8 +1739,7 @@ cdef class Genlist(Object):
         return bool(elm_genlist_highlight_mode_get(self.obj))
 
     property select_mode:
-        """elm_genlist_select_mode_set() changes item select mode in the
-        genlist widget.
+        """Selection mode of the Genlist widget.
 
         - ELM_OBJECT_SELECT_MODE_DEFAULT : Items will only call their
             selection func and callback when first becoming selected. Any
@@ -1740,6 +1749,8 @@ cdef class Genlist(Object):
         - ELM_OBJECT_SELECT_MODE_NONE : This will turn off the ability to
             select items entirely and they will neither appear selected nor
             call selected callback functions.
+
+        :type: Elm_Object_Select_Mode
 
         """
         def __set__(self, mode):
