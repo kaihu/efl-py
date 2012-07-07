@@ -15,26 +15,14 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this Python-Emotion.  If not, see <http://www.gnu.org/licenses/>.
 
-from cpython cimport PyObject, Py_INCREF, Py_DECREF
-# 
-# cimport evas.c_evas as c_evas
-# import evas.c_evas
-# import evas
-from evas.object import EvasObjectMeta, _object_mapping_register
+from cpython cimport PyObject
+
+from evas.object import _object_mapping_register
 from evas.object cimport Object_from_instance
-
-# __extra_epydoc_fields__ = (
-#     ("parm", "Parameter", "Parameters"), # epydoc don't support pyrex properly
-#     )
-
 
 cdef int PY_REFCOUNT(object o):
     cdef PyObject *obj = <PyObject *>o
     return obj.ob_refcnt
-
-cdef void _install_metaclass(PyTypeObject *ctype, object metaclass):
-    Py_INCREF(metaclass)
-    ctype.ob_type = <PyTypeObject*>metaclass
 
 cdef unicode _touni(char* s):
     return s.decode('UTF-8', 'strict')
@@ -87,7 +75,7 @@ class EmotionModuleInitError(Exception):
     pass
 
 
-cdef public class Emotion(Object) [object PyEmotion, type PyEmotion_Type]:
+cdef class Emotion(Object):
     def __cinit__(self, *a, **ka):
         self._emotion_callbacks = {}
 
@@ -490,36 +478,51 @@ cdef public class Emotion(Object) [object PyEmotion, type PyEmotion_Type]:
         def __get__(self):
             return self.meta_info_dict_get()
 
-# TODO FIXME !!!!!!
-#     def callback_add(self, char *event, func, *args, **kargs):
-#         e = intern(event)
-#         lst = self._emotion_callbacks.setdefault(e, [])
-#         if not lst:
-#             evas.c_evas.evas_object_smart_callback_add(self.obj, event,
-#                                                        _emotion_callback,
-#                                                        <void *>e)
-#         lst.append((func, args, kargs))
+    def callback_add(self, char *event, func, *args, **kargs):
+        """Add callback to given emotion event.
 
-#     def callback_del(self, char *event, func):
-#         try:
-#             lst = self._emotion_callbacks[event]
-#         except KeyError, e:
-#             raise ValueError("function %s not associated with event %r" %
-#                              (func, event))
-# 
-#         i = -1
-#         for i, (f, a, k) in enumerate(lst):
-#             if func == f:
-#                 break
-#         else:
-#             raise ValueError("function %s not associated with event %r" %
-#                              (func, event))
-#         lst.pop(i)
-#         if lst:
-#             return
-#         self._emotion_callbacks.pop(event)
-#         evas.c_evas.evas_object_smart_callback_del(self.obj, event,
-#                                                    _emotion_callback)
+        Signature::
+
+            function(object, *args, **kargs)
+
+        :param event: event to listen, like "frame_decode".
+        :param func: callable to use.
+
+        """
+        e = intern(event)
+        lst = self._emotion_callbacks.setdefault(e, [])
+        if not lst:
+            evas_object_smart_callback_add(self.obj, event,
+                                                       _emotion_callback,
+                                                       <void *>e)
+        lst.append((func, args, kargs))
+
+    def callback_del(self, char *event, func):
+        """Remove previously connected callback.
+
+        :param event: event to listen, like "frame_decode".
+        :param func: callable to use.
+
+        """
+        try:
+            lst = self._emotion_callbacks[event]
+        except KeyError, e:
+            raise ValueError("function %s not associated with event %r" %
+                             (func, event))
+
+        i = -1
+        for i, (f, a, k) in enumerate(lst):
+            if func == f:
+                break
+        else:
+            raise ValueError("function %s not associated with event %r" %
+                             (func, event))
+        lst.pop(i)
+        if lst:
+            return
+        self._emotion_callbacks.pop(event)
+        evas_object_smart_callback_del(self.obj, event,
+                                                   _emotion_callback)
 
     def on_frame_decode_add(self, func, *args, **kargs):
         self.callback_add("frame_decode", func, *args, **kargs)
@@ -592,17 +595,6 @@ cdef public class Emotion(Object) [object PyEmotion, type PyEmotion_Type]:
 
     def on_audio_level_change_del(self, func):
         self.callback_del("audio_level_change", func)
-
-class EmotionObjectMeta(EvasObjectMeta):
-    def __init__(cls, name, bases, dict_):
-        EvasObjectMeta.__init__(cls, name, bases, dict_)
-#         cls._fetch_callbacks()
-
-
-
-cdef extern from "Emotion.h": # hack to force type to be known
-    cdef PyTypeObject PyEmotion_Type # hack to install metaclass
-_install_metaclass(&PyEmotion_Type, EmotionObjectMeta)
 
 
 _object_mapping_register("emotion_object", Emotion)

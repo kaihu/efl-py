@@ -28,8 +28,6 @@ def pkgconfig(*packages, **kw):
     return kw
 
 ext_modules=[
-    # Extension("edje.edit", ["edje/edit.pyx"], define_macros=[("EDJE_EDIT_IS_UNSTABLE_AND_I_KNOW_ABOUT_IT", "1")], **pkgconfig("edje")),
-    # Extension("edje.general", ["edje/general.pyx"], **pkgconfig("edje"))
     Extension("emotion", ["emotion/emotion.pyx"], **pkgconfig("emotion"))
 ]
 
@@ -41,7 +39,6 @@ setup(
     version = "1.7.0",
     description = "Python bindings for EFL Emotion",
     cmdclass = {'build_ext': build_ext, 'build_sphinx': BuildDoc, 'build_doc': BuildDoc},
-    packages = ["emotion"],
     ext_modules = cythonize(ext_modules),
     package_data = {"emotion": ["*.pxd"]},
     requires = ["evas", "ecore", "edje"],

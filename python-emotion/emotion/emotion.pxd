@@ -15,19 +15,14 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this Python-Emotion.  If not, see <http://www.gnu.org/licenses/>.
 
-# cimport evas.c_evas
-# import evas.c_evas
-
 from evas.general cimport Eina_Bool
 from evas.object cimport Evas_Object, const_Evas_Object, Object
+from evas.object_smart cimport  evas_object_smart_callback_add, \
+                                evas_object_smart_callback_del
 from evas.canvas cimport Evas, Canvas
 
 cdef extern from *:
     ctypedef char* const_char_ptr "const char *"
-
-cdef extern from "Python.h":
-    ctypedef struct PyTypeObject:
-        PyTypeObject *ob_type
 
 cdef extern from "Emotion.h":
     ctypedef enum Emotion_Module:
@@ -142,5 +137,5 @@ cdef extern from "Emotion.h":
     char *emotion_object_meta_info_get(Evas_Object *obj, Emotion_Meta_Info meta)
 
 
-cdef public class Emotion(Object) [object PyEmotion, type PyEmotion_Type]:
+cdef class Emotion(Object):
     cdef object _emotion_callbacks
