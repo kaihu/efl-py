@@ -29,6 +29,7 @@ sys.path.insert(0, os.path.abspath('../build/lib.linux-i686-2.7'))
 extensions = ['sphinx.ext.autodoc', 'sphinx.ext.viewcode']
 
 autodoc_default_flags = ['members', 'inherited-members', 'show-inheritance']
+autoclass_content = "both"
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
