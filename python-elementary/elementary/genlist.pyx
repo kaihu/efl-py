@@ -30,11 +30,12 @@ from list cimport ELM_LIST_COMPRESS
 
 from evas.general cimport eina_list_remove_list
 import traceback
+import logging
 
-cdef _py_elm_genlist_item_call(func, Evas_Object *obj, part, args, kwargs) with gil:
+cdef _py_elm_genlist_item_call(func, Evas_Object *obj, part, args) with gil:
     try:
         o = Object_from_instance(obj)
-        return func(o, _ctouni(part), *args, **kwargs)
+        return func(o, _ctouni(part), args)
     except Exception as e:
         traceback.print_exc()
         return None
@@ -43,13 +44,12 @@ cdef char *_py_elm_genlist_item_text_get(void *data, Evas_Object *obj, const_cha
     cdef GenlistItem item = <object>data
     cdef object params = item.params
     cdef GenlistItemClass itc = params[0]
-    (args, kwargs) = params[1]
 
     func = itc._text_get_func
     if func is None:
         return NULL
 
-    ret = _py_elm_genlist_item_call(func, obj, part, args, kwargs)
+    ret = _py_elm_genlist_item_call(func, obj, part, params[1])
     if ret is not None:
         return strdup(_fruni(ret))
     else:
@@ -60,13 +60,12 @@ cdef Evas_Object *_py_elm_genlist_item_content_get(void *data, Evas_Object *obj,
     cdef object params = item.params
     cdef evasObject icon
     cdef GenlistItemClass itc = params[0]
-    (args, kwargs) = params[1]
 
     func = itc._content_get_func
     if func is None:
         return NULL
 
-    ret = _py_elm_genlist_item_call(func, obj, part, args, kwargs)
+    ret = _py_elm_genlist_item_call(func, obj, part, params[1])
     if ret is not None:
         try:
             icon = ret
@@ -81,13 +80,12 @@ cdef Eina_Bool _py_elm_genlist_item_state_get(void *data, Evas_Object *obj, cons
     cdef GenlistItem item = <object>data
     cdef object params = item.params
     cdef GenlistItemClass itc = params[0]
-    (args, kwargs) = params[1]
 
     func = itc._state_get_func
     if func is None:
         return False
 
-    ret = _py_elm_genlist_item_call(func, obj, part, args, kwargs)
+    ret = _py_elm_genlist_item_call(func, obj, part, params[1])
     if ret is not None:
         return bool(ret)
     else:
@@ -103,13 +101,12 @@ cdef void _py_elm_genlist_object_item_del(void *data, Evas_Object *obj) with gil
 
     params = item.params
     itc = params[0]
-    (args, kwargs) = params[1]
 
     func = itc._del_func
     if func is not None:
         try:
             o = Object_from_instance(obj)
-            func(o, args, kwargs)
+            func(o, params[1])
         except Exception as e:
             traceback.print_exc()
     item._unset_obj()
@@ -118,12 +115,11 @@ cdef void _py_elm_genlist_object_item_del(void *data, Evas_Object *obj) with gil
 cdef void _py_elm_genlist_item_func(void *data, Evas_Object *obj, void *event_info) with gil:
     cdef GenlistItem item = <object>data
     cdef object func = item.params[2]
-    (args, kwargs) = item.params[1]
 
     if func is not None:
         try:
             o = Object_from_instance(obj)
-            func(item, o, *args, **kwargs)
+            func(item, o, item.params[1])
         except Exception as e:
             traceback.print_exc()
 
@@ -320,7 +316,7 @@ cdef class GenlistItem(ObjectItem):
                     #TODO: item data separate from data?
                     GenlistItem parent_item=None,
                     int flags=ELM_GENLIST_ITEM_NONE,
-                    func=None, *args, **kwargs):
+                    func=None, *args):
         """Create a new GenlistItem.
 
         :param item_class: a valid instance that defines the
@@ -363,9 +359,7 @@ cdef class GenlistItem(ObjectItem):
                 raise TypeError("func is not None or callable")
             self.cb = _py_elm_genlist_item_func
 
-        item_data = (args, kwargs)
-
-        self.params = (item_class, item_data, func)
+        self.params = (item_class, args, func)
 
     cdef int _set_obj(self, Elm_Object_Item *item, params=None) except 0:
         assert self.item == NULL, "Object must be clean"
@@ -506,16 +500,10 @@ cdef class GenlistItem(ObjectItem):
     property data:
         """User data for the item."""
         def __get__(self):
-            (args, kwargs) = self.params[1]
-            item_data = []
-            item_data.append(*args, **kwargs)
-            return item_data
+            return self.params[1]
 
     def data_get(self):
-        (args, kwargs) = self.params[1]
-        item_data = []
-        item_data.append(*args, **kwargs)
-        return item_data
+        return self.params[1]
 
     property next:
         """This returns the item placed after the ``item``, on the container
@@ -1407,7 +1395,7 @@ cdef class Genlist(Object):
                     GenlistItem parent_item=None,
                     int flags=ELM_GENLIST_ITEM_NONE,
                     func=None):
-        return GenlistItem(item_class, parent_item, flags, func, item_data).append_to(self)
+        return GenlistItem(item_class, parent_item, flags, func, *item_data).append_to(self)
 
     def item_prepend(   self,
                         GenlistItemClass item_class not None,
@@ -1415,7 +1403,7 @@ cdef class Genlist(Object):
                         GenlistItem parent_item=None,
                         int flags=ELM_GENLIST_ITEM_NONE,
                         func=None):
-        return GenlistItem(item_class, parent_item, flags, func, item_data).prepend_to(self)
+        return GenlistItem(item_class, parent_item, flags, func, *item_data).prepend_to(self)
 
     def item_insert_before( self,
                             GenlistItemClass item_class not None,
@@ -1426,7 +1414,7 @@ cdef class Genlist(Object):
                             func=None
                             #API XXX: *args, **kwargs
                             ):
-        return GenlistItem(item_class, None, flags, func, item_data).insert_before(before_item)
+        return GenlistItem(item_class, None, flags, func, *item_data).insert_before(before_item)
 
     def item_insert_after(  self,
                             GenlistItemClass item_class not None,
@@ -1437,7 +1425,7 @@ cdef class Genlist(Object):
                             func=None
                             #API XXX: *args, **kwargs
                             ):
-        return GenlistItem(item_class, None, flags, func, item_data).insert_after(after_item)
+        return GenlistItem(item_class, None, flags, func, *item_data).insert_after(after_item)
 
     #Elm_Object_Item         *elm_genlist_item_sorted_insert(self.obj, Elm_Genlist_Item_Class *itc, void *data, Elm_Object_Item *parent, Elm_Genlist_Item_Type flags, Eina_Compare_Cb comp, Evas_Smart_Cb func, void *func_data)
 
