@@ -21,21 +21,24 @@ include "object_header.pxi"
 
 cdef class Rectangle(Object):
 
-    """A rectangle.
+    """
+
+    A rectangle.
 
     There is only one function to deal with rectangle objects, this may make
     this function seem useless given there are no functions to manipulate
     the created rectangle, however the rectangle is actually very useful and
-    should be manipulated using the generic L{Object} functions.
+    should be manipulated using the generic :py:class:`evas.object.Object`
+    functions.
 
     The evas rectangle serves a number of key functions when working on evas
     programs:
-        - Background
-        - Debugging
-        - Clipper
 
-    Background
-    ==========
+    - Background
+    - Debugging
+    - Clipper
+
+    .. rubric:: Background
 
     One extremely common requirement of evas programs is to have a solid
     color background, this can be accomplished with the following very
@@ -47,7 +50,7 @@ cdef class Rectangle(Object):
         bg.resize(WIDTH, HEIGHT) # covers full canvas
         bg.show()
 
-    This however will have issues if the C{evas_canvas} is resized, however
+    This however will have issues if the ``evas_canvas`` is resized, however
     most windows are created using ecore evas and that has a solution to
     using the rectangle as a background::
 
@@ -62,8 +65,7 @@ cdef class Rectangle(Object):
     So this gives us a white background to our window that will be resized
     together with it.
 
-    Debugging
-    =========
+    .. rubric:: Debugging
 
     Debugging is a major part of any programmers task and when debugging
     visual issues with evas programs the rectangle is an extremely useful
@@ -77,15 +79,14 @@ cdef class Rectangle(Object):
     can be replaced for the original part and in all likelihood any
     remaining issues will be specific to that object's type.
 
-    Clipping
-    ========
+    .. rubric:: Clipping
 
     Clipping serves two main functions:
-        - Limiting visibility(i.e. hiding portions of an object).
-        - Applying a layer of color to an object.
 
-    Limiting visibility
-    -------------------
+    - Limiting visibility(i.e. hiding portions of an object).
+    - Applying a layer of color to an object.
+
+    .. rubric:: Limiting visibility
 
     It is often necessary to show only parts of an object, while it may be
     possible to create an object that corresponds only to the part that must
@@ -94,7 +95,7 @@ cdef class Rectangle(Object):
     is not. The way to do this is to create a solid white rectangle(which is
     the default, no need to call evas_object_color_set()) and give it a
     position and size of what should be visible. The following code
-    exemplifies showing the center half of C{my_evas_object}::
+    exemplifies showing the center half of ``my_evas_object``::
 
         clipper = Rectangle(evas_canvas)
         clipper.move(my_evas_object_x / 4, my_evas_object_y / 4)
@@ -103,10 +104,9 @@ cdef class Rectangle(Object):
         clipper.show()
 
 
-    Layer of color
-    --------------
+    .. rubric:: Layer of color
 
-    In the L{clipping} section we used a solid white clipper, which produced
+    In the *clipping* section we used a solid white clipper, which produced
     no change in the color of the clipped object, it just hid what was
     outside the clippers area. It is however sometimes desirable to change
     the of color an object, this can be accomplished using a clipper that
@@ -123,7 +123,7 @@ cdef class Rectangle(Object):
 
 
     .. warning:: We don't guarantee any proper results if you create a Rectangle
-    object without setting the evas engine.
+        object without setting the evas engine.
 
     :param canvas: Evas canvas for this object
     :type canvas: Canvas

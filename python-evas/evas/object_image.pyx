@@ -53,89 +53,84 @@ cdef int _data_size_get(Evas_Object *obj):
 
 
 cdef class Image(Object):
-    """Image from file or buffer.
+    """
 
-    Introduction
-    ============
+    Image from file or buffer.
 
-    Image will consider the object's L{geometry<Object.geometry_set()>} as
-    the area to paint with tiles as described by L{fill_set()} and the real
+    .. rubric:: Introduction
+
+    Image will consider the object's :py:func:`geometry<Object.geometry_set()>` as
+    the area to paint with tiles as described by :py::`fill_set()` and the real
     pixels (image data) will be stored as described by
-    L{image_size<image_size_set()>}. This can be tricky to understand at
+    :py:func:`image_size<image_size_set()>`. This can be tricky to understand at
     first, but gives flexibility to do everything.
 
     If an image is loaded from file, it will have
-    L{image_size<image_size_set()>} set to its original size, unless some
-    other size was set with L{load_size_set()}, L{load_dpi_set()} or
-    L{load_scale_down_set()}.
+    :py:func:`image_size<image_size_set()>` set to its original size, unless some
+    other size was set with :py:func:`load_size_set()`, :py:func:`load_dpi_set()` or
+    :py:func:`load_scale_down_set()`.
 
-    Pixels will be scaled to match size specified by L{fill_set()}
+    Pixels will be scaled to match size specified by :py:func:`fill_set()`
     using either sampled or smooth methods, these can be specified with
-    L{smooth_scale_set()}. The scale will consider borders as specified by
-    L{border_set()} and L{border_center_fill_set()}, while the former specify
+    :py:func:`smooth_scale_set()`. The scale will consider borders as specified by
+    :py:func:`border_set()` and :py:func:`border_center_fill_set()`, while the former specify
     the border dimensions (top and bottom will scale horizontally, while
     right and left will do vertically, corners are kept unscaled), the latter
     says whenever the center of the image will be used (useful to create
     frames).
 
-    Contents will be tiled using L{fill_set()} information in order to paint
-    L{geometry<Object.geometry_set()>}, so if you want an image to be drawn
-    just once, you should match every L{geometry_set(x, y, w, h)} by a call
-    to L{fill_set(0, 0, w, h)}. L{FilledImage} does that for you.
+    Contents will be tiled using :py::`fill_set()` information in order to paint
+    :py:func:`geometry<Object.geometry_set()>`, so if you want an image to be drawn
+    just once, you should match every :py:func:`geometry_set(x, y, w, h)` by a call
+    to :py:func:`fill_set(0, 0, w, h)`. :py:class:`FilledImage` does that for you.
 
-    Pixel data and buffer API
-    =========================
+    .. rubric:: Pixel data and buffer API
 
     Images implement the Python Buffer API, so it's possible to use it
     where buffers are expected (ie: file.write()). Available data will
-    depend on L{alpha<alpha_set()>}, L{colorspace<colorspace_set()>} and
-    L{image_size<image_size_set()>}, lines should be considered multiple
-    of L{stride<stride_get()>}, with the following considerations about
+    depend on :py:func:`alpha<alpha_set()>`, :py:func:`colorspace<colorspace_set()>` and
+    :py:func:`image_size<image_size_set()>`, lines should be considered multiple
+    of :py:func:`stride<stride_get()>`, with the following considerations about
     colorspace:
-        - B{EVAS_COLORSPACE_ARGB8888:} This pixel format is a linear block of
-            pixels, starting at the top-left row by row until the bottom right of
-            the image or pixel region. All pixels are 32-bit unsigned int's with
-            the high-byte being alpha and the low byte being blue in the format
-            ARGB. Alpha may or may not be used by evas depending on the alpha flag
-            of the image, but if not used, should be set to 0xff anyway.
-            This colorspace uses premultiplied alpha. That means that R, G and B
-            cannot exceed A in value. The conversion from non-premultiplied
-            colorspace is::
-                R = (r * a) / 255; G = (g * a) / 255; B = (b * a) / 255;
-            So 50% transparent blue will be: 0x80000080. This will not be "dark" -
-            just 50% transparent. Values are 0 == black, 255 == solid or full
-            red, green or blue.
-        - B{EVAS_COLORSPACE_RGB565_A5P:} In the process of being implemented in
-            1 engine only. This may change. This is a pointer to image data for
-            16-bit half-word pixel data in 16bpp RGB 565 format (5 bits red,
-            6 bits green, 5 bits blue), with the high-byte containing red and the
-            low byte containing blue, per pixel. This data is packed row by row
-            from the top-left to the bottom right. If the image has an alpha
-            channel enabled there will be an extra alpha plane B{after} the color
-            pixel plane. If not, then this data will not exist and should not be
-            accessed in any way. This plane is a set of pixels with 1 byte per
-            pixel defining the alpha values of all pixels in the image from
-            the top-left to the bottom right of the image, row by row. Even though
-            the values of the alpha pixels can be 0 to 255, only values 0 through
-            to 31 are used, 31 being solid and 0 being transparent.
-            RGB values can be 0 to 31 for red and blue and 0 to 63 for green, with 0
-            being black and 31 or 63 being full red, green or blue respectively.
-            This colorspace is also pre-multiplied like EVAS_COLORSPACE_ARGB8888 so::
-                R = (r * a) / 32; G = (g * a) / 32; B = (b * a) / 32;
 
-    .. note:: if an image is resized it will B{tile} it's contents respecting
-        geometry set by L{fill_set()}, so if you want the contents to be
-        B{scaled} you need to call L{fill_set()} with C{x=0, y=0, w=new_width,
-        h=new_height}, or you should use L{FilledImage} instead.
+    - **EVAS_COLORSPACE_ARGB8888:** This pixel format is a linear block of
+        pixels, starting at the top-left row by row until the bottom right of
+        the image or pixel region. All pixels are 32-bit unsigned int's with
+        the high-byte being alpha and the low byte being blue in the format
+        ARGB. Alpha may or may not be used by evas depending on the alpha flag
+        of the image, but if not used, should be set to 0xff anyway.
+        This colorspace uses premultiplied alpha. That means that R, G and B
+        cannot exceed A in value. The conversion from non-premultiplied
+        colorspace is::
 
-    @group Border settings: border_set, border_get, border,
-        border_center_fill_set, border_center_fill_get, border_center_fill
-    @group Load settings: load_size_set, load_size_get, load_size,
-        load_dpi_set, load_dpi_get, load_dpi,
-        load_scale_down_set, load_scale_down_get, load_scale_down
-    @group Often unused: alpha_set, alpha_get, alpha, colorspace_set,
-        colorspace_get, colorspace, pixels_dirty_set, pixels_dirty_get,
-        pixels_dirty, image_data_set, image_data_update_add
+            R = (r * a) / 255; G = (g * a) / 255; B = (b * a) / 255;
+
+        So 50% transparent blue will be: 0x80000080. This will not be "dark" -
+        just 50% transparent. Values are 0 == black, 255 == solid or full
+        red, green or blue.
+    - **EVAS_COLORSPACE_RGB565_A5P:** In the process of being implemented in
+        1 engine only. This may change. This is a pointer to image data for
+        16-bit half-word pixel data in 16bpp RGB 565 format (5 bits red,
+        6 bits green, 5 bits blue), with the high-byte containing red and the
+        low byte containing blue, per pixel. This data is packed row by row
+        from the top-left to the bottom right. If the image has an alpha
+        channel enabled there will be an extra alpha plane **after** the color
+        pixel plane. If not, then this data will not exist and should not be
+        accessed in any way. This plane is a set of pixels with 1 byte per
+        pixel defining the alpha values of all pixels in the image from
+        the top-left to the bottom right of the image, row by row. Even though
+        the values of the alpha pixels can be 0 to 255, only values 0 through
+        to 31 are used, 31 being solid and 0 being transparent.
+        RGB values can be 0 to 31 for red and blue and 0 to 63 for green, with 0
+        being black and 31 or 63 being full red, green or blue respectively.
+        This colorspace is also pre-multiplied like EVAS_COLORSPACE_ARGB8888 so::
+
+            R = (r * a) / 32; G = (g * a) / 32; B = (b * a) / 32;
+
+    .. note:: if an image is resized it will **tile** it's contents respecting
+        geometry set by :py:func:`fill_set()`, so if you want the contents to be
+        **scaled** you need to call :py:func:`fill_set()` with ``x=0, y=0, w=new_width,
+        h=new_height``, or you should use :py:class:`FilledImage` instead.
 
     :param canvas: Evas canvas for this object
     :type canvas: Canvas
@@ -167,9 +162,7 @@ cdef class Image(Object):
         Object._set_common_params(self, **kargs)
 
     def file_set(self, const_char_ptr filename, key=None):
-        """file_set(filename, key=None)
-
-        Set the image to display a file.
+        """Set the image to display a file.
 
         :param filename: file that contains the image.
         :type filename: string
@@ -190,9 +183,7 @@ cdef class Image(Object):
             raise EvasLoadError(err, filename, key)
 
     def file_get(self):
-        """file_get()
-
-        :return: The filename of the image.
+        """:return: The filename of the image.
         :rtype: tuple of str
 
         """
@@ -218,9 +209,7 @@ cdef class Image(Object):
             self.file_set(*value)
 
     def load_error_get(self):
-        """load_error_get()
-
-        :return: The load error.
+        """:return: The load error.
         :rtype: int
 
         """
@@ -231,9 +220,7 @@ cdef class Image(Object):
             return self.load_error_get()
 
     def border_get(self):
-        """border_get()
-
-        :return: How much of each border is not to be scaled.
+        """:return: How much of each border is not to be scaled.
         :rtype: tuple of ints
 
         """
@@ -242,9 +229,7 @@ cdef class Image(Object):
         return (left, right, top, bottom)
 
     def border_set(self, int left, int right, int top, int bottom):
-        """border_set(left, right, top, bottom)
-
-        Sets how much of each border is not to be scaled.
+        """Sets how much of each border is not to be scaled.
 
         When rendering, the image may be scaled to fit the size of the
         image object.  This function sets what area around the border of
@@ -272,26 +257,25 @@ cdef class Image(Object):
             self.border_set(*spec)
 
     def border_center_fill_get(self):
-        """border_center_fill_get()
-
+        """
         :return: Whether the center part of an image (not the border) should
             be drawn.
+
         :rtype: bool
 
         """
         return bool(evas_object_image_border_center_fill_get(self.obj))
 
     def border_center_fill_set(self, int value):
-        """border_center_fill_set(value)
+        """Sets if the center part of an image (not the border) should be drawn
 
-        Sets if the center part of an image (not the border) should be drawn
-
-        @see: B{border_set()}
+        .. seealso:: :py:func:`border_set()`
 
         When rendering, the image may be scaled to fit the size of the
         image object.  This function sets if the center part of the scaled
         image is to be drawn or left completely blank. Very useful for frames
         and decorations.
+
         """
         evas_object_image_border_center_fill_set(self.obj, value)
 
@@ -303,9 +287,7 @@ cdef class Image(Object):
             self.border_center_fill_set(value)
 
     def fill_get(self):
-        """fill_get()
-
-        :return: The rectangle that the image will be drawn to.
+        """:return: The rectangle that the image will be drawn to.
         :rtype: tuple of ints
 
         """
@@ -314,17 +296,15 @@ cdef class Image(Object):
         return (x, y, w, h)
 
     def fill_set(self, int x, int y, int w, int h):
-        """fill_set(x, y, w, h)
+        """Sets the rectangle that the image will be drawn to.
 
-        Sets the rectangle that the image will be drawn to.
-
-        Note that the image will be B{tiled} around this one rectangle.
-        To have only one copy of the image drawn, B{x} and B{y} must be
-        0 and B{w} and B{h} need to be the width and height of the object
+        Note that the image will be **tiled** around this one rectangle.
+        To have only one copy of the image drawn, **x** and **y** must be
+        0 and **w** and **h** need to be the width and height of the object
         respectively.
 
-        The default values for the fill parameters is B{x} = 0, B{y} = 0,
-        B{w} = 1 and B{h} = 1.
+        The default values for the fill parameters is **x** = 0, **y** = 0,
+        **w** = 1 and **h** = 1.
 
         :param x: X coordinate
         :param y: Y coordinate
@@ -341,9 +321,7 @@ cdef class Image(Object):
             self.fill_set(*spec)
 
     def image_size_get(self):
-        """image_size_get()
-
-        :rtype: tuple of ints
+        """:rtype: tuple of ints
         :return: The original size of the image being displayed.
 
         """
@@ -352,9 +330,7 @@ cdef class Image(Object):
         return (w, h)
 
     def image_size_set(self, int w, int h):
-        """image_size_set(w, h)
-
-        Sets the size of the image to be displayed.
+        """Sets the size of the image to be displayed.
 
         This function will scale down or crop the image so that it is
         treated as if it were at the given size.  If the size given is
@@ -366,7 +342,7 @@ cdef class Image(Object):
         you should use this before accessing the image as a buffer in order
         to allocate the pixels.
 
-        This method will recalculate L{stride} (L{stride_get()}) based on
+        This method will recalculate :py:attr:`stride` (:py:func:`stride_get()`) based on
         width and the colorspace.
 
         :param w: Width
@@ -385,12 +361,10 @@ cdef class Image(Object):
             self.image_size_set(*spec)
 
     def stride_get(self):
-        """stride_get()
-
-        Get the row stride (in pixels) being used to draw this image.
+        """Get the row stride (in pixels) being used to draw this image.
 
         While image have logical dimension of width and height set by
-        L{image_size_set()}, the line can be a bit larger than width to
+        :py:func:`image_size_set()`, the line can be a bit larger than width to
         improve memory alignment.
 
         The amount of bytes will change based on colorspace, while using
@@ -399,7 +373,7 @@ cdef class Image(Object):
         data using stride in multiple of 2 bytes and after that an
         alpha plane with data using stride in multiple of 1 byte.
 
-        .. note:: This value can change after L{image_size_set()}.
+        .. note:: This value can change after :py:func:`image_size_set()`.
         .. note:: Unit is pixels, not bytes.
 
         :return: The row stride (in pixels) being used to draw this image.
@@ -413,18 +387,14 @@ cdef class Image(Object):
             return self.stride_get()
 
     def alpha_get(self):
-        """alpha_get()
-
-        :return: Enable or disable alpha channel.
+        """:return: Enable or disable alpha channel.
         :rtype: bool
 
         """
         return bool(evas_object_image_alpha_get(self.obj))
 
     def alpha_set(self, value):
-        """alpha_set(value)
-
-        :param value: Enable or disable alpha channel.
+        """:param value: Enable or disable alpha channel.
         :type value: bool
 
         """
@@ -438,18 +408,14 @@ cdef class Image(Object):
             self.alpha_set(value)
 
     def smooth_scale_get(self):
-        """smooth_scale_get()
-
-        :return: Enable or disable smooth scaling.
+        """:return: Enable or disable smooth scaling.
         :rtype: bool
 
         """
         return bool(evas_object_image_smooth_scale_get(self.obj))
 
     def smooth_scale_set(self, value):
-        """smooth_scale_set(value)
-
-        :param value: Enable or disable smooth scaling.
+        """:param value: Enable or disable smooth scaling.
         :type value: bool
 
         """
@@ -463,18 +429,14 @@ cdef class Image(Object):
             self.smooth_scale_set(value)
 
     def pixels_dirty_get(self):
-        """pixels_dirty_get()
-
-        :return: Whether the pixels are marked as dirty.
+        """:return: Whether the pixels are marked as dirty.
         :rtype: bool
 
         """
         return bool(evas_object_image_pixels_dirty_get(self.obj))
 
     def pixels_dirty_set(self, value):
-        """pixels_dirty_set(value)
-
-        :param value: Mark or unmark pixels as dirty.
+        """:param value: Mark or unmark pixels as dirty.
         :type value: bool
 
         """
@@ -488,18 +450,14 @@ cdef class Image(Object):
             self.pixels_dirty_set(value)
 
     def load_dpi_get(self):
-        """load_dpi_get()
-
-        :return: Dots-per-inch to be used at image load time.
+        """:return: Dots-per-inch to be used at image load time.
         :rtype: float
 
         """
         return evas_object_image_load_dpi_get(self.obj)
 
     def load_dpi_set(self, double value):
-        """load_dpi_set(value)
-
-        :param value: Dots-per-inch to be used at image load time.
+        """:param value: Dots-per-inch to be used at image load time.
         :type value: double
 
         """
@@ -513,9 +471,7 @@ cdef class Image(Object):
             self.load_dpi_set(value)
 
     def load_size_get(self):
-        """load_size_get()
-
-        :return: The size you want the image to be loaded with.
+        """:return: The size you want the image to be loaded with.
         :rtype: tuple of ints
 
         """
@@ -545,18 +501,14 @@ cdef class Image(Object):
             self.load_size_set(*spec)
 
     def load_scale_down_get(self):
-        """load_scale_down_get()
-
-        :return: Get the scale down value.
+        """:return: Get the scale down value.
         :rtype: int
 
         """
         return evas_object_image_load_scale_down_get(self.obj)
 
     def load_scale_down_set(self, int value):
-        """load_scale_down_set(value)
-
-        :param value: Set scale down loaded image by the given amount.
+        """:param value: Set scale down loaded image by the given amount.
         :type value: int
 
         """
@@ -570,9 +522,7 @@ cdef class Image(Object):
             self.load_scale_down_set(value)
 
     def colorspace_get(self):
-        """colorspace_get()
-
-        :return: The colorspace of image data (pixels).
+        """:return: The colorspace of image data (pixels).
         :rtype: int
 
         """
@@ -582,16 +532,17 @@ cdef class Image(Object):
         """Set the colorspace of image data (pixels).
 
         May be one of (subject to engine implementation):
-            - B{EVAS_COLORSPACE_ARGB8888} ARGB 32 bits per pixel, high-byte is
-                Alpha, accessed 1 32bit word at a time.
-            - B{EVAS_COLORSPACE_YCBCR422P601_PL} YCbCr 4:2:2 Planar, ITU.BT-601
-                specifications. The data poitned to is just an array of row
-                pointer, pointing to the Y rows, then the Cb, then Cr rows.
-            - B{EVAS_COLORSPACE_YCBCR422P709_PL} YCbCr 4:2:2 Planar, ITU.BT-709
-                specifications. The data poitned to is just an array of row
-                pointer, pointing to the Y rows, then the Cb, then Cr rows.
-            - B{EVAS_COLORSPACE_RGB565_A5P} 16bit rgb565 + Alpha plane at end -
-                5 bits of the 8 being used per alpha byte.
+
+        - **EVAS_COLORSPACE_ARGB8888** ARGB 32 bits per pixel, high-byte is
+            Alpha, accessed 1 32bit word at a time.
+        - **EVAS_COLORSPACE_YCBCR422P601_PL** YCbCr 4:2:2 Planar, ITU.BT-601
+            specifications. The data poitned to is just an array of row
+            pointer, pointing to the Y rows, then the Cb, then Cr rows.
+        - **EVAS_COLORSPACE_YCBCR422P709_PL** YCbCr 4:2:2 Planar, ITU.BT-709
+            specifications. The data poitned to is just an array of row
+            pointer, pointing to the Y rows, then the Cb, then Cr rows.
+        - **EVAS_COLORSPACE_RGB565_A5P** 16bit rgb565 + Alpha plane at end -
+            5 bits of the 8 being used per alpha byte.
 
         :param value: The colorspace of image data (pixels)
         :type value: Evas_Colorspace
@@ -607,18 +558,14 @@ cdef class Image(Object):
             self.colorspace_set(value)
 
     def rotate(self, int rotation):
-        """rotate(rotation)
-
-        :param rotation: Rotation
+        """:param rotation: Rotation
         :type rotation: int
 
         """
         evas_object_image_rotate(self.obj, <Evas_Object_Image_Rotation>rotation)
 
     def preload(self, int cancel=0):
-        """preload(cancel)
-
-        Preload image data asynchronously.
+        """Preload image data asynchronously.
 
         This will request Evas to create a thread to load image data
         from file, decompress and convert to pre-multiplied format
@@ -637,24 +584,18 @@ cdef class Image(Object):
         :param cancel: if True, will cancel preload request.
         :type cancel: bool
 
-        @see: L{on_image_preloaded_add}
+        @see: :py::`on_image_preloaded_add`
 
         """
         evas_object_image_preload(self.obj, cancel)
 
 
     def reload(self):
-        """reload()
-
-        Force reload of image data.
-
-        """
+        """Force reload of image data."""
         evas_object_image_reload(self.obj)
 
     def save(self, const_char_ptr filename, key=None, flags=None):
-        """save(filename, key, flags)
-
-        Save image to file.
+        """Save image to file.
 
         :param filename: where to save.
         :type filename: string
@@ -721,11 +662,9 @@ cdef class Image(Object):
         return _data_size_get(self.obj)
 
     def image_data_set(self, buf):
-        """image_data_set(buf)
+        """Sets the raw image data.
 
-        Sets the raw image data.
-
-        The given buffer will be B{copied}, so it's safe to give it a
+        The given buffer will be **copied**, so it's safe to give it a
         temporary object.
 
         .. note:: that the raw data must be of the same size and colorspace
@@ -752,9 +691,7 @@ cdef class Image(Object):
         evas_object_image_data_set(self.obj,<void *> p_data)
 
     def image_data_update_add(self, x, y, w, h):
-        """image_data_update_add(x, y, w, h)
-
-        Mark a sub-region of the image to be redrawn.
+        """Mark a sub-region of the image to be redrawn.
 
         This function schedules a particular rectangular region
         to be updated (redrawn) at the next render.
@@ -800,9 +737,11 @@ cdef void _cb_on_filled_image_resize(void *data, Evas *e,
 
 cdef class FilledImage(Image):
 
-    """Image that automatically resize it's contents to fit object size.
+    """
 
-    This L{Image} subclass already calls L{Image.fill_set()} on resize so
+    Image that automatically resize it's contents to fit object size.
+
+    This :py::`Image` subclass already calls :py::`Image.fill_set()` on resize so
     it will match and so be scaled to fill the whole area.
 
     :param canvas: The evas canvas for this object

@@ -759,8 +759,8 @@ cdef public class Canvas [object PyEvasCanvas, type PyEvasCanvas_Type]:
            parameter will only be valid during the callback, using
            it after callback returns will raise an ValueError.
 
-        @raise ValueError: if **type** is unknown.
-        @raise TypeError: if **func** is not callable.
+        :raise ValueError: if **type** is unknown.
+        :raise TypeError: if **func** is not callable.
 
         """
         cdef Evas_Event_Cb cb
@@ -792,6 +792,7 @@ cdef public class Canvas [object PyEvasCanvas, type PyEvasCanvas_Type]:
         """Same as event_callback_add(EVAS_CALLBACK_CANVAS_FOCUS_IN, ...)
 
         Expected signature::
+
             function(object, *args, **kargs)
 
         """
@@ -805,6 +806,7 @@ cdef public class Canvas [object PyEvasCanvas, type PyEvasCanvas_Type]:
         """Same as event_callback_add(EVAS_CALLBACK_CANVAS_FOCUS_OUT, ...)
 
         Expected signature::
+
             function(object, *args, **kargs)
 
         """
@@ -818,6 +820,7 @@ cdef public class Canvas [object PyEvasCanvas, type PyEvasCanvas_Type]:
         """Same as event_callback_add(EVAS_CALLBACK_RENDER_FLUSH_PRE, ...)
 
         Expected signature::
+
             function(object, *args, **kargs)
 
         """
@@ -831,6 +834,7 @@ cdef public class Canvas [object PyEvasCanvas, type PyEvasCanvas_Type]:
         """Same as event_callback_add(EVAS_CALLBACK_RENDER_FLUSH_POST, ...)
 
         Expected signature::
+
             function(object, *args, **kargs)
 
         """

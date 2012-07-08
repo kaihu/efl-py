@@ -211,7 +211,9 @@ cdef _object_del_callback_from_list(Object obj, int type, func):
 
 cdef class Object(object):
 
-    """Basic Graphical Object (or actor).
+    """
+
+    Basic Graphical Object (or actor).
 
     Objects are managed by :py:class:`Canvas` in a non-immediate way, that
     is, all operations, like moving, resizing, changing the color, etc will
@@ -240,7 +242,7 @@ cdef class Object(object):
     recommended way of doing fade out/in effect, instead of changing object's
     color, clip it to a rectangle and change its color: this will work as
     expected with every object, unlike directly changing color that just
-    work for :py:class:`Image`s.
+    work for :py:class:`Image`'s.
 
     As with every evas component, colors should be specified in
     **pre-multiplied** format, see :py:func:`evas.color_parse()` and
@@ -1322,10 +1324,10 @@ cdef class Object(object):
 
         :param type: an integer with event type code.
         :type type: int
-        :param func: function used with L{event_callback_add()}.
+        :param func: function used with :py:func:`event_callback_add()`.
         :type func: function
-        :precond: B{type} and B{func} must be used as parameter for
-            L{event_callback_add()}.
+        :precond: **type** and **func** must be used as parameter for
+            :py:func:`event_callback_add()`.
 
         :raise ValueError: if **type** is unknown or if there was no
             **func** connected with this type.

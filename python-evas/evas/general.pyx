@@ -69,10 +69,10 @@ def shutdown():
 def color_parse(desc, is_premul=None):
     """Converts a color description to (r, g, b, a) in pre-multiply form.
 
-    C{is_premul} default value will depend on desc type:
-        - desc is string: C{is_premul=False}
-        - desc is integer: C{is_premul=False}
-        - desc is tuple: C{is_premul=True}
+    ``is_premul`` default value will depend on desc type:
+        - desc is string: ``is_premul=False``
+        - desc is integer: ``is_premul=False``
+        - desc is tuple: ``is_premul=True``
 
     :param desc: can be either a string, an integer or a tuple.
     :type desc: string, int or tuple

@@ -53,7 +53,6 @@ for m in modules:
 ext_modules.append(Extension("evas.object_image", ["evas/object_image.pyx", "evas/evas_object_image_rotate.c", "evas/evas_object_image_mask.c"], **pkgconfig("evas")))
 
 for e in ext_modules:
-    e.pyrex_directives = {"embedsignature": True}
     e.include_dirs.append(".")
 
 setup(
@@ -62,7 +61,7 @@ setup(
     description = "Python bindings for EFL Evas",
     cmdclass = {'build_ext': build_ext, 'build_sphinx': BuildDoc, 'build_doc': BuildDoc},
     packages = ["evas"],
-    ext_modules = cythonize(ext_modules),
+    ext_modules = cythonize(ext_modules, compiler_directives={"embedsignature": True}),
     package_data = {"evas": ["*.pxd"]},
     headers = ["evas/evas_object_image_python_extras.h"],
     provides = ["evas"],

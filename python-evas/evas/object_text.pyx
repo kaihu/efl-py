@@ -22,18 +22,9 @@ from general import color_parse
 
 cdef class Text(Object):
 
-    """Text.
+    """
 
-    @group Font settings: font*
-    @group Style settings: style_set, style_get, style, shadow_color_set,
-        shadow_color_get, shadow_color, glow_color_set, glow_color_get,
-        glow_color, glow2_color_set, glow2_color_get, glow2_color,
-        outline_color_set, outline_color_get, outline_color, style_pad_get,
-        style_pad
-    @group Metrics:  ascent_get, ascent, descent_get, descent, max_ascent_get,
-        max_ascent, max_descent_get, max_descent, horiz_advance_get,
-        horiz_advance, vert_advance_get, vert_advance, inset_get, inset,
-        char_pos_get, char_coords_get
+    Text.
 
     :param canvas: Evas canvas for this object
     :type canvas: Canvas
@@ -218,8 +209,8 @@ cdef class Text(Object):
     def char_pos_get(self, int char_index):
         """Retrieve position and dimension information of a character.
 
-        This function is used to obtain the B{x}, B{y}, B{width} and B{height}
-        of a the character located at B{char_index} within this object.
+        This function is used to obtain the **x**, **y**, **width** and **height**
+        of a the character located at **char_index** within this object.
 
         :param char_index: index of desired character.
         :rtype: tuple of int
@@ -259,6 +250,7 @@ cdef class Text(Object):
         """Set text drawing style.
 
         :param value: can be one of:
+
          - EVAS_TEXT_STYLE_PLAIN
          - EVAS_TEXT_STYLE_SHADOW
          - EVAS_TEXT_STYLE_OUTLINE
@@ -269,6 +261,7 @@ cdef class Text(Object):
          - EVAS_TEXT_STYLE_OUTLINE_SOFT_SHADOW
          - EVAS_TEXT_STYLE_SOFT_SHADOW
          - EVAS_TEXT_STYLE_FAR_SOFT_SHADOW
+
         """
         evas_object_text_style_set(self.obj, <Evas_Text_Style_Type>value)
 

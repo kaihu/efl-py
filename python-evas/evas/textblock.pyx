@@ -129,8 +129,8 @@ cdef class Textblock(Object):
     def line_number_geometry_get(self, int index):
         """Retrieve position and dimension information of a specific line.
 
-        This function is used to obtain the B{x}, B{y}, B{width} and B{height}
-        of a the line located at B{index} within this object.
+        This function is used to obtain the **x**, **y**, **width** and **height**
+        of a the line located at **index** within this object.
 
         :param index: index of desired line
         :rtype: tuple of int

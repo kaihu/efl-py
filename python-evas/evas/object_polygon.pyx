@@ -21,7 +21,9 @@ include "object_header.pxi"
 
 cdef class Polygon(Object):
 
-    """A polygon.
+    """
+
+    A polygon.
 
     :param canvas: Evas canvas for this object
     :type canvas: Canvas

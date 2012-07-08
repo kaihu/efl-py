@@ -18,7 +18,9 @@
 # This file is included verbatim by c_evas.pyx
 
 cdef class Rect(object):
-    """Type to store and manipulate rectangular coordinates.
+    """
+
+    Type to store and manipulate rectangular coordinates.
 
     This class provides the description of a rectangle and means to
     access and modify its properties in an easy way.
@@ -71,7 +73,8 @@ cdef class Rect(object):
      True
 
     .. attention:: this is not a graphical object! Do not confuse with
-       L{Rectangle}.
+       :py:class:`evas.object_rectangle.Rectangle`.
+
     """
 
     def __init__(self, *args, **kargs):
@@ -543,6 +546,7 @@ cdef class Rect(object):
            parameter.
 
            If given rectangle is smaller, it'll be centered.
+
         """
         cdef Rect o, ret
         cdef int left, right, top, bottom, width, height

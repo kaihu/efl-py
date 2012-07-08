@@ -29,7 +29,7 @@ What Evas is not?
 -----------------
 
 Evas is not a widget set or widget toolkit, however it is their base. See
-U{Elementary<http://docs.enlightenment.org/auto/elementary/>} for a toolkit
+`Elementary <http://docs.enlightenment.org/auto/elementary/>`_ for a toolkit
 based on Evas, Edje, Ecore and other Enlightenment technologies.
 
 It is not dependent or aware of main loops, input or output systems. Input
@@ -38,7 +38,7 @@ not create windows or report windows updates to your system, rather just
 drawing the pixels and reporting to the user the areas that were changed. Of
 course these operations are quite common and thus they are ready to use in
 Ecore, particularly in
-U{Ecore_Evas<http://docs.enlightenment.org/auto/ecore/>}.
+`Ecore_Evas <http://docs.enlightenment.org/auto/ecore/>`_.
 
 
 How does Evas work?
@@ -169,72 +169,73 @@ After you understood what Evas is and installed it in your system you
 should proceed understanding the programming interface for all
 objects, then see the specific for the most used elements. We'd
 recommend you to take a while to learn
-U{Ecore<http://docs.enlightenment.org/auto/ecore/>} and
-U{Edje<http://docs.enlightenment.org/auto/edje/>} as they will likely save
+`Ecore <http://docs.enlightenment.org/auto/ecore/>`_ and
+`Edje <http://docs.enlightenment.org/auto/edje/>`_ as they will likely save
 you tons of work compared to using just Evas directly.
 
 Recommended reading:
 
-    - L{Object}, where you'll get how to basically manipulate generic
-        objects lying on an Evas canvas, handle canvas and object events, etc.
-    - L{Rectangle}, to learn about the most basic object type on Evas --
-        the rectangle.
-    - L{Polygon}, to learn how to create polygon elements on the canvas.
-    - L{Line}, to learn how to create line elements on the canvas.
-    - L{Image}, to learn about image objects, over which Evas can do a
-        plethora of operations.
-    - L{Text}, to learn how to create textual elements on the canvas.
-    - L{Textblock}, to learn how to create multiline textual elements on
-        the canvas.
-    - L{SmartObject}, to define new objects that provide B{custom}
-        functions to handle clipping, hiding, moving, resizing, color
-        setting and more. These could be as simple as a group of objects
-        that move together (see L{SmartObjectClipped}) up to
-        implementations of what ends to be a widget, providing some
-        intelligence (thus the name) to Evas objects -- like a button or
-        check box, for example.
+- :py:class:`evas.object.Object`, where you'll get how to basically manipulate generic
+    objects lying on an Evas canvas, handle canvas and object events, etc.
+- :py:class:`evas.object_rectangle.Rectangle`, to learn about the most basic object type on Evas --
+    the rectangle.
+- :py:class:`evas.object_polygon.Polygon`, to learn how to create polygon elements on the canvas.
+- :py:class:`evas.object_line.Line`, to learn how to create line elements on the canvas.
+- :py:class:`evas.object_image.Image`, to learn about image objects, over which Evas can do a
+    plethora of operations.
+- :py:class:`evas.object_text.Text`, to learn how to create textual elements on the canvas.
+- :py:class:`evas.textblock.Textblock`, to learn how to create multiline textual elements on
+    the canvas.
+- :py:class:`evas.object_smart.SmartObject`, to define new objects that provide **custom**
+    functions to handle clipping, hiding, moving, resizing, color
+    setting and more. These could be as simple as a group of objects
+    that move together (see :py:class:`evas.object_smart.ClippedSmartObject`) up to
+    implementations of what ends to be a widget, providing some
+    intelligence (thus the name) to Evas objects -- like a button or
+    check box, for example.
 
 :Copyright: Evas is Copyright (C) 2000-2012 Carsten Haitzler and various contributors (see AUTHORS)
 
 :License: Evas is licensed as-is (see its COPYING file), the python bindings LGPL-2.1
 
-:author: U{Carsten Haitzler<mailto:raster@rasterman.com>}
-:author: U{Till Adam<mailto:till@adam-lilienthal.de>}
-:author: U{Steve Ireland<mailto:sireland@pobox.com>}
-:author: U{Brett Nash<mailto:nash@nash.id.au>}
-:author: U{Tilman Sauerbeck<mailto:tilman@code-monkey.de>}
-:author: U{Corey Donohoe<mailto:atmos@atmos.org>}
-:author: U{Yuri Hudobin<mailto:glassy_ape@users.sourceforge.net>}
-:author: U{Nathan Ingersoll<mailto:ningerso@d.umn.edu>}
-:author: U{Willem Monsuwe<mailto:willem@stack.nl>}
-:author: U{Jose O Gonzalez<mailto:jose_ogp@juno.com>}
-:author: U{Bernhard Nemec<mailto:Bernhard.Nemec@viasyshc.com>}
-:author: U{Jorge Luis Zapata Muga<mailto:jorgeluis.zapata@gmail.com>}
-:author: U{Cedric Bail<mailto:cedric.bail@free.fr>}
-:author: U{Gustavo Sverzut Barbieri<mailto:barbieri@profusion.mobi>}
-:author: U{Vincent Torri<mailto:vtorri@univ-evry.fr>}
-:author: U{Tim Horton<mailto:hortont424@gmail.com>}
-:author: U{Tom Hacohen<mailto:tom@stosb.com>}
-:author: U{Mathieu Taillefumier<mailto:mathieu.taillefumier@free.fr>}
-:author: U{Iván Briano<mailto:ivan@profusion.mobi>}
-:author: U{Gustavo Lima Chaves<mailto:glima@profusion.mobi>}
-:author: Samsung Electronics
-:author: Samsung SAIT
-:author: U{Sung W. Park<mailto:sungwoo@gmail.com>}
-:author: U{Jiyoun Park<mailto:jy0703.park@samsung.com>}
-:author: U{Myoungwoon Roy Kim(roy_kim) <mailto:myoungwoon.kim@samsung.com>} (U{alt<mailto:myoungwoon@gmail.com>})
-:author: U{Thierry el Borgi<mailto:thierry@substantiel.fr>}
-:author: U{Shilpa Singh<mailto:shilpa.singh@samsung.com>} (U{alt<mailto:shilpasingh.o@gmail.com>})
-:author: U{ChunEon Park<mailto:hermet@hermet.pe.kr>}
-:author: U{Christopher 'devilhorns' Michael<mailto:cpmichael1@comcast.net>}
-:author: U{Seungsoo Woo<mailto:om101.woo@samsung.com>}
-:author: U{Youness Alaoui<mailto:kakaroto@kakaroto.homelinux.net>}
-:author: U{Jim Kukunas<mailto:james.t.kukunas@linux.intel.com>}
-:author: U{Nicolas Aguirre<mailto:aguirre.nicolas@gmail.com>}
-:author: U{Rafal Krypa<mailto:r.krypa@samsung.com>}
-:author: U{Hyoyoung Chang<mailto:hyoyoung@gmail.com>}
-:author: U{Jérôme Pinot<mailto:ngc891@gmail.com>}
-:author: U{Rafael Antognolli<mailto:antognolli@profusion.mobi>}
+:Authors:
+    - `Carsten Haitzler <mailto:raster@rasterman.com>`_
+    - `Till Adam <mailto:till@adam-lilienthal.de>`_
+    - `Steve Ireland <mailto:sireland@pobox.com>`_
+    - `Brett Nash <mailto:nash@nash.id.au>`_
+    - `Tilman Sauerbeck <mailto:tilman@code-monkey.de>`_
+    - `Corey Donohoe <mailto:atmos@atmos.org>`_
+    - `Yuri Hudobin <mailto:glassy_ape@users.sourceforge.net>`_
+    - `Nathan Ingersoll <mailto:ningerso@d.umn.edu>`_
+    - `Willem Monsuwe <mailto:willem@stack.nl>`_
+    - `Jose O Gonzalez <mailto:jose_ogp@juno.com>`_
+    - `Bernhard Nemec <mailto:Bernhard.Nemec@viasyshc.com>`_
+    - `Jorge Luis Zapata Muga <mailto:jorgeluis.zapata@gmail.com>`_
+    - `Cedric Bail <mailto:cedric.bail@free.fr>`_
+    - `Gustavo Sverzut Barbieri <mailto:barbieri@profusion.mobi>`_
+    - `Vincent Torri <mailto:vtorri@univ-evry.fr>`_
+    - `Tim Horton <mailto:hortont424@gmail.com>`_
+    - `Tom Hacohen <mailto:tom@stosb.com>`_
+    - `Mathieu Taillefumier <mailto:mathieu.taillefumier@free.fr>`_
+    - `Iván Briano <mailto:ivan@profusion.mobi>`_
+    - `Gustavo Lima Chaves <mailto:glima@profusion.mobi>`_
+    - Samsung Electronics
+    - Samsung SAIT
+    - `Sung W. Park <mailto:sungwoo@gmail.com>`_
+    - `Jiyoun Park <mailto:jy0703.park@samsung.com>`_
+    - `Myoungwoon Roy Kim(roy_kim) <mailto:myoungwoon.kim@samsung.com>`_ (`alt <mailto:myoungwoon@gmail.com>`_)
+    - `Thierry el Borgi <mailto:thierry@substantiel.fr>`_
+    - `Shilpa Singh <mailto:shilpa.singh@samsung.com>`_ (`alt <mailto:shilpasingh.o@gmail.com>`_)
+    - `ChunEon Park <mailto:hermet@hermet.pe.kr>`_
+    - `Christopher 'devilhorns' Michael <mailto:cpmichael1@comcast.net>`_
+    - `Seungsoo Woo <mailto:om101.woo@samsung.com>`_
+    - `Youness Alaoui <mailto:kakaroto@kakaroto.homelinux.net>`_
+    - `Jim Kukunas <mailto:james.t.kukunas@linux.intel.com>`_
+    - `Nicolas Aguirre <mailto:aguirre.nicolas@gmail.com>`_
+    - `Rafal Krypa <mailto:r.krypa@samsung.com>`_
+    - `Hyoyoung Chang <mailto:hyoyoung@gmail.com>`_
+    - `Jérôme Pinot <mailto:ngc891@gmail.com>`_
+    - `Rafael Antognolli <mailto:antognolli@profusion.mobi>`_
 
 :Contact: `Enlightenment developer mailing list <mailto:enlightenment-devel@lists.sourceforge.net>`_
 

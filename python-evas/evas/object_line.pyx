@@ -20,7 +20,9 @@
 include "object_header.pxi"
 
 cdef class Line(Object):
-    """A straight line.
+    """
+
+    A straight line.
 
     :param canvas: Evas canvas for this object
     :type canvas: Canvas

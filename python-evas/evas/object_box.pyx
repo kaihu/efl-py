@@ -21,10 +21,12 @@ include "object_header.pxi"
 
 cdef class Box(Object):
 
-    """A box is a convenience smart object that packs children inside it in
-    B{sequence}, using a layouting function specified by the user.
+    """
 
-    There are a couple of pre-made layouting functions B{built-in in Evas},
+    A box is a convenience smart object that packs children inside it in
+    **sequence**, using a layouting function specified by the user.
+
+    There are a couple of pre-made layouting functions **built-in in Evas**,
     all of them using children size hints to define their size and alignment
     inside their cell space.
 
