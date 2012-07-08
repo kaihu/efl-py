@@ -54,6 +54,7 @@ ext_modules.append(Extension("evas.object_image", ["evas/object_image.pyx", "eva
 
 for e in ext_modules:
     e.pyrex_directives = {"embedsignature": True}
+    e.include_dirs.append(".")
 
 setup(
     name = "evas",

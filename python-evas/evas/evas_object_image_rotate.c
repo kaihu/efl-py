@@ -21,7 +21,7 @@
 #include <stdlib.h>
 #include <Evas.h>
 
-#include "evas_object_image_python_extras.h"
+#include "evas/evas_object_image_python_extras.h"
 
 static inline int
 _calc_stride(int w)
