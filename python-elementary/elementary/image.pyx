@@ -21,7 +21,9 @@ include "callbacks.pxi"
 
 cdef class Image(Object):
 
-    """An Elementary image object allows one to load and display an image
+    """
+
+    An Elementary image object allows one to load and display an image
     file on it, be it from a disk file or from a memory region.
 
     Exceptionally, one may also load an Edje group as the contents of the

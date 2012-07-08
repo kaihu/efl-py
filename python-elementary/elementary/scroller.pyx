@@ -20,7 +20,9 @@ include "widget_header.pxi"
 
 cdef class Scroller(Object):
 
-    """A scroller holds a single object and "scrolls it around".
+    """
+
+    A scroller holds a single object and "scrolls it around".
 
     This means that it allows the user to use a scrollbar (or a finger) to
     drag the viewable region around, allowing to move through a much larger
@@ -61,9 +63,7 @@ cdef class Scroller(Object):
         self._set_obj(elm_scroller_add(parent.obj))
 
     def custom_widget_base_theme_set(self, widget, base):
-        """custom_widget_base_theme_set(widget, base)
-
-        Set custom theme elements for the scroller
+        """Set custom theme elements for the scroller
 
         :param widget: The widget name to use (default is "scroller")
         :type widget: string
@@ -74,9 +74,7 @@ cdef class Scroller(Object):
         elm_scroller_custom_widget_base_theme_set(self.obj, _cfruni(widget), _cfruni(base))
 
     def content_min_limit(self, w, h):
-        """content_min_limit(w, h)
-
-        Make the scroller minimum size limited to the minimum size of the
+        """Make the scroller minimum size limited to the minimum size of the
         content
 
         By default the scroller will be as small as its design allows,
@@ -93,9 +91,7 @@ cdef class Scroller(Object):
         elm_scroller_content_min_limit(self.obj, w, h)
 
     def region_show(self, x, y, w, h):
-        """region_show(x, y, w, h)
-
-        Show a specific virtual region within the scroller content object
+        """Show a specific virtual region within the scroller content object
 
         This will ensure all (or part if it does not fit) of the designated
         region in the virtual content object (0, 0 starting at the top-left
@@ -307,9 +303,7 @@ cdef class Scroller(Object):
         return (h_pagenumber, v_pagenumber)
 
     def page_show(self, h_pagenumber, v_pagenumber):
-        """page_show(h_pagenumber, v_pagenumber)
-
-        Show a specific virtual region within the scroller content object by page number.
+        """Show a specific virtual region within the scroller content object by page number.
 
         0, 0 of the indicated page is located at the top-left of the viewport.
         This will jump to the page directly without animation.
@@ -333,9 +327,7 @@ cdef class Scroller(Object):
         elm_scroller_page_show(self.obj, h_pagenumber, v_pagenumber)
 
     def page_bring_in(self, h_pagenumber, v_pagenumber):
-        """page_bring_in(h_pagenumber, v_pagenumber)
-
-        Show a specific virtual region within the scroller content object by page number.
+        """Show a specific virtual region within the scroller content object by page number.
 
         0, 0 of the indicated page is located at the top-left of the viewport.
         This will slide to the page with animation.
@@ -358,9 +350,7 @@ cdef class Scroller(Object):
         elm_scroller_page_bring_in(self.obj, h_pagenumber, v_pagenumber)
 
     def region_bring_in(self, x, y, w, h):
-        """region_bring_in(x, y, w, h)
-
-        Show a specific virtual region within the scroller content object.
+        """Show a specific virtual region within the scroller content object.
 
         This will ensure all (or part if it does not fit) of the designated
         region in the virtual content object (0, 0 starting at the top-left of the

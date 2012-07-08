@@ -76,7 +76,11 @@ cdef void _object_item_callback(void *data, Evas_Object *obj, void *event_info) 
 
 cdef class ObjectItem(object):
 
-    """A generic item for the widgets."""
+    """
+
+    A generic item for the widgets.
+
+    """
 
     # Notes to bindings' developers:
     # ==============================
@@ -123,9 +127,7 @@ cdef class ObjectItem(object):
         return Object_from_instance(elm_object_item_widget_get(self.item))
 
     def part_content_set(self, part, Object content not None):
-        """part_content_set(part, content)
-
-        Set a content of an object item
+        """Set a content of an object item
 
         This sets a new object to an item as a content object. If any object
         was already set as a content object in the same part, previous
@@ -141,9 +143,7 @@ cdef class ObjectItem(object):
         elm_object_item_part_content_set(self.item, _cfruni(part) if part is not None else NULL, content.obj)
 
     def part_content_get(self, part):
-        """part_content_get(part)
-
-        Get a content of an object item
+        """Get a content of an object item
 
         .. note:: Elementary object items may have many contents
 
@@ -157,9 +157,7 @@ cdef class ObjectItem(object):
         return Object_from_instance(elm_object_item_part_content_get(self.item, _cfruni(part) if part is not None else NULL))
 
     def part_content_unset(self, part):
-        """part_content_unset(part)
-
-        Unset a content of an object item
+        """Unset a content of an object item
 
         .. note:: Elementary object items may have many contents
 
@@ -188,9 +186,7 @@ cdef class ObjectItem(object):
         return Object_from_instance(elm_object_item_content_unset(self.item))
 
     def part_text_set(self, part, text):
-        """part_text_set(part, text)
-
-        Sets the text of a given part of this object.
+        """Sets the text of a given part of this object.
 
         .. seealso:: :py:attr:`text` and :py:func:`part_text_get()`
 
@@ -203,9 +199,7 @@ cdef class ObjectItem(object):
         elm_object_item_part_text_set(self.item, _cfruni(part) if part is not None else NULL, _cfruni(text))
 
     def part_text_get(self, part):
-        """part_text_get(part)
-
-        Gets the text of a given part of this object.
+        """Gets the text of a given part of this object.
 
         .. seealso:: text_get() and :py:func:`part_text_set()`
 
@@ -264,9 +258,7 @@ cdef class ObjectItem(object):
         self.params = tuple(callback, *args, **kwargs)
 
     def signal_emit(self, emission, source):
-        """signal_emit(emission, source)
-
-        Send a signal to the edje object of the widget item.
+        """Send a signal to the edje object of the widget item.
 
         This function sends a signal to the edje object of the obj item. An
         edje program can respond to a signal by specifying matching
@@ -312,9 +304,7 @@ cdef class ObjectItem(object):
         Py_DECREF(self)
 
     def tooltip_text_set(self, char *text):
-        """tooltip_text_set(text)
-
-        Set the text to be shown in the tooltip object
+        """Set the text to be shown in the tooltip object
 
         Setup the text as tooltip object. The object can have only one
         tooltip, so any previous tooltip data is removed. Internally, this
@@ -337,9 +327,7 @@ cdef class ObjectItem(object):
         return bool(elm_object_item_tooltip_window_mode_get(self.item))
 
     def tooltip_content_cb_set(self, func, *args, **kargs):
-        """tooltip_content_cb_set(func, *args, **kargs)
-
-        Set the content to be shown in the tooltip object
+        """Set the content to be shown in the tooltip object
 
         Setup the tooltip to object. The object can have only one tooltip,
         so any previews tooltip data is removed. C{func(owner, tooltip,
@@ -365,9 +353,7 @@ cdef class ObjectItem(object):
                                           cbdata, _tooltip_item_data_del_cb)
 
     def tooltip_unset(self):
-        """tooltip_unset()
-
-        Unset tooltip from object
+        """Unset tooltip from object
 
         Remove tooltip from object. If used the :py:func:`tooltip_text_set` the
         internal copy of label will be removed correctly. If used

@@ -22,7 +22,9 @@ from evas.object_image cimport Image as evasImage
 
 cdef class Plug(Object):
 
-    """An object that allows one to show an image which other process created.
+    """
+
+    An object that allows one to show an image which other process created.
     It can be used anywhere like any other elementary widget.
 
     """
@@ -32,9 +34,7 @@ cdef class Plug(Object):
         self._set_obj(elm_plug_add(parent.obj))
 
     def connect(self, svcname, svcnum, svcsys):
-        """connect(svcname, svcnum, svcsys)
-
-        Connect a plug widget to service provided by socket image.
+        """Connect a plug widget to service provided by socket image.
 
         :param svcname: The service name to connect to set up by the socket.
         :type svcname: string

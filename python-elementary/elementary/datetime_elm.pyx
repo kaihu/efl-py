@@ -22,7 +22,9 @@ from datetime import datetime
 
 cdef class Datetime(Object):
 
-    """Datetime widget is used to display and input date & time values.
+    """
+
+    Datetime widget is used to display and input date & time values.
 
     This widget displays date and time as per the **system's locale** settings
     (Date includes Day, Month & Year along with the defined separators and Time
@@ -136,33 +138,33 @@ cdef class Datetime(Object):
 
     The following functions are expected to be implemented in a Datetime module:
 
-    **Field creation::**
-     __________                                            __________
-    |          |----- obj_hook() ---------------------->>>|          |
-    |          |<<<----------------returns Mod_data ------|          |
-    | Datetime |_______                                   |          |
-    |  widget  |       |Assign module call backs          |  Module  |
-    |   base   |<<<____|                                  |          |
-    |          |                                          |          |
-    |          |----- field_create() ------------------>>>|          |
-    |__________|<<<----------------returns field_obj -----|__________|
+    **Field creation**::
 
-    **Field value setting::**
-     __________                                          __________
-    |          |                                        |          |
-    | Datetime |<<<----------elm_datetime_value_set()---|          |
-    |  widget  |                                        |  Module  |
-    |   base   |----display_field_value()------------>>>|          |
-    |__________|                                        |__________|
+         __________                                            __________
+        |          |----- obj_hook() ---------------------->>>|          |
+        |          |<<<----------------returns Mod_data ------|          |
+        | Datetime |_______                                   |          |
+        |  widget  |       |Assign module call backs          |  Module  |
+        |   base   |<<<____|                                  |          |
+        |          |                                          |          |
+        |          |----- field_create() ------------------>>>|          |
+        |__________|<<<----------------returns field_obj -----|__________|
 
-    **del_hook::**
-     __________                                          __________
-    |          |                                        |          |
-    | Datetime |----obj_unhook()-------------------->>>>|          |
-    |  widget  |                                        |  Module  |
-    |   base   |         <<<-----frees mod_data---------|          |
-    |__________|                                        |__________|
+        **Field value setting::**
+         __________                                          __________
+        |          |                                        |          |
+        | Datetime |<<<----------elm_datetime_value_set()---|          |
+        |  widget  |                                        |  Module  |
+        |   base   |----display_field_value()------------>>>|          |
+        |__________|                                        |__________|
 
+        **del_hook::**
+         __________                                          __________
+        |          |                                        |          |
+        | Datetime |----obj_unhook()-------------------->>>>|          |
+        |  widget  |                                        |  Module  |
+        |   base   |         <<<-----frees mod_data---------|          |
+        |__________|                                        |__________|
 
     Any module can use the following shared functions that are implemented in
     elm_datetime.c :
@@ -176,10 +178,11 @@ cdef class Datetime(Object):
     **export ELM_MODULES="datetime_input_ctxpopup>datetime/api"**
 
     This widget emits the following signals, besides the ones sent from :py:class:`elementary.layout.Layout`:
-        - **"changed"** - whenever Datetime field value is changed, this
-            signal is sent.
-        - **"language,changed"** - whenever system locale changes, this
-            signal is sent.
+
+    - **"changed"** - whenever Datetime field value is changed, this
+        signal is sent.
+    - **"language,changed"** - whenever system locale changes, this
+        signal is sent.
 
     """
     def __init__(self, evasObject parent):

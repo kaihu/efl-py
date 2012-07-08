@@ -23,7 +23,11 @@ from object_item cimport    _object_item_callback, \
 
 cdef class MenuItem(ObjectItem):
 
-    """An item for the :py:class:`Menu` widget."""
+    """
+
+    An item for the :py:class:`Menu` widget.
+
+    """
 
     def __init__(   self,
                     evasObject menu,
@@ -107,9 +111,7 @@ cdef class MenuItem(ObjectItem):
         return elm_menu_item_selected_get(self.item)
 
     property is_separator:
-        """is_separator()
-
-        Returns whether the item is a separator.
+        """Returns whether the item is a separator.
 
         .. seealso:: :py:func:`Menu.item_separator_add()`
 
@@ -122,7 +124,7 @@ cdef class MenuItem(ObjectItem):
     property subitems:
         """A list of item's subitems.
 
-        :type: tuple of :py:class:`MenuItem`s
+        :type: tuple of :py:class:`MenuItem`
 
         """
         def __get__(self):
@@ -198,20 +200,25 @@ cdef class MenuSeparatorItem(ObjectItem):
 
 cdef class Menu(Object):
 
-    """A menu is a list of items displayed above its parent.
+    """
+
+    A menu is a list of items displayed above its parent.
 
     When the menu is showing its parent is darkened. Each item can have a
     sub-menu. The menu object can be used to display a menu on a right click
     event, in a toolbar, anywhere.
 
     Signals that you can add callbacks for are:
-        - "clicked" - the user clicked the empty space in the menu to dismiss.
+
+    - "clicked" - the user clicked the empty space in the menu to dismiss.
 
     Default content parts of the menu items that you can use for are:
-        - "default" - A main content of the menu item
+
+    - "default" - A main content of the menu item
 
     Default text parts of the menu items that you can use for are:
-        - "default" - label in the menu item
+
+    - "default" - label in the menu item
 
     """
 
@@ -238,9 +245,7 @@ cdef class Menu(Object):
         return Object_from_instance(elm_menu_parent_get(self.obj))
 
     def move(self, x, y):
-        """move(x, y)
-
-        Move the menu to a new position
+        """Move the menu to a new position
 
         Sets the top-left position of the menu to (``x``,``y``).
 
@@ -255,9 +260,7 @@ cdef class Menu(Object):
         elm_menu_move(self.obj, x, y)
 
     def close(self):
-        """close()
-
-        Close a opened menu
+        """Close a opened menu
 
         Hides the menu and all it's sub-menus.
 
@@ -267,7 +270,7 @@ cdef class Menu(Object):
     property items:
         """Returns a list of ``item``'s items.
 
-        :type: tuple of :py:class:`Object`s
+        :type: tuple of :py:class:`Object`
 
         """
         def __get__(self):
@@ -277,9 +280,7 @@ cdef class Menu(Object):
         return _object_item_list_to_python(elm_menu_items_get(self.obj))
 
     def item_add(self, parent = None, label = None, icon = None, callback = None, *args, **kwargs):
-        """item_add(parent=None, label=None, icon=None, callback=None, *args, **kwargs)
-
-        Add an item at the end of the given menu widget
+        """Add an item at the end of the given menu widget
 
         :param parent: The parent menu item (optional)
         :type parent: :py:class:`Object`
@@ -297,9 +298,7 @@ cdef class Menu(Object):
         return MenuItem(self, parent, label, icon, callback, *args, **kwargs)
 
     def item_separator_add(self, parent = None):
-        """item_separator_add(parent=None)
-
-        Add a separator item to menu under ``parent``.
+        """Add a separator item to menu under ``parent``.
 
         This item is a :py:class:`Separator`.
 

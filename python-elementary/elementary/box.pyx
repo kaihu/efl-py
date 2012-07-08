@@ -54,7 +54,9 @@ cdef Evas_Object_Box_Layout _py_elm_box_layout_resolv(int layout) with gil:
 
 cdef class Box(Object):
 
-    """A box arranges objects in a linear fashion, governed by a layout function
+    """
+
+    A box arranges objects in a linear fashion, governed by a layout function
     that defines the details of this arrangement.
 
     By default, the box will use an internal function to set the layout to
@@ -304,7 +306,7 @@ cdef class Box(Object):
     property children:
         """Retrieve a list of the objects packed into the box
 
-        Returns a ``tuple`` with the child :py:class:`Object`s.
+        Returns a ``tuple`` with the child :py:class:`evas.object.Object`.
         The order of the list corresponds to the packing order the box uses.
 
         :type: tuple of :py:class:`evas.object.Object`

@@ -23,13 +23,17 @@ from general cimport PY_REFCOUNT
 
 cdef class PopupItem(ObjectItem):
 
-    """An item for :py:class:`Popup`.
+    """
+
+    An item for :py:class:`Popup`.
 
     Default contents parts of the popup items that you can use for are:
-        - "default" -Item's icon
+
+    - "default" -Item's icon
 
     Default text parts of the popup items that you can use for are:
-        - "default" - Item's label
+
+    - "default" - Item's label
 
     """
 
@@ -74,7 +78,9 @@ cdef class PopupItem(ObjectItem):
 
 cdef class Popup(Object):
 
-    """This widget is an enhancement of :py:class:`Notify`.
+    """
+
+    This widget is an enhancement of :py:class:`Notify`.
     In addition to Content area, there are two optional sections namely Title
     area and Action area.
 
@@ -95,6 +101,7 @@ cdef class Popup(Object):
     automatically when clicked on these action buttons.
 
     Figure::
+
         |---------------------|    |---------------------|    |---------------------|
         |     Title Area      |    |     Title Area      |    |     Title Area      |
         |Icon|    Text        |    |Icon|    Text        |    |Icon|    Text        |
@@ -128,22 +135,26 @@ cdef class Popup(Object):
     based on the number of buttons currently set to popup.
 
     Signals that you can add callbacks for are:
-        - "timeout" - when ever popup is closed as a result of timeout.
-        - "block,clicked" - when ever user taps on Blocked Event area.
+
+    - "timeout" - when ever popup is closed as a result of timeout.
+    - "block,clicked" - when ever user taps on Blocked Event area.
 
     Styles available for Popup
-        - "default"
+
+    - "default"
 
     Default contents parts of the popup widget that you can use for are:
-        - "default" - The content of the popup
-        - "title,icon" - Title area's icon
-        - "button1" - 1st button of the action area
-        - "button2" - 2nd button of the action area
-        - "button3" - 3rd button of the action area
+
+    - "default" - The content of the popup
+    - "title,icon" - Title area's icon
+    - "button1" - 1st button of the action area
+    - "button2" - 2nd button of the action area
+    - "button3" - 3rd button of the action area
 
     Default text parts of the popup widget that you can use for are:
-        - "title,text" - This operates on Title area's label
-        - "default" - content-text set in the content area of the widget
+
+    - "title,text" - This operates on Title area's label
+    - "default" - content-text set in the content area of the widget
 
     """
 
@@ -152,9 +163,7 @@ cdef class Popup(Object):
         self._set_obj(elm_popup_add(parent.obj))
 
     def item_append(self, label, evasObject icon, func = None, *args, **kwargs):
-        """item_append(label, icon, func, *args, **kwargs)
-
-        Add a new item to a Popup object
+        """Add a new item to a Popup object
 
         Both an item list and a content cannot be set at the same time!
         Once you add an item, the previous content will be removed.
@@ -215,7 +224,7 @@ cdef class Popup(Object):
         .. note:: Set a value <= 0.0 to disable a running timer.
 
         .. note:: If the value > 0.0 and the popup is previously visible, the
-        timer will be started with this value, canceling any running timer.
+            timer will be started with this value, canceling any running timer.
 
         :type: float
 

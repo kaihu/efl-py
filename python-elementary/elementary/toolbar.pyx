@@ -23,7 +23,11 @@ from menu cimport Menu
 
 cdef class ToolbarItem(ObjectItem):
 
-    """An item for the toolbar."""
+    """
+
+    An item for the toolbar.
+
+    """
 
     def __init__(self, evasObject toolbar, icon, label,
                  callback, *args, **kargs):
@@ -314,7 +318,9 @@ cdef class ToolbarItem(ObjectItem):
 
 cdef class Toolbar(Object):
 
-    """A toolbar is a widget that displays a list of items inside a box. It
+    """
+
+    A toolbar is a widget that displays a list of items inside a box. It
     can be scrollable, show a menu with items that don't fit to toolbar size
     or even crop them.
 
@@ -383,9 +389,7 @@ cdef class Toolbar(Object):
         return elm_toolbar_icon_order_lookup_get(self.obj)
 
     def item_append(self, icon, label, callback = None, *args, **kargs):
-        """item_append(icon, label, callback, *args, **kargs)
-
-        Append item to the toolbar.
+        """Append item to the toolbar.
 
         A new item will be created and appended to the toolbar, i.e., will
         be set as **last** item.
@@ -554,9 +558,7 @@ cdef class Toolbar(Object):
         return _object_item_to_python(elm_toolbar_last_item_get(self.obj))
 
     def item_find_by_label(self, label):
-        """item_find_by_label(label)
-
-        Returns a toolbar item by its label.
+        """Returns a toolbar item by its label.
 
         :param label: The label of the item to find.
         :type label: string

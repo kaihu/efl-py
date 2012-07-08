@@ -20,7 +20,9 @@ include "widget_header.pxi"
 
 cdef class Dayselector(LayoutClass):
 
-    """Dayselector displays all seven days of the week and allows the user to
+    """
+
+    Dayselector displays all seven days of the week and allows the user to
     select multiple days.
 
     The selection can be toggle by just clicking on the day.
@@ -31,8 +33,8 @@ cdef class Dayselector(LayoutClass):
     First day of the week is taken from config settings by default. It can be
     altered by using the API :py:attr:`week_start` API.
 
-    APIs are provided for setting the duration of weekend :py:attr:`weekend_start`
-    and :py:attr:`weekend_length` does this job.
+    APIs are provided for setting the duration of weekend
+    :py:attr:`weekend_start` and :py:attr:`weekend_length` does this job.
 
     Two styles of weekdays and weekends are supported in Dayselector.
     Application can emit signals on individual check objects for setting the
@@ -48,8 +50,8 @@ cdef class Dayselector(LayoutClass):
     Application can change individual day display string by using the API
     :py:func:`elementary.object.Object.part_text_set()`.
 
-    :py:func:`elementary.object.Object.part_content_set()` API sets the individual day object only if
-    the passed one is a Check widget.
+    :py:func:`elementary.object.Object.part_content_set()` API sets the
+    individual day object only if the passed one is a Check widget.
 
     Check object representing a day can be set/get by the application by using
     the elm_object_part_content_set/get APIs thus providing a way to handle
@@ -57,11 +59,13 @@ cdef class Dayselector(LayoutClass):
 
     This widget emits the following signals, besides the ones sent from
     :py:class:`elementary.layout.Layout`:
-        - ``"dayselector,changed"`` - when the user changes the state of a day.
-        - ``"language,changed"`` - the program's language changed
+
+    - ``"dayselector,changed"`` - when the user changes the state of a day.
+    - ``"language,changed"`` - the program's language changed
 
     Available styles for dayselector are:
-        - default
+
+    - default
 
     """
     def __init__(self, evasObject parent):

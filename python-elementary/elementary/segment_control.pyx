@@ -22,7 +22,11 @@ from object_item import _cb_object_item_conv
 
 cdef class SegmentControlItem(ObjectItem):
 
-    """An item for :py:class:`SegmentControl`."""
+    """
+
+    An item for :py:class:`SegmentControl`.
+
+    """
 
     property index:
         """Get the index of an item.
@@ -67,7 +71,9 @@ cdef class SegmentControlItem(ObjectItem):
 
 cdef class SegmentControl(LayoutClass):
 
-    """Segment control widget is a horizontal control made of multiple
+    """
+
+    Segment control widget is a horizontal control made of multiple
     segment items, each segment item functioning similar to discrete two
     state button. A segment control groups the items together and provides
     compact single button with multiple equal size segments.
@@ -79,18 +85,22 @@ cdef class SegmentControl(LayoutClass):
 
     This widget emits the following signals, besides the ones sent from
     :py:class:`elementary.layout.Layout`:
-        - ``"changed"`` - When the user clicks on a segment item which is not
-          previously selected and get selected. The event_info parameter is the
-          segment item pointer.
+
+    - ``"changed"`` - When the user clicks on a segment item which is not
+      previously selected and get selected. The event_info parameter is the
+      segment item pointer.
 
     Available styles for it:
-        - ``"default"``
+
+    - ``"default"``
 
     Default content parts of the segment control items that you can use for are:
-        - "icon" - An icon in a segment control item
+
+    - "icon" - An icon in a segment control item
 
     Default text parts of the segment control items that you can use for are:
-        - "default" - Title label in a segment control item
+
+    - "default" - Title label in a segment control item
 
     """
 
@@ -99,9 +109,7 @@ cdef class SegmentControl(LayoutClass):
         self._set_obj(elm_segment_control_add(parent.obj))
 
     def item_add(self, evasObject icon, label = None):
-        """item_add(icon, label=None)
-
-        Append a new item to the segment control object.
+        """Append a new item to the segment control object.
 
         A new item will be created and appended to the segment control, i.e., will
         be set as **last** item.
@@ -113,6 +121,7 @@ cdef class SegmentControl(LayoutClass):
         :py:func:`ObjectItem.delete()` or :py:func:`item_del_at()`.
 
         Simple example::
+
             sc = SegmentControl(win)
             ic = Icon(win)
             ic.file_set("path/to/image")
@@ -125,8 +134,9 @@ cdef class SegmentControl(LayoutClass):
             centered. If it has icon and label, even that an empty string,
             icon will be smaller and positioned at left.
 
-        .. seealso:: :py:func:`SegmentControl.item_insert_at()`
-        .. seealso:: :py:func:`ObjectItem.delete()`
+        .. seealso::
+            :py:func:`SegmentControl.item_insert_at()`
+            :py:func:`ObjectItem.delete()`
 
         :param icon: The icon object to use for the left side of the item. An
             icon can be any Evas object, but usually it is an icon created
@@ -150,9 +160,7 @@ cdef class SegmentControl(LayoutClass):
             return None
 
     def item_insert_at(self, evasObject icon, label = None, index = 0):
-        """item_insert_at(icon, label=None, index=0)
-
-        Insert a new item to the segment control object at specified position.
+        """Insert a new item to the segment control object at specified position.
 
         Index values must be between ``0``, when item will be prepended to
         segment control, and items count, that can be get with
@@ -167,9 +175,10 @@ cdef class SegmentControl(LayoutClass):
             centered. If it has icon and label, even that an empty string,
             icon will be smaller and positioned at left.
 
-        .. seealso:: :py:func:`SegmentControl.item_add()`
-        .. seealso:: :py:func:`SegmentControl.item_count_get()`
-        .. seealso:: :py:func:`ObjectItem.delete()`
+        .. seealso::
+            :py:func:`SegmentControl.item_add()`
+            :py:func:`SegmentControl.item_count_get()`
+            :py:func:`ObjectItem.delete()`
 
         :param icon: The icon object to use for the left side of the item. An
             icon can be any Evas object, but usually it is an icon created
@@ -194,9 +203,7 @@ cdef class SegmentControl(LayoutClass):
             return None
 
     def item_del_at(self, index):
-        """item_del_at(index)
-
-        Remove a segment control item at given index from its parent,
+        """Remove a segment control item at given index from its parent,
         deleting it.
 
         Items can be added with elm_segment_control_item_add() or
@@ -220,9 +227,7 @@ cdef class SegmentControl(LayoutClass):
             return elm_segment_control_item_count_get(self.obj)
 
     def item_get(self, index):
-        """item_get(index)
-
-        Get the item placed at specified index.
+        """Get the item placed at specified index.
 
         Index is the position of an item in segment control widget. Its
         range is from ``0`` to <tt> count - 1 </tt>.
@@ -238,17 +243,16 @@ cdef class SegmentControl(LayoutClass):
         return _object_item_to_python(elm_segment_control_item_get(self.obj, index))
 
     def item_label_get(self, index):
-        """item_label_get(index)
-
-        Get the label of item.
+        """Get the label of item.
 
         The return value is a pointer to the label associated to the item when
         it was created, with function elm_segment_control_item_add(), or later
         with function elm_object_item_text_set. If no label
         was passed as argument, it will return ``None``.
 
-        .. seealso:: :py:func:`ObjectItem.text_set()` for more details.
-        .. seealso:: :py:func:`SegmentControl.item_add()`
+        .. seealso::
+            :py:func:`ObjectItem.text_set()` for more details.
+            :py:func:`SegmentControl.item_add()`
 
         :param index: The index of the segment item.
         :type index: int
@@ -259,17 +263,16 @@ cdef class SegmentControl(LayoutClass):
         return _ctouni(elm_segment_control_item_label_get(self.obj, index))
 
     def item_icon_get(self, index):
-        """item_icon_get(index)
-
-        Get the icon associated to the item.
+        """Get the icon associated to the item.
 
         The return value is a pointer to the icon associated to the item when
         it was created, with function elm_segment_control_item_add(), or later
         with function elm_object_item_part_content_set(). If no icon
         was passed as argument, it will return ``None``.
 
-        .. seealso:: :py:func:`SegmentControl.item_add()`
-        .. seealso:: :py:func:`ObjectItem.part_content_set()`
+        .. seealso::
+            :py:func:`SegmentControl.item_add()`
+            :py:func:`ObjectItem.part_content_set()`
 
         :param index: The index of the segment item.
         :type index: int

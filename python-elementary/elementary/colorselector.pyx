@@ -22,7 +22,11 @@ from object_item import _cb_object_item_conv
 
 cdef class ColorselectorPaletteItem(ObjectItem):
 
-    """An item for the :py:class:`Colorselector` widget."""
+    """
+
+    An item for the :py:class:`Colorselector` widget.
+
+    """
 
     def __init__(self, evasObject cs, r, g, b, a):
         cdef Elm_Object_Item *item = elm_colorselector_palette_color_add(cs.obj, r, g, b, a)
@@ -55,7 +59,9 @@ cdef class ColorselectorPaletteItem(ObjectItem):
 
 cdef class Colorselector(LayoutClass):
 
-    """A Colorselector is a color selection widget.
+    """
+
+    A Colorselector is a color selection widget.
 
     It allows application to set a series of colors. It also allows to
     load/save colors from/to config with a unique identifier, by default,
@@ -65,13 +71,14 @@ cdef class Colorselector(LayoutClass):
 
     This widget emits the following signals, besides the ones sent from
     :py:class:`elementary.layout.Layout`:
-        - ``"changed"`` - When the color value changes on selector
-        - ``"color,item,selected"`` - When user clicks on color item.
-            The event_info parameter of the callback will be the selected
-            color item.
-        - ``"color,item,longpressed"`` - When user long presses on color item.
-            The event_info parameter of the callback will be the selected
-            color item.
+
+    - ``"changed"`` - When the color value changes on selector
+    - ``"color,item,selected"`` - When user clicks on color item.
+        The event_info parameter of the callback will be the selected
+        color item.
+    - ``"color,item,longpressed"`` - When user long presses on color item.
+        The event_info parameter of the callback will be the selected
+        color item.
 
     """
 

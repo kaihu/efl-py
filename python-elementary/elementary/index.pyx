@@ -101,7 +101,9 @@ cdef Elm_Object_Item *_elm_index_item_from_python(IndexItem item):
 
 cdef class Index(LayoutClass):
 
-    """An index widget gives you an index for fast access to whichever
+    """
+
+    An index widget gives you an index for fast access to whichever
     group of other UI items one might have.
 
     It's a list of text items (usually letters, for alphabetically ordered
@@ -115,23 +117,24 @@ cdef class Index(LayoutClass):
     When items on the index are selected, smart callbacks get
     called, so that its user can make other container objects to
     show a given area or child object depending on the index item
-    selected. You'd probably be using an index together with :py:class:`List`s,
-    :py:class:`Genlist`s or :py:class:`Gengrid`s.
+    selected. You'd probably be using an index together with :py:class:`List`,
+    :py:class:`Genlist` or :py:class:`Gengrid`.
 
     This widget emits the following signals, besides the ones sent from
     :py:class:`elementary.layout.Layout`:
-        - ``"changed"`` - When the selected index item changes. ``event_info``
-          is the selected item's data pointer.
-        - ``"delay,changed"`` - When the selected index item changes, but
-          after a small idling period. ``event_info`` is the selected
-          item's data pointer.
-        - ``"selected"`` - When the user releases a mouse button and
-          selects an item. ``event_info`` is the selected item's data
-          pointer.
-        - ``"level,up"`` - when the user moves a finger from the first
-          level to the second level
-        - ``"level,down"`` - when the user moves a finger from the second
-          level to the first level
+
+    - ``"changed"`` - When the selected index item changes. ``event_info``
+      is the selected item's data pointer.
+    - ``"delay,changed"`` - When the selected index item changes, but
+      after a small idling period. ``event_info`` is the selected
+      item's data pointer.
+    - ``"selected"`` - When the user releases a mouse button and
+      selects an item. ``event_info`` is the selected item's data
+      pointer.
+    - ``"level,up"`` - when the user moves a finger from the first
+      level to the second level
+    - ``"level,down"`` - when the user moves a finger from the second
+      level to the first level
 
     The ``"delay,changed"`` event is so that it'll wait a small time
     before actually reporting those events and, moreover, just the
@@ -180,9 +183,7 @@ cdef class Index(LayoutClass):
         return elm_index_item_level_get(self.obj)
 
     def selected_item_get(self, level):
-        """selected_item_get(level)
-
-        Returns the last selected item, for a given index widget.
+        """Returns the last selected item, for a given index widget.
 
         :param level: ``0`` or ``1``, the currently implemented levels.
         :type level: int
@@ -194,9 +195,7 @@ cdef class Index(LayoutClass):
         return _object_item_to_python(elm_index_selected_item_get(self.obj, level))
 
     def item_append(self, letter, callback = None, *args, **kargs):
-        """item_append(letter, callback, *args, **kargs)
-
-        Append a new item on a given index widget.
+        """Append a new item on a given index widget.
 
         Despite the most common usage of the ``letter`` argument is for
         single char strings, one could use arbitrary strings as index
@@ -218,9 +217,7 @@ cdef class Index(LayoutClass):
                         None, callback, *args, **kargs)
 
     def item_prepend(self, letter, callback = None, *args, **kargs):
-        """item_prepend(letter, callback=None, *args, **kargs)
-
-        Prepend a new item on a given index widget.
+        """Prepend a new item on a given index widget.
 
         Despite the most common usage of the ``letter`` argument is for
         single char strings, one could use arbitrary strings as index
@@ -241,9 +238,7 @@ cdef class Index(LayoutClass):
                         None, callback, *args, **kargs)
 
     def item_insert_after(self, IndexItem after, letter, callback = None, *args, **kargs):
-        """item_insert_after(after, letter, callback=None, *args, **kargs)
-
-        Insert a new item into the index object after item ``after``.
+        """Insert a new item into the index object after item ``after``.
 
         Despite the most common usage of the ``letter`` argument is for
         single char strings, one could use arbitrary strings as index
@@ -269,9 +264,7 @@ cdef class Index(LayoutClass):
                         after, callback, *args, **kargs)
 
     def item_insert_before(self, IndexItem before, letter, callback = None, *args, **kargs):
-        """item_insert_before(before, letter, callback=None, *args, **kargs)
-
-        Insert a new item into the index object before item ``before``.
+        """Insert a new item into the index object before item ``before``.
 
         Despite the most common usage of the ``letter`` argument is for
         single char strings, one could use arbitrary strings as index
@@ -297,9 +290,7 @@ cdef class Index(LayoutClass):
                         before, callback, *args, **kargs)
 
     #def item_sorted_insert(self, letter, callback = None, *args, **kargs):
-        """item_sorted_insert(letter, cmp_func, cmp_data_func=None, callback=None, *args, **kargs)
-
-        Insert a new item into the given index widget, using ``cmp_func``
+        """Insert a new item into the given index widget, using ``cmp_func``
         function to sort items (by item handles).
 
         Despite the most common usage of the ``letter`` argument is for
@@ -349,9 +340,7 @@ cdef class Index(LayoutClass):
         # return _object_item_to_python(elm_index_item_find(self.obj, <void*>data))
 
     def item_clear(self):
-        """item_clear()
-
-        Removes **all** items from a given index widget.
+        """Removes **all** items from a given index widget.
 
         If deletion callbacks are set, via :py:func:`delete_cb_set()`,
         that callback function will be called for each item.
@@ -360,9 +349,7 @@ cdef class Index(LayoutClass):
         elm_index_item_clear(self.obj)
 
     def level_go(self, level):
-        """level_go(level)
-
-        Go to a given items level on a index widget
+        """Go to a given items level on a index widget
 
         :param level: The index level (one of ``0`` or ``1``)
         :type level: int

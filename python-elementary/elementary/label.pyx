@@ -20,7 +20,9 @@ include "widget_header.pxi"
 
 cdef class Label(LayoutClass):
 
-    """Widget to display text, with simple html-like markup.
+    """
+
+    Widget to display text, with simple html-like markup.
 
     The Label widget **doesn't** allow text to overflow its boundaries, if the
     text doesn't fit the geometry of the label it will be ellipsized or be

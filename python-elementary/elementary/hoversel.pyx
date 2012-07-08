@@ -23,7 +23,11 @@ from object_item import _cb_object_item_conv
 
 cdef class HoverselItem(ObjectItem):
 
-    """An item for the :py:class:`Hoversel` widget."""
+    """
+
+    An item for the :py:class:`Hoversel` widget.
+
+    """
 
     cdef unicode label, icon_file
     cdef Elm_Icon_Type icon_type
@@ -60,9 +64,7 @@ cdef class HoverselItem(ObjectItem):
         self.params = (callback, args, kargs)
 
     def add_to(self, Hoversel hoversel):
-        """add_to(hoversel)
-
-        Add an item to the hoversel button
+        """Add an item to the hoversel button
 
         This adds an item to the hoversel to show when it is clicked.
 
@@ -115,7 +117,9 @@ cdef class HoverselItem(ObjectItem):
 
 cdef class Hoversel(Button):
 
-    """A hoversel is a button that pops up a list of items (automatically
+    """
+
+    A hoversel is a button that pops up a list of items (automatically
     choosing the direction to display) that have a label and, optionally, an
     icon to select from.
 
@@ -189,18 +193,14 @@ cdef class Hoversel(Button):
         return Object_from_instance(elm_hoversel_hover_parent_get(self.obj))
 
     def hover_begin(self):
-        """hover_begin()
-
-        This triggers the hoversel popup from code, the same as if the user
+        """This triggers the hoversel popup from code, the same as if the user
         had clicked the button.
 
         """
         elm_hoversel_hover_begin(self.obj)
 
     def hover_end(self):
-        """hover_end()
-
-        This dismisses the hoversel popup as if the user had clicked outside
+        """This dismisses the hoversel popup as if the user had clicked outside
         the hover.
 
         """
@@ -219,9 +219,7 @@ cdef class Hoversel(Button):
         return bool(elm_hoversel_expanded_get(self.obj))
 
     def clear(self):
-        """clear()
-
-        This will remove all the children items from the hoversel.
+        """This will remove all the children items from the hoversel.
 
         .. warning:: Should **not** be called while the hoversel is active; use
             :py:attr:`expanded` to check first.

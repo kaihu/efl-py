@@ -19,7 +19,9 @@ include "widget_header.pxi"
 
 cdef class Notify(Object):
 
-    """Display a container in a particular region of the parent.
+    """
+
+    Display a container in a particular region of the parent.
 
     A timeout can be set to automatically hide the notify. This is so that,
     after an :py:func:`show()` on a notify object, if a timeout was set on it,

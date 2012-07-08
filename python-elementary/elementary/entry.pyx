@@ -78,7 +78,9 @@ def _entryanchorhover_conv(long addr):
 
 cdef class Entry(Object):
 
-    """An entry is a convenience widget which shows a box that the user can
+    """
+
+    An entry is a convenience widget which shows a box that the user can
     enter text into.
 
     Entries by default don't scroll, so they grow to
@@ -93,7 +95,7 @@ cdef class Entry(Object):
     :py:func:`markup_filter_append()` and related functions, inline "items" and
     formatted markup text.
 
-    **Formatted text**
+    .. rubric:: Formatted text
 
     The markup tags supported by the Entry are defined by the theme, but
     even when writing new themes or extensions it's a good idea to stick to
@@ -110,13 +112,13 @@ cdef class Entry(Object):
     - <link>...</link>: Underlines the enclosed text.
     - <hilight>...</hilight>: Highlights the enclosed text.
 
-    **Special markups**
+    .. rubric:: Special markups
 
     Besides those used to format text, entries support two special markup
     tags used to insert click-able portions of text or items inlined within
     the text.
 
-    **Anchors**
+    .. rubric:: Anchors
 
     Anchors are similar to HTML anchors. Text can be surrounded by <a> and
     </a> tags and an event will be generated when this text is clicked,
@@ -133,7 +135,7 @@ cdef class Entry(Object):
     (mouse out), "anchor,down" (mouse down), and "anchor,up" (mouse up) events on
     an anchor.
 
-    **Items**
+    .. rubric:: Items
 
     Inlined in the text, any other :py:class:`elementary.object.Object` can be inserted by using
     <item> tags this way::
@@ -221,7 +223,7 @@ cdef class Entry(Object):
     the URI form ``file:///path/to/an/image.png`` and the entry will then
     use that image for the item.
 
-    **Setting entry's style**
+    .. rubric:: Setting entry's style
 
     There are 2 major ways to change the entry's style:
 
@@ -234,7 +236,7 @@ cdef class Entry(Object):
     like to change the style to something specific defined at run-time, e.g,
     setting font or font size in a text editor.
 
-    **Loading and saving files**
+    .. rubric:: Loading and saving files
 
     Entries have convenience functions to load text from a file and save
     changes back to it after a short delay. The automatic saving is enabled
@@ -242,7 +244,7 @@ cdef class Entry(Object):
     can be loaded directly as plain text or have any markup in them
     recognized. See :py:attr:`file` for more details.
 
-    **Emitted signals**
+    .. rubric:: Emitted signals
 
     This widget emits the following signals:
 

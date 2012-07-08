@@ -21,7 +21,9 @@ include "callbacks.pxi"
 
 cdef class FileselectorEntry(Object):
 
-    """This is an entry made to be filled with or display a file
+    """
+
+    This is an entry made to be filled with or display a file
     system path string.
 
     Besides the entry itself, the widget has a :py:class:`FileselectorButton`
@@ -38,33 +40,36 @@ cdef class FileselectorEntry(Object):
     selector than that one would have instantiating one directly.
 
     Smart callbacks one can register to:
-        - ``"changed"`` - The text within the entry was changed
-        - ``"activated"`` - The entry has had editing finished and
-          changes are to be "committed"
-        - ``"press"`` - The entry has been clicked
-        - ``"longpressed"`` - The entry has been clicked (and held) for a
-          couple seconds
-        - ``"clicked"`` - The entry has been clicked
-        - ``"clicked,double"`` - The entry has been double clicked
-        - ``"focused"`` - The entry has received focus
-        - ``"unfocused"`` - The entry has lost focus
-        - ``"selection,paste"`` - A paste action has occurred on the
-          entry
-        - ``"selection,copy"`` - A copy action has occurred on the entry
-        - ``"selection,cut"`` - A cut action has occurred on the entry
-        - ``"unpressed"`` - The file selector entry's button was released
-          after being pressed.
-        - ``"file,chosen"`` - The user has selected a path via the file
-          selector entry's internal file selector, whose string
-          comes as the ``event_info`` data.
+
+    - ``"changed"`` - The text within the entry was changed
+    - ``"activated"`` - The entry has had editing finished and
+      changes are to be "committed"
+    - ``"press"`` - The entry has been clicked
+    - ``"longpressed"`` - The entry has been clicked (and held) for a
+      couple seconds
+    - ``"clicked"`` - The entry has been clicked
+    - ``"clicked,double"`` - The entry has been double clicked
+    - ``"focused"`` - The entry has received focus
+    - ``"unfocused"`` - The entry has lost focus
+    - ``"selection,paste"`` - A paste action has occurred on the
+      entry
+    - ``"selection,copy"`` - A copy action has occurred on the entry
+    - ``"selection,cut"`` - A cut action has occurred on the entry
+    - ``"unpressed"`` - The file selector entry's button was released
+      after being pressed.
+    - ``"file,chosen"`` - The user has selected a path via the file
+      selector entry's internal file selector, whose string
+      comes as the ``event_info`` data.
 
     Default text parts of the fileselector_button widget that you can use for
     are:
-        - "default" - Label of the fileselector_button
+
+    - "default" - Label of the fileselector_button
 
     Default content parts of the fileselector_entry widget that you can use for
     are:
-        - "button icon" - Button icon of the fileselector_entry
+
+    - "button icon" - Button icon of the fileselector_entry
 
     """
 

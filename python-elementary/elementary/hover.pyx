@@ -20,7 +20,9 @@ include "widget_header.pxi"
 
 cdef class Hover(LayoutClass):
 
-    """A Hover object will hover over its ``parent} object at the C{target``
+    """
+
+    A Hover object will hover over its ``parent} object at the C{target``
     location.
 
     Anything in the background will be given a darker coloring to indicate
@@ -87,25 +89,9 @@ cdef class Hover(LayoutClass):
             self._set_obj(<Evas_Object*>obj)
 
     def target_set(self, evasObject target):
-        """Sets the target object for the hover.
-
-        This function will cause the hover to be centered on the target object.
-
-        :param target: The object to center the hover onto.
-        :type target: :py:class:`elementary.object.Object`
-
-        """
         elm_hover_target_set(self.obj, target.obj)
 
     def target_get(self):
-        """Gets the target object for the hover.
-
-        .. seealso:: target_set()
-
-        :return: The target object for the hover.
-        :rtype: :py:class:`elementary.object.Object`
-
-        """
         return Object_from_instance(elm_hover_target_get(self.obj))
 
     property target:
@@ -122,26 +108,9 @@ cdef class Hover(LayoutClass):
             elm_hover_target_set(self.obj, target.obj)
 
     def parent_set(self, evasObject parent):
-        """Sets the parent object for the hover.
-
-        This function will cause the hover to take up the entire space that the
-        parent object fills.
-
-        :param parent: The object to locate the hover over.
-        :type parent: :py:class:`elementary.object.Object`
-
-        """
         elm_hover_parent_set(self.obj, parent.obj)
 
     def parent_get(self):
-        """Gets the parent object for the hover.
-
-        .. seealso:: parent_set()
-
-        :return: The parent object to locate the hover over.
-        :rtype: :py:class:`elementary.object.Object`
-
-        """
         return Object_from_instance(elm_hover_parent_get(self.obj))
 
     property parent:
@@ -160,9 +129,7 @@ cdef class Hover(LayoutClass):
             return Object_from_instance(elm_hover_parent_get(self.obj))
 
     def best_content_location_get(self, axis):
-        """best_content_location_get(axis)
-
-        Returns the best swallow location for content in the hover.
+        """Returns the best swallow location for content in the hover.
 
         Best is defined here as the location at which there is the most
         available space.
@@ -195,9 +162,7 @@ cdef class Hover(LayoutClass):
         return _ctouni(elm_hover_best_content_location_get(self.obj, axis))
 
     def dismiss(self):
-        """dismiss()
-
-        Dismiss a hover object
+        """Dismiss a hover object
 
         Use this function to simulate clicking outside the hover to dismiss
         it. In this way, the hover will be hidden and the "clicked" signal

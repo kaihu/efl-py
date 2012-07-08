@@ -43,7 +43,9 @@ cdef class CtxpopupItem(ObjectItem):
 
 cdef class Ctxpopup(Object):
 
-    """Context popup widget.
+    """
+
+    Context popup widget.
 
     A ctxpopup is a widget that, when shown, pops up a list of items. It
     automatically chooses an area inside its parent object's view to
@@ -53,16 +55,20 @@ cdef class Ctxpopup(Object):
     (hence the use of list, not genlist).
 
     Signals that you can add callbacks for are:
-        - "dismissed" - the ctxpopup was dismissed
+
+    - "dismissed" - the ctxpopup was dismissed
 
     Default content parts of the ctxpopup widget that you can use for are:
-        - "default" - A content of the ctxpopup
+
+    - "default" - A content of the ctxpopup
 
     Default content parts of the ctxpopup items that you can use for are:
-        - "icon" - An icon in the title area
+
+    - "icon" - An icon in the title area
 
     Default text parts of the ctxpopup items that you can use for are:
-        - "default" - Title label in the title area
+
+    - "default" - Title label in the title area
 
     .. note:: Ctxpopup is a specialization of :py:class:`elementary.hover.Hover`.
 
@@ -114,8 +120,8 @@ cdef class Ctxpopup(Object):
         """Add a new item to a ctxpopup object.
 
         .. warning:: Ctxpopup can't hold both an item list and a content at the
-        same time. When an item is added, any previous content will be
-        removed.
+            same time. When an item is added, any previous content will be
+            removed.
 
         .. seealso:: :py:attr:`elementary.object.Object.content`
 

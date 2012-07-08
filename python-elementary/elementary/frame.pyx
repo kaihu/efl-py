@@ -20,29 +20,35 @@ include "widget_header.pxi"
 
 cdef class Frame(LayoutClass):
 
-    """Frame is a widget that holds some content and has a title.
+    """
+
+    Frame is a widget that holds some content and has a title.
 
     The default look is a frame with a title, but Frame supports multiple
     styles:
-        - default
-        - pad_small
-        - pad_medium
-        - pad_large
-        - pad_huge
-        - outdent_top
-        - outdent_bottom
+
+    - default
+    - pad_small
+    - pad_medium
+    - pad_large
+    - pad_huge
+    - outdent_top
+    - outdent_bottom
 
     Of all this styles only default shows the title.
 
     This widget emits the following signals, besides the ones sent from
     :py:class:`elementary.layout.Layout`:
-        - ``"clicked"`` - The user has clicked the frame's label
+
+    - ``"clicked"`` - The user has clicked the frame's label
 
     Default content parts of the frame widget that you can use for are:
-        - "default" - A content of the frame
+
+    - "default" - A content of the frame
 
     Default text parts of the frame widget that you can use for are:
-        - "default" - Label of the frame
+
+    - "default" - Label of the frame
 
     """
 

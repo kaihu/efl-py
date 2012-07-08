@@ -20,7 +20,9 @@ include "widget_header.pxi"
 
 cdef class Radio(LayoutClass):
 
-    """Radio is a widget that allows for one or more options to be displayed
+    """
+
+    Radio is a widget that allows for one or more options to be displayed
     and have the user choose only one of them.
 
     A radio object contains an indicator, an optional Label and an optional
@@ -69,9 +71,7 @@ cdef class Radio(LayoutClass):
             self._set_obj(<Evas_Object*>obj)
 
     def group_add(self, evasObject group):
-        """group_add(group)
-
-        Add this radio to a group of other radio objects
+        """Add this radio to a group of other radio objects
 
         Radio objects work in groups. Each member should have a different integer
         value assigned. In order to have them work as a group, they need to know

@@ -20,7 +20,9 @@ include "widget_header.pxi"
 
 cdef class Button(LayoutClass):
 
-    """This is a push-button. Press it and run some function. It can contain
+    """
+
+    This is a push-button. Press it and run some function. It can contain
     a simple label and icon object and it also has an autorepeat feature.
 
     This widget emits the following signals, besides the ones sent from

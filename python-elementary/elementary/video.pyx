@@ -20,7 +20,9 @@ include "widget_header.pxi"
 
 cdef class Video(LayoutClass):
 
-    """Display a video by using Emotion.
+    """
+
+    Display a video by using Emotion.
 
     It embeds the video inside an Edje object, so you can do some
     animation depending on the video state change. It also implements a
@@ -66,27 +68,15 @@ cdef class Video(LayoutClass):
         return Object_from_instance(elm_video_emotion_get(self.obj))
 
     def play(self):
-        """play()
-
-        Start to play the video and cancel all suspend state.
-
-        """
+        """Start to play the video and cancel all suspend state."""
         elm_video_play(self.obj)
 
     def pause(self):
-        """pause()
-
-        Pause the video and start a timer to trigger suspend mode.
-
-        """
+        """Pause the video and start a timer to trigger suspend mode."""
         elm_video_pause(self.obj)
 
     def stop(self):
-        """stop()
-
-        Stop the video and put the emotion in deep sleep mode.
-
-        """
+        """Stop the video and put the emotion in deep sleep mode."""
         elm_video_stop(self.obj)
 
     property is_playing:
@@ -221,7 +211,9 @@ _install_metaclass(Video)
 
 cdef class Player(LayoutClass):
 
-    """Player is a video player that need to be linked with a :py:class:`Video`.
+    """
+
+    Player is a video player that need to be linked with a :py:class:`Video`.
 
     It takes care of updating its content according to Emotion events and
     provides a way to theme itself. It also automatically raises the priority of

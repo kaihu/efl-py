@@ -20,7 +20,9 @@ include "widget_header.pxi"
 
 cdef class Conformant(LayoutClass):
 
-    """The aim is to provide a widget that can be used in elementary apps to
+    """
+
+    The aim is to provide a widget that can be used in elementary apps to
     account for space taken up by the indicator, virtual keypad & softkey
     windows when running the illume2 module of E17.
 

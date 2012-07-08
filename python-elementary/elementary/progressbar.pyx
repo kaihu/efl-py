@@ -20,7 +20,9 @@ include "widget_header.pxi"
 
 cdef class Progressbar(LayoutClass):
 
-    """The progress bar is a widget for visually representing the progress
+    """
+
+    The progress bar is a widget for visually representing the progress
     status of a given job/task.
 
     A progress bar may be horizontal or vertical. It may display an icon

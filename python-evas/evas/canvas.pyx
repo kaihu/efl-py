@@ -142,9 +142,7 @@ cdef _canvas_del_callback_from_list(Canvas canvas, int type, func):
 
 
 def render_method_lookup(char *name):
-    """render_method_lookup(name)
-
-    Lookup render method and return its id (> 0 if found).
+    """Lookup render method and return its id (> 0 if found).
 
     :param name: Render method
     :type name: string
@@ -156,9 +154,7 @@ def render_method_lookup(char *name):
 
 
 def render_method_list():
-    """render_method_list()
-
-    Returns a list of render method names.
+    """Returns a list of render method names.
 
     :rtype: list of str
 

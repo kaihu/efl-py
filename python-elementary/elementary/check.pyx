@@ -20,7 +20,9 @@ include "widget_header.pxi"
 
 cdef class Check(LayoutClass):
 
-    """The check widget allows for toggling a value between true and false.
+    """
+
+    The check widget allows for toggling a value between true and false.
 
     Check objects are a lot like radio objects in layout and functionality,
     except they do not work as a group, but independently, and only toggle

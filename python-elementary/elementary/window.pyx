@@ -25,7 +25,9 @@ from evas.object_image cimport Image as evasImage
 
 cdef class Window(Object):
 
-    """The window class of Elementary.
+    """
+
+    The window class of Elementary.
 
     Contains functions to manipulate windows. The Evas engine used to render
     the window contents is specified in the system or user elementary config
@@ -120,9 +122,7 @@ cdef class Window(Object):
         evasObject.__init__(self, canvas)
 
     def resize_object_add(self, evasObject subobj):
-        """resize_object_add(subobj)
-
-        Add ``subobj`` as a resize object of the window.
+        """Add ``subobj`` as a resize object of the window.
 
         Setting an object as a resize object of the window means that the
         ``subobj`` child's size and position will be controlled by the window
@@ -151,9 +151,7 @@ cdef class Window(Object):
         elm_win_resize_object_add(self.obj, subobj.obj)
 
     def resize_object_del(self, evasObject subobj):
-        """resize_object_del(subobj)
-
-        Delete ``subobj`` as a resize object of the window.
+        """Delete ``subobj`` as a resize object of the window.
 
         This function removes the object ``subobj`` from the resize objects of
         the window. It will not delete the object itself, which will be
@@ -266,9 +264,7 @@ cdef class Window(Object):
         return elm_win_autodel_get(self.obj)
 
     def activate(self):
-        """activate()
-
-        Activate a window object.
+        """Activate a window object.
 
         This function sends a request to the Window Manager to activate the
         window. If honored by the WM, the window will receive the keyboard
@@ -282,9 +278,7 @@ cdef class Window(Object):
         elm_win_activate(self.obj)
 
     def lower(self):
-        """lower()
-
-        Lower a window object.
+        """Lower a window object.
 
         Places the window at the bottom of the stack, so that no other
         window is covered by it.
@@ -296,9 +290,7 @@ cdef class Window(Object):
         elm_win_lower(self.obj)
 
     def _raise(self):
-        """_raise()
-
-        Raise a window object.
+        """Raise a window object.
 
         Places the window at the top of the stack, so that it's not covered
         by any other window.
@@ -310,9 +302,7 @@ cdef class Window(Object):
         elm_win_raise(self.obj)
 
     def center(self, h, v):
-        """center(h, v)
-
-        Center a window on its screen
+        """Center a window on its screen
 
         This function centers window horizontally and/or vertically
         based on the values of ``h`` and ``v``.
@@ -775,9 +765,7 @@ cdef class Window(Object):
         elm_win_prop_focus_skip_set(self.obj, skip)
 
     def illume_command_send(self, command, *args, **kwargs):
-        """illume_command_send(command, params)
-
-        Send a command to the windowing environment
+        """Send a command to the windowing environment
 
         This is intended to work in touchscreen or small screen device
         environments where there is a more simplistic window management
@@ -979,9 +967,7 @@ cdef class Window(Object):
         return (x, y)
 
     def socket_listen(self, svcname, svcnum, svcsys):
-        """socket_listen(svcname, svcnum, svcsys)
-
-        Create a socket to provide the service for Plug widget
+        """Create a socket to provide the service for Plug widget
 
         :param svcname: The name of the service to be advertised. ensure that it is unique.
         :type svcname: string

@@ -22,6 +22,7 @@ include "callbacks.pxi"
 cdef class Fileselector(LayoutClass):
 
     """
+
     A file selector is a widget that allows a user to navigate
     through a file system, reporting file selections back via its
     API.

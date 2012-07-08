@@ -20,7 +20,9 @@ include "widget_header.pxi"
 
 cdef class Flip(Object):
 
-    """This widget holds two content :py:class:`evas.object.Object`s: one on
+    """
+
+    This widget holds two content :py:class:`evas.object.Object` s: one on
     the front and one on the back. It allows you to flip from front to back
     and vice-versa using various animations.
 
@@ -31,12 +33,14 @@ cdef class Flip(Object):
     For a list of supported animations see :py:func:`go()`.
 
     Signals that you can add callbacks for are:
-        - "animate,begin" - when a flip animation was started
-        - "animate,done" - when a flip animation is finished
+
+    - "animate,begin" - when a flip animation was started
+    - "animate,done" - when a flip animation is finished
 
     Default content parts of the flip widget that you can use for are:
-        - "front" - A front content of the flip
-        - "back" - A back content of the flip
+
+    - "front" - A front content of the flip
+    - "back" - A back content of the flip
 
     """
 

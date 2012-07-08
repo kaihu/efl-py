@@ -20,7 +20,9 @@ include "widget_header.pxi"
 
 cdef class InnerWindow(LayoutClass):
 
-    """An inwin is a window inside a window that is useful for a quick popup.
+    """
+
+    An inwin is a window inside a window that is useful for a quick popup.
     It does not hover.
 
     It works by creating an object that will occupy the entire window, so it

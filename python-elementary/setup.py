@@ -102,16 +102,13 @@ ext_modules = []
 for m in modules:
     ext_modules.append(Extension("elementary."+m, ["elementary/"+m+".pyx"], **pkgconfig("elementary")))
 
-for e in ext_modules:
-    e.pyrex_directives = {"embedsignature": True}
-
 setup(
     name = "elementary",
     version = "1.7.0",
     description = "Python bindings for EFL Elementary",
     cmdclass = {'build_ext': build_ext, 'build_sphinx': BuildDoc, 'build_doc': BuildDoc},
     packages = ["elementary"],
-    ext_modules = cythonize(ext_modules),
+    ext_modules = cythonize(ext_modules, compiler_directives={"embedsignature": True}),
     requires = ["evas", "ecore", "edje"],
     provides = ["elementary"],
 )

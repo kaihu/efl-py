@@ -21,15 +21,18 @@ include "callbacks.pxi"
 
 cdef class Actionslider(LayoutClass):
 
-    """An actionslider is a switcher for two or three labels with
+    """
+
+    An actionslider is a switcher for two or three labels with
     customizable magnet properties.
 
     The user drags and releases the indicator, to choose a label.
 
     Labels can occupy the following positions.
-        - Left
-        - Right
-        - Center
+
+    - Left
+    - Right
+    - Center
 
     Positions can be enabled or disabled.
 
@@ -40,16 +43,18 @@ cdef class Actionslider(LayoutClass):
 
     This widget emits the following signals, besides the ones sent from
     :py:class:`elementary.layout.Layout`:
-        - **selected** - when user selects an enabled position (the label is
-            passed as event info)".
-        - **pos_changed** - when the indicator reaches any of the
-            positions("left", "right" or "center").
+
+    - **selected** - when user selects an enabled position (the label is
+        passed as event info)".
+    - **pos_changed** - when the indicator reaches any of the
+        positions("left", "right" or "center").
 
     Default text parts of the actionslider widget that you can use for are:
-        - **indicator** - An indicator label of the actionslider
-        - **left** - A left label of the actionslider
-        - **right** - A right label of the actionslider
-        - **center** - A center label of the actionslider
+
+    - **indicator** - An indicator label of the actionslider
+    - **left** - A left label of the actionslider
+    - **right** - A right label of the actionslider
+    - **center** - A center label of the actionslider
 
     .. note:: By default all positions are set as enabled.
 

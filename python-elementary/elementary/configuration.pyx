@@ -24,7 +24,9 @@ include "conversions.pxi"
 
 cdef class Configuration(object):
 
-    """Elementary configuration is formed by a set options bounded to a
+    """
+
+    Elementary configuration is formed by a set options bounded to a
     given profile, like theme, "finger size", etc.
 
     These are functions with which one synchronizes changes made to those
@@ -32,9 +34,53 @@ cdef class Configuration(object):
     don't want to use the functions in this group unless you're writing an
     elementary configuration manager.
 
+    .. rubric:: Profiles
+
+    Profiles are pre-set options that affect the whole look-and-feel of
+    Elementary-based applications. There are, for example, profiles
+    aimed at desktop computer applications and others aimed at mobile,
+    touchscreen-based ones. You most probably don't want to use the
+    functions in this group unless you're writing an elementary
+    configuration manager.
+
+    .. rubric:: Elementary Scrolling
+
+    These set how scrollable views in Elementary widgets should behave on
+    user interaction.
+
+    .. rubric:: Password show last
+
+    Show last feature of password mode enables user to view the last input
+    entered for few seconds before masking it. These functions allow to set
+    this feature in password mode of entry widget and also allow to
+    manipulate the duration for which the input has to be visible.
+
+    .. rubric:: Elementary Engine
+
+    These are functions setting and querying which rendering engine
+    Elementary will use for drawing its windows' pixels.
+
+    The following are the available engines:
+
+    - "software_x11"
+    - "fb"
+    - "directfb"
+    - "software_16_x11"
+    - "software_8_x11"
+    - "xrender_x11"
+    - "opengl_x11"
+    - "software_gdi"
+    - "software_16_wince_gdi"
+    - "sdl"
+    - "software_16_sdl"
+    - "opengl_sdl"
+    - "buffer"
+    - "ews"
+    - "opengl_cocoa"
+    - "psl1ght"
+
     """
 
-    #{ Elementary Configuration
     def save(self):
         """Save back Elementary's configuration, so that it will persist on
         future sessions.
@@ -44,7 +90,7 @@ cdef class Configuration(object):
         current configuration set will get saved onto the current profile
         configuration file.
 
-        :return: *True}, when successful. C{False*, otherwise.
+        :return: ``True``, when successful. ``False``, otherwise.
         :rtype: bool
 
         """
@@ -58,7 +104,7 @@ cdef class Configuration(object):
         a profile. If one removes user custom configuration directories,
         for example, it will force a reload with system values instead.
 
-        :return: *True}, when successful. C{False*, otherwise.
+        :return: ``True``, when successful. ``False``, otherwise.
         :rtype: bool
 
         """
@@ -68,18 +114,6 @@ cdef class Configuration(object):
         """Flush all config settings then apply those settings to all
         applications using elementary on the current display."""
         elm_config_all_flush()
-
-    #}
-
-    #{ Elementary Profile
-    """Profiles are pre-set options that affect the whole look-and-feel of
-    Elementary-based applications. There are, for example, profiles
-    aimed at desktop computer applications and others aimed at mobile,
-    touchscreen-based ones. You most probably don't want to use the
-    functions in this group unless you're writing an elementary
-    configuration manager.
-
-    """
 
     property profile:
         """Elementary's profile in use.
@@ -101,8 +135,8 @@ cdef class Configuration(object):
 
         :param profile:  The profile's name
         :type profile: string
-        :param is_user:  Whether to lookup for a user profile (*True*)
-            or a system one (*False*)
+        :param is_user:  Whether to lookup for a user profile (``True``)
+            or a system one (``False``)
         :type is_user: bool
         :return: The profile's directory path.
         :rtype: string
@@ -119,12 +153,6 @@ cdef class Configuration(object):
         def __get__(self):
             cdef Eina_List *lst = elm_config_profile_list_get()
             return tuple(_strings_to_python(lst))
-
-    #}
-
-    #{ Elementary Scrolling
-    """These set how scrollable views in Elementary widgets should behave on
-    user interaction."""
 
     property scroll_bounce_enabled:
         """Whether scrollers should bounce when they reach their
@@ -258,8 +286,8 @@ cdef class Configuration(object):
         """The sensitivity amount which is be multiplied by the length of
         mouse dragging.
 
-        -0}.1 for minimum sensitivity, C{1*.0 for maximum sensitivity. 0.25 is
-        proper.
+        ``0.1`` for minimum sensitivity, ``1.0`` for maximum sensitivity.
+        ``0.25`` is proper.
 
         :type: float
 
@@ -268,8 +296,6 @@ cdef class Configuration(object):
             return elm_config_scroll_thumbscroll_sensitivity_friction_get()
         def __set__(self, friction):
             elm_config_scroll_thumbscroll_sensitivity_friction_set(friction)
-
-    #}
 
     property longpress_timeout:
         """The duration for occurring long press event.
@@ -321,12 +347,6 @@ cdef class Configuration(object):
         def __set__(self, scale):
             elm_config_scale_set(scale)
 
-    #{ Password show last
-    """Show last feature of password mode enables user to view the last input
-    entered for few seconds before masking it. These functions allow to set
-    this feature in password mode of entry widget and also allow to
-    manipulate the duration for which the input has to be visible."""
-
     property password_show_last:
         """The "show last" setting of password mode.
 
@@ -349,32 +369,6 @@ cdef class Configuration(object):
             return elm_config_password_show_last_timeout_get()
         def __set__(self, password_show_last_timeout):
             elm_config_password_show_last_timeout_set(password_show_last_timeout)
-
-    #}
-
-    #{ Elementary Engine
-    """These are functions setting and querying which rendering engine
-    Elementary will use for drawing its windows' pixels.
-
-    The following are the available engines:
-        - "software_x11"
-        - "fb"
-        - "directfb"
-        - "software_16_x11"
-        - "software_8_x11"
-        - "xrender_x11"
-        - "opengl_x11"
-        - "software_gdi"
-        - "software_16_wince_gdi"
-        - "sdl"
-        - "software_16_sdl"
-        - "opengl_sdl"
-        - "buffer"
-        - "ews"
-        - "opengl_cocoa"
-        - "psl1ght"
-
-    """
 
     property engine:
         """Elementary's rendering engine in use.
@@ -463,13 +457,13 @@ cdef class Configuration(object):
     def font_overlay_set(self, text_class, font, size):
         """Set a font overlay for a given Elementary text class.
 
-        -font* has to be in the format returned by font_fontconfig_name_get().
+        *font* has to be in the format returned by font_fontconfig_name_get().
 
         .. seealso::
 
-            :py:attr: font_overlay_list
-            :py:func: font_overlay_unset()
-            :py:func: edje_object_text_class_set()
+            :py:attr:`font_overlay_list`
+            :py:func:`font_overlay_unset()`
+            :py:func:`edje_object_text_class_set()`
 
         :param text_class: Text class name
         :type text_class: string
@@ -485,7 +479,7 @@ cdef class Configuration(object):
         """Unset a font overlay for a given Elementary text class.
 
         This will bring back text elements belonging to text class
-        -text_class* back to their default font settings.
+        ``text_class`` back to their default font settings.
 
         :param text_class: Text class name
         :type text_class: string
@@ -518,7 +512,7 @@ cdef class Configuration(object):
     property cache_flush_interval:
         """The globally configured cache flush interval time, in ticks
 
-        .. seealso:: cache_all_flush()
+        .. seealso:: :py:func:`cache_all_flush()`
 
         .. note:: The ``size`` must be greater than 0. if not, the cache flush
             will be ignored.
@@ -543,7 +537,7 @@ cdef class Configuration(object):
         be re-loaded as it is idle and not rendering or doing anything
         graphically right now.
 
-        .. seealso:: :py:func: cache_all_flush()
+        .. seealso:: :py:func:`cache_all_flush()`
 
         :type: bool
 
@@ -620,7 +614,7 @@ cdef class Configuration(object):
         Note that it will take effect only to Elementary windows created after
         this is set.
 
-        .. seealso:: :py:class: Window
+        .. seealso:: :py:class:`elementary.window.Window`
 
         :type: bool
 
@@ -641,6 +635,3 @@ cdef class Configuration(object):
             return bool(elm_config_mirrored_get())
         def __set__(self, mirrored):
             elm_config_mirrored_set(mirrored)
-
-    #}
-

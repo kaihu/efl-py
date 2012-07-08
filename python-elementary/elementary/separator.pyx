@@ -20,7 +20,9 @@ include "widget_header.pxi"
 
 cdef class Separator(LayoutClass):
 
-    """Separator is a very thin object used to separate other objects.
+    """
+
+    Separator is a very thin object used to separate other objects.
 
     A separator can be vertical or horizontal.
 

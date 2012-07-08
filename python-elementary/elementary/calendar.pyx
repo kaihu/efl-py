@@ -22,6 +22,13 @@ from cpython cimport PyMem_Malloc, PyMem_Free
 from datetime import date
 
 cdef class CalendarMark(object):
+
+    """
+
+    An item for the Calendar widget.
+
+    """
+
     cdef Elm_Calendar_Mark *obj
 
     def __init__(self, evasObject cal, mark_type, mark_time, repeat):
@@ -52,20 +59,24 @@ cdef class CalendarMark(object):
 
 cdef class Calendar(LayoutClass):
 
-    """This is a calendar widget.
+    """
+
+    This is a calendar widget.
 
     It helps applications to flexibly display a calender with day of the week,
     date, year and month. Applications are able to set specific dates to be
     reported back, when selected, in the smart callbacks of the calendar widget.
     The API of this widget lets the applications perform other functions, like:
-        - placing marks on specific dates
-        - setting the bounds for the calendar (minimum and maximum years)
-        - setting the day names of the week (e.g. "Thu" or "Thursday")
-        - setting the year and month format.
+
+    - placing marks on specific dates
+    - setting the bounds for the calendar (minimum and maximum years)
+    - setting the day names of the week (e.g. "Thu" or "Thursday")
+    - setting the year and month format.
 
     This widget emits the following signals, besides the ones sent from
     :py:class:`elementary.layout.Layout`:
-        - ``changed`` - emitted when the date in the calendar is changed.
+
+    - ``changed`` - emitted when the date in the calendar is changed.
 
     """
 
@@ -82,6 +93,7 @@ cdef class Calendar(LayoutClass):
         The first string should be related to Sunday, the second to Monday...
 
         The usage should be like this::
+
             weekdays =
             (
               "Sunday", "Monday", "Tuesday", "Wednesday",
@@ -90,6 +102,7 @@ cdef class Calendar(LayoutClass):
             calendar.weekdays_names = weekdays
 
         :type: tuple of strings
+
         .. warning:: It must have 7 elements, or it will access invalid memory.
 
         """
@@ -187,6 +200,7 @@ cdef class Calendar(LayoutClass):
         A pointer to the string and a pointer to the time struct will be provided.
 
         Example::
+
             static char *
             _format_month_year(struct tm selected_time)
             {
@@ -219,6 +233,7 @@ cdef class Calendar(LayoutClass):
         Marks created with this method can be deleted with :py:func:`mark_del()`.
 
         Example::
+
             struct tm selected_time;
             time_t current_time;
 
@@ -257,7 +272,7 @@ cdef class Calendar(LayoutClass):
     property marks:
         """Calendar marks.
 
-        :type: tuple of :py:class:`CalendarMark`s
+        :type: tuple of :py:class:`CalendarMark`
 
         """
         #def __get__(self):

@@ -90,7 +90,9 @@ cdef int _py_elm_slideshow_compare_func(const_void *data1, const_void *data2) wi
         return 0
 
 cdef class SlideshowItemClass (object):
-    """Defines the behavior of each slideshow item.
+    """
+
+    Defines the behavior of each slideshow item.
 
     This class should be created and handled to the Slideshow itself.
 
@@ -164,9 +166,7 @@ cdef class SlideshowItemClass (object):
                 self._del_func)
 
     def get(self, evasObject obj, item_data):
-        """get(obj, item_data)
-
-        To be called by Slideshow for each item to get its icon.
+        """To be called by Slideshow for each item to get its icon.
 
         :param obj: the Slideshow instance
         :param item_data: the value given to slideshow append/prepend.
@@ -178,7 +178,11 @@ cdef class SlideshowItemClass (object):
 
 cdef class SlideshowItem(ObjectItem):
 
-    """An item for Slideshow."""
+    """
+
+    An item for Slideshow.
+
+    """
 
     cdef int _set_obj(self, Elm_Object_Item *item, params=None) except 0:
         assert self.item == NULL, "Object must be clean"
@@ -229,9 +233,7 @@ cdef class SlideshowItem(ObjectItem):
             return Object_from_instance(elm_slideshow_item_object_get(self.item))
 
     def show(self):
-        """show()
-
-        Display a given slideshow widget's item, programmatically.
+        """Display a given slideshow widget's item, programmatically.
 
         The change between the current item and this item will use the
         transition the slideshow object is set to use.
@@ -245,20 +247,22 @@ cdef class SlideshowItem(ObjectItem):
 
 cdef class Slideshow(LayoutClass):
 
-    """This widget, as the name indicates, is a pre-made image
+    """
+
+    This widget, as the name indicates, is a pre-made image
     slideshow panel, with API functions acting on (child) image
     items presentation. Between those actions, are:
-        - advance to next/previous image
-        - select the style of image transition animation
-        - set the exhibition time for each image
-        - start/stop the slideshow
+
+    - advance to next/previous image
+    - select the style of image transition animation
+    - set the exhibition time for each image
+    - start/stop the slideshow
 
     The transition animations are defined in the widget's theme,
     consequently new animations can be added without having to
     update the widget's code.
 
-    Slideshow items
-    ===============
+    .. rubric:: Slideshow items
 
     For slideshow items, just like for :py:class:`Genlist` "genlist" ones,
     the user defines a **classes**, specifying functions that will be
@@ -267,17 +271,16 @@ cdef class Slideshow(LayoutClass):
     The Elm_Slideshow_Item_Class structure contains the following
     members:
 
-        - ``func.get`` - When an item is displayed, this function is
-          called, and it's where one should create the item object, de
-          facto. For example, the object can be a pure Evas image object
-          or an Elementary :py:class:`Photocam` "photocam" widget.
-          See #SlideshowItemGetFunc.
-        - ``func.del`` - When an item is no more displayed, this function
-          is called, where the user must delete any data associated to
-          the item. See #SlideshowItemDelFunc.
+    - ``func.get`` - When an item is displayed, this function is
+      called, and it's where one should create the item object, de
+      facto. For example, the object can be a pure Evas image object
+      or an Elementary :py:class:`Photocam` "photocam" widget.
+      See #SlideshowItemGetFunc.
+    - ``func.del`` - When an item is no more displayed, this function
+      is called, where the user must delete any data associated to
+      the item. See #SlideshowItemDelFunc.
 
-    Slideshow caching
-    =================
+    .. rubric:: Slideshow caching
 
     The slideshow provides facilities to have items adjacent to the
     one being displayed **already "realized"** (i.e. loaded) for
@@ -289,10 +292,11 @@ cdef class Slideshow(LayoutClass):
 
     This widget emits the following signals, besides the ones sent from
     :py:class:`elementary.layout.Layout`:
-        - ``"changed"`` - when the slideshow switches its view to a new item.
-            event_info parameter in callback contains the current visible item
-        - ``"transition,end"`` - when a slide transition ends. event_info
-            parameter in callback contains the current visible item
+
+    - ``"changed"`` - when the slideshow switches its view to a new item.
+        event_info parameter in callback contains the current visible item
+    - ``"transition,end"`` - when a slide transition ends. event_info
+        parameter in callback contains the current visible item
 
     """
 
@@ -301,9 +305,7 @@ cdef class Slideshow(LayoutClass):
         self._set_obj(elm_slideshow_add(parent.obj))
 
     def item_add(self, SlideshowItemClass item_class not None, *args, **kwargs):
-        """item_add(item_class, *args, **kwargs)
-
-        Add (append) a new item in a given slideshow widget.
+        """Add (append) a new item in a given slideshow widget.
 
         Add a new item to ``obj's`` internal list of items, appending it.
         The item's class must contain the function really fetching the
@@ -337,9 +339,7 @@ cdef class Slideshow(LayoutClass):
 
     def item_sorted_insert(self, SlideshowItemClass item_class not None,
                             func not None, *args, **kwargs):
-        """item_sorted_insert(itc, func, *args, **kwargs)
-
-        Insert a new item into the given slideshow widget, using the ``func``
+        """Insert a new item into the given slideshow widget, using the ``func``
         function to sort items (by item handles).
 
         Add a new item to ``obj``'s internal list of items, in a position
@@ -382,9 +382,7 @@ cdef class Slideshow(LayoutClass):
             return None
 
     def next(self):
-        """next()
-
-        Slide to the **next** item, in a given slideshow widget
+        """Slide to the **next** item, in a given slideshow widget
 
         The sliding animation the object is set to use will be the
         transition effect used, after this call is issued.
@@ -396,9 +394,7 @@ cdef class Slideshow(LayoutClass):
         elm_slideshow_next(self.obj)
 
     def previous(self):
-        """previous()
-
-        Slide to the **previous** item, in a given slideshow widget
+        """Slide to the **previous** item, in a given slideshow widget
 
         The sliding animation the object is set to use will be the
         transition effect used, after this call is issued.
@@ -496,9 +492,7 @@ cdef class Slideshow(LayoutClass):
             return bool(elm_slideshow_loop_get(self.obj))
 
     def clear(self):
-        """clear()
-
-        Remove all items from a given slideshow widget.
+        """Remove all items from a given slideshow widget.
 
         This removes (and deletes) all items in the object, leaving it empty.
 
@@ -534,9 +528,7 @@ cdef class Slideshow(LayoutClass):
             return _object_item_to_python(elm_slideshow_item_current_get(self.obj))
 
     def nth_item_get(self, nth):
-        """nth_item_get(nth)
-
-        Get the the item, in a given slideshow widget, placed at position
+        """Get the the item, in a given slideshow widget, placed at position
         ``nth`` in its internal items list.
 
         :param nth: The number of the item to grab a handle to (0 being the

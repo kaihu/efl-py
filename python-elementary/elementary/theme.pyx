@@ -22,7 +22,9 @@ include "conversions.pxi"
 
 cdef class Theme(object):
 
-    """Elementary uses Edje to theme its widgets, naturally. But for the most
+    """
+
+    Elementary uses Edje to theme its widgets, naturally. But for the most
     part this is hidden behind a simpler interface that lets the user set
     extensions and choose the style of widgets in a much easier way.
 
@@ -124,9 +126,7 @@ cdef class Theme(object):
             self.th = NULL
 
     def copy(self, Theme thdst):
-        """copy(thdst)
-
-        Copy the theme from the source to the destination theme
+        """Copy the theme from the source to the destination theme
 
         This makes a one-time static copy of all the theme config, extensions
         and overlays from ``th`` to ``thdst``. If ``th`` references a theme, then
@@ -158,9 +158,7 @@ cdef class Theme(object):
             return thref
 
     def overlay_add(self, item):
-        """overlay_add(item)
-
-        Prepends a theme overlay to the list of overlays
+        """Prepends a theme overlay to the list of overlays
 
         Use this if your application needs to provide some custom overlay
         theme (An Edje file that replaces some default styles of widgets)
@@ -180,9 +178,7 @@ cdef class Theme(object):
         elm_theme_overlay_add(self.th, _cfruni(item))
 
     def overlay_del(self, item):
-        """overlay_del(item)
-
-        Delete a theme overlay from the list of overlays
+        """Delete a theme overlay from the list of overlays
 
         .. seealso:: :py:func:`overlay_add()`
 
@@ -204,9 +200,7 @@ cdef class Theme(object):
             return tuple(_strings_to_python(elm_theme_overlay_list_get(self.th)))
 
     def extension_add(self, item):
-        """extension_add(item)
-
-        Appends a theme extension to the list of extensions.
+        """Appends a theme extension to the list of extensions.
 
         This is intended when an application needs more styles of widgets or
         new widget themes that the default does not provide (or may not
@@ -229,9 +223,7 @@ cdef class Theme(object):
         elm_theme_extension_add(self.th, _cfruni(item))
 
     def extension_del(self, item):
-        """extension_del(item)
-
-        Deletes a theme extension from the list of extensions.
+        """Deletes a theme extension from the list of extensions.
 
         .. seealso:: :py:func:`extension_add()`
 
@@ -295,9 +287,7 @@ cdef class Theme(object):
             return tuple(_strings_to_python(elm_theme_list_get(self.th)))
 
     def flush(self):
-        """flush()
-
-        Flush the current theme.
+        """Flush the current theme.
 
         This flushes caches that let elementary know where to find theme elements
         in the given theme. If ``th`` is NULL, then the default theme is flushed.
@@ -308,9 +298,7 @@ cdef class Theme(object):
         elm_theme_flush(self.th)
 
     def data_get(self, key):
-        """data_get(key)
-
-        Get a data item from a theme
+        """Get a data item from a theme
 
         This function is used to return data items from edc in ``th``, an
         overlay, or an extension. It works the same way as
@@ -326,9 +314,7 @@ cdef class Theme(object):
         return _ctouni(elm_theme_data_get(self.th, _cfruni(key)))
 
 def theme_list_item_path_get(f, in_search_path):
-    """theme_list_item_path_get(f, in_search_path)
-
-    Return the full path for a theme element
+    """Return the full path for a theme element
 
     This returns a string you should free with free() on success, NULL on
     failure. This will search for the given theme element, and if it is a
@@ -352,9 +338,7 @@ def theme_list_item_path_get(f, in_search_path):
     return _ctouni(elm_theme_list_item_path_get(_cfruni(f), &path))
 
 def theme_full_flush():
-    """theme_full_flush()
-
-    This flushes all themes (default and specific ones).
+    """This flushes all themes (default and specific ones).
 
     This will flush all themes in the current application context, by calling
     elm_theme_flush() on each of them.
@@ -363,9 +347,7 @@ def theme_full_flush():
     elm_theme_full_flush()
 
 def theme_name_available_list():
-    """theme_name_available_list()
-
-    Return a list of theme elements in the theme search path
+    """Return a list of theme elements in the theme search path
 
     This lists all available theme files in the standard Elementary search path
     for theme elements, and returns them in alphabetical order as theme

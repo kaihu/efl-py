@@ -20,7 +20,9 @@ include "widget_header.pxi"
 
 cdef class Thumb(Object):
 
-    """A thumbnail object is used for displaying the thumbnail of an image
+    """
+
+    A thumbnail object is used for displaying the thumbnail of an image
     or video. You must have compiled Elementary with ``Ethumb_Client``
     support. Also, Ethumb's DBus service must be present and
     auto-activated in order to have thumbnails generated. You must also
@@ -38,20 +40,22 @@ cdef class Thumb(Object):
     configuration options.
 
     This widget emits the following signals:
-        - ``"clicked"`` - This is called when a user has clicked the
-                         thumbnail object without dragging it around.
-        - ``"clicked,double"`` - This is called when a user has double-clicked
-                                the thumbnail object.
-        - ``"press"`` - This is called when a user has pressed down over the
-                       thumbnail object.
-        - ``"generate,start"`` - The thumbnail generation has started.
-        - ``"generate,stop"`` - The generation process has stopped.
-        - ``"generate,error"`` - The thumbnail generation failed.
-        - ``"load,error"`` - The thumbnail image loading failed.
+
+    - ``"clicked"`` - This is called when a user has clicked the
+                     thumbnail object without dragging it around.
+    - ``"clicked,double"`` - This is called when a user has double-clicked
+                            the thumbnail object.
+    - ``"press"`` - This is called when a user has pressed down over the
+                   thumbnail object.
+    - ``"generate,start"`` - The thumbnail generation has started.
+    - ``"generate,stop"`` - The generation process has stopped.
+    - ``"generate,error"`` - The thumbnail generation failed.
+    - ``"load,error"`` - The thumbnail image loading failed.
 
     Available styles:
-        - ``"default"``
-        - ``"noframe"``
+
+    - ``"default"``
+    - ``"noframe"``
 
     """
 
@@ -60,9 +64,7 @@ cdef class Thumb(Object):
         self._set_obj(elm_thumb_add(parent.obj))
 
     def reload(self):
-        """reload()
-
-        Reload thumbnail if it was generated before.
+        """Reload thumbnail if it was generated before.
 
         This is useful if the ethumb client configuration changed, like its
         size, aspect or any other property one set in the handle returned
@@ -83,8 +85,7 @@ cdef class Thumb(Object):
         extensions are: avi, mp4, ogv, mov, mpg and wmv). To start the
         video animation, use the function :py:func:`animate()`.
 
-        .. seealso:: :py:func:`reload()`
-        .. seealso:: :py:func:`animate()`
+        .. seealso:: :py:func:`reload()` :py:func:`animate()`
 
         :type: string or tuple(string file, optional string eet_key)
 
@@ -144,6 +145,7 @@ cdef class Thumb(Object):
         visible and no generation started.
 
         Example of usage::
+
             #include <Elementary.h>
             #ifndef ELM_LIB_QUICKLAUNCH
             EAPI_MAIN int

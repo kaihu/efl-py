@@ -20,7 +20,9 @@ include "widget_header.pxi"
 
 cdef class Layout(LayoutClass):
 
-    """This is a container widget that takes a standard Edje design file and
+    """
+
+    This is a container widget that takes a standard Edje design file and
     wraps it very thinly in a widget.
 
     An Edje design (theme) file has a very wide range of possibilities to
@@ -136,9 +138,7 @@ cdef class Layout(LayoutClass):
         self._set_obj(elm_layout_add(parent.obj))
 
     def content_set(self, swallow, evasObject content):
-        """content_set(swallow, content)
-
-        Set the layout content.
+        """Set the layout content.
 
         Once the content object is set, a previously set one will be deleted.
         If you want to keep that old content object, use the
@@ -170,9 +170,7 @@ cdef class Layout(LayoutClass):
         elm_layout_content_set(self.obj, _cfruni(swallow), o)
 
     def content_get(self, swallow):
-        """content_get(swallow)
-
-        Get the child object in the given content part.
+        """Get the child object in the given content part.
 
         :param swallow: The SWALLOW part to get its content
         :type swallow: string
@@ -183,9 +181,7 @@ cdef class Layout(LayoutClass):
         return Object_from_instance(elm_layout_content_get(self.obj, _cfruni(swallow)))
 
     def content_unset(self, swallow):
-        """content_unset(swallow)
-
-        Unset the layout content.
+        """Unset the layout content.
 
         Unparent and return the content object which was set for this part.
 
@@ -198,9 +194,7 @@ cdef class Layout(LayoutClass):
         return Object_from_instance(elm_layout_content_unset(self.obj, _cfruni(swallow)))
 
     def text_set(self, part, text):
-        """text_set(part, text)
-
-        Set the text of the given part
+        """Set the text of the given part
 
         :param part: The TEXT part where to set the text
         :type part: string
@@ -212,9 +206,7 @@ cdef class Layout(LayoutClass):
         elm_layout_text_set(self.obj, _cfruni(part), _cfruni(text))
 
     def text_get(self, part):
-        """text_get(part)
-
-        Get the text set in the given part
+        """Get the text set in the given part
 
         :param part: The TEXT part to retrieve the text off
         :type part: string

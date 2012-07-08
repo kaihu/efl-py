@@ -20,7 +20,9 @@ include "widget_header.pxi"
 
 cdef class Mapbuf(Object):
 
-    """This holds one content object and uses an Evas Map of transformation
+    """
+
+    This holds one content object and uses an Evas Map of transformation
     points to be later used with this content. So the content will be
     moved, resized, etc as a single image. So it will improve performance
     when you have a complex interface, with a lot of elements, and will

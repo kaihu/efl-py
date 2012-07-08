@@ -20,7 +20,9 @@ include "widget_header.pxi"
 
 cdef class Background(LayoutClass):
 
-    """Background widget object
+    """
+
+    Background widget object
 
     Used for setting a solid color, image or Edje group as a background to a
     window or any container object.

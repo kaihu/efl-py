@@ -28,7 +28,11 @@ cdef class List(Object)
 
 cdef class ListItem(ObjectItem):
 
-    """An item for the list widget."""
+    """
+
+    An item for the list widget.
+
+    """
 
     cdef unicode label
     cdef Evas_Object* icon_obj
@@ -86,9 +90,7 @@ cdef class ListItem(ObjectItem):
              bool(self.part_content_get("end")), self.params[0], self.params[1], self.params[2])
 
     def append_to(self, List list):
-        """append_to(list)
-
-        Append a new item to the list object.
+        """Append a new item to the list object.
 
         A new item will be created and appended to the list, i.e., will
         be set as **last** item.
@@ -137,9 +139,7 @@ cdef class ListItem(ObjectItem):
             Py_DECREF(self)
 
     def prepend_to(self, List list):
-        """prepend_to(list)
-
-        Prepend a new item to the list object.
+        """Prepend a new item to the list object.
 
         .. seealso::
             :py:func:`append_to()`
@@ -171,9 +171,7 @@ cdef class ListItem(ObjectItem):
             Py_DECREF(self)
 
     def insert_before(self, ListItem before):
-        """insert_before(item)
-
-        Insert a new item into the list object before item *before*.
+        """Insert a new item into the list object before item *before*.
 
         .. seealso::
             :py:func:`append_to()`
@@ -207,9 +205,7 @@ cdef class ListItem(ObjectItem):
             Py_DECREF(self)
 
     def insert_after(self, ListItem after):
-        """insert_after(after)
-
-        Insert a new item into the list object after item *after*.
+        """Insert a new item into the list object after item *after*.
 
         .. seealso::
             :py:func:`append_to()`
@@ -243,9 +239,7 @@ cdef class ListItem(ObjectItem):
             Py_DECREF(self)
 
     #def sorted_insert_to(self, List list, cmp_func=None):
-        """sorted_insert_to(list, cmp_func=None)
-
-        Insert a new item into the sorted list object.
+        """Insert a new item into the sorted list object.
 
         .. seealso::
             :py:func:`append_to()`
@@ -339,9 +333,7 @@ cdef class ListItem(ObjectItem):
         return bool(elm_list_item_separator_get(self.item))
 
     def show(self):
-        """show()
-
-        Show the item in the list view.
+        """Show the item in the list view.
 
         It won't animate list until item is visible. If such behavior is
         wanted, use :py:func:`bring_in()` instead.
@@ -350,9 +342,7 @@ cdef class ListItem(ObjectItem):
         elm_list_item_show(self.item)
 
     def bring_in(self):
-        """bring_in()
-
-        Bring in the given item to list view.
+        """Bring in the given item to list view.
 
         This causes list to jump to the given item and show it
         (by scrolling), if it is not fully visible.
@@ -419,7 +409,9 @@ cdef class ListItem(ObjectItem):
 
 cdef class List(Object):
 
-    """A list widget is a container whose children are displayed vertically or
+    """
+
+    A list widget is a container whose children are displayed vertically or
     horizontally, in order, and can be selected.
     The list can accept only one or multiple items selection. Also has many
     modes of items displaying.
@@ -463,9 +455,7 @@ cdef class List(Object):
         self._set_obj(elm_list_add(parent.obj))
 
     def go(self):
-        """go()
-
-        Starts the list.
+        """Starts the list.
 
         Example::
 
@@ -653,9 +643,7 @@ cdef class List(Object):
         return ListItem(label, icon, end, callback, *args, **kargs).insert_after(after)
 
     def clear(self):
-        """clear()
-
-        Remove all list's items.
+        """Remove all list's items.
 
         .. seealso::
             :py:func:`object_item.ObjectItem.delete()`

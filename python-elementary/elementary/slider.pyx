@@ -20,7 +20,9 @@ include "widget_header.pxi"
 
 cdef class Slider(LayoutClass):
 
-    """The slider adds a draggable "slider" widget for selecting the value of
+    """
+
+    The slider adds a draggable "slider" widget for selecting the value of
     something within a range.
 
     A slider can be horizontal or vertical. It can contain an Icon and has a
@@ -43,25 +45,29 @@ cdef class Slider(LayoutClass):
 
     This widget emits the following signals, besides the ones sent from
     :py:class:`elementary.layout.Layout`:
-        - ``"changed"`` - Whenever the slider value is changed by the user.
-        - ``"slider,drag,start"`` - dragging the slider indicator around has
-            started.
-        - ``"slider,drag,stop"`` - dragging the slider indicator around has
-            stopped.
-        - ``"delay,changed"`` - A short time after the value is changed by
-            the user. This will be called only when the user stops dragging
-            for a very short period or when they release their finger/mouse,
-            so it avoids possibly expensive reactions to the value change.
+
+    - ``"changed"`` - Whenever the slider value is changed by the user.
+    - ``"slider,drag,start"`` - dragging the slider indicator around has
+        started.
+    - ``"slider,drag,stop"`` - dragging the slider indicator around has
+        stopped.
+    - ``"delay,changed"`` - A short time after the value is changed by
+        the user. This will be called only when the user stops dragging
+        for a very short period or when they release their finger/mouse,
+        so it avoids possibly expensive reactions to the value change.
 
     Available styles for it:
-        - ``"default"``
+
+    - ``"default"``
 
     Default content parts of the slider widget that you can use for are:
-        - "icon" - An icon of the slider
-        - "end" - A end part content of the slider
+
+    - "icon" - An icon of the slider
+    - "end" - A end part content of the slider
 
     Default text parts of the slider widget that you can use for are:
-        - "default" - Label of the slider
+
+    - "default" - Label of the slider
 
     """
 

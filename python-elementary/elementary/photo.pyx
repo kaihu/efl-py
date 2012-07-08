@@ -21,7 +21,9 @@ include "widget_header.pxi"
 
 cdef class Photo(Object):
 
-    """An Elementary photo widget is intended for displaying a photo, for
+    """
+
+    An Elementary photo widget is intended for displaying a photo, for
     ex., a person's image (contact).
 
     Simple, yet with a very specific purpose. It has a decorative frame
@@ -31,10 +33,11 @@ cdef class Photo(Object):
     widgets are similar (drag and drop is also possible here, for example).
 
     Signals that you can add callbacks for are:
-        - ``"clicked"`` - This is called when a user has clicked the photo
-        - ``"drag,start"`` - One has started dragging the inner image out of the
-                            photo's frame
-        - ``"drag,end"`` - One has dropped the dragged image somewhere
+
+    - ``"clicked"`` - This is called when a user has clicked the photo
+    - ``"drag,start"`` - One has started dragging the inner image out of the
+                        photo's frame
+    - ``"drag,end"`` - One has dropped the dragged image somewhere
 
     """
 

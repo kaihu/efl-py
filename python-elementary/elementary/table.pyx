@@ -20,7 +20,9 @@ include "widget_header.pxi"
 
 cdef class Table(Object):
 
-    """A container widget to arrange other widgets in a table where items can
+    """
+
+    A container widget to arrange other widgets in a table where items can
     span multiple columns or rows - even overlap (and then be raised or
     lowered accordingly to adjust stacking if they do overlap).
 
@@ -84,9 +86,7 @@ cdef class Table(Object):
         return (horizontal, vertical)
 
     def pack(self, evasObject subobj, x, y, w, h):
-        """pack(subobj, x, y, w, h)
-
-        Add a subobject on the table with the coordinates passed
+        """Add a subobject on the table with the coordinates passed
 
         .. note:: All positioning inside the table is relative to rows and
             columns, so a value of 0 for x and y, means the top left cell of
@@ -108,9 +108,7 @@ cdef class Table(Object):
         elm_table_pack(self.obj, subobj.obj, x, y, w, h)
 
     def unpack(self, evasObject subobj):
-        """unpack(subobj)
-
-        Remove child from table.
+        """Remove child from table.
 
         :param subobj: The subobject
         :type subobj: :py:class:`evas.object.Object`
@@ -119,9 +117,7 @@ cdef class Table(Object):
         elm_table_unpack(self.obj, subobj.obj)
 
     def clear(self, clear):
-        """clear(clear)
-
-        Faster way to remove all child objects from a table object.
+        """Faster way to remove all child objects from a table object.
 
         :param clear: If True, will delete children, else just remove from table.
         :type clear: bool
@@ -130,9 +126,7 @@ cdef class Table(Object):
         elm_table_clear(self.obj, clear)
 
 def table_pack_set(evasObject subobj, x, y, w, h):
-    """pack_set(subobj, x, y, w, h)
-
-    Set the packing location of an existing child of the table
+    """Set the packing location of an existing child of the table
 
     Modifies the position of an object already in the table.
 
@@ -156,9 +150,7 @@ def table_pack_set(evasObject subobj, x, y, w, h):
     elm_table_pack_set(subobj.obj, x, y, w, h)
 
 def table_pack_get(evasObject subobj):
-    """pack_get(subobj)
-
-    Get the packing location of an existing child of the table
+    """Get the packing location of an existing child of the table
 
     .. seealso:: :py:func:`table_pack_set`
 

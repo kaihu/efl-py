@@ -20,7 +20,9 @@ include "widget_header.pxi"
 
 cdef class Spinner(LayoutClass):
 
-    """A spinner is a widget which allows the user to increase or decrease
+    """
+
+    A spinner is a widget which allows the user to increase or decrease
     numeric values using arrow buttons, or edit values directly, clicking
     over it and typing the new value.
 
@@ -35,15 +37,17 @@ cdef class Spinner(LayoutClass):
 
     This widget emits the following signals, besides the ones sent from
     :py:class:`elementary.layout.Layout`:
-        - ``"changed"`` - Whenever the spinner value is changed.
-        - ``"delay,changed"`` - A short time after the value is changed by
-            the user.  This will be called only when the user stops dragging
-            for a very short period or when they release their finger/mouse,
-            so it avoids possibly expensive reactions to the value change.
+
+    - ``"changed"`` - Whenever the spinner value is changed.
+    - ``"delay,changed"`` - A short time after the value is changed by
+        the user.  This will be called only when the user stops dragging
+        for a very short period or when they release their finger/mouse,
+        so it avoids possibly expensive reactions to the value change.
 
     Available styles for it:
-        - ``"default"``: Default style
-        - ``"vertical"``: up/down buttons at the right side and text left aligned.
+
+    - ``"default"``: Default style
+    - ``"vertical"``: up/down buttons at the right side and text left aligned.
 
     """
 
@@ -223,9 +227,7 @@ cdef class Spinner(LayoutClass):
         return elm_spinner_editable_get(self.obj)
 
     def special_value_add(self, value, label):
-        """special_value_add(value, label)
-
-        Set a special string to display in the place of the numerical value.
+        """Set a special string to display in the place of the numerical value.
 
         It's useful for cases when a user should select an item that is
         better indicated by a label than a value. For example, weekdays or months.

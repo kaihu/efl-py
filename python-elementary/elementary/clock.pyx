@@ -20,7 +20,9 @@ include "widget_header.pxi"
 
 cdef class Clock(LayoutClass):
 
-    """This is a digital clock widget.
+    """
+
+    This is a digital clock widget.
 
     In its default theme, it has a vintage "flipping numbers clock" appearance,
     which will animate sheets of individual algarisms individually as time goes
@@ -47,7 +49,8 @@ cdef class Clock(LayoutClass):
 
     This widget emits the following signals, besides the ones sent from
     :py:class:`elementary.layout.Layout`:
-        - ``changed`` - the clock's user changed the time
+
+    - ``changed`` - the clock's user changed the time
 
     """
 
@@ -61,9 +64,11 @@ cdef class Clock(LayoutClass):
         This property reflects the time that is showed by the clock widget.
 
         Values **must** be set within the following ranges:
-            - 0 - 23, for hours
-            - 0 - 59, for minutes
-            - 0 - 59, for seconds,
+
+        - 0 - 23, for hours
+        - 0 - 59, for minutes
+        - 0 - 59, for seconds,
+
         even if the clock is not in "military" mode.
 
         .. warning:: The behavior for values set out of those ranges is

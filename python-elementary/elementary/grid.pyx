@@ -21,7 +21,9 @@ from object cimport _object_list_to_python
 
 cdef class Grid(Object):
 
-    """A grid layout widget.
+    """
+
+    A grid layout widget.
 
     The grid is a grid layout widget that lays out a series of children as a
     fixed "grid" of widgets using a given percentage of the grid width and
@@ -61,9 +63,7 @@ cdef class Grid(Object):
         return (w, h)
 
     def pack(self, evasObject subobj, x, y, w, h):
-        """pack(subobj, x, y, w, h)
-
-        Pack child at given position and size
+        """Pack child at given position and size
 
         :param subobj: The child to pack
         :type subobj: :py:class:`evas.object.Object`
@@ -80,9 +80,7 @@ cdef class Grid(Object):
         elm_grid_pack(self.obj, subobj.obj, x, y, w, h)
 
     def unpack(self, evasObject subobj):
-        """unpack(subobj)
-
-        Unpack a child from a grid object
+        """Unpack a child from a grid object
 
         :param subobj: The child to unpack
         :type subobj: :py:class:`evas.object.Object`
@@ -91,9 +89,7 @@ cdef class Grid(Object):
         elm_grid_unpack(self.obj, subobj.obj)
 
     def clear(self, clear):
-        """clear(clear)
-
-        Faster way to remove all child objects from a grid object.
+        """Faster way to remove all child objects from a grid object.
 
         :param clear: If True, it will delete just removed children
         :type clear: bool
@@ -104,7 +100,7 @@ cdef class Grid(Object):
     property children:
         """Get the list of the children for the grid.
 
-        :type: tuple of :py:class:`evas.object.Object`s
+        :type: tuple of :py:class:`evas.object.Object`
 
         """
         def __get__(self):
@@ -114,9 +110,7 @@ cdef class Grid(Object):
         return _object_list_to_python(elm_grid_children_get(self.obj))
 
 def grid_pack_set(evasObject subobj, x, y, w, h):
-    """pack_set(subobj, x, y, w, h)
-
-    Set packing of an existing child at to position and size
+    """Set packing of an existing child at to position and size
 
     :param subobj: The child to set packing of
     :type subobj: :py:class:`evas.object.Object`
@@ -133,9 +127,7 @@ def grid_pack_set(evasObject subobj, x, y, w, h):
     elm_grid_pack_set(subobj.obj, x, y, w, h)
 
 def grid_pack_get(evasObject subobj):
-    """pack_get(subobj)
-
-    Get packing of a child
+    """Get packing of a child
 
     :param subobj: The child to query
     :type subobj: :py:class:`evas.object.Object`

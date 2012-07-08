@@ -22,7 +22,11 @@ from object_item import _cb_object_item_conv
 
 cdef class DiskselectorItem(ObjectItem):
 
-    """An item for the Diskselector widget."""
+    """
+
+    An item for the Diskselector widget.
+
+    """
 
     def __init__(self, evasObject diskselector, label, evasObject icon=None, callback=None, *args, **kargs):
         cdef Evas_Object* icon_obj = NULL
@@ -113,7 +117,9 @@ cdef class DiskselectorItem(ObjectItem):
 
 cdef class Diskselector(Object):
 
-    """A diskselector is a kind of list widget. It scrolls horizontally,
+    """
+
+    A diskselector is a kind of list widget. It scrolls horizontally,
     and can contain label and icon objects. Three items are displayed
     with the selected one in the middle.
 
@@ -197,9 +203,10 @@ cdef class Diskselector(Object):
         Also, it can be set on theme, using data item ``display_item_num``
         on group "elm/diskselector/item/X", where X is style set.
         E.g.::
+
             group { name: "elm/diskselector/item/X";
-            data {
-                item: "display_item_num" "5";
+                data {
+                    item: "display_item_num" "5";
                 }
 
         :type: int
@@ -254,8 +261,9 @@ cdef class Diskselector(Object):
     def clear(self):
         """Remove all diskselector's items.
 
-        .. seealso:: :py:func:`elementary.object_item.ObjectItem.delete()`
-        .. seealso:: :py:func:`item_append()`
+        .. seealso::
+            :py:func:`elementary.object_item.ObjectItem.delete()`
+            :py:func:`item_append()`
 
         """
         elm_diskselector_clear(self.obj)
@@ -263,11 +271,12 @@ cdef class Diskselector(Object):
     property items:
         """Get a list of all the diskselector items.
 
-        .. seealso:: :py:func:`item_append()`
-        .. seealso:: :py:func:`elementary.object_item.ObjectItem.delete()`
-        .. seealso:: :py:func:`clear()`
+        .. seealso::
+            :py:func:`item_append()`
+            :py:func:`elementary.object_item.ObjectItem.delete()`
+            :py:func:`clear()`
 
-        :type: list of :py:class:`DiskselectorItem`s
+        :type: list of :py:class:`DiskselectorItem`
 
         """
         def __get__(self):
@@ -310,9 +319,10 @@ cdef class Diskselector(Object):
             ic.resizable_set(EINA_TRUE, EINA_TRUE)
             disk.item_append("label", ic)
 
-        .. seealso:: :py:func:`elementary.object_item.ObjectItem.delete()`
-        .. seealso:: :py:func:`clear()`
-        .. seealso:: :py:class:`elementary.image.Image`
+        .. seealso::
+            :py:func:`elementary.object_item.ObjectItem.delete()`
+            :py:func:`clear()`
+            :py:class:`elementary.image.Image`
 
         :param label: The label of the diskselector item.
         :type label: string
@@ -354,8 +364,7 @@ cdef class Diskselector(Object):
         The list of items follows append order. So it will return the first
         item appended to the widget that wasn't deleted.
 
-        .. seealso:: :py:func:`item_append()`
-        .. seealso:: :py:attr:`items`
+        .. seealso:: :py:func:`item_append()` :py:attr:`items`
 
         :type: :py:class:`DiskselectorItem`
 
@@ -370,9 +379,7 @@ cdef class Diskselector(Object):
         The list of items follows append order. So it will return last first
         item appended to the widget that wasn't deleted.
 
-        .. seealso::
-            :py:func:`item_append()`
-            :py:attr:`items`
+        .. seealso:: :py:func:`item_append()` :py:attr:`items`
 
         :type: :py:class:`DiskselectorItem`
 

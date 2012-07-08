@@ -20,7 +20,9 @@ include "widget_header.pxi"
 
 cdef class Icon(Image):
 
-    """An icon object is used to display standard icon images ("delete",
+    """
+
+    An icon object is used to display standard icon images ("delete",
     "edit", "arrows", etc.) or images coming from a custom file (PNG, JPG,
     EDJE, etc.), on icon contexts.
 

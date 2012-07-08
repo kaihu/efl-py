@@ -21,7 +21,9 @@ include "callbacks.pxi"
 
 cdef class FileselectorButton(Button):
 
-    """This is a button that, when clicked, creates an Elementary window (or
+    """
+
+    This is a button that, when clicked, creates an Elementary window (or
     inner window) with a :py:class:`elementary.fileselector.Fileselector`
     within.
 
@@ -33,23 +35,27 @@ cdef class FileselectorButton(Button):
     would have instantiating one directly.
 
     The following styles are available for this button:
-        - ``"default"``
-        - ``"anchor"``
-        - ``"hoversel_vertical"``
-        - ``"hoversel_vertical_entry"``
+
+    - ``"default"``
+    - ``"anchor"``
+    - ``"hoversel_vertical"``
+    - ``"hoversel_vertical_entry"``
 
     This widget emits the following signals, besides the ones sent from
     :py:class:`elementary.button.Button`:
-        - ``"file,chosen"`` - the user has selected a path which comes as the
-          ``event_info`` data
+
+    - ``"file,chosen"`` - the user has selected a path which comes as the
+      ``event_info`` data
 
     Default text parts of the fileselector_button widget that you can use for
     are:
-        - "default" - Label of the fileselector_button
+
+    - "default" - Label of the fileselector_button
 
     Default content parts of the fileselector_button widget that you can use for
     are:
-        - "icon" - Icon of the fileselector_button
+
+    - "icon" - Icon of the fileselector_button
 
     """
 
@@ -152,8 +158,8 @@ cdef class FileselectorButton(Button):
         selector.
 
         .. note:: There's no way to put a file selector button's internal
-        file selector in "grid mode", as one may do with "pure" file
-        selectors.
+            file selector in "grid mode", as one may do with "pure" file
+            selectors.
 
         :type: bool
 

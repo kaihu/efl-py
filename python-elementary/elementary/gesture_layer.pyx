@@ -34,7 +34,9 @@ cdef Evas_Event_Flags _gesture_layer_event_cb(void *data, void *event_info) with
 
 cdef class GestureLayer(Object):
 
-    """Use Gesture Layer to detect gestures. The advantage is that you don't
+    """
+
+    Use Gesture Layer to detect gestures. The advantage is that you don't
     have to implement gesture detection, just set callbacks of gesture state.
     By using gesture layer we make standard interface.
 
@@ -55,17 +57,23 @@ cdef class GestureLayer(Object):
 
     The information reported by gesture layer to your callback is depending
     on ``Elm_Gesture_Type``:
-        - ``Elm_Gesture_Taps_Info`` is the info reported for tap gestures:
-            - ``ELM_GESTURE_N_TAPS``
-            - ``ELM_GESTURE_N_LONG_TAPS``
-            - ``ELM_GESTURE_N_DOUBLE_TAPS``
-            - ``ELM_GESTURE_N_TRIPLE_TAPS``
-        - ``Elm_Gesture_Momentum_Info`` is info reported for momentum gestures:
-            - ``ELM_GESTURE_MOMENTUM``
-        - ``Elm_Gesture_Line_Info`` is the info reported for line gestures
-          (this also contains ``Elm_Gesture_Momentum_Info`` internal structure):
-            - ``ELM_GESTURE_N_LINES``
-            - ``ELM_GESTURE_N_FLICKS``
+
+    - ``Elm_Gesture_Taps_Info`` is the info reported for tap gestures:
+
+        - ``ELM_GESTURE_N_TAPS``
+        - ``ELM_GESTURE_N_LONG_TAPS``
+        - ``ELM_GESTURE_N_DOUBLE_TAPS``
+        - ``ELM_GESTURE_N_TRIPLE_TAPS``
+
+    - ``Elm_Gesture_Momentum_Info`` is info reported for momentum gestures:
+
+        - ``ELM_GESTURE_MOMENTUM``
+
+    - ``Elm_Gesture_Line_Info`` is the info reported for line gestures
+      (this also contains ``Elm_Gesture_Momentum_Info`` internal structure):
+
+        - ``ELM_GESTURE_N_LINES``
+        - ``ELM_GESTURE_N_FLICKS``
 
     Note that we consider a flick as a line-gesture that should be completed
     in flick-time-limit as defined in
@@ -85,15 +93,13 @@ cdef class GestureLayer(Object):
 
     Setting glayer_continues_enable to false in
     :py:class:`elementary.configuration.Configuration` will change this
-    behavior so gesture starts when user touches (a *DOWN event)
-    touch-surface and ends when no fingers touches surface (a *UP event).
+    behavior so gesture starts when user touches (a *DOWN* event)
+    touch-surface and ends when no fingers touches surface (a *UP* event).
 
     """
 
     def __init__(self, evasObject parent):
-        """__init__(parent)
-
-        Call this function to construct a new gesture-layer object.
+        """Call this function to construct a new gesture-layer object.
 
         This does not activate the gesture layer. You have to call
         :py:func:`attach()` in order to 'activate' gesture-layer.
@@ -109,9 +115,7 @@ cdef class GestureLayer(Object):
         self._set_obj(elm_gesture_layer_add(parent.obj))
 
     def cb_set(self, Elm_Gesture_Type idx, callback, Elm_Gesture_State cb_type, *args, **kwargs):
-        """cb_set(idx, callback, cb_type, *args, **kwargs)
-
-        Use this function to set callbacks to be notified about change of
+        """Use this function to set callbacks to be notified about change of
         state of gesture. When a user registers a callback with this function
         this means this gesture has to be tested.
 
@@ -185,9 +189,7 @@ cdef class GestureLayer(Object):
             return elm_gesture_layer_rotate_step_get(self.obj)
 
     def attach(self, evasObject target):
-        """attach(target)
-
-        Attach a given gesture layer widget to an Evas object, thus setting
+        """Attach a given gesture layer widget to an Evas object, thus setting
         the widget's **target**.
 
         A gesture layer target may be whichever Evas object one chooses.

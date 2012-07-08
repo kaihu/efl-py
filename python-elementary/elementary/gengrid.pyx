@@ -121,7 +121,9 @@ cdef void _py_elm_gengrid_item_func(void *data, Evas_Object *obj, void *event_in
             traceback.print_exc()
 
 cdef class GengridItemClass:
-    """Defines the behavior of each grid item.
+    """
+
+    Defines the behavior of each grid item.
 
     This class should be created and handled to the Gengrid itself.
 
@@ -294,7 +296,11 @@ cdef class GengridItemClass:
 
 cdef class GengridItem(ObjectItem):
 
-    """An item for the :py:class:`Gengrid` widget."""
+    """
+
+    An item for the :py:class:`Gengrid` widget.
+
+    """
 
     cdef int _set_obj(self, Elm_Object_Item *item) except 0:
         assert self.item == NULL, "Object must be clean"
@@ -574,7 +580,9 @@ cdef class GengridItem(ObjectItem):
 
 cdef class Gengrid(Object):
 
-    """This widget aims to position objects in a grid layout while actually
+    """
+
+    This widget aims to position objects in a grid layout while actually
     creating and rendering only the visible ones, using the same idea as the
     :py:class:`elementary.genlist.Genlist`: the user defines a **class** for
     each item, specifying functions that will be called at object creation,

@@ -347,9 +347,7 @@ cdef class Object(object):
         evas_object_del(obj)
 
     def delete(self):
-        """delete()
-
-        Delete object and free it's internal (wrapped) resources.
+        """Delete object and free it's internal (wrapped) resources.
 
         .. note:: after this operation the object will be still alive in
             Python, but it will be shallow and every operation
@@ -363,11 +361,7 @@ cdef class Object(object):
         evas_object_del(self.obj)
 
     def is_deleted(self):
-        """is_deleted()
-
-        :rtype: bool
-
-        """
+        """:rtype: bool"""
         return bool(self.obj == NULL)
 
     def _set_common_params(self, size=None, pos=None, geometry=None,
@@ -385,11 +379,7 @@ cdef class Object(object):
             self.name_set(name)
 
     def evas_get(self):
-        """evas_get()
-
-        @rtype: L{Canvas}
-
-        """
+        """:rtype: :py:class:`evas.canvas.Canvas`"""
         return self.evas
 
     property type:
@@ -423,25 +413,19 @@ cdef class Object(object):
         return evas_object_layer_get(self.obj)
 
     def raise_(self):
-        """raise_()
-
-        Raise to the top of its layer.
+        """Raise to the top of its layer.
 
         """
         evas_object_raise(self.obj)
 
     def lower(self):
-        """lower()
-
-        Lower to the bottom of its layer.
+        """Lower to the bottom of its layer.
 
         """
         evas_object_lower(self.obj)
 
     def stack_above(self, Object above):
-        """stack_above(above)
-
-        Reorder to be above the given one.
+        """Reorder to be above the given one.
 
         :param above:
         :type above: :py:class:`Object`
@@ -450,9 +434,7 @@ cdef class Object(object):
         evas_object_stack_above(self.obj, above.obj)
 
     def stack_below(self, Object below):
-        """stack_below(below)
-
-        Reorder to be below the given one.
+        """Reorder to be below the given one.
 
         :param below:
         :type below: :py:class:`Object`
@@ -565,9 +547,7 @@ cdef class Object(object):
         evas_object_resize(self.obj, w, h)
 
     def resize(self, int w, int h):
-        """resize(w, h)
-
-        Same as L{size_set()}.
+        """Same as L{size_set()}.
 
         :param w: Width.
         :type w: int
@@ -1073,17 +1053,13 @@ cdef class Object(object):
         evas_object_size_hint_padding_set(self.obj, l, r, t, b)
 
     def move(self, int x, int y):
-        """move(x, y)
-
-        Same as L{pos_set()}.
+        """Same as L{pos_set()}.
 
         """
         evas_object_move(self.obj, x, y)
 
     def move_relative(self, int dx, int dy):
-        """move_relative(dx, dy)
-
-        Move relatively to current position.
+        """Move relatively to current position.
 
         """
         cdef int x, y
@@ -1091,17 +1067,13 @@ cdef class Object(object):
         evas_object_move(self.obj, x + dx, y + dy)
 
     def show(self):
-        """show()
-
-        Show the object.
+        """Show the object.
 
         """
         evas_object_show(self.obj)
 
     def hide(self):
-        """hide()
-
-        Hide the object.
+        """Hide the object.
 
         """
         evas_object_hide(self.obj)
@@ -1311,9 +1283,7 @@ cdef class Object(object):
         evas_object_focus_set(self.obj, value)
 
     def event_callback_add(self, int type, func, *args, **kargs):
-        """event_callback_add(type, func, *args, **kwargs)
-
-        Add a new callback for the given event.
+        """Add a new callback for the given event.
 
         :param type: an integer with event type code, like
             *EVAS_CALLBACK_MOUSE_IN*, *EVAS_CALLBACK_KEY_DOWN* and
@@ -1348,9 +1318,7 @@ cdef class Object(object):
                 evas_object_event_callback_add(self.obj, type, cb, <void*>self)
 
     def event_callback_del(self, int type, func):
-        """event_callback_del(type, func)
-
-        Remove callback for the given event.
+        """Remove callback for the given event.
 
         :param type: an integer with event type code.
         :type type: int

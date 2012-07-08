@@ -22,34 +22,37 @@ from evas.object_image cimport Image as evasImage
 
 cdef class Photocam(Object):
 
-    """This is a widget specifically for displaying high-resolution digital
+    """
+
+    This is a widget specifically for displaying high-resolution digital
     camera photos giving speedy feedback (fast load), low memory footprint
     and zooming and panning as well as fitting logic. It is entirely focused
     on jpeg images, and takes advantage of properties of the jpeg format (via
     evas loader features in the jpeg loader).
 
     Signals that you can add callbacks for are:
-        - "clicked" - This is called when a user has clicked the photo without
-            dragging around.
-        - "press" - This is called when a user has pressed down on the photo.
-        - "longpressed" - This is called when a user has pressed down on the
-            photo for a long time without dragging around.
-        - "clicked,double" - This is called when a user has double-clicked the
-            photo.
-        - "load" - Photo load begins.
-        - "loaded" - This is called when the image file load is complete for
-            the first view (low resolution blurry version).
-        - "load,detail" - Photo detailed data load begins.
-        - "loaded,detail" - This is called when the image file load is
-            complete for the detailed image data (full resolution needed).
-        - "zoom,start" - Zoom animation started.
-        - "zoom,stop" - Zoom animation stopped.
-        - "zoom,change" - Zoom changed when using an auto zoom mode.
-        - "scroll" - the content has been scrolled (moved)
-        - "scroll,anim,start" - scrolling animation has started
-        - "scroll,anim,stop" - scrolling animation has stopped
-        - "scroll,drag,start" - dragging the contents around has started
-        - "scroll,drag,stop" - dragging the contents around has stopped
+
+    - "clicked" - This is called when a user has clicked the photo without
+        dragging around.
+    - "press" - This is called when a user has pressed down on the photo.
+    - "longpressed" - This is called when a user has pressed down on the
+        photo for a long time without dragging around.
+    - "clicked,double" - This is called when a user has double-clicked the
+        photo.
+    - "load" - Photo load begins.
+    - "loaded" - This is called when the image file load is complete for
+        the first view (low resolution blurry version).
+    - "load,detail" - Photo detailed data load begins.
+    - "loaded,detail" - This is called when the image file load is
+        complete for the detailed image data (full resolution needed).
+    - "zoom,start" - Zoom animation started.
+    - "zoom,stop" - Zoom animation stopped.
+    - "zoom,change" - Zoom changed when using an auto zoom mode.
+    - "scroll" - the content has been scrolled (moved)
+    - "scroll,anim,start" - scrolling animation has started
+    - "scroll,anim,stop" - scrolling animation has stopped
+    - "scroll,drag,start" - dragging the contents around has started
+    - "scroll,drag,stop" - dragging the contents around has stopped
 
     """
 
@@ -145,9 +148,7 @@ cdef class Photocam(Object):
             return (x, y, w, h)
 
     def image_region_show(self, x, y, w, h):
-        """image_region_show(x, y, w, h)
-
-        Set the viewed region of the image
+        """Set the viewed region of the image
 
         This shows the region of the image without using animation.
 
@@ -164,9 +165,7 @@ cdef class Photocam(Object):
         elm_photocam_image_region_show(self.obj, x, y, w, h)
 
     def image_region_bring_in(self, x, y, w, h):
-        """image_region_bring_in(x, y, w, h)
-
-        Bring in the viewed portion of the image
+        """Bring in the viewed portion of the image
 
         This shows the region of the image using animation.
 

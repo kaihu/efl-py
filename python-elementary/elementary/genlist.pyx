@@ -124,7 +124,9 @@ cdef void _py_elm_genlist_item_func(void *data, Evas_Object *obj, void *event_in
             traceback.print_exc()
 
 cdef class GenlistItemClass:
-    """Defines the behavior of each list item.
+    """
+
+    Defines the behavior of each list item.
 
     This class should be created and handled to the Genlist itself.
 
@@ -298,7 +300,11 @@ cdef class GenlistItemClass:
 
 cdef class GenlistItem(ObjectItem):
 
-    """An item for the :py:class:`Genlist` widget."""
+    """
+
+    An item for the :py:class:`Genlist` widget.
+
+    """
 
     cdef Elm_Genlist_Item_Class *item_class
     cdef Elm_Object_Item *parent_item
@@ -970,7 +976,10 @@ cdef class GenlistItem(ObjectItem):
         return elm_genlist_item_select_mode_get(self.item)
 
 cdef class Genlist(Object):
-    """This widget aims to have more expansive list than the simple list in
+
+    """
+
+    This widget aims to have more expansive list than the simple list in
     Elementary that could have more flexible items and allow many more
     entries while still being fast and low on memory usage. At the same time
     it was also made to be able to do tree structures. But the price to pay
