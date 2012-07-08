@@ -94,8 +94,8 @@ cdef class Actionslider(LayoutClass):
 
     property magnet_pos:
         """The actionslider magnet position. To make multiple positions
-        magnets ``or`` them together(e.g.: C{ELM_ACTIONSLIDER_LEFT |
-        ELM_ACTIONSLIDER_RIGHT})
+        magnets ``or`` them together(e.g.: ``ELM_ACTIONSLIDER_LEFT |
+        ELM_ACTIONSLIDER_RIGHT``)
 
         :type: Elm_Actionslider_Pos
 
@@ -112,8 +112,8 @@ cdef class Actionslider(LayoutClass):
 
     property enabled_pos:
         """The actionslider enabled position. To set multiple positions as
-        enabled ``or`` them together(e.g.: C{ELM_ACTIONSLIDER_LEFT |
-        ELM_ACTIONSLIDER_RIGHT}).
+        enabled ``or`` them together(e.g.: ``ELM_ACTIONSLIDER_LEFT |
+        ELM_ACTIONSLIDER_RIGHT``).
 
         .. note:: All the positions are enabled by default.
 

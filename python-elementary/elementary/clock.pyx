@@ -98,8 +98,8 @@ cdef class Clock(LayoutClass):
         """Whether a given clock widget is under **edition mode** or under
         (default) displaying-only mode.
 
-        This property reflects whether the clock editable or not B{by user
-        interaction}. When in edition mode, clocks **stop** ticking, until
+        This property reflects whether the clock editable or not **by user
+        interaction**. When in edition mode, clocks **stop** ticking, until
         one brings them back to canonical mode. The :py:attr:`edit_mode`
         property will influence which digits of the clock will be editable.
 

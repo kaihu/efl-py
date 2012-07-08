@@ -38,8 +38,8 @@ cdef class HoverselItem(ObjectItem):
 
     def __init__(self, label = None, icon_file = None,
             icon_type = ELM_ICON_NONE, callback = None, *args, **kargs):
-        """For more information on what ``icon_file`` and ``icon_type`` are, see
-        :py:class:`elementary.icon.Icon`.
+        """For more information on what ``icon_file`` and ``icon_type`` are,
+        see :py:class:`elementary.icon.Icon`.
 
         :param label: The text label to use for the item (None if not desired)
         :type label: string
@@ -48,7 +48,8 @@ cdef class HoverselItem(ObjectItem):
         :type icon_file: string
         :param icon_type: The icon type if relevant
         :type icon_type: string
-        :param callback: Convenience function to call when this item is selected
+        :param callback: Convenience function to call when this item is
+            selected
         :type callback: function
 
         """
@@ -153,8 +154,8 @@ cdef class Hoversel(Button):
     property horizontal:
         """Whether the hoversel is set to expand horizontally.
 
-        .. note:: The initial button will display horizontally regardless of this
-            setting.
+        .. note:: The initial button will display horizontally regardless of
+            this setting.
 
         :type: bool
 

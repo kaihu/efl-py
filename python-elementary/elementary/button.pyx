@@ -38,13 +38,17 @@ cdef class Button(LayoutClass):
 
     - default: a normal button.
     - anchor: Like default, but the button fades away when the mouse is not
-      over it, leaving only the text or icon.
-    - hoversel_vertical: Internally used by :py:class:`elementary.hoversel.Hoversel` to give a
-      continuous look across its options.
-    - hoversel_vertical_entry: Another internal for :py:class:`elementary.hoversel.Hoversel`.
-    - naviframe: Internally used by :py:class:`elementary.naviframe.Naviframe` for its back button.
-    - colorselector: Internally used by :py:class:`elementary.colorselector.Colorselector`
-      for its left and right buttons.
+          over it, leaving only the text or icon.
+    - hoversel_vertical: Internally used by
+        :py:class:`elementary.hoversel.Hoversel` to give a continuous look
+        across its options.
+    - hoversel_vertical_entry: Another internal for
+        :py:class:`elementary.hoversel.Hoversel`.
+    - naviframe: Internally used by
+        :py:class:`elementary.naviframe.Naviframe` for its back button.
+    - colorselector: Internally used by
+        :py:class:`elementary.colorselector.Colorselector` for its left and
+        right buttons.
 
     Default content parts of the button widget that you can use for are:
 
@@ -89,10 +93,10 @@ cdef class Button(LayoutClass):
     property autorepeat_initial_timeout:
         """The initial timeout before the autorepeat event is generated
 
-        Reflects the timeout, in seconds, since the button is pressed until the
-        first ``repeated`` signal is emitted. If ``t`` is 0.0 or less, there
-        won't be any delay and the event will be fired the moment the button is
-        pressed.
+        Reflects the timeout, in seconds, since the button is pressed until
+        the first ``repeated`` signal is emitted. If ``t`` is 0.0 or less,
+        there won't be any delay and the event will be fired the moment the
+        button is pressed.
 
         .. seealso:: :py:attr:`autorepeat`, :py:attr:`autorepeat_gap_timeout`
 

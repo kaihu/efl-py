@@ -315,10 +315,10 @@ cdef class Index(LayoutClass):
             ``cmp_data_func`` will be used. If ``cmp_data_func`` returns a
             non-negative value, the previous index item data will be
             replaced by the given ``item`` pointer. If the previous data need
-            to be freed, it should be done by the ``cmp_data_func`` function,
-            because all references to it will be lost. If this function is
-            not provided (``None`` is given), index items will be **duplicated**,
-            if ``cmp_func`` returns ``0``.
+            to be freed, it should be done by the ``cmp_data_func``
+            function, because all references to it will be lost. If this
+            function is not provided (``None`` is given), index items will
+            be **duplicated**, if ``cmp_func`` returns ``0``.
         :type cmp_data_func: function
 
         :return: A handle to the item added or ``None``, on errors

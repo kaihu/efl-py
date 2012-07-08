@@ -91,16 +91,20 @@ cdef class Datetime(Object):
 
     **%%F** : The date using the format %%Y-%%m-%%d.
 
-    (For more reference on the available **LIBC date format specifiers**, please
-    visit the link:
+    (For more reference on the available **LIBC date format specifiers**,
+    please visit the link:
     http://www.gnu.org/s/hello/manual/libc.html#Formatting-Calendar-Time )
 
     Datetime widget can provide Unicode **separators** in between its fields
-    except for AM/PM field.
-    A separator can be any **Unicode character** other than the LIBC standard
-    date format specifiers.( Example: In the format %%b %%d **,** %%y %%H **:** %%M
+    except for AM/PM field. A separator can be any **Unicode character**
+    other than the LIBC standard date format specifiers.
+
+    Example: In the format::
+
+        %%b %%d **,** %%y %%H **:** %%M
+
     comma(,) is separator for date field %%d and colon(:) is separator for
-    hour field %%H ).
+    hour field %%H.
 
     The default format is a predefined one, based on the system Locale.
 
@@ -111,24 +115,24 @@ cdef class Datetime(Object):
     Depending on the Datetime module that is loaded, the user can see
     different UI to select the individual field values.
 
-    The individual fields of Datetime can be arranged in any order according to
-    the format set by application.
+    The individual fields of Datetime can be arranged in any order according
+    to the format set by application.
 
     There is a provision to set the visibility of a particular field as TRUE/
     FALSE so that **only time/ only date / only required fields** will be
     displayed.
 
-    Each field is having a default minimum and maximum values just like the daily
-    calendar information. These min/max values can be modified as per the
-    application usage.
+    Each field is having a default minimum and maximum values just like the
+    daily calendar information. These min/max values can be modified as per
+    the application usage.
 
-    User can enter the values only in between the range of maximum and minimum.
-    Apart from these APIs, there is a provision to display only a limited set of
-    values out of the possible values. APIs to select the individual field limits
-    are intended for this purpose.
+    User can enter the values only in between the range of maximum and
+    minimum. Apart from these APIs, there is a provision to display only a
+    limited set of values out of the possible values. APIs to select the
+    individual field limits are intended for this purpose.
 
-    The whole widget is left aligned and its size grows horizontally depending
-    on the current format and each field's visible/disabled state.
+    The whole widget is left aligned and its size grows horizontally
+    depending on the current format and each field's visible/disabled state.
 
     Datetime individual field selection is implemented in a modular style.
     Module can be implemented as a Ctxpopup based selection or an ISE based
@@ -150,7 +154,8 @@ cdef class Datetime(Object):
         |          |----- field_create() ------------------>>>|          |
         |__________|<<<----------------returns field_obj -----|__________|
 
-        **Field value setting::**
+    **Field value setting**::
+
          __________                                          __________
         |          |                                        |          |
         | Datetime |<<<----------elm_datetime_value_set()---|          |
@@ -158,7 +163,8 @@ cdef class Datetime(Object):
         |   base   |----display_field_value()------------>>>|          |
         |__________|                                        |__________|
 
-        **del_hook::**
+    **del_hook**::
+
          __________                                          __________
         |          |                                        |          |
         | Datetime |----obj_unhook()-------------------->>>>|          |
@@ -177,7 +183,8 @@ cdef class Datetime(Object):
 
     **export ELM_MODULES="datetime_input_ctxpopup>datetime/api"**
 
-    This widget emits the following signals, besides the ones sent from :py:class:`elementary.layout.Layout`:
+    This widget emits the following signals, besides the ones sent from
+    :py:class:`elementary.layout.Layout`:
 
     - **"changed"** - whenever Datetime field value is changed, this
         signal is sent.
@@ -355,10 +362,11 @@ cdef class Datetime(Object):
     property field_limit:
         """The field limits of a field.
 
-        Limits can be set to individual fields, independently, except for AM/PM field.
-        Any field can display the values only in between these Minimum and Maximum limits unless
-        the corresponding time value is restricted from MinTime to MaxTime.
-        That is, Min/ Max field limits always works under the limitations of MinTime/ MaxTime.
+        Limits can be set to individual fields, independently, except for
+        AM/PM field. Any field can display the values only in between these
+        Minimum and Maximum limits unless the corresponding time value is
+        restricted from MinTime to MaxTime. That is, Min/ Max field limits
+        always works under the limitations of MinTime/ MaxTime.
 
         There is no provision to set the limits of AM/PM field.
 
@@ -439,16 +447,16 @@ cdef class Datetime(Object):
     def field_visible_set(self, fieldtype, visible):
         """Set a field to be visible or not.
 
-        Setting this API True does not ensure that the field is visible, apart
-        from this, the field's format must be present in Datetime overall format.
-        If a field's visibility is set to False then it won't appear even though
-        its format is present in overall format. So if and only if this API is
-        set true and the corresponding field's format is present in Datetime
-        format, the field is visible.
+        Setting this API True does not ensure that the field is visible,
+        apart from this, the field's format must be present in Datetime
+        overall format. If a field's visibility is set to False then it
+        won't appear even though its format is present in overall format. So
+        if and only if this API is set true and the corresponding field's
+        format is present in Datetime format, the field is visible.
 
         By default the field visibility is set to True.
 
-        .. seealso:: elm_datetime_field_visible_get()
+        .. seealso:: :py:func:`field_visible_get()`
 
         :param fieldtype: Type of the field. ELM_DATETIME_YEAR etc.
         :type fieldtype: Elm_Datetime_Field_Type

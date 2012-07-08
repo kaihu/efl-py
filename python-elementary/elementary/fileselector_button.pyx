@@ -52,8 +52,8 @@ cdef class FileselectorButton(Button):
 
     - "default" - Label of the fileselector_button
 
-    Default content parts of the fileselector_button widget that you can use for
-    are:
+    Default content parts of the fileselector_button widget that you can use
+    for are:
 
     - "icon" - Icon of the fileselector_button
 
@@ -103,9 +103,9 @@ cdef class FileselectorButton(Button):
         """The size of a given file selector button widget's window,
         holding the file selector itself.
 
-        .. note:: Setting this will only take any effect if the file selector button
-            widget is **not** under "inwin mode". The default size for the
-            window (when applicable) is 400x400 pixels.
+        .. note:: Setting this will only take any effect if the file
+            selector button widget is **not** under "inwin mode". The
+            default size for the window (when applicable) is 400x400 pixels.
 
         :type: tuple of Evas_Coords (int)
 
@@ -244,7 +244,8 @@ cdef class FileselectorButton(Button):
         return bool(elm_fileselector_button_inwin_mode_get(self.obj))
 
     def callback_file_chosen_add(self, func, *args, **kwargs):
-        """The user has selected a path which comes as the ``event_info`` data."""
+        """The user has selected a path which comes as the ``event_info``
+        data."""
         self._callback_add_full("file,chosen", _cb_string_conv,
                                 func, *args, **kwargs)
 

@@ -55,9 +55,9 @@ cdef class Mapbuf(Object):
     property smooth:
         """Smooth map rendering.
 
-        This sets smoothing for map rendering. If the object is a type that has
-        its own smoothing settings, then both the smooth settings for this object
-        and the map must be turned off.
+        This sets smoothing for map rendering. If the object is a type that
+        has its own smoothing settings, then both the smooth settings for
+        this object and the map must be turned off.
 
         By default smooth maps are enabled.
 

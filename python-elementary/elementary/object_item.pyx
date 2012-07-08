@@ -117,7 +117,7 @@ cdef class ObjectItem(object):
         .. note:: This returns the widget object itself that an item belongs to.
         .. note:: Every elm_object_item supports this API
 
-        :type: :py:class:`evas.object.Object`
+        :type: :py:class:`elementary.object.Object`
 
         """
         def __get__(self):
@@ -330,8 +330,8 @@ cdef class ObjectItem(object):
         """Set the content to be shown in the tooltip object
 
         Setup the tooltip to object. The object can have only one tooltip,
-        so any previews tooltip data is removed. C{func(owner, tooltip,
-        args, kargs)} will be called every time that need show the tooltip
+        so any previews tooltip data is removed. ``func(owner, tooltip,
+        args, kargs)`` will be called every time that need show the tooltip
         and it should return a valid Evas_Object. This object is then
         managed fully by tooltip system and is deleted when the tooltip is
         gone.
@@ -355,9 +355,10 @@ cdef class ObjectItem(object):
     def tooltip_unset(self):
         """Unset tooltip from object
 
-        Remove tooltip from object. If used the :py:func:`tooltip_text_set` the
-        internal copy of label will be removed correctly. If used
-        :py:func:`tooltip_content_cb_set`, the data will be unreferred but no freed.
+        Remove tooltip from object. If used the :py:func:`tooltip_text_set`
+        the internal copy of label will be removed correctly. If used
+        :py:func:`tooltip_content_cb_set`, the data will be unreferred but
+        no freed.
 
         """
         elm_object_item_tooltip_unset(self.item)
@@ -366,7 +367,8 @@ cdef class ObjectItem(object):
         """The style for this object tooltip.
 
         .. note:: before you set a style you should define a tooltip with
-            :py:func:`tooltip_content_cb_set()` or :py:func:`tooltip_text_set()`
+            :py:func:`tooltip_content_cb_set()` or
+            :py:func:`tooltip_text_set()`
 
         """
         def __set__(self, style):

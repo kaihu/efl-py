@@ -428,7 +428,7 @@ cdef class Object(object):
         """Reorder to be above the given one.
 
         :param above:
-        :type above: :py:class:`Object`
+        :type above: :py:class:`evas.object.Object`
 
         """
         evas_object_stack_above(self.obj, above.obj)
@@ -437,7 +437,7 @@ cdef class Object(object):
         """Reorder to be below the given one.
 
         :param below:
-        :type below: :py:class:`Object`
+        :type below: :py:class:`evas.object.Object`
 
         """
         evas_object_stack_below(self.obj, below.obj)
@@ -445,7 +445,7 @@ cdef class Object(object):
     property above:
         """The object above this.
 
-        :type: :py:class:`Object`
+        :type: :py:class:`evas.object.Object`
 
         """
         def __get__(self):
@@ -461,7 +461,7 @@ cdef class Object(object):
     property below:
         """The object below this.
 
-        :type: :py:class:`Object`
+        :type: :py:class:`evas.object.Object`
 
         """
         def __get__(self):
@@ -477,7 +477,7 @@ cdef class Object(object):
     property top:
         """The topmost object. (Same as self.evas.top_get()).
 
-        :type: :py:class:`Object`
+        :type: :py:class:`evas.object.Object`
 
         """
         def __get__(self):
@@ -489,7 +489,7 @@ cdef class Object(object):
     property bottom:
         """The bottommost object. (Same as self.evas.bottom_get()).
 
-        :type: :py:class:`Object`
+        :type: :py:class:`evas.object.Object`
 
         """
         def __get__(self):
@@ -1179,7 +1179,7 @@ cdef class Object(object):
     property clip:
         """Object's clipper.
 
-        :type: :py:class:`Object`
+        :type: :py:class:`evas.object.Object`
 
         """
         def __get__(self):
@@ -1223,7 +1223,7 @@ cdef class Object(object):
     property clipees:
         """Objects that this object clips.
 
-        :type: tuple of :py:class:`Object`
+        :type: tuple of :py:class:`evas.object.Object`
 
         """
         def __get__(self):
@@ -1588,9 +1588,11 @@ cdef class Object(object):
         instead.
 
         Objects that pass events will also not be accounted in some operations
-        unless explicitly required, like L{Canvas.top_at_xy_get()},
-        L{Canvas.top_in_rectangle_get()}, L{Canvas.objects_at_xy_get()},
-        L{Canvas.objects_in_rectangle_get()}.
+        unless explicitly required, like
+        :py:func:`evas.canvas.Canvas.top_at_xy_get()`,
+        :py:func:`evas.canvas.Canvas.top_in_rectangle_get()`,
+        :py:func:`evas.canvas.Canvas.objects_at_xy_get()`,
+        :py:func:`evas.canvas.Canvas.objects_in_rectangle_get()`.
 
         :type: bool
 
@@ -1631,7 +1633,8 @@ cdef class Object(object):
         """Whenever object should propagate events to its parent.
 
         If True, this will cause events on this object to propagate to its
-        L{SmartObject} parent, if it's a member of one.
+        :py:class:`evas.object_smart.SmartObject` parent, if it's a member
+        of one.
 
         :type: bool
 
@@ -1674,9 +1677,10 @@ cdef class Object(object):
         evas_object_pointer_mode_set(self.obj, <Evas_Object_Pointer_Mode>value)
 
     property parent:
-        """:py:class:`Object` that this object is member of, or *None*.
+        """:py:class:`evas.object.Object` that this object is member of, or
+        *None*.
 
-        :type: :py:class:`Object`
+        :type: :py:class:`evas.object.Object`
 
         """
         def __get__(self):

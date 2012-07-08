@@ -97,7 +97,8 @@ cdef class Frame(LayoutClass):
     def collapse_go(self, collapse):
         """Manually collapse a frame with animations
 
-        Use this to toggle the collapsed state of a frame, triggering animations.
+        Use this to toggle the collapsed state of a frame, triggering
+        animations.
 
         :param collapse: True to collapse, False to expand
         :type collapse: bool

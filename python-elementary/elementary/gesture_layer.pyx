@@ -36,24 +36,25 @@ cdef class GestureLayer(Object):
 
     """
 
-    Use Gesture Layer to detect gestures. The advantage is that you don't
-    have to implement gesture detection, just set callbacks of gesture state.
-    By using gesture layer we make standard interface.
+    Use the GestureLayer to detect gestures. The advantage is that you don't
+    have to implement gesture detection, just set callbacks for gesture states.
 
     In order to use Gesture Layer you start with instantiating this class
     with a parent object parameter. Next 'activate' gesture layer with a
-    :py:func:`attach()` call. Usually with same object as target (2nd parameter).
+    :py:func:`attach()` call. Usually with same object as target (2nd
+    parameter).
 
     Now you need to tell gesture layer what gestures you follow. This is
-    done with :py:func:`cb_set()` call. By setting the callback you actually saying
-    to gesture layer: I would like to know when the gesture
+    done with :py:func:`cb_set()` call. By setting the callback you actually
+    saying to gesture layer: I would like to know when the gesture
     ``Elm_Gesture_Type`` switches to state ``Elm_Gesture_State``.
 
     Next, you need to implement the actual action that follows the input in
     your callback.
 
     Note that if you like to stop being reported about a gesture, just set
-    all callbacks referring this gesture to None. (again with :py:func:`cb_set()`)
+    all callbacks referring this gesture to None. (again with
+    :py:func:`cb_set()`)
 
     The information reported by gesture layer to your callback is depending
     on ``Elm_Gesture_Type``:

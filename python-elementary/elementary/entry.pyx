@@ -1,4 +1,5 @@
 # Copyright (c) 2008-2009 Simon Busch
+# Copyright 2012 Kai Huuhko <kai.huuhko@gmail.com>
 #
 # This file is part of python-elementary.
 #
@@ -106,9 +107,9 @@ cdef class Entry(Object):
     - <ps>: Inserts a paragraph separator. This is preferred over line
       breaks.
     - <tab>: Inserts a tab.
-    - <em>...</em>: Emphasis. Sets the @em oblique style for the
+    - <em>...</em>: Emphasis. Sets the *oblique* style for the
       enclosed text.
-    - <b>...</b>: Sets the @b bold style for the enclosed text.
+    - <b>...</b>: Sets the **bold** style for the enclosed text.
     - <link>...</link>: Underlines the enclosed text.
     - <hilight>...</hilight>: Highlights the enclosed text.
 
@@ -122,29 +123,29 @@ cdef class Entry(Object):
 
     Anchors are similar to HTML anchors. Text can be surrounded by <a> and
     </a> tags and an event will be generated when this text is clicked,
-    like this:
+    like this::
 
-    -This text is outside <a href=anc-01>but this one is an anchor</a>*
+        This text is outside <a href=anc-01>but this one is an anchor</a>
 
     The ``href`` attribute in the opening tag gives the name that will be
     used to identify the anchor and it can be any valid utf8 string.
 
     When an anchor is clicked, an ``"anchor,clicked"`` signal is emitted with
-    an ``Elm_Entry_Anchor_Info} in the C{event_info`` parameter for the
-    callback function. The same applies for "anchor,in" (mouse in), "anchor,out"
-    (mouse out), "anchor,down" (mouse down), and "anchor,up" (mouse up) events on
-    an anchor.
+    an ``Elm_Entry_Anchor_Info`` in the ``event_info`` parameter for the
+    callback function. The same applies for "anchor,in" (mouse in),
+    "anchor,out" (mouse out), "anchor,down" (mouse down), and "anchor,up"
+    (mouse up) events on an anchor.
 
     .. rubric:: Items
 
-    Inlined in the text, any other :py:class:`elementary.object.Object` can be inserted by using
-    <item> tags this way::
+    Inlined in the text, any other :py:class:`elementary.object.Object` can
+    be inserted by using <item> tags this way::
 
         <item size=16x16 vsize=full href=emoticon/haha></item>
 
     Just like with anchors, the ``href`` identifies each item, but these need,
     in addition, to indicate their size, which is done using any one of
-    -size}, ``absize`` or C{relsize* attributes. These attributes take their
+    ``size``, ``absize`` or ``relsize`` attributes. These attributes take their
     value in the WxH format, where W is the width and H the height of the
     item.
 
@@ -162,9 +163,10 @@ cdef class Entry(Object):
 
     - ascent: Item will be placed within the line's baseline and its
       ascent. That is, the height between the line where all characters are
-      positioned and the highest point in the line. For ``size} and C{absize``
-      items, the descent value will be added to the total line height to make
-      them fit. ``relsize`` items will be adjusted to fit within this space.
+      positioned and the highest point in the line. For ``size`` and
+      ``absize`` items, the descent value will be added to the total line
+      height to make them fit. ``relsize`` items will be adjusted to fit
+      within this space.
     - full: Items will be placed between the descent and ascent, or the
       lowest point in the line and its highest.
 
@@ -249,7 +251,8 @@ cdef class Entry(Object):
     This widget emits the following signals:
 
     - "changed": The text within the entry was changed.
-    - "changed,user": The text within the entry was changed because of user interaction.
+    - "changed,user": The text within the entry was changed because of user
+      interaction.
     - "activated": The enter key was pressed on a single line entry.
     - "press": A mouse button has been pressed on the entry.
     - "longpressed": A mouse button has been pressed and held for a couple
@@ -294,13 +297,12 @@ cdef class Entry(Object):
     """
 
     def __init__(self, evasObject parent):
-        """This adds an entry to @p parent object.
+        """By default, entries are:
 
-        By default, entries are:
-            - not scrolled
-            - multi-line
-            - word wrapped
-            - autosave is enabled
+        - not scrolled
+        - multi-line
+        - word wrapped
+        - autosave is enabled
 
         :param parent: The parent object
         :type parent: :py:class:`elementary.object.Object`
@@ -339,8 +341,8 @@ cdef class Entry(Object):
     property password:
         """Sets the entry to password mode.
 
-        In password mode, entries are implicitly single line and the display of
-        any text in them is replaced with asterisks (*).
+        In password mode, entries are implicitly single line and the display
+        of any text in them is replaced with asterisks (*).
 
         :type: bool
 
@@ -378,12 +380,12 @@ cdef class Entry(Object):
     def entry_append(self, text):
         """Appends ``entry`` to the text of the entry.
 
-        Adds the text in ``entry`` to the end of any text already present in the
-        widget.
+        Adds the text in ``entry`` to the end of any text already present in
+        the widget.
 
         The appended text is subject to any filters set for the widget.
 
-        .. seealso:: markup_filter_append()
+        .. seealso:: :py:func:`markup_filter_append()`
 
         :param entry: The text to be displayed
         :type entry: string
@@ -394,9 +396,9 @@ cdef class Entry(Object):
     property is_empty:
         """Gets whether the entry is empty.
 
-        Empty means no text at all. If there are any markup tags, like an item
-        tag for which no provider finds anything, and no text is displayed, this
-        function still returns False.
+        Empty means no text at all. If there are any markup tags, like an
+        item tag for which no provider finds anything, and no text is
+        displayed, this function still returns False.
 
         :type: bool
 
@@ -466,25 +468,26 @@ cdef class Entry(Object):
 
         This should be used after modifying the textblock object directly.
 
-        .. seealso:: textblock_get()
+        .. seealso:: :py:attr:`textblock`
 
         """
         elm_entry_calc_force(self.obj)
 
     def entry_insert(self, entry):
-        """Inserts the given text into the entry at the current cursor position.
+        """Inserts the given text into the entry at the current cursor
+        position.
 
-        This inserts text at the cursor position as if it was typed
-        by the user (note that this also allows markup which a user
-        can't just "type" as it would be converted to escaped text, so this
-        call can be used to insert things like emoticon items or bold push/pop
-        tags, other font and color change tags etc.)
+        This inserts text at the cursor position as if it was typed by the
+        user (note that this also allows markup which a user can't just
+        "type" as it would be converted to escaped text, so this call can be
+        used to insert things like emoticon items or bold push/pop tags,
+        other font and color change tags etc.)
 
         If any selection exists, it will be replaced by the inserted text.
 
         The inserted text is subject to any filters set for the widget.
 
-        .. seealso:: markup_filter_append()
+        .. seealso:: :py:func:`markup_filter_append()`
 
         :param entry: The text to insert
         :type entry: string
@@ -495,8 +498,8 @@ cdef class Entry(Object):
     property line_wrap:
         """The line wrap type to use on multi-line entries.
 
-        This tells how the text will be implicitly cut into a new
-        line (without inserting a line break or paragraph separator) when it
+        This tells how the text will be implicitly cut into a new line
+        (without inserting a line break or paragraph separator) when it
         reaches the far edge of the widget.
 
         Note that this only makes sense for multi-line entries. A widget set
@@ -519,9 +522,10 @@ cdef class Entry(Object):
     property editable:
         """If the entry is to be editable or not.
 
-        By default, entries are editable and when focused, any text input by the
-        user will be inserted at the current cursor position. Setting this as
-        False will prevent the user from inputting text into the entry.
+        By default, entries are editable and when focused, any text input by
+        the user will be inserted at the current cursor position. Setting
+        this as False will prevent the user from inputting text into the
+        entry.
 
         The only way to change the text of a non-editable entry is to use
         :py:attr:`text`, :py:func:`entry_insert()` and other related
@@ -614,10 +618,10 @@ cdef class Entry(Object):
     def cursor_is_format_get(self):
         """Gets whether a format node exists at the current cursor position.
 
-        A format node is anything that defines how the text is rendered. It can
-        be a visible format node, such as a line break or a paragraph separator,
-        or an invisible one, such as bold begin or end tag.
-        This function returns whether any format node exists at the current
+        A format node is anything that defines how the text is rendered. It
+        can be a visible format node, such as a line break or a paragraph
+        separator, or an invisible one, such as bold begin or end tag. This
+        function returns whether any format node exists at the current
         cursor position.
 
         .. seealso:: cursor_is_visible_format_get()
@@ -1017,11 +1021,13 @@ cdef class Entry(Object):
         return elm_entry_input_panel_return_key_disabled_get(self.obj)
 
     property input_panel_return_key_autoenabled:
-        """Set whether the return key on the input panel is disabled automatically when entry has no text.
+        """Set whether the return key on the input panel is disabled
+        automatically when entry has no text.
 
-        If ``enabled`` is True, The return key on input panel is disabled when the entry has no text.
-        The return key on the input panel is automatically enabled when the entry has text.
-        The default value is False.
+        If ``enabled`` is True, The return key on input panel is disabled
+        when the entry has no text. The return key on the input panel is
+        automatically enabled when the entry has text. The default value is
+        False.
 
         :type: bool
 
@@ -1035,8 +1041,9 @@ cdef class Entry(Object):
     def imf_context_reset(self):
         """Reset the input method context of the entry if needed.
 
-        This can be necessary in the case where modifying the buffer would confuse on-going input method behavior.
-        This will typically cause the Input Method Context to clear the preedit state.
+        This can be necessary in the case where modifying the buffer would
+        confuse on-going input method behavior. This will typically cause
+        the Input Method Context to clear the preedit state.
 
         """
         elm_entry_imf_context_reset(self.obj)
@@ -1065,8 +1072,9 @@ cdef class Entry(Object):
         """Control pasting of text and images for the widget.
 
         Normally the entry allows both text and images to be pasted.
-        By setting cnp_mode to be *ELM_CNP_MODE_NO_IMAGE*, this prevents images from being copy or past.
-        By setting cnp_mode to be *ELM_CNP_MODE_PLAINTEXT*, this remove all tags in text .
+        By setting cnp_mode to be *ELM_CNP_MODE_NO_IMAGE*, this prevents
+        images from being copy or past. By setting cnp_mode to be
+        *ELM_CNP_MODE_PLAINTEXT*, this remove all tags in text .
 
         .. note:: This only changes the behaviour of text.
 

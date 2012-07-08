@@ -73,10 +73,10 @@ cdef class Radio(LayoutClass):
     def group_add(self, evasObject group):
         """Add this radio to a group of other radio objects
 
-        Radio objects work in groups. Each member should have a different integer
-        value assigned. In order to have them work as a group, they need to know
-        about each other. This adds the given radio object to the group of which
-        the group object indicated is a member.
+        Radio objects work in groups. Each member should have a different
+        integer value assigned. In order to have them work as a group, they
+        need to know about each other. This adds the given radio object to
+        the group of which the group object indicated is a member.
 
         :param group: Any object whose group the object is to join.
         :type group: :py:class:`Radio`
@@ -126,12 +126,12 @@ cdef class Radio(LayoutClass):
         """Set a convenience pointer to a integer to change when radio group
         value changes.
 
-        This sets a pointer to a integer, that, in addition to the radio objects
-        state will also be modified directly. To stop setting the object pointed
-        to simply use None as the ``valuep`` argument. If valuep is not None, then
-        when this is called, the radio objects state will also be modified to
-        reflect the value of the integer valuep points to, just like calling
-        :py:attr:`value`.
+        This sets a pointer to a integer, that, in addition to the radio
+        objects state will also be modified directly. To stop setting the
+        object pointed to simply use None as the ``valuep`` argument. If
+        valuep is not None, then when this is called, the radio objects
+        state will also be modified to reflect the value of the integer
+        valuep points to, just like calling :py:attr:`value`.
 
         :param valuep: Pointer to the integer to modify
         :type valuep: int

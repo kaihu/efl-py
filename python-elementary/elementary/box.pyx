@@ -183,12 +183,12 @@ cdef class Box(Object):
         :type subobj: :py:class:`evas.object.Object`
 
         .. seealso::
-            pack_end()
-            pack_before()
-            pack_after()
-            unpack()
-            unpack_all()
-            clear()
+            :py:func:`pack_end()`
+            :py:func:`pack_before()`
+            :py:func:`pack_after()`
+            :py:func:`unpack()`
+            :py:func:`unpack_all()`
+            :py:func:`clear()`
 
         """
         elm_box_pack_start(self.obj, obj.obj)
@@ -206,12 +206,12 @@ cdef class Box(Object):
         :type subobj: :py:class:`evas.object.Object`
 
         .. seealso::
-            pack_start()
-            pack_before()
-            pack_after()
-            unpack()
-            unpack_all()
-            clear()
+            :py:func:`pack_start()`
+            :py:func:`pack_before()`
+            :py:func:`pack_after()`
+            :py:func:`unpack()`
+            :py:func:`unpack_all()`
+            :py:func:`clear()`
 
         """
         elm_box_pack_end(self.obj, obj.obj)
@@ -230,12 +230,12 @@ cdef class Box(Object):
         :type before: :py:class:`evas.object.Object`
 
         .. seealso::
-            pack_start()
-            pack_end()
-            pack_after()
-            unpack()
-            unpack_all()
-            clear()
+            :py:func:`pack_start()`
+            :py:func:`pack_end()`
+            :py:func:`pack_after()`
+            :py:func:`unpack()`
+            :py:func:`unpack_all()`
+            :py:func:`clear()`
 
         """
         elm_box_pack_before(self.obj, obj.obj, before.obj)
@@ -254,12 +254,12 @@ cdef class Box(Object):
         :type after: :py:class:`evas.object.Object`
 
         .. seealso::
-            pack_start()
-            pack_end()
-            pack_before()
-            unpack()
-            unpack_all()
-            clear()
+            :py:func:`pack_start()`
+            :py:func:`pack_end()`
+            :py:func:`pack_before()`
+            :py:func:`unpack()`
+            :py:func:`unpack_all()`
+            :py:func:`clear()`
 
         """
         elm_box_pack_after(self.obj, obj.obj, after.obj)
@@ -284,7 +284,7 @@ cdef class Box(Object):
         :param subobj: The object to unpack
         :type subobj: :py:class:`evas.object.Object`
 
-        .. seealso:: unpack_all(), clear()
+        .. seealso:: :py:func:`unpack_all()`, :py:func:`clear()`
 
         """
         elm_box_unpack(self.obj, obj.obj)

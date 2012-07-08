@@ -290,7 +290,8 @@ cdef class Object(evasObject):
     def access_info_set(self, txt):
         """Set the text to read out when in accessibility mode
 
-        :param txt: The text that describes the widget to people with poor or no vision
+        :param txt: The text that describes the widget to people with poor
+            or no vision
         :type txt: string
 
         """

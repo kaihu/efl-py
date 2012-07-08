@@ -64,8 +64,8 @@ cdef class Background(LayoutClass):
 
         .. note:: This will only affect the contents of one of the background's
             swallow spots, namely *"elm.swallow.background"*. If you want to
-            achieve the :py:class:`elementary.layout.Layout`'s file setting behavior, you'll have to call
-            that method on this object.
+            achieve the :py:class:`elementary.layout.Layout`'s file setting
+            behavior, you'll have to call that method on this object.
 
         :type: string file, optional string group
 
@@ -164,8 +164,8 @@ cdef class Background(LayoutClass):
             of the pixmap may differ depending on the type of image being
             loaded, being bigger than requested.
 
-        .. warning:: This function just makes sense if an image file was set with
-            :py:attr:`file`.
+        .. warning:: This function just makes sense if an image file was set
+            with :py:attr:`file`.
 
         :type: (Evas_Coord w, Evas_Coord h)
 

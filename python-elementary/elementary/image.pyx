@@ -94,10 +94,11 @@ cdef class Image(Object):
         The scaling algorithm to be used when scaling the image. Smooth
         scaling provides a better resulting image, but is slower.
 
-        The smooth scaling should be disabled when making animations that change
-        the image size, since it will be faster. Animations that don't require
-        resizing of the image can keep the smooth scaling enabled (even if the
-        image is already scaled, since the scaled image will be cached).
+        The smooth scaling should be disabled when making animations that
+        change the image size, since it will be faster. Animations that
+        don't require resizing of the image can keep the smooth scaling
+        enabled (even if the image is already scaled, since the scaled image
+        will be cached).
 
         :type: bool
 
@@ -139,8 +140,9 @@ cdef class Image(Object):
         size/resize in any way. For that effect, take a look at
         :py:attr:`resizable`.
 
-        .. seealso:: resizable_set()
-        .. seealso:: Object.scale_set()
+        .. seealso::
+            :py:attr:`resizable`
+            :py:attr:`elementary.object.Object.scale`
 
         :type: bool
 
@@ -195,7 +197,7 @@ cdef class Image(Object):
         .. note:: This option will have no effect if
             :py:attr:`aspect_fixed` is set to *False*.
 
-        .. seealso:: aspect_fixed
+        .. seealso:: :py:attr:`aspect_fixed`
 
         :type: bool
 
@@ -226,10 +228,10 @@ cdef class Image(Object):
     property prescale:
         """The prescale size for the image
 
-        This is the size for pixmap representation of the given
-        image. It allows the image to be loaded already in the specified size,
-        reducing the memory usage and load time when loading a big image with load
-        size set to a smaller size.
+        This is the size for pixmap representation of the given image. It
+        allows the image to be loaded already in the specified size,
+        reducing the memory usage and load time when loading a big image
+        with load size set to a smaller size.
 
         It's equivalent to the
         :py:attr:`elementary.background.Background.load_size` property for bg.
@@ -238,7 +240,7 @@ cdef class Image(Object):
             depending on the type of image being loaded, being bigger than
             requested.
 
-        .. seealso:: Background.load_size
+        .. seealso:: :py:attr:`elementary.background.Background.load_size`
 
         :type: int
 
@@ -274,8 +276,8 @@ cdef class Image(Object):
     property editable:
         """Whether the image is 'editable'.
 
-        This means the image is a valid drag target for drag and drop, and can be
-        cut or pasted too. Default is *False*.
+        This means the image is a valid drag target for drag and drop, and
+        can be cut or pasted too. Default is *False*.
 
         :type: bool
 
@@ -293,14 +295,14 @@ cdef class Image(Object):
     property object:
         """Get the inlined image object of the image widget.
 
-        This function allows one to get the underlying ``Evas_Object`` of type
-        Image from this elementary widget. It can be useful to do things like get
-        the pixel data, save the image to a file, etc.
+        This function allows one to get the underlying ``Evas_Object`` of
+        type Image from this elementary widget. It can be useful to do
+        things like get the pixel data, save the image to a file, etc.
 
         .. note:: Be careful to not manipulate it, as it is under control of
             elementary.
 
-        :type: evas.Image
+        :type: :py:class:`evas.object_image.Image`
 
         """
         def __get__(self):
@@ -310,14 +312,16 @@ cdef class Image(Object):
         return Object_from_instance(elm_image_object_get(self.obj))
 
     property aspect_fixed:
-        """Whether the original aspect ratio of the image should be kept on resize.
+        """Whether the original aspect ratio of the image should be kept on
+        resize.
 
         The original aspect ratio (width / height) of the image is usually
-        distorted to match the object's size. Enabling this option will retain
-        this original aspect, and the way that the image is fit into the object's
-        area depends on the option set by :py:attr:`fill_outside`.
+        distorted to match the object's size. Enabling this option will
+        retain this original aspect, and the way that the image is fit into
+        the object's area depends on the option set by
+        :py:attr:`fill_outside`.
 
-        .. seealso:: fill_outside
+        .. seealso:: :py:attr:`fill_outside`
 
         :type: bool
 
@@ -340,7 +344,7 @@ cdef class Image(Object):
         animation. If the return value is **False**, other
         ``animated_xxx`` API calls won't work.
 
-        .. seealso:: animated
+        .. seealso:: :py:attr:`animated`
 
         :type: bool
 
@@ -360,8 +364,7 @@ cdef class Image(Object):
         animation. To start or stop the
         animation, actually, use :py:attr:`animated_play`.
 
-        .. seealso:: animated_available
-        .. seealso:: animated_play
+        .. seealso:: :py:attr:`animated_available` :py:attr:`animated_play`
 
         :type: bool
 
@@ -390,8 +393,7 @@ cdef class Image(Object):
         This is the property one uses to start and stop animation on
         an image object or get whether it is animating or not.
 
-        .. seealso:: animated_available
-        .. seealso:: animated
+        .. seealso:: :py:attr:`animated_available` :py:attr:`animated`
 
         :type: bool
 

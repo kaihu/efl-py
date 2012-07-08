@@ -113,7 +113,7 @@ cdef class Icon(Image):
 
         .. seealso:: Image.file
 
-        :type: string *file} or tuple(string *file*, string C{group*)
+        :type: string ``file`` or tuple(string ``file``, string ``group``)
 
         """
         def __set__(self, value):
@@ -131,11 +131,12 @@ cdef class Icon(Image):
     property standard:
         """The icon standards name.
 
-        For example, freedesktop.org defines standard icon names such as "home",
-        "network", etc. There can be different icon sets to match those icon
-        keys. The ``name`` given as parameter is one of these "keys", and will be
-        used to look in the freedesktop.org paths and elementary theme. One can
-        change the lookup order with :py:attr:`order_lookup`.
+        For example, freedesktop.org defines standard icon names such as
+        "home", "network", etc. There can be different icon sets to match
+        those icon keys. The ``name`` given as parameter is one of these
+        "keys", and will be used to look in the freedesktop.org paths and
+        elementary theme. One can change the lookup order with
+        :py:attr:`order_lookup`.
 
         If name is not found in any of the expected locations and it is the
         absolute path of an image file, this image will be used.

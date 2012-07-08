@@ -303,7 +303,8 @@ cdef class Scroller(Object):
         return (h_pagenumber, v_pagenumber)
 
     def page_show(self, h_pagenumber, v_pagenumber):
-        """Show a specific virtual region within the scroller content object by page number.
+        """Show a specific virtual region within the scroller content object
+        by page number.
 
         0, 0 of the indicated page is located at the top-left of the viewport.
         This will jump to the page directly without animation.
@@ -333,6 +334,7 @@ cdef class Scroller(Object):
         This will slide to the page with animation.
 
         Example of usage::
+
             sc = Scroller(win)
             sc.content = content
             sc.page_relative = (1, 0)

@@ -1031,7 +1031,7 @@ cdef class Genlist(Object):
       free() it when done. See #Elm_Genlist_Item_Text_Get_Cb.
     - ``content_get`` - The ``part`` parameter is the name string of one of the
       existing (content) swallow parts in the Edje group implementing the
-      item's theme. It must return ``NULL,`` when no content is desired, or
+      item's theme. It must return ``None``, when no content is desired, or
       a valid object handle, otherwise.  The object will be deleted by the
       genlist on its deletion or when the item is "unrealized". See
       #Elm_Genlist_Item_Content_Get_Cb.
@@ -1096,7 +1096,7 @@ cdef class Genlist(Object):
     They all take a data parameter that is meant to be used for a handle to
     the applications internal data (eg. the struct with the original item
     data). The parent parameter is the parent genlist item this belongs to if
-    it is a tree or an indexed group, and NULL if there is no parent. The
+    it is a tree or an indexed group, and None if there is no parent. The
     flags can be a bitmask of #ELM_GENLIST_ITEM_NONE, #ELM_GENLIST_ITEM_TREE
     and #ELM_GENLIST_ITEM_GROUP. If #ELM_GENLIST_ITEM_TREE is set then this
     item is displayed as an item that is able to expand and have child items.
@@ -1133,7 +1133,7 @@ cdef class Genlist(Object):
     If the application wants multiple items to be able to be selected,
     elm_genlist_multi_select_set() can enable this. If the list is
     single-selection only (the default), then elm_genlist_selected_item_get()
-    will return the selected item, if any, or NULL if none is selected. If the
+    will return the selected item, if any, or None if none is selected. If the
     list is multi-select then elm_genlist_selected_items_get() will return a
     list (that is only valid as long as no items are modified (added, deleted,
     selected or unselected)).
@@ -1221,8 +1221,8 @@ cdef class Genlist(Object):
     - ``"activated"`` - The user has double-clicked or pressed
       (enter|return|spacebar) on an item. The ``event_info`` parameter is the
       item that was activated.
-    - ``"clicked,double"`` - The user has double-clicked an item.  The @c
-      event_info parameter is the item that was double-clicked.
+    - ``"clicked,double"`` - The user has double-clicked an item.  The
+      ``event_info`` parameter is the item that was double-clicked.
     - ``"selected"`` - This is called when a user has made an item selected.
       The event_info parameter is the genlist item that was selected.
     - ``"unselected"`` - This is called when a user has made an item

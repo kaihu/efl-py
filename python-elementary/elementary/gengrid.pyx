@@ -619,14 +619,14 @@ cdef class Gengrid(Object):
     ``"contents"`` and ``"states"``, respectively. For each of those
     properties, if more than one part is provided, they must have names
     listed separated by spaces in the data fields. For the default gengrid
-    item theme, we have **one** text part (``"elm.text"),`` **two** content
-    parts (``"elm.swalllow.icon"`` and ``"elm.swallow.end")`` and **no**
+    item theme, we have **one** text part (``"elm.text"``), **two** content
+    parts (``"elm.swalllow.icon"`` and ``"elm.swallow.end"``) and **no**
     state parts.
 
     A gengrid item may be at one of several styles. Elementary provides one
     by default - "default", but this can be extended by system or
-    application custom themes/overlays/extensions (see @ref Theme "themes"
-    for more details).
+    application custom themes/overlays/extensions (see
+    :py:class:`elementary.theme.Theme` for more details).
 
     .. rubric:: Gengrid item classes
 
@@ -657,7 +657,7 @@ cdef class Gengrid(Object):
       functions. The ``obj`` parameter is the gengrid object itself, while
       the ``part`` one is the name string of one of the existing (content)
       swallow parts in the Edje group implementing the item's theme. It must
-      return ``NULL,`` when no content is desired, or a valid object handle,
+      return ``None,`` when no content is desired, or a valid object handle,
       otherwise. The object will be deleted by the gengrid on its deletion
       or when the item is "unrealized". See #Elm_Gengrid_Item_Content_Get_Cb.
     - ``func.state_get`` - This function is called when an item object is
@@ -682,7 +682,7 @@ cdef class Gengrid(Object):
     If the user wants to have multiple items selected at the same time,
     elm_gengrid_multi_select_set() will permit it. If the gengrid is
     single-selection only (the default), then elm_gengrid_select_item_get()
-    will return the selected item or ``NULL,`` if none is selected. If the
+    will return the selected item or ``None``, if none is selected. If the
     gengrid is under multi-selection, then elm_gengrid_selected_items_get()
     will return a list (that is only valid as long as no items are modified
     (added, deleted, selected or unselected) of child items on a gengrid.
@@ -1093,9 +1093,10 @@ cdef class Gengrid(Object):
         return _object_item_list_to_python(elm_gengrid_realized_items_get(self.obj))
 
     def realized_items_update(self):
-        """This updates all realized items by calling all the item class functions again
-        to get the contents, texts and states. Use this when the original
-        item data has changed and the changes are desired to be reflected.
+        """This updates all realized items by calling all the item class
+        functions again to get the contents, texts and states. Use this when
+        the original item data has changed and the changes are desired to be
+        reflected.
 
         To update just one item, use elm_gengrid_item_update().
 
@@ -1192,7 +1193,7 @@ cdef class Gengrid(Object):
     property group_item_size:
         """A gengrid, after creation, has still no information on the size
         to give to each of its cells. So, you most probably will end up
-        with squares one @ref Fingers "finger" wide, the default
+        with squares one "finger" wide, the default
         size. Use this function to force a custom size for you group items,
         making them as big as you wish.
 

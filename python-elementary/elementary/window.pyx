@@ -969,11 +969,15 @@ cdef class Window(Object):
     def socket_listen(self, svcname, svcnum, svcsys):
         """Create a socket to provide the service for Plug widget
 
-        :param svcname: The name of the service to be advertised. ensure that it is unique.
+        :param svcname: The name of the service to be advertised. ensure
+            that it is unique.
         :type svcname: string
-        :param svcnum: A number (any value, 0 being the common default) to differentiate multiple instances of services with the same name.
+        :param svcnum: A number (any value, 0 being the common default) to
+            differentiate multiple instances of services with the same name.
         :type svcnum: int
-        :param svcsys: A boolean that if true, specifies to create a system-wide service all users can connect to, otherwise the service is private to the user id that created the service.
+        :param svcsys: A boolean that if true, specifies to create a
+            system-wide service all users can connect to, otherwise the
+            service is private to the user id that created the service.
         :type svcsys: bool
 
         """

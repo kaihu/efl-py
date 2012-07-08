@@ -101,11 +101,11 @@ cdef class Photocam(Object):
 
         This sets the zoom mode to manual or one of several automatic levels.
         Manual (ELM_PHOTOCAM_ZOOM_MODE_MANUAL) means that zoom is set
-        manually by :py:attr:`zoom` and will stay at that level until changed by
-        code or until zoom mode is changed. This is the default mode. The
-        Automatic modes will allow the photocam object to automatically
-        adjust zoom mode based on properties.
-        ELM_PHOTOCAM_ZOOM_MODE_AUTO_FIT) will adjust zoom so the photo fits
+        manually by :py:attr:`zoom` and will stay at that level until
+        changed by code or until zoom mode is changed. This is the default
+        mode. The Automatic modes will allow the photocam object to
+        automatically adjust zoom mode based on properties.
+        ELM_PHOTOCAM_ZOOM_MODE_AUTO_FIT will adjust zoom so the photo fits
         EXACTLY inside the scroll frame with no pixels outside this region.
         ELM_PHOTOCAM_ZOOM_MODE_AUTO_FILL will be similar but ensure no
         pixels within the frame are left unfilled.
@@ -122,7 +122,7 @@ cdef class Photocam(Object):
         """Get the current image pixel width and height
 
         This gets the current photo pixel width and height (for the
-        original). The size will be returned in the integers @``w`` and @``h``
+        original). The size will be returned in the integers ``w`` and ``h``
         that are pointed to.
 
         :type: tuple of ints

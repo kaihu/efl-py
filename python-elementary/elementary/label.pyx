@@ -31,14 +31,14 @@ cdef class Label(LayoutClass):
     - default - No animation
     - marker - Centers the text in the label and makes it bold by default
     - slide_long - The entire text appears from the right of the screen and
-        slides until it disappears in the left of the screen(reappearing on the
-        right again).
+        slides until it disappears in the left of the screen(reappearing on
+        the right again).
     - slide_short - The text appears in the left of the label and slides to
-        the right to show the overflow. When all of the text has been shown the
-        position is reset.
+        the right to show the overflow. When all of the text has been shown
+        the position is reset.
     - slide_bounce - The text appears in the left of the label and slides to
-        the right to show the overflow. When all of the text has been shown the
-        animation reverses, moving the text to the left.
+        the right to show the overflow. When all of the text has been shown
+        the animation reverses, moving the text to the left.
 
     Custom themes can of course invent new markup tags and style them any way
     they like.
@@ -102,8 +102,8 @@ cdef class Label(LayoutClass):
     property ellipsis:
         """The ellipsis behavior of the label
 
-        If set to True and the text doesn't fit in the label an ellipsis("...")
-        will be shown at the end of the widget.
+        If set to True and the text doesn't fit in the label an
+        ellipsis("...") will be shown at the end of the widget.
 
         .. warning:: This doesn't work with slide(:py:attr:`slide`) or if the
             chosen wrap method was ELM_WRAP_WORD.
@@ -125,11 +125,11 @@ cdef class Label(LayoutClass):
     property slide:
         """The sliding effect of the label widget.
 
-        If set to True, the text of the label will slide/scroll through the length of
-        label.
+        If set to True, the text of the label will slide/scroll through the
+        length of label.
 
-        .. warning:: This only works with the themes "slide_short", "slide_long" and
-            "slide_bounce".
+        .. warning:: This only works with the themes "slide_short",
+            "slide_long" and "slide_bounce".
 
         :type: bool
 
@@ -146,7 +146,8 @@ cdef class Label(LayoutClass):
         return elm_label_slide_get(self.obj)
 
     property slide_duration:
-        """The duration time in moving text from slide begin position to slide end position
+        """The duration time in moving text from slide begin position to
+        slide end position
 
         :type: float
 

@@ -284,7 +284,8 @@ cdef class Menu(Object):
 
         :param parent: The parent menu item (optional)
         :type parent: :py:class:`Object`
-        :param icon: An icon display on the item. The icon will be destroyed by the menu.
+        :param icon: An icon display on the item. The icon will be destroyed
+            by the menu.
         :type icon: string
         :param label: The label of the item.
         :type label: string

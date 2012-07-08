@@ -92,37 +92,40 @@ cdef class Flip(Object):
         There a number of possible animations to use for the flipping:
 
         - ELM_FLIP_ROTATE_X_CENTER_AXIS - Rotate the currently visible content
-          around a horizontal axis in the middle of its height, the other content
-          is shown as the other side of the flip.
+          around a horizontal axis in the middle of its height, the other
+          content is shown as the other side of the flip.
         - ELM_FLIP_ROTATE_Y_CENTER_AXIS - Rotate the currently visible content
-          around a vertical axis in the middle of its width, the other content is
-          shown as the other side of the flip.
+          around a vertical axis in the middle of its width, the other
+          content is shown as the other side of the flip.
         - ELM_FLIP_ROTATE_XZ_CENTER_AXIS - Rotate the currently visible content
-          around a diagonal axis in the middle of its width, the other content is
-          shown as the other side of the flip.
+          around a diagonal axis in the middle of its width, the other
+          content is shown as the other side of the flip.
         - ELM_FLIP_ROTATE_YZ_CENTER_AXIS - Rotate the currently visible content
-          around a diagonal axis in the middle of its height, the other content is
-          shown as the other side of the flip.
+          around a diagonal axis in the middle of its height, the other
+          content is shown as the other side of the flip.
         - ELM_FLIP_CUBE_LEFT - Rotate the currently visible content to the left
-          as if the flip was a cube, the other content is show as the right face of
-          the cube.
-        - ELM_FLIP_CUBE_RIGHT - Rotate the currently visible content to the
-          right as if the flip was a cube, the other content is show as the left
+          as if the flip was a cube, the other content is show as the right
           face of the cube.
+        - ELM_FLIP_CUBE_RIGHT - Rotate the currently visible content to the
+          right as if the flip was a cube, the other content is show as the
+          left face of the cube.
         - ELM_FLIP_CUBE_UP - Rotate the currently visible content up as if the
-          flip was a cube, the other content is show as the bottom face of the cube.
+          flip was a cube, the other content is show as the bottom face of
+          the cube.
         - ELM_FLIP_CUBE_DOWN - Rotate the currently visible content down as if
-          the flip was a cube, the other content is show as the upper face of the
-          cube.
-        - ELM_FLIP_PAGE_LEFT - Move the currently visible content to the left as
-          if the flip was a book, the other content is shown as the page below that.
+          the flip was a cube, the other content is show as the upper face
+          of the cube.
+        - ELM_FLIP_PAGE_LEFT - Move the currently visible content to the
+          left as if the flip was a book, the other content is shown as the
+          page below that.
         - ELM_FLIP_PAGE_RIGHT - Move the currently visible content to the right
-          as if the flip was a book, the other content is shown as the page below
-          that.
+          as if the flip was a book, the other content is shown as the page
+          below that.
         - ELM_FLIP_PAGE_UP - Move the currently visible content up as if the
           flip was a book, the other content is shown as the page below that.
-        - ELM_FLIP_PAGE_DOWN - Move the currently visible content down as if the
-          flip was a book, the other content is shown as the page below that.
+        - ELM_FLIP_PAGE_DOWN - Move the currently visible content down as if
+          the flip was a book, the other content is shown as the page below
+          that.
 
         :param mode: The mode type
         :type mode: Elm_Flip_Mode
@@ -170,8 +173,9 @@ cdef class Flip(Object):
         """Set which directions of the flip respond to interactive flip
 
         By default all directions are disabled, so you may want to enable the
-        desired directions for flipping if you need interactive flipping. You must
-        call this function once for each direction that should be enabled.
+        desired directions for flipping if you need interactive flipping.
+        You must call this function once for each direction that should be
+        enabled.
 
         .. seealso:: :py:attr:`interaction`
 
@@ -186,7 +190,8 @@ cdef class Flip(Object):
     def interaction_direction_enabled_get(self, direction):
         """Get the enabled state of that flip direction
 
-        Gets the enabled state set by :py:func:`interaction_direction_enabled_set()`
+        Gets the enabled state set by
+        :py:func:`interaction_direction_enabled_set()`
 
         .. seealso:: :py:attr:`interaction`
 
@@ -201,10 +206,11 @@ cdef class Flip(Object):
     def interaction_direction_hitsize_set(self, direction, hitsize):
         """Set the amount of the flip that is sensitive to interactive flip
 
-        Set the amount of the flip that is sensitive to interactive flip, with 0
-        representing no area in the flip and 1 representing the entire flip. There
-        is however a consideration to be made in that the area will never be
-        smaller than the finger size set(as set in your Elementary configuration).
+        Set the amount of the flip that is sensitive to interactive flip,
+        with 0 representing no area in the flip and 1 representing the
+        entire flip. There is however a consideration to be made in that the
+        area will never be smaller than the finger size set(as set in your
+        Elementary configuration).
 
         .. seealso:: :py:attr:`interaction`
 

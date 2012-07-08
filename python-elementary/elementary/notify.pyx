@@ -28,11 +28,13 @@ cdef class Notify(Object):
     it will **automatically** get hidden after that time.
 
     Signals that you can add callbacks for are:
-        - "timeout" - when timeout happens on notify and it's hidden
-        - "block,clicked" - when a click outside of the notify happens
+
+    - "timeout" - when timeout happens on notify and it's hidden
+    - "block,clicked" - when a click outside of the notify happens
 
     Default content parts of the notify widget that you can use are:
-        - ``"default"`` - The main content of the notify
+
+    - ``"default"`` - The main content of the notify
 
     """
 

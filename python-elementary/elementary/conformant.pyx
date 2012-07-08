@@ -30,7 +30,8 @@ cdef class Conformant(LayoutClass):
     space required for such stuff, and when they popup, as a keyboard
     shows when an entry is selected, conformant content won't change.
 
-    This widget emits the signals sent from :py:class:`elementary.layout.Layout`.
+    This widget emits the signals sent from
+    :py:class:`elementary.layout.Layout`.
 
     Available styles for it:
         - ``"default"``

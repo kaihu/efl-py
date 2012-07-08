@@ -111,8 +111,8 @@ cdef class SegmentControl(LayoutClass):
     def item_add(self, evasObject icon, label = None):
         """Append a new item to the segment control object.
 
-        A new item will be created and appended to the segment control, i.e., will
-        be set as **last** item.
+        A new item will be created and appended to the segment control,
+        i.e., will be set as **last** item.
 
         If it should be inserted at another position,
         elm_segment_control_item_insert_at() should be used instead.

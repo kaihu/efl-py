@@ -86,8 +86,9 @@ cdef class DiskselectorItem(ObjectItem):
         If it is the first item, ``None`` will be returned.
         First item can be get by :py:attr:`Diskselector.first_item`.
 
-        .. seealso:: :py:func:`Diskselector.item_append()`
-        .. seealso:: :py:attr:`Diskselector.items`
+        .. seealso::
+            :py:func:`Diskselector.item_append()`
+            :py:attr:`Diskselector.items`
 
         :type: DiskselectorItem
 
@@ -105,8 +106,9 @@ cdef class DiskselectorItem(ObjectItem):
         If it is the last item, ``None`` will be returned.
         Last item can be get by elm_diskselector_last_item_get().
 
-        .. seealso:: :py:func:`Diskselector.item_append()`
-        .. seealso:: :py:attr:`Diskselector.items`
+        .. seealso::
+            :py:func:`Diskselector.item_append()`
+            :py:attr:`Diskselector.items`
 
         :type: DiskselectorItem
 
@@ -127,20 +129,24 @@ cdef class Diskselector(Object):
     reduced for a defined length for side items.
 
     Smart callbacks one can listen to:
-        - "selected" - when item is selected, i.e. scroller stops.
-        - "scroll,anim,start" - scrolling animation has started
-        - "scroll,anim,stop" - scrolling animation has stopped
-        - "scroll,drag,start" - dragging the diskselector has started
-        - "scroll,drag,stop" - dragging the diskselector has stopped
+
+    - "selected" - when item is selected, i.e. scroller stops.
+    - "scroll,anim,start" - scrolling animation has started
+    - "scroll,anim,stop" - scrolling animation has stopped
+    - "scroll,drag,start" - dragging the diskselector has started
+    - "scroll,drag,stop" - dragging the diskselector has stopped
 
     Available styles for it:
-        - ``"default"``
+
+    - ``"default"``
 
     Default content parts of the diskselector items that you can use for are:
-        - "icon" - An icon in the diskselector item
+
+    - "icon" - An icon in the diskselector item
 
     Default text parts of the diskselector items that you can use for are:
-        - "default" - Label of the diskselector item
+
+    - "default" - Label of the diskselector item
 
     .. note:: The "scroll,anim,*" and "scroll,drag,*" signals are only emitted
         by user intervention.
@@ -313,6 +319,7 @@ cdef class Diskselector(Object):
         this item on center position.
 
         Simple example (with no function callback or data associated)::
+
             disk = Diskselector(win)
             ic = Icon(win)
             ic.file_set("path/to/image")

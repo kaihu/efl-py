@@ -26,11 +26,11 @@ cdef class InnerWindow(LayoutClass):
     It does not hover.
 
     It works by creating an object that will occupy the entire window, so it
-    must be created using an :py:class:`Window` as parent only. The inwin
-    object can be hidden or restacked below every other object if it's
-    needed to show what's behind it without destroying it. If this is done,
-    the :py:func:`activate()` function can be used to bring it back to
-    full visibility again.
+    must be created using an :py:class:`elementary.window.Window` as parent
+    only. The inwin object can be hidden or restacked below every other
+    object if it's needed to show what's behind it without destroying it. If
+    this is done, the :py:func:`activate()` function can be used to bring it
+    back to full visibility again.
 
     There are three styles available in the default theme. These are:
         - default: The inwin is sized to take over most of the window it's

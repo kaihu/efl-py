@@ -82,7 +82,8 @@ cdef class LayoutClass(Object):
         return bool(elm_layout_theme_set(self.obj, _cfruni(clas), _cfruni(group), _cfruni(style)))
 
     def signal_emit(self, emission, source):
-        """Send a (Edje) signal to a given layout widget's underlying Edje object.
+        """Send a (Edje) signal to a given layout widget's underlying Edje
+        object.
 
         This function sends a signal to the underlying Edje object. An Edje
         program on that Edje object's definition can respond to a signal by
@@ -101,8 +102,8 @@ cdef class LayoutClass(Object):
         underlying Edje object.
 
         This function connects a callback function to a signal emitted by
-        the underlying Edje object. Globs are accepted in either
-        the emission or source strings (see
+        the underlying Edje object. Globs are accepted in either the
+        emission or source strings (see
         ``edje_object_signal_callback_add()``).
 
         :param emission: The signal's name string
@@ -120,11 +121,10 @@ cdef class LayoutClass(Object):
         """Remove a signal-triggered callback from a given layout widget.
 
         This function removes the **last** callback attached to a signal
-        emitted by the undelying Edje object, with parameters
-        *emission*, ``source`` and ``func`` matching exactly those passed to a
-        previous call to
-        :py:func:`elementary.object.Object.signal_callback_add()`. The data
-        pointer that was passed to this call will be returned.
+        emitted by the undelying Edje object, with parameters *emission*,
+        ``source`` and ``func`` matching exactly those passed to a previous
+        call to :py:func:`elementary.object.Object.signal_callback_add()`.
+        The data pointer that was passed to this call will be returned.
 
         :param emission: The signal's name string
         :type emission: string

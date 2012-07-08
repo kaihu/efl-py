@@ -29,8 +29,9 @@ cdef class Photo(Object):
     Simple, yet with a very specific purpose. It has a decorative frame
     around the inner image itself, on the default theme.
 
-    This widget relies on an internal :py:class:`Icon`, so that the APIs of these two
-    widgets are similar (drag and drop is also possible here, for example).
+    This widget relies on an internal :py:class:`Icon`, so that the APIs of
+    these two widgets are similar (drag and drop is also possible here, for
+    example).
 
     Signals that you can add callbacks for are:
 
@@ -103,8 +104,8 @@ cdef class Photo(Object):
         """Set editability of the photo.
 
         An editable photo can be dragged to or from, and can be cut or
-        pasted too.  Note that pasting an image or dropping an item on
-        the image will delete the existing content.
+        pasted too.  Note that pasting an image or dropping an item on the
+        image will delete the existing content.
 
         :type: bool
 
@@ -116,12 +117,13 @@ cdef class Photo(Object):
         elm_photo_editable_set(self.obj, fill)
 
     property aspect_fixed:
-        """Whether the original aspect ratio of the photo should be kept on resize.
+        """Whether the original aspect ratio of the photo should be kept on
+        resize.
 
         The original aspect ratio (width / height) of the photo is usually
         distorted to match the object's size. Enabling this option will fix
-        this original aspect, and the way that the photo is fit into
-        the object's area
+        this original aspect, and the way that the photo is fit into the
+        object's area
 
         :type: bool
 

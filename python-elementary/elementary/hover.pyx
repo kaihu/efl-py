@@ -22,7 +22,7 @@ cdef class Hover(LayoutClass):
 
     """
 
-    A Hover object will hover over its ``parent} object at the C{target``
+    A Hover object will hover over its ``parent`` object at the ``target``
     location.
 
     Anything in the background will be given a darker coloring to indicate
@@ -63,15 +63,15 @@ cdef class Hover(LayoutClass):
 
     All directions may have contents at the same time, except for "smart".
     This is a special placement hint and its use case depends of the
-    calculations coming from :py:func:`best_content_location_get()`. Its use is for
-    cases when one desires only one hover content, but with a dynamic special
-    placement within the hover area. The content's geometry, whenever it
-    changes, will be used to decide on a best location, not extrapolating
-    the hover's parent object view to show it in (still being the hover's
-    target determinant of its medium part -- move and resize it to simulate
-    finger sizes, for example). If one of the directions other than "smart"
-    are used, a previously content set using it will be deleted, and
-    vice-versa.
+    calculations coming from :py:func:`best_content_location_get()`. Its use
+    is for cases when one desires only one hover content, but with a dynamic
+    special placement within the hover area. The content's geometry,
+    whenever it changes, will be used to decide on a best location, not
+    extrapolating the hover's parent object view to show it in (still being
+    the hover's target determinant of its medium part -- move and resize it
+    to simulate finger sizes, for example). If one of the directions other
+    than "smart" are used, a previously content set using it will be
+    deleted, and vice-versa.
 
     .. note:: The hover object will take up the entire space of ``target``
         object.
@@ -148,7 +148,7 @@ cdef class Hover(LayoutClass):
         ELM_HOVER_AXIS_BOTH or ELM_HOVER_AXIS_NONE has the same effect and
         the returned position may be in either axis.
 
-        .. seealso:: Object.part_content_set()
+        .. seealso:: :py:func:`part_content_set()`
 
         :param axis: The preferred orientation axis for the hover
             object to use

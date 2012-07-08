@@ -27,8 +27,8 @@ cdef class FileselectorEntry(Object):
     system path string.
 
     Besides the entry itself, the widget has a :py:class:`FileselectorButton`
-    on its side, which will raise an internal :py:class:`Fileselector`, when clicked,
-    for path selection aided by file system navigation.
+    on its side, which will raise an internal :py:class:`Fileselector`,
+    when clicked, for path selection aided by file system navigation.
 
     This file selector may appear in an Elementary window or in an
     inner window. When a file is chosen from it, the (inner) window
@@ -240,7 +240,8 @@ cdef class FileselectorEntry(Object):
         selector will raise an Elementary "inner window", instead of a
         dedicated Elementary window. By default, it won't.
 
-        .. seealso:: :py:class:`InnerWindow` for more information on inner windows
+        .. seealso:: :py:class:`InnerWindow` for more information on inner
+            windows
 
         :type: bool
 

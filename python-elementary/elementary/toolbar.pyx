@@ -135,8 +135,8 @@ cdef class ToolbarItem(ObjectItem):
     property icon:
         """The icon associated with the item.
 
-        Toolbar will load icon image from fdo or current theme.
-        This behavior can be set by :py:attr:`Toolbar.icon_order_lookup` function.
+        Toolbar will load icon image from fdo or current theme. This
+        behavior can be set by :py:attr:`Toolbar.icon_order_lookup` function.
         If an absolute path is provided it will load it direct from a file.
 
         .. seealso:: :py:attr:`Toolbar.icon_order_lookup`
@@ -170,7 +170,10 @@ cdef class ToolbarItem(ObjectItem):
     property icon_object:
         """Get the icon object of item.
 
-        .. seealso:: :py:attr:`icon`, :py:attr:`icon_file`, or :py:attr:`icon_memfile` for details.
+        .. seealso::
+            :py:attr:`icon`,
+            :py:attr:`icon_file`, or
+            :py:attr:`icon_memfile` for details.
 
         :type: :py:class:`Icon`
 
@@ -248,14 +251,16 @@ cdef class ToolbarItem(ObjectItem):
 
     property menu:
         """This property has two diffent functionalities. The object you get
-        from it is the :py:class:`Menu` object used by this toolbar item, and setting
-        it to True or False controls whether this item is a menu or not.
+        from it is the :py:class:`Menu` object used by this toolbar item,
+        and setting it to True or False controls whether this item is a menu
+        or not.
 
         If item wasn't set as menu item, getting the value of this property
         sets it to be that.
 
         Once it is set to be a menu, it can be manipulated through
-        :py:attr:`Toolbar.menu_parent` and the :py:class:`Menu` functions and properties.
+        :py:attr:`Toolbar.menu_parent` and the :py:class:`Menu` functions
+        and properties.
 
         So, items to be displayed in this item's menu should be added with
         :py:func:`Menu.item_add()`.
@@ -406,10 +411,10 @@ cdef class Toolbar(Object):
         behavior can be set by :py:attr:`icon_order_lookup` function.
         If an absolute path is provided it will load it direct from a file.
 
-        .. seealso:: :py:attr:`ToolbarItem.icon`
-        .. seealso:: :py:func:`ObjectItem.delete()`
+        .. seealso:: :py:attr:`ToolbarItem.icon` :py:func:`ObjectItem.delete()`
 
-        :param icon: A string with icon name or the absolute path of an image file.
+        :param icon: A string with icon name or the absolute path of an
+            image file.
         :type icon: string
         :param label: The label of the item.
         :type label: string
@@ -442,10 +447,10 @@ cdef class Toolbar(Object):
         behavior can be set by :py:attr:`icon_order_lookup` function.
         If an absolute path is provided it will load it direct from a file.
 
-        .. seealso:: :py:attr:`ToolbarItem.icon`
-        .. seealso:: :py:func:`ObjectItem.delete()`
+        .. seealso:: :py:attr:`ToolbarItem.icon` :py:func:`ObjectItem.delete()`
 
-        :param icon: A string with icon name or the absolute path of an image file.
+        :param icon: A string with icon name or the absolute path of an
+            image file.
         :type icon: string
         :param label: The label of the item.
         :type label: string
@@ -475,8 +480,7 @@ cdef class Toolbar(Object):
         behavior can be set by :py:attr:`icon_order_lookup` function.
         If an absolute path is provided it will load it direct from a file.
 
-        .. seealso:: :py:attr:`ToolbarItem.icon`
-        .. seealso:: :py:func:`ObjectItem.delete()`
+        .. seealso:: :py:attr:`ToolbarItem.icon` :py:func:`ObjectItem.delete()`
 
         :param before: The toolbar item to insert before.
         :type before: :py:class:`ToolbarItem`
@@ -510,8 +514,7 @@ cdef class Toolbar(Object):
         behavior can be set by :py:attr:`icon_order_lookup` function.
         If an absolute path is provided it will load it direct from a file.
 
-        .. seealso:: :py:attr:`ToolbarItem.icon`
-        .. seealso:: :py:func:`ObjectItem.delete()`
+        .. seealso:: :py:attr:`ToolbarItem.icon` :py:func:`ObjectItem.delete()`
 
         :param after: The toolbar item to insert after.
         :type after: :py:class:`ToolbarItem`
@@ -530,8 +533,7 @@ cdef class Toolbar(Object):
     property first_item:
         """Get the first item in the given toolbar widget's list of items.
 
-        .. seealso:: :py:func:`item_append()`
-        .. seealso:: :py:attr:`last_item`
+        .. seealso:: :py:func:`item_append()` :py:attr:`last_item`
 
         :type: :py:class:`ToolbarItem`
 
@@ -545,8 +547,7 @@ cdef class Toolbar(Object):
     property last_item:
         """Get the last item in the given toolbar widget's list of items.
 
-        .. seealso:: :py:func:`item_prepend()`
-        .. seealso:: :py:attr:`first_item`
+        .. seealso:: :py:func:`item_prepend()` :py:attr:`first_item`
 
         :type: :py:class:`ToolbarItem`
 
@@ -651,8 +652,9 @@ cdef class Toolbar(Object):
         For more details about setting the parent for toolbar menus, see
         :py:attr:`Menu.parent`.
 
-        .. seealso:: :py:attr:`Menu.parent` for details.
-        .. seealso:: :py:attr:`ToolbarItem.menu` for details.
+        .. seealso::
+            :py:attr:`Menu.parent` and
+            :py:attr:`ToolbarItem.menu` for details.
 
         :type: :py:class:`Object`
 
@@ -739,15 +741,16 @@ cdef class Toolbar(Object):
         """The toolbar select mode.
 
         The possible modes are:
-            - ELM_OBJECT_SELECT_MODE_DEFAULT : Items will only call their
-              selection func and callback when first becoming selected. Any
-              further clicks will do nothing, unless you set always select
-              mode.
-            - ELM_OBJECT_SELECT_MODE_ALWAYS :  This means that, even if
-              selected, every click will make the selected callbacks be called.
-            - ELM_OBJECT_SELECT_MODE_NONE : This will turn off the ability
-              to select items entirely and they will neither appear selected
-              nor call selected callback functions.
+
+        - ELM_OBJECT_SELECT_MODE_DEFAULT : Items will only call their
+          selection func and callback when first becoming selected. Any
+          further clicks will do nothing, unless you set always select
+          mode.
+        - ELM_OBJECT_SELECT_MODE_ALWAYS :  This means that, even if
+          selected, every click will make the selected callbacks be called.
+        - ELM_OBJECT_SELECT_MODE_NONE : This will turn off the ability
+          to select items entirely and they will neither appear selected
+          nor call selected callback functions.
 
         :type: Elm_Object_Select_Mode
 

@@ -190,7 +190,8 @@ cdef class NaviframeItem(ObjectItem):
         elm_naviframe_item_promote(self.item)
 
     def promote(self):
-        """Promote an item already in the naviframe stack to the top of the stack
+        """Promote an item already in the naviframe stack to the top of the
+        stack
 
         This will take the indicated item and promote it to the top of the
         stack as if it had been pushed there. The item must already be
