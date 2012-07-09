@@ -978,13 +978,13 @@ pyelementarydir = $(pythondir)/elementary
 pyelementary_PYTHON = elementary/__init__.py elementary/cursors.py
 
 
-#~ if WANT_EXAMPLES
-#~ examplesdir = $(pkgdatadir)/examples
-#~ examples_DATA = $(examples_files)
-#~
-#~ examplesimagesdir = $(examplesdir)/images
-#~ examplesimages_DATA = $(examples_images_files)
-#~ endif
+if WANT_EXAMPLES
+examplesdir = $(pkgdatadir)/examples
+examples_DATA = $(examples_files)
+
+examplesimagesdir = $(examplesdir)/images
+examplesimages_DATA = $(examples_images_files)
+endif
 
 
 .PHONY: doc doc-clean
