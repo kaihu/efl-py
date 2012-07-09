@@ -365,6 +365,9 @@ cdef class GenlistItem(ObjectItem):
                 raise TypeError("func is not None or callable")
             self.cb = _py_elm_genlist_item_func
 
+        if len(args) == 1:
+            args = args[0]
+
         self.params = (item_class, args, func)
 
     cdef int _set_obj(self, Elm_Object_Item *item, params=None) except 0:
@@ -1404,7 +1407,7 @@ cdef class Genlist(Object):
                     GenlistItem parent_item=None,
                     int flags=ELM_GENLIST_ITEM_NONE,
                     func=None):
-        return GenlistItem(item_class, parent_item, flags, func, *item_data).append_to(self)
+        return GenlistItem(item_class, parent_item, flags, func, item_data).append_to(self)
 
     def item_prepend(   self,
                         GenlistItemClass item_class not None,
@@ -1412,7 +1415,7 @@ cdef class Genlist(Object):
                         GenlistItem parent_item=None,
                         int flags=ELM_GENLIST_ITEM_NONE,
                         func=None):
-        return GenlistItem(item_class, parent_item, flags, func, *item_data).prepend_to(self)
+        return GenlistItem(item_class, parent_item, flags, func, item_data).prepend_to(self)
 
     def item_insert_before( self,
                             GenlistItemClass item_class not None,
@@ -1423,7 +1426,7 @@ cdef class Genlist(Object):
                             func=None
                             #API XXX: *args, **kwargs
                             ):
-        return GenlistItem(item_class, None, flags, func, *item_data).insert_before(before_item)
+        return GenlistItem(item_class, None, flags, func, item_data).insert_before(before_item)
 
     def item_insert_after(  self,
                             GenlistItemClass item_class not None,
@@ -1434,7 +1437,7 @@ cdef class Genlist(Object):
                             func=None
                             #API XXX: *args, **kwargs
                             ):
-        return GenlistItem(item_class, None, flags, func, *item_data).insert_after(after_item)
+        return GenlistItem(item_class, None, flags, func, item_data).insert_after(after_item)
 
     #Elm_Object_Item         *elm_genlist_item_sorted_insert(self.obj, Elm_Genlist_Item_Class *itc, void *data, Elm_Object_Item *parent, Elm_Genlist_Item_Type flags, Eina_Compare_Cb comp, Evas_Smart_Cb func, void *func_data)
 
