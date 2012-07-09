@@ -1104,6 +1104,8 @@ cdef class Window(Object):
 
 _elm_widget_type_register("win", Window)
 
+_install_metaclass(Window)
+
 cdef class StandardWindow(Window):
 
     """A :py:class:`Window` with standard setup.
@@ -1125,4 +1127,4 @@ cdef class StandardWindow(Window):
 
 _elm_widget_type_register("standardwin", StandardWindow)
 
-_install_metaclass(Window)
+_install_metaclass(StandardWindow)
