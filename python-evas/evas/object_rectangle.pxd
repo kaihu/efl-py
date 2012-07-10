@@ -12,6 +12,5 @@ cdef extern from "Evas.h":
     #
     Evas_Object *evas_object_rectangle_add(Evas *e)
 
-cdef public class Rectangle(Object) [object PyEvasRectangle,
-                                     type PyEvasRectangle_Type]:
+cdef class Rectangle(Object):
     pass

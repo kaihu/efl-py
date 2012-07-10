@@ -110,7 +110,7 @@ cdef extern from "Evas.h":
     void evas_image_cache_set(Evas *e, int size)
     int evas_image_cache_get(const_Evas *e)
 
-cdef public class Canvas [object PyEvasCanvas, type PyEvasCanvas_Type]:
+cdef class Canvas(object):
     cdef Evas *obj
     cdef object _callbacks
 

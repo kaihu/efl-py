@@ -261,6 +261,7 @@ cdef long _smart_object_class_new(char *name) except 0:
     cls_def.member_del = _smart_object_member_del
     cls_def.parent = NULL
     cls_def.callbacks = NULL
+    cls_def.interfaces = NULL
     cls_def.data = NULL
 
     cls = evas_smart_class_new(cls_def);
@@ -304,8 +305,7 @@ cdef void _install_smart_metaclass(object cclass):
     cdef PyTypeObject *ctype = <PyTypeObject *>cclass
     ctype.ob_type = <PyTypeObject*>EvasSmartObjectMeta
 
-cdef public class SmartObject(Object) [object PyEvasSmartObject,
-                                       type PyEvasSmartObject_Type]:
+cdef class SmartObject(Object):
     """
 
     Smart Evas Objects.
@@ -729,8 +729,7 @@ cdef public class SmartObject(Object) [object PyEvasSmartObject,
 _install_smart_metaclass(SmartObject)
 
 
-cdef public class ClippedSmartObject(SmartObject) \
-         [object PyEvasClippedSmartObject, type PyEvasClippedSmartObject_Type]:
+cdef class ClippedSmartObject(SmartObject):
     """
 
     SmartObject subclass that automatically handles an internal clipper.

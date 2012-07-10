@@ -15,5 +15,5 @@ cdef extern from "Evas.h":
     void evas_object_line_xy_set(Evas_Object *obj, Evas_Coord x1, Evas_Coord y1, Evas_Coord x2, Evas_Coord y2)
     void evas_object_line_xy_get(const_Evas_Object *obj, Evas_Coord *x1, Evas_Coord *y1, Evas_Coord *x2, Evas_Coord *y2)
 
-cdef public class Line(Object) [object PyEvasLine, type PyEvasLine_Type]:
+cdef class Line(Object):
     pass

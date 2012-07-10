@@ -68,9 +68,8 @@ cdef extern from "evas/evas_object_image_python_extras.h":
     int evas_object_image_mask_fill(Evas_Object *src, Evas_Object *mask, Evas_Object *surface, int x_mask, int y_mask, int x_surface, int y_surface)
     void evas_object_image_rotate(Evas_Object *image, Evas_Object_Image_Rotation rotation)
 
-cdef public class Image(Object) [object PyEvasImage, type PyEvasImage_Type]:
+cdef class Image(Object):
     pass
 
-cdef public class FilledImage(Image) [object PyEvasFilledImage,
-                                      type PyEvasFilledImage_Type]:
+cdef class FilledImage(Image):
     pass
