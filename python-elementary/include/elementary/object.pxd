@@ -20,6 +20,7 @@ from cpython cimport PyObject, Py_INCREF, Py_DECREF
 from evas.general cimport Eina_Bool, Eina_List, const_Eina_List
 from evas.object cimport Evas_Object, Evas_Callback_Type, Evas_Smart_Cb
 from evas.object cimport Object as evasObject
+from evas.canvas cimport Canvas as evasCanvas
 
 cdef extern from *:
     ctypedef char* const_char_ptr "const char *"
@@ -147,7 +148,7 @@ cdef extern from "Elementary.h":
 
 cdef _object_list_to_python(const_Eina_List *lst)
 
-cdef class Canvas(evas.canvas.Canvas):
+cdef class Canvas(evasCanvas):
     pass
 
 cdef class Object(evasObject):

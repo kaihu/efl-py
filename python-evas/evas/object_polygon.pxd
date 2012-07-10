@@ -15,6 +15,5 @@ cdef extern from "Evas.h":
     void evas_object_polygon_point_add(Evas_Object *obj, Evas_Coord x, Evas_Coord y)
     void evas_object_polygon_points_clear(Evas_Object *obj)
 
-cdef public class Polygon(Object) [object PyEvasPolygon,
-                                   type PyEvasPolygon_Type]:
+cdef class Polygon(Object):
     pass

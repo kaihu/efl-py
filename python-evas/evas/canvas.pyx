@@ -172,7 +172,7 @@ def render_method_list():
 
 
 
-cdef public class Canvas [object PyEvasCanvas, type PyEvasCanvas_Type]:
+cdef class Canvas(object):
     """
 
     Evas Canvas.

@@ -171,7 +171,7 @@ cdef _object_list_to_python(const_Eina_List *lst):
         lst = lst.next
     return ret
 
-cdef class Canvas(evas.canvas.Canvas):
+cdef class Canvas(evasCanvas):
     def __init__(self):
         pass
 

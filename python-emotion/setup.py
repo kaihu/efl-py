@@ -39,7 +39,7 @@ setup(
     version = "1.7.0",
     description = "Python bindings for EFL Emotion",
     cmdclass = {'build_ext': build_ext, 'build_sphinx': BuildDoc, 'build_doc': BuildDoc},
-    ext_modules = cythonize(ext_modules),
+    ext_modules = cythonize(ext_modules, include_path=["emotion"]),
     package_data = {"emotion": ["*.pxd"]},
     requires = ["evas", "ecore", "edje"],
     provides = ["emotion"],

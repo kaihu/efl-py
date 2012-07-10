@@ -57,5 +57,5 @@ cdef extern from "Evas.h":
     void evas_object_text_outline_color_get(const_Evas_Object *obj, int *r, int *g, int *b, int *a)
     void evas_object_text_style_pad_get(const_Evas_Object *obj, int *l, int *r, int *t, int *b)
 
-cdef public class Text(Object) [object PyEvasText, type PyEvasText_Type]:
+cdef class Text(Object):
     pass

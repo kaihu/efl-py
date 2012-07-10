@@ -75,5 +75,5 @@ cdef extern from "Evas.h":
     void evas_object_textblock_size_native_get(const_Evas_Object *obj, Evas_Coord *w, Evas_Coord *h)
     void evas_object_textblock_style_insets_get(const_Evas_Object *obj, Evas_Coord *l, Evas_Coord *r, Evas_Coord *t, Evas_Coord *b)
 
-cdef public class Textblock(Object) [object PyEvasTextblock, type PyEvasTextblock_Type]:
+cdef class Textblock(Object):
     pass
