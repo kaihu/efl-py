@@ -635,3 +635,46 @@ cdef class Configuration(object):
             return bool(elm_config_mirrored_get())
         def __set__(self, mirrored):
             elm_config_mirrored_set(mirrored)
+
+
+#For compatibility
+def config_finger_size_get():
+    return elm_config_finger_size_get()
+def config_finger_size_set(size):
+    elm_config_finger_size_set(size)
+
+def config_tooltip_delay_get():
+    return elm_config_tooltip_delay_get()
+def config_tooltip_delay_set(delay):
+    elm_config_tooltip_delay_set(delay)
+
+def focus_highlight_enabled_get():
+    return elm_config_focus_highlight_enabled_get()
+def focus_highlight_enabled_set(enabled):
+    elm_config_focus_highlight_enabled_set(enabled)
+
+def focus_highlight_animate_get():
+    return elm_config_focus_highlight_animate_get()
+def focus_highlight_animate_set(animate):
+    elm_config_focus_highlight_animate_set(animate)
+
+def preferred_engine_get():
+    return _ctouni(elm_config_preferred_engine_get())
+def preferred_engine_set(engine):
+    elm_config_preferred_engine_set(engine)
+
+def engine_get():
+    return _ctouni(elm_config_engine_get())
+def engine_set(engine):
+    elm_config_engine_set(_cfruni(engine))
+
+def scale_get():
+    return elm_config_scale_get()
+def scale_set(scale):
+    elm_config_scale_set(scale)
+
+def cursor_engine_only_get():
+    return elm_config_cursor_engine_only_get()
+def cursor_engine_only_set(engine_only):
+    elm_config_cursor_engine_only_set(engine_only)
+

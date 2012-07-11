@@ -86,6 +86,7 @@ cdef class HoverselItem(ObjectItem):
 
         if item != NULL:
             self._set_obj(item)
+            return self
         else:
             Py_DECREF(self)
 
