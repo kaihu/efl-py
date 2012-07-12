@@ -29,7 +29,7 @@ cdef class HoverselItem(ObjectItem):
 
     """
 
-    cdef unicode label, icon_file
+    cdef const_char_ptr label, icon_file
     cdef Elm_Icon_Type icon_type
     cdef Evas_Smart_Cb cb
 
@@ -53,8 +53,8 @@ cdef class HoverselItem(ObjectItem):
         :type callback: function
 
         """
-        self.label = unicode(label)
-        self.icon_file = unicode(icon_file)
+        self.label = _cfruni(label) if label is not None else NULL
+        self.icon_file = _cfruni(icon_file) if icon_file is not None else NULL
         self.icon_type = icon_type
 
         if callback:
@@ -78,8 +78,8 @@ cdef class HoverselItem(ObjectItem):
 
         """
         item = elm_hoversel_item_add(   hoversel.obj,
-                                        _cfruni(self.label) if self.label is not None else NULL,
-                                        _cfruni(self.icon_file) if self.icon_file is not None else NULL,
+                                        self.label,
+                                        self.icon_file,
                                         self.icon_type,
                                         self.cb,
                                         <void*>self)
@@ -101,13 +101,22 @@ cdef class HoverselItem(ObjectItem):
         """
         def __set__(self, value):
             icon_file, icon_group, icon_type = value
-            elm_hoversel_item_icon_set(self.item, _cfruni(icon_file), _cfruni(icon_group), icon_type)
+            if self.item == NULL:
+                self.icon_file = _cfruni(icon_file)
+                self.icon_type = icon_type
+            else:
+                elm_hoversel_item_icon_set(self.item, _cfruni(icon_file), _cfruni(icon_group), icon_type)
 
         def __get__(self):
-            cdef const_char_ptr cicon_file, cicon_group
-            cdef Elm_Icon_Type cicon_type
-            elm_hoversel_item_icon_get(self.item, &cicon_file, &cicon_group, &cicon_type)
-            return (_ctouni(cicon_file), _ctouni(cicon_group), cicon_type)
+            cdef const_char_ptr icon_file, icon_group
+            cdef Elm_Icon_Type icon_type
+            if self.item == NULL:
+                icon_file = self.icon_file
+                icon_group = NULL
+                icon_type = self.icon_type
+            else:
+                elm_hoversel_item_icon_get(self.item, &icon_file, &icon_group, &icon_type)
+            return (_ctouni(icon_file), _ctouni(icon_group), icon_type)
 
     def icon_set(self, icon_file, icon_group, icon_type):
         elm_hoversel_item_icon_set(self.item, _cfruni(icon_file), _cfruni(icon_group), icon_type)

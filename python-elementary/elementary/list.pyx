@@ -34,9 +34,9 @@ cdef class ListItem(ObjectItem):
 
     """
 
-    cdef unicode label
-    cdef Evas_Object* icon_obj
-    cdef Evas_Object* end_obj
+    cdef const_char_ptr label
+    cdef Evas_Object *icon_obj
+    cdef Evas_Object *end_obj
     cdef Evas_Smart_Cb cb
 
     def __cinit__(self):
@@ -60,7 +60,7 @@ cdef class ListItem(ObjectItem):
         :type   callback: function
 
         """
-        self.label = unicode(label)
+        self.label = _cfruni(label) if label is not None else NULL
 
         if icon is not None:
             self.icon_obj = icon.obj
@@ -126,7 +126,7 @@ cdef class ListItem(ObjectItem):
         cdef Elm_Object_Item *item
 
         item = elm_list_item_append(list.obj,
-                                    _cfruni(self.label),
+                                    self.label,
                                     self.icon_obj,
                                     self.end_obj,
                                     self.cb,
@@ -158,7 +158,7 @@ cdef class ListItem(ObjectItem):
         cdef Elm_Object_Item *item
 
         item = elm_list_item_prepend(   list.obj,
-                                        _cfruni(self.label),
+                                        self.label,
                                         self.icon_obj,
                                         self.end_obj,
                                         self.cb,
@@ -192,7 +192,7 @@ cdef class ListItem(ObjectItem):
         cdef List list = before.widget
         item = elm_list_item_insert_before( list.obj,
                                             before.item,
-                                            _cfruni(self.label),
+                                            self.label,
                                             self.icon_obj,
                                             self.end_obj,
                                             self.cb,
@@ -226,7 +226,7 @@ cdef class ListItem(ObjectItem):
         cdef List list = after.widget
         item = elm_list_item_insert_after(  list.obj,
                                             after.item,
-                                            _cfruni(self.label),
+                                            self.label,
                                             self.icon_obj,
                                             self.end_obj,
                                             self.cb,
@@ -266,7 +266,7 @@ cdef class ListItem(ObjectItem):
         #cdef Elm_Object_Item *item
 
         #item = elm_list_item_sorted_insert(list.obj,
-                                            #_cfruni(label),
+                                            #self.label,
                                             #icon_obj,
                                             #end_obj,
                                             #cb,
