@@ -839,18 +839,18 @@ cdef class Gengrid(Object):
         """
         def __get__(self):
             cdef Eina_Bool h_bounce, v_bounce
-            elm_gengrid_bounce_get(self.obj, &h_bounce, &v_bounce)
+            elm_scroller_bounce_get(self.obj, &h_bounce, &v_bounce)
             return (h_bounce, v_bounce)
 
         def __set__(self, value):
             h_bounce, v_bounce = value
-            elm_gengrid_bounce_set(self.obj, bool(h_bounce), bool(v_bounce))
+            elm_scroller_bounce_set(self.obj, bool(h_bounce), bool(v_bounce))
 
     def bounce_set(self, h_bounce, v_bounce):
-        elm_gengrid_bounce_set(self.obj, bool(h_bounce), bool(v_bounce))
+        elm_scroller_bounce_set(self.obj, bool(h_bounce), bool(v_bounce))
     def bounce_get(self):
         cdef Eina_Bool h_bounce, v_bounce
-        elm_gengrid_bounce_get(self.obj, &h_bounce, &v_bounce)
+        elm_scroller_bounce_get(self.obj, &h_bounce, &v_bounce)
         return (h_bounce, v_bounce)
 
     def item_append(self, GengridItemClass item_class not None,
@@ -1143,18 +1143,18 @@ cdef class Gengrid(Object):
         """
         def __get__(self):
             cdef Elm_Scroller_Policy policy_h, policy_v
-            elm_gengrid_scroller_policy_get(self.obj, &policy_h, &policy_v)
+            elm_scroller_policy_get(self.obj, &policy_h, &policy_v)
             return (policy_h, policy_v)
 
         def __set__(self, value):
             policy_h, policy_v = value
-            elm_gengrid_scroller_policy_set(self.obj, policy_h, policy_v)
+            elm_scroller_policy_set(self.obj, policy_h, policy_v)
 
     def scroller_policy_set(self, policy_h, policy_v):
-        elm_gengrid_scroller_policy_set(self.obj, policy_h, policy_v)
+        elm_scroller_policy_set(self.obj, policy_h, policy_v)
     def scroller_policy_get(self):
         cdef Elm_Scroller_Policy policy_h, policy_v
-        elm_gengrid_scroller_policy_get(self.obj, &policy_h, &policy_v)
+        elm_scroller_policy_get(self.obj, &policy_h, &policy_v)
         return (policy_h, policy_v)
 
     property items_count:
@@ -1294,18 +1294,18 @@ cdef class Gengrid(Object):
         """
         def __get__(self):
             cdef double h_pagerel, v_pagerel
-            elm_gengrid_page_relative_get(self.obj, &h_pagerel, &v_pagerel)
+            elm_scroller_page_relative_get(self.obj, &h_pagerel, &v_pagerel)
             return (h_pagerel, v_pagerel)
 
         def __set__(self, value):
             h_pagerel, v_pagerel = value
-            elm_gengrid_page_relative_set(self.obj, h_pagerel, v_pagerel)
+            elm_scroller_page_relative_set(self.obj, h_pagerel, v_pagerel)
 
     def page_relative_set(self, h_pagerel, v_pagerel):
-        elm_gengrid_page_relative_set(self.obj, h_pagerel, v_pagerel)
+        elm_scroller_page_relative_set(self.obj, h_pagerel, v_pagerel)
     def page_relative_get(self):
         cdef double h_pagerel, v_pagerel
-        elm_gengrid_page_relative_get(self.obj, &h_pagerel, &v_pagerel)
+        elm_scroller_page_relative_get(self.obj, &h_pagerel, &v_pagerel)
         return (h_pagerel, v_pagerel)
 
     property page_size:
@@ -1329,10 +1329,10 @@ cdef class Gengrid(Object):
         """
         def __set__(self, value):
             h_pagesize, v_pagesize = value
-            elm_gengrid_page_size_set(self.obj, h_pagesize, v_pagesize)
+            elm_scroller_page_size_set(self.obj, h_pagesize, v_pagesize)
 
     def page_size_set(self, h_pagesize, v_pagesize):
-        elm_gengrid_page_size_set(self.obj, h_pagesize, v_pagesize)
+        elm_scroller_page_size_set(self.obj, h_pagesize, v_pagesize)
 
     property current_page:
         """The page number starts from 0. 0 is the first page.
@@ -1350,12 +1350,12 @@ cdef class Gengrid(Object):
         """
         def __get__(self):
             cdef int h_pagenum, v_pagenum
-            elm_gengrid_current_page_get(self.obj, &h_pagenum, &v_pagenum)
+            elm_scroller_current_page_get(self.obj, &h_pagenum, &v_pagenum)
             return (h_pagenum, v_pagenum)
 
     def current_page_get(self):
         cdef int h_pagenum, v_pagenum
-        elm_gengrid_current_page_get(self.obj, &h_pagenum, &v_pagenum)
+        elm_scroller_current_page_get(self.obj, &h_pagenum, &v_pagenum)
         return (h_pagenum, v_pagenum)
 
     property last_page:
@@ -1372,12 +1372,12 @@ cdef class Gengrid(Object):
         """
         def __get__(self):
             cdef int h_pagenum, v_pagenum
-            elm_gengrid_last_page_get(self.obj, &h_pagenum, &v_pagenum)
+            elm_scroller_last_page_get(self.obj, &h_pagenum, &v_pagenum)
             return (h_pagenum, v_pagenum)
 
     def last_page_get(self):
         cdef int h_pagenum, v_pagenum
-        elm_gengrid_last_page_get(self.obj, &h_pagenum, &v_pagenum)
+        elm_scroller_last_page_get(self.obj, &h_pagenum, &v_pagenum)
         return (h_pagenum, v_pagenum)
 
     def page_show(self, h_pagenum, v_pagenum):
@@ -1401,7 +1401,7 @@ cdef class Gengrid(Object):
         .. seealso:: :py:func:`page_bring_in()`
 
         """
-        elm_gengrid_page_show(self.obj, h_pagenum, v_pagenum)
+        elm_scroller_page_show(self.obj, h_pagenum, v_pagenum)
 
     def page_bring_in(self, h_pagenum, v_pagenum):
         """Show a specific virtual region within the gengrid content object
@@ -1424,7 +1424,7 @@ cdef class Gengrid(Object):
         .. seealso:: :py:func:`page_show()`
 
         """
-        elm_gengrid_page_bring_in(self.obj, h_pagenum, v_pagenum)
+        elm_scroller_page_bring_in(self.obj, h_pagenum, v_pagenum)
 
     property filled:
         """The fill state of the whole grid of items of a gengrid

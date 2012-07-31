@@ -580,18 +580,18 @@ cdef class List(Object):
         """
         def __set__(self, value):
             h, v = value
-            elm_list_bounce_set(self.obj, h, v)
+            elm_scroller_bounce_set(self.obj, h, v)
 
         def __get__(self):
             cdef Eina_Bool h, v
-            elm_list_bounce_get(self.obj, &h, &v)
+            elm_scroller_bounce_get(self.obj, &h, &v)
             return (h, v)
 
     def bounce_set(self, h, v):
-        elm_list_bounce_set(self.obj, h, v)
+        elm_scroller_bounce_set(self.obj, h, v)
     def bounce_get(self):
         cdef Eina_Bool h, v
-        elm_list_bounce_get(self.obj, &h, &v)
+        elm_scroller_bounce_get(self.obj, &h, &v)
         return (h, v)
 
     property scroller_policy:
@@ -611,18 +611,18 @@ cdef class List(Object):
         """
         def __set__(self, value):
             policy_h, policy_v = value
-            elm_list_scroller_policy_set(self.obj, policy_h, policy_v)
+            elm_scroller_policy_set(self.obj, policy_h, policy_v)
 
         def __get__(self):
             cdef Elm_Scroller_Policy policy_h, policy_v
-            elm_list_scroller_policy_get(self.obj, &policy_h, &policy_v)
+            elm_scroller_policy_get(self.obj, &policy_h, &policy_v)
             return (policy_h, policy_v)
 
     def scroller_policy_set(self, policy_h, policy_v):
-        elm_list_scroller_policy_set(self.obj, policy_h, policy_v)
+        elm_scroller_policy_set(self.obj, policy_h, policy_v)
     def scroller_policy_get(self):
         cdef Elm_Scroller_Policy policy_h, policy_v
-        elm_list_scroller_policy_get(self.obj, &policy_h, &policy_v)
+        elm_scroller_policy_get(self.obj, &policy_h, &policy_v)
         return (policy_h, policy_v)
 
 
