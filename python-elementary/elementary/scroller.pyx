@@ -231,8 +231,18 @@ cdef class Scroller(Object):
             h_pagerel, v_pagerel = value
             elm_scroller_page_relative_set(self.obj, h_pagerel, v_pagerel)
 
+        def __get__(self):
+            cdef double h_pagerel, v_pagerel
+            elm_scroller_page_relative_get(self.obj, &h_pagerel, &v_pagerel)
+            return (h_pagerel, v_pagerel)
+
     def page_relative_set(self, h_pagerel, v_pagerel):
         elm_scroller_page_relative_set(self.obj, h_pagerel, v_pagerel)
+
+    def page_relative_get(self):
+        cdef double h_pagerel, v_pagerel
+        elm_scroller_page_relative_get(self.obj, &h_pagerel, &v_pagerel)
+        return (h_pagerel, v_pagerel)
 
     property page_size:
         """Set scroll page size.
