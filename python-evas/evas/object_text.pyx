@@ -88,20 +88,17 @@ cdef class Text(Object):
 
     def font_source_get(self):
         """:rtype: str"""
-        cdef const_char_ptr s
-        s = evas_object_text_font_source_get(self.obj)
-        if s != NULL:
-            return s
+        return _ctouni(evas_object_text_font_source_get(self.obj))
 
-    def font_source_set(self, const_char_ptr value):
+    def font_source_set(self, value):
         """Set where to find the font (ie: EET/Edje)."""
-        evas_object_text_font_source_set(self.obj, value)
+        evas_object_text_font_source_set(self.obj, _cfruni(value))
 
     property font_source:
         def __get__(self):
             return self.font_source_get()
 
-        def __set__(self, const_char_ptr value):
+        def __set__(self, value):
             self.font_source_set(value)
 
     def font_get(self):
@@ -109,19 +106,15 @@ cdef class Text(Object):
         cdef const_char_ptr f
         cdef int size
         evas_object_text_font_get(self.obj, &f, &size)
-        if f == NULL:
-            font = None
-        else:
-            font = f
-        return (font, size)
+        return (_ctouni(f), size)
 
-    def font_set(self, const_char_ptr font, int size=10):
+    def font_set(self, font, int size=10):
         """Set font to use.
 
         :param font:.
         :param size:.
         """
-        evas_object_text_font_set(self.obj, font, size)
+        evas_object_text_font_set(self.obj, _cfruni(font), size)
 
     property font:
         def __get__(self):
@@ -134,20 +127,17 @@ cdef class Text(Object):
 
     def text_get(self):
         """:rtype: str"""
-        cdef const_char_ptr s
-        s = evas_object_text_text_get(self.obj)
-        if s != NULL:
-            return s
+        return _ctouni(evas_object_text_text_get(self.obj))
 
-    def text_set(self, const_char_ptr value):
+    def text_set(self, value):
         """Change text to be used"""
-        evas_object_text_text_set(self.obj, value)
+        evas_object_text_text_set(self.obj, _cfruni(value))
 
     property text:
         def __get__(self):
             return self.text_get()
 
-        def __set__(self, const_char_ptr value):
+        def __set__(self, value):
             self.text_set(value)
 
     def ascent_get(self):
