@@ -31,6 +31,7 @@ ext_modules=[
     Extension("epdf.general", ["epdf/general.pyx"], **pkgconfig("epdf", "python-evas")),
     Extension("epdf.document", ["epdf/document.pyx"], **pkgconfig("epdf", "python-evas")),
     Extension("epdf.page", ["epdf/page.pyx"], **pkgconfig("epdf", "python-evas")),
+    Extension("epdf.smart", ["epdf/smart.pyx"], **pkgconfig("epdf", "python-evas")),
 ]
 
 for e in ext_modules:
