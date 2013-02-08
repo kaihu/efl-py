@@ -25,7 +25,7 @@ from object_line cimport Line
 from object_image cimport Image, FilledImage
 from object_polygon cimport Polygon
 from object_text cimport Text
-from textblock cimport Textblock
+from object_textblock cimport Textblock
 
 cdef object _smart_classes
 _smart_classes = list()

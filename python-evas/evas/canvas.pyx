@@ -38,7 +38,7 @@ from object_image cimport Image, FilledImage
 from object_polygon cimport Polygon
 from object_text cimport Text
 from object_box cimport Box
-from textblock cimport Textblock
+from object_textblock cimport Textblock
 
 include "canvas_callbacks.pxi"
 

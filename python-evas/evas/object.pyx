@@ -36,7 +36,7 @@ from object_line cimport Line
 from object_rectangle cimport Rectangle
 from object_polygon cimport Polygon
 from object_text cimport Text
-from textblock cimport Textblock
+from object_textblock cimport Textblock
 
 cdef object object_mapping
 """Object mapping is a dictionary into which object type names can be
