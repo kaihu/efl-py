@@ -21,6 +21,27 @@ from object_item cimport    _object_item_callback, \
                             _object_item_to_python
 from menu cimport Menu
 
+cdef class ToolbarItemState(object):
+
+    """A state for a L{ToolbarItem}."""
+
+    cdef Elm_Toolbar_Item_State *obj
+    cdef object params
+
+    def __init__(self, ToolbarItem it, icon = None, label = None, callback = None, *args, **kwargs):
+        cdef Evas_Smart_Cb cb = NULL
+
+        if callback:
+            if not callable(callback):
+                raise TypeError("callback is not callable")
+            cb = _object_item_callback
+
+        self.params = (callback, args, kwargs)
+
+        self.obj = elm_toolbar_item_state_add(it.item, _cfruni(icon), _cfruni(label), cb, <void*>self)
+        if self.obj == NULL:
+            Py_DECREF(self)
+
 cdef class ToolbarItem(ObjectItem):
 
     """

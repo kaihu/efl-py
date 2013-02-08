@@ -1,10 +1,11 @@
 #!/usr/bin/python
 
-from distutils.core import setup
+from distutils.core import setup, Command
 from distutils.extension import Extension
 from Cython.Distutils import build_ext
 from Cython.Build import cythonize
 import commands
+import platform
 
 try:
     from sphinx.setup_command import BuildDoc
@@ -32,10 +33,13 @@ modules=[
     "evas",
     "file",
     "imf",
-    "win32",
-    "x",
-    "x_screensaver"
 ]
+
+if platform.system() == "Windows":
+    modules.append("win32")
+elif platform.system() == "Linux":
+    modules.append("x")
+    modules.append("x_screensaver")
 
 ext_modules=[]
 
@@ -43,8 +47,7 @@ for m in modules:
     if m == "evas":
         ext_modules.append(Extension("ecore."+m, ["ecore/"+m+".pyx"], **pkgconfig("ecore", "ecore-evas")))
     elif m == "win32":
-        pass
-        #ext_modules.append(Extension("ecore."+m, ["ecore/"+m+".pyx"], **pkgconfig("ecore")))
+        ext_modules.append(Extension("ecore."+m, ["ecore/"+m+".pyx"], **pkgconfig("ecore")))
     elif m == "x" or m == "x_screensaver":
         ext_modules.append(Extension("ecore."+m, ["ecore/"+m+".pyx"], **pkgconfig("ecore, ecore-x")))
     else:

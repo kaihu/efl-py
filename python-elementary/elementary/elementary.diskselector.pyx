@@ -19,6 +19,7 @@
 include "widget_header.pxi"
 from object_item cimport ObjectItem, _object_item_callback, _object_item_to_python
 from object_item import _cb_object_item_conv
+from scroller cimport *
 
 cdef class DiskselectorItem(ObjectItem):
 
@@ -236,10 +237,10 @@ cdef class Diskselector(Object):
         """
         def __set__(self, bounce):
             h_bounce, v_bounce = bounce
-            elm_diskselector_bounce_set(self.obj, h_bounce, v_bounce)
+            elm_scroller_bounce_set(self.obj, h_bounce, v_bounce)
         def __get__(self):
             cdef Eina_Bool h_bounce, v_bounce
-            elm_diskselector_bounce_get(self.obj, &h_bounce, &v_bounce)
+            elm_scroller_bounce_get(self.obj, &h_bounce, &v_bounce)
             return (h_bounce, v_bounce)
 
     property scroller_policy:
@@ -258,11 +259,11 @@ cdef class Diskselector(Object):
         """
         def __get__(self):
             cdef Elm_Scroller_Policy h_policy, v_policy
-            elm_diskselector_scroller_policy_get(self.obj, &h_policy, &v_policy)
+            elm_scroller_policy_get(self.obj, &h_policy, &v_policy)
             return (h_policy, v_policy)
         def __set__(self, policy):
             h_policy, v_policy = policy
-            elm_diskselector_scroller_policy_set(self.obj, h_policy, v_policy)
+            elm_scroller_policy_set(self.obj, h_policy, v_policy)
 
     def clear(self):
         """Remove all diskselector's items.

@@ -27,8 +27,9 @@ from object_item cimport    ObjectItem, \
 from object_item import _cb_object_item_conv
 from general cimport strdup, PY_REFCOUNT
 from list cimport ELM_LIST_COMPRESS
-
 from evas.general cimport eina_list_remove_list
+from scroller cimport *
+
 import traceback
 import logging
 
@@ -1387,18 +1388,18 @@ cdef class Genlist(Object):
         """
         def __set__(self, value):
             h_bounce, v_bounce = value
-            elm_genlist_bounce_set(self.obj, bool(h_bounce), bool(v_bounce))
+            elm_scroller_bounce_set(self.obj, bool(h_bounce), bool(v_bounce))
 
         def __get__(self):
             cdef Eina_Bool h_bounce, v_bounce
-            elm_genlist_bounce_get(self.obj, &h_bounce, &v_bounce)
+            elm_scroller_bounce_get(self.obj, &h_bounce, &v_bounce)
             return (h_bounce, v_bounce)
 
     def bounce_set(self, h_bounce, v_bounce):
-        elm_genlist_bounce_set(self.obj, bool(h_bounce), bool(v_bounce))
+        elm_scroller_bounce_set(self.obj, bool(h_bounce), bool(v_bounce))
     def bounce_get(self):
         cdef Eina_Bool h_bounce, v_bounce
-        elm_genlist_bounce_get(self.obj, &h_bounce, &v_bounce)
+        elm_scroller_bounce_get(self.obj, &h_bounce, &v_bounce)
         return (h_bounce, v_bounce)
 
     def item_append(self,
@@ -1538,18 +1539,18 @@ cdef class Genlist(Object):
         """
         def __set__(self, value):
             policy_h, policy_v = value
-            elm_genlist_scroller_policy_set(self.obj, policy_h, policy_v)
+            elm_scroller_policy_set(self.obj, policy_h, policy_v)
 
         def __get__(self):
             cdef Elm_Scroller_Policy policy_h, policy_v
-            elm_genlist_scroller_policy_get(self.obj, &policy_h, &policy_v)
+            elm_scroller_policy_get(self.obj, &policy_h, &policy_v)
             return (policy_h, policy_v)
 
     def scroller_policy_set(self, policy_h, policy_v):
-        elm_genlist_scroller_policy_set(self.obj, policy_h, policy_v)
+        elm_scroller_policy_set(self.obj, policy_h, policy_v)
     def scroller_policy_get(self):
         cdef Elm_Scroller_Policy policy_h, policy_v
-        elm_genlist_scroller_policy_get(self.obj, &policy_h, &policy_v)
+        elm_scroller_policy_get(self.obj, &policy_h, &policy_v)
         return (policy_h, policy_v)
 
     def realized_items_update(self):

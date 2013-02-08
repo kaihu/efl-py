@@ -26,7 +26,14 @@ from calendar import Calendar, CalendarMark
 from check import Check
 from clock import Clock
 from colorselector import Colorselector, ColorselectorPaletteItem
-from configuration import Configuration
+from configuration import Configuration, \
+    config_finger_size_get, config_finger_size_set, \
+    config_tooltip_delay_get, config_tooltip_delay_set, \
+    focus_highlight_animate_get, focus_highlight_animate_set, \
+    focus_highlight_enabled_get, focus_highlight_enabled_set, \
+    preferred_engine_get, preferred_engine_set, \
+    engine_get, engine_set, scale_get, scale_set, \
+    cursor_engine_only_get, cursor_engine_only_set
 from conformant import Conformant
 from ctxpopup import Ctxpopup, CtxpopupItem
 from datetime_elm import Datetime
@@ -37,6 +44,7 @@ from fileselector import Fileselector
 from fileselector_button import FileselectorButton
 from fileselector_entry import FileselectorEntry
 from flip import Flip
+from flipselector import FlipSelector, FlipSelectorItem
 from frame import Frame
 from general import init, shutdown, run, exit, coords_finger_size_adjust, policy_set, policy_get
 from gengrid import Gengrid, GengridItem, GengridItemClass

@@ -21,6 +21,8 @@ from test_datetime import datetime_clicked
 from test_dayselector import dayselector_clicked
 from test_diskselector import diskselector_clicked
 from test_entry import entry_clicked, entry_scrolled_clicked
+from test_external import edje_external_button_clicked, edje_external_pbar_clicked, \
+    edje_external_scroller_clicked, edje_external_slider_clicked, edje_external_video_clicked
 from test_fileselector import fileselector_clicked, fileselector_button_clicked, fileselector_entry_clicked
 from test_flip import flip_clicked, flip_interactive_clicked
 from test_flipselector import flipselector_clicked
@@ -106,6 +108,13 @@ items = [("3D", [
             ("Entry", entry_clicked),
             ("Entry Scrolled", entry_scrolled_clicked),
             ("MultiButtonEntry", multibuttonentry_clicked),
+        ]),
+         ("Edje External", [
+            ("Ext Button", edje_external_button_clicked),
+            ("Ext ProgressBar", edje_external_pbar_clicked),
+            ("Ext Scroller", edje_external_scroller_clicked),
+            ("Ext Slider", edje_external_slider_clicked),
+            ("Ext Video", edje_external_video_clicked),
         ]),
          ("Geographic", [
             ("Map", map_clicked),
