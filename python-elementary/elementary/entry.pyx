@@ -19,6 +19,7 @@
 
 include "widget_header.pxi"
 from hover cimport Hover
+from scroller cimport *
 
 def Entry_markup_to_utf8(str):
     cdef const_char_ptr string

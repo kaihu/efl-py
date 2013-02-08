@@ -16,6 +16,11 @@
 # along with python-elementary.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+include "widget_header.pxi"
+include "callbacks.pxi"
+
+from object_item cimport _object_item_to_python, _object_item_callback, _object_item_list_to_python
+
 cdef class FlipSelectorItem(ObjectItem):
 
     """An item for the L{FlipSelector} widget."""
@@ -63,7 +68,7 @@ cdef class FlipSelectorItem(ObjectItem):
         def __get__(self):
             return _object_item_to_python(elm_flipselector_item_next_get(self.item))
 
-cdef public class FlipSelector(Object) [object PyElementaryFlipSelector, type PyElementaryFlipSelector_Type]:
+cdef class FlipSelector(Object):
 
     """A flip selector is a widget to show a set of B{text} items, one
     at a time, with the same sheet switching style as the @ref Clock
@@ -329,6 +334,4 @@ cdef public class FlipSelector(Object) [object PyElementaryFlipSelector, type Py
 
 _elm_widget_type_register("flipselector", FlipSelector)
 
-cdef extern from "Elementary.h": # hack to force type to be known
-    cdef PyTypeObject PyElementaryFlipSelector_Type # hack to install metaclass
-_install_metaclass(&PyElementaryFlipSelector_Type, ElementaryObjectMeta)
+_install_metaclass(FlipSelector)
