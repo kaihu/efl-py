@@ -138,9 +138,6 @@ cdef void cb_canvas_image_preloaded(void *data, Evas *e, void *e_inf) with gil:
 cdef void cb_canvas_image_resize(void *data, Evas *e, void *e_inf) with gil:
     print "EVAS_CALLBACK_IMAGE_RESIZE is not supported by canvas."
 
-cdef void cb_canvas_device_changed(void *data, Evas *e, void *e_inf) with gil:
-    print "EVAS_CALLBACK_DEVICE_CHANGED is not supported by canvas."
-
 cdef void cb_canvas_canvas_focus_in(void *data, Evas *e, void *e_inf) with gil:
     cb_canvas_dispatcher2(<Canvas>data, EVAS_CALLBACK_CANVAS_FOCUS_IN)
 
@@ -221,4 +218,3 @@ evas_canvas_event_callbacks[EVAS_CALLBACK_IMAGE_UNLOADED] = cb_canvas_image_unlo
 evas_canvas_event_callbacks[EVAS_CALLBACK_RENDER_PRE] = cb_canvas_render_pre
 evas_canvas_event_callbacks[EVAS_CALLBACK_RENDER_POST] = cb_canvas_render_post
 evas_canvas_event_callbacks[EVAS_CALLBACK_IMAGE_RESIZE] = cb_canvas_image_resize
-evas_canvas_event_callbacks[EVAS_CALLBACK_DEVICE_CHANGED] = cb_canvas_device_changed
