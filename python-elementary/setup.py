@@ -48,6 +48,7 @@ modules=[
     "fileselector_entry",
     "fileselector_button",
     "flip",
+    "flipselector",
     "frame",
     "general",
     "genlist",

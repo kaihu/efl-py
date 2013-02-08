@@ -44,6 +44,7 @@ from fileselector import Fileselector
 from fileselector_button import FileselectorButton
 from fileselector_entry import FileselectorEntry
 from flip import Flip
+from flipselector import FlipSelector, FlipSelectorItem
 from frame import Frame
 from general import init, shutdown, run, exit, coords_finger_size_adjust, policy_set, policy_get
 from gengrid import Gengrid, GengridItem, GengridItemClass
