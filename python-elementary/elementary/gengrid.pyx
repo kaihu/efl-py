@@ -26,6 +26,7 @@ from object_item cimport    ObjectItem, \
 from object_item import _cb_object_item_conv
 from genlist cimport ELM_GENLIST_ITEM_SCROLLTO_IN
 from general cimport strdup, PY_REFCOUNT
+from scroller cimport *
 
 import traceback
 

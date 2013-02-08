@@ -1,11 +1,17 @@
 from evas.general cimport Eina_Bool
-from evas.object cimport Evas_Object, Evas_Coord
+from evas.object cimport Evas_Object, Evas_Coord, Eina_List
+from evas.object_smart cimport Evas_Smart_Cb
 from object cimport Object
+from object_item cimport ObjectItem
 
 cdef extern from *:
     ctypedef char* const_char_ptr "const char *"
+    ctypedef Evas_Object const_Evas_Object "const Evas_Object"
+    ctypedef Eina_List const_Eina_List "const Eina_List"
 
 cdef extern from "Elementary.h":
+    ctypedef struct Elm_Object_Item
+    ctypedef Elm_Object_Item const_Elm_Object_Item "const Elm_Object_Item"
 
     # Flipselector          (api:DONE  cb:DONE  test:DONE  doc:DONE  py3:DONE)
     Evas_Object             *elm_flipselector_add(Evas_Object *parent)

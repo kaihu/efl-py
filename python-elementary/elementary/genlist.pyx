@@ -27,8 +27,9 @@ from object_item cimport    ObjectItem, \
 from object_item import _cb_object_item_conv
 from general cimport strdup, PY_REFCOUNT
 from list cimport ELM_LIST_COMPRESS
-
 from evas.general cimport eina_list_remove_list
+from scroller cimport *
+
 import traceback
 import logging
 
