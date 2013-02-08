@@ -135,8 +135,6 @@ cdef void cb_canvas_changed_size_hints(void *data, Evas *e, void *e_inf) with gi
 cdef void cb_canvas_image_preloaded(void *data, Evas *e, void *e_inf) with gil:
     print "EVAS_CALLBACK_IMAGE_PRELOADED is not supported by canvas."
 
-cdef void cb_canvas_image_resize(void *data, Evas *e, void *e_inf) with gil:
-    print "EVAS_CALLBACK_IMAGE_RESIZE is not supported by canvas."
 
 cdef void cb_canvas_canvas_focus_in(void *data, Evas *e, void *e_inf) with gil:
     cb_canvas_dispatcher2(<Canvas>data, EVAS_CALLBACK_CANVAS_FOCUS_IN)
@@ -183,8 +181,8 @@ cdef void cb_canvas_render_post(void *data, Evas *e, void *e_inf) with gil:
 
 
 cdef int evas_canvas_event_callbacks_len
-cdef Evas_Event_Cb evas_canvas_event_callbacks[33]
-evas_canvas_event_callbacks_len = 33
+cdef Evas_Event_Cb evas_canvas_event_callbacks[32]
+evas_canvas_event_callbacks_len = 32
 evas_canvas_event_callbacks[EVAS_CALLBACK_MOUSE_IN] = cb_canvas_mouse_in
 evas_canvas_event_callbacks[EVAS_CALLBACK_MOUSE_OUT] = cb_canvas_mouse_out
 evas_canvas_event_callbacks[EVAS_CALLBACK_MOUSE_DOWN] = cb_canvas_mouse_down
@@ -217,4 +215,3 @@ evas_canvas_event_callbacks[EVAS_CALLBACK_CANVAS_OBJECT_FOCUS_OUT] = cb_canvas_c
 evas_canvas_event_callbacks[EVAS_CALLBACK_IMAGE_UNLOADED] = cb_canvas_image_unloaded
 evas_canvas_event_callbacks[EVAS_CALLBACK_RENDER_PRE] = cb_canvas_render_pre
 evas_canvas_event_callbacks[EVAS_CALLBACK_RENDER_POST] = cb_canvas_render_post
-evas_canvas_event_callbacks[EVAS_CALLBACK_IMAGE_RESIZE] = cb_canvas_image_resize
