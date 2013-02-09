@@ -303,8 +303,8 @@ cdef class Slider(LayoutClass):
 
         By default, indicator will be bigger while dragged by the user.
 
-        .. warning:: It won't display values set with
-            :py:attr:`indicator_format` if you disable indicator.
+        .. warning:: It won't display values set
+            with :py:attr:`indicator_format` if you disable indicator.
 
         :type: bool
 

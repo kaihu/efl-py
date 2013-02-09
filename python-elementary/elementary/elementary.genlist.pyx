@@ -1065,20 +1065,9 @@ cdef class Genlist(Object):
 
     - default
     - default_style - The text part is a textblock
-
-    .. image:: img/widget/genlist/preview-04.*
-
     - double_label
-
-    .. image:: img/widget/genlist/preview-01.*
-
     - icon_top_text_bottom
-
-    .. image:: img/widget/genlist/preview-02.*
-
     - group_index
-
-    .. image:: img/widget/genlist/preview-03.*
 
     - one_icon - Only 1 icon (left) @since 1.1
     - end_icon - Only 1 icon (at end/right) @since 1.1
