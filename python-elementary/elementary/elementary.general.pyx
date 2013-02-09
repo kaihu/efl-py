@@ -25,8 +25,10 @@ import sys
 import traceback
 import logging
 
-logging.basicConfig(level=logging.DEBUG)
 log = logging.getLogger("elementary")
+log.addHandler(logging.NullHandler())
+log.propagate = False
+log.setLevel(logging.DEBUG)
 
 cdef int PY_REFCOUNT(object o):
     cdef PyObject *obj = <PyObject *>o
