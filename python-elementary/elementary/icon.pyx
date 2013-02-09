@@ -141,8 +141,7 @@ cdef class Icon(Image):
         If name is not found in any of the expected locations and it is the
         absolute path of an image file, this image will be used.
 
-        .. note:: The icon image set can be changed by
-            :py:attr:`elementary.image.Image.file`.
+        .. note:: The icon image set can be changed by :py:attr:`elementary.image.Image.file`.
 
         .. seealso:: Image.file
 

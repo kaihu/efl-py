@@ -70,8 +70,7 @@ cdef class Ctxpopup(Object):
 
     - "default" - Title label in the title area
 
-    .. note:: Ctxpopup is a specialization of
-        :py:class:`elementary.hover.Hover`.
+    .. note:: Ctxpopup is a specialization of :py:class:`elementary.hover.Hover`.
 
     """
 

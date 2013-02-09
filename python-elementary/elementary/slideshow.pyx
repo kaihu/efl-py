@@ -478,10 +478,10 @@ cdef class Slideshow(LayoutClass):
         """If, after a slideshow is started, for a given slideshow
         widget, its items should be displayed cyclically or not.
 
-        .. note:: :py:func:`next()` and :py:func:`previous()` will
-            **ignore** what is set by this property, i.e., they'll **always**
-            cycle through items. This affects only the "automatic"
-            slideshow, as set by :py:attr:`timeout`.
+        .. note:: The methods :py:func:`next()` and :py:func:`previous()`
+            will **ignore** what is set by this property, i.e.,
+            they'll **always** cycle through items. This affects only
+            the "automatic" slideshow, as set by :py:attr:`timeout`.
 
         :type: bool
 
@@ -512,7 +512,7 @@ cdef class Slideshow(LayoutClass):
             items list is changed. It should be fetched again with another
             call to this function when changes happen.
 
-        :type: tuple of :py:class:`SlideshowItem`s
+        :type: tuple of :py:class:`SlideshowItem`
 
         """
         def __get__(self):

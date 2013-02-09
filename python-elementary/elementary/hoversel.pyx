@@ -70,8 +70,8 @@ cdef class HoverselItem(ObjectItem):
         This adds an item to the hoversel to show when it is clicked.
 
         .. note::
-            If you need to use an icon from an edje file then use
-            :py:attr:`HoverselItem.icon` right after this function.
+            If you need to use an icon from an edje file then
+            use :py:attr:`HoverselItem.icon` right after this function.
 
         :return: The item added.
         :rtype: Elm_Object_Item
@@ -232,8 +232,8 @@ cdef class Hoversel(Button):
     def clear(self):
         """This will remove all the children items from the hoversel.
 
-        .. warning:: Should **not** be called while the hoversel is active; use
-            :py:attr:`expanded` to check first.
+        .. warning:: Should **not** be called while the hoversel is active;
+            use :py:attr:`expanded` to check first.
 
         .. seealso:: :py:func:`HoverselItem.delete()`
 

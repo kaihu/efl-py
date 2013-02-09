@@ -146,7 +146,7 @@ cdef class Spinner(LayoutClass):
         :py:attr:`format`.
 
         .. warning:: The value must to be between min and max values. This values
-        are set by :py:attr:`min_max`.
+            are set by :py:attr:`min_max`.
 
         .. seealso:: :py:attr:`format`
         .. seealso:: :py:attr:`min_max`

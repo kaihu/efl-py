@@ -247,8 +247,8 @@ cdef class Index(LayoutClass):
         ``item`` will be the pointer returned back on ``"changed"``,
         ``"delay,changed"`` and ``"selected"`` smart events.
 
-        .. note:: If ``relative`` is ``None`` this function will behave as
-            :py:func:`item_append()`.
+        .. note:: If ``relative`` is ``None`` this function will behave
+            as :py:func:`item_append()`.
 
         :param after: The index item to insert after.
         :type after: :py:class:`IndexItem`
@@ -273,8 +273,8 @@ cdef class Index(LayoutClass):
         ``item`` will be the pointer returned back on ``"changed"``,
         ``"delay,changed"`` and ``"selected"`` smart events.
 
-        .. note:: If ``relative`` is ``None`` this function will behave as
-            :py:func:`item_prepend()`.
+        .. note:: If ``relative`` is ``None`` this function will behave
+            as :py:func:`item_prepend()`.
 
         :param before: The index item to insert before.
         :type before: :py:class:`IndexItem`
