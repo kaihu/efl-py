@@ -25,6 +25,7 @@
    module-fileselector_button
    module-fileselector_entry
    module-flip
+   module-flipselector
    module-frame
    module-general
    module-gengrid

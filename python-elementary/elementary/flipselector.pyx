@@ -23,19 +23,19 @@ from object_item cimport _object_item_to_python, _object_item_callback, _object_
 
 cdef class FlipSelectorItem(ObjectItem):
 
-    """An item for the L{FlipSelector} widget."""
+    """An item for the :py:class:`FlipSelector` widget."""
 
     property selected:
         """Set whether a given flip selector widget's item should be the
         currently selected one.
 
-        This sets whether C{item} is or not the selected (thus, under
-        display) one. If C{item} is different than the one under display,
-        the latter will be unselected. If the C{item} is set to be
+        This sets whether ``item`` is or not the selected (thus, under
+        display) one. If ``item`` is different than the one under display,
+        the latter will be unselected. If the ``item`` is set to be
         unselected, on the other hand, the B{first} item in the widget's
         internal members list will be the new selected one.
 
-        @type: bool
+        :type: bool
 
         """
         def __set__(self, selected):
@@ -45,24 +45,24 @@ cdef class FlipSelectorItem(ObjectItem):
             return bool(elm_flipselector_item_selected_get(self.item))
 
     property prev:
-        """Gets the item before C{item} in a flip selector widget's internal list of
+        """Gets the item before ``item`` in a flip selector widget's internal list of
         items.
 
-        @type: L{FlipSelectorItem}
+        :type: :py:class:`FlipSelectorItem`
 
-        @see: L{item_next_get}()
+        .. seealso:: :py:func:`item_next_get`
 
         """
         def __get__(self):
             return _object_item_to_python(elm_flipselector_item_prev_get(self.item))
 
     property next:
-        """Gets the item after C{item} in a flip selector widget's
+        """Gets the item after ``item`` in a flip selector widget's
         internal list of items.
 
-        @type: L{FlipSelectorItem}
+        :type: :py:class:`FlipSelectorItem`
 
-        @see: L{item_prev_get}()
+        .. seealso:: :py:func:`item_prev_get`
 
         """
         def __get__(self):
@@ -70,33 +70,36 @@ cdef class FlipSelectorItem(ObjectItem):
 
 cdef class FlipSelector(Object):
 
-    """A flip selector is a widget to show a set of B{text} items, one
-    at a time, with the same sheet switching style as the @ref Clock
-    "clock" widget, when one changes the current displaying sheet
+    """A flip selector is a widget to show a set of *text* items, one
+    at a time, with the same sheet switching style as the :py:class:`Clock`
+    widget, when one changes the current displaying sheet
     (thus, the "flip" in the name).
 
-    User clicks to flip sheets which are B{held} for some time will
+    User clicks to flip sheets which are *held* for some time will
     make the flip selector to flip continuously and automatically for
     the user. The interval between flips will keep growing in time,
     so that it helps the user to reach an item which is distant from
     the current selection.
 
-    This widget inherits from the @ref Layout one, so that all the
+    This widget inherits from the :py:class:`Layout` one, so that all the
     functions acting on it also work for flip selector objects.
 
     This widget emits the following signals, besides the ones sent from
-    L{Layout}:
-        - C{"selected"} - when the widget's selected text item is changed
-        - C{"overflowed"} - when the widget's current selection is changed
-          from the first item in its list to the last
-        - C{"underflowed"} - when the widget's current selection is changed
-          from the last item in its list to the first
+    :py:class:`Layout`:
+
+    - ``"selected"`` - when the widget's selected text item is changed
+    - ``"overflowed"`` - when the widget's current selection is changed
+      from the first item in its list to the last
+    - ``"underflowed"`` - when the widget's current selection is changed
+      from the last item in its list to the first
 
     Available styles for it:
-        - C{"default"}
+
+    - ``"default"``
 
     Default text parts of the flipselector items that you can use for are:
-        - "default" - label of the flipselector item
+
+    - "default" - label of the flipselector item
 
     """
 
@@ -105,11 +108,9 @@ cdef class FlipSelector(Object):
         self._set_obj(elm_flipselector_add(parent.obj))
 
     def next(self):
-        """next()
+        """Programmatically select the next item of a flip selector widget
 
-        Programmatically select the next item of a flip selector widget
-
-        @note: The selection will be animated. Also, if it reaches the
+        .. note:: The selection will be animated. Also, if it reaches the
             end of its list of member items, it will continue with the first
             one onwards.
 
@@ -117,12 +118,10 @@ cdef class FlipSelector(Object):
         elm_flipselector_flip_next(self.obj)
 
     def prev(self):
-        """prev()
-
-        Programmatically select the previous item of a flip selector
+        """Programmatically select the previous item of a flip selector
         widget
 
-        @note: The selection will be animated.  Also, if it reaches the
+        .. note:: The selection will be animated.  Also, if it reaches the
             beginning of its list of member items, it will continue with the
             last one backwards.
 
@@ -130,30 +129,28 @@ cdef class FlipSelector(Object):
         elm_flipselector_flip_prev(self.obj)
 
     def item_append(self, label = None, callback = None, *args, **kwargs):
-        """item_append(label=None, callback=None, *args, **kwargs)
-
-        Append a (text) item to a flip selector widget
+        """Append a (text) item to a flip selector widget
 
         The widget's list of labels to show will be appended with the
         given value. If the user wishes so, a callback function pointer
         can be passed, which will get called when this same item is
         selected.
 
-        @note: The current selection B{won't} be modified by appending an
+        .. note:: The current selection *won't* be modified by appending an
             element to the list.
 
-        @note: The maximum length of the text label is going to be
-            determined B{by the widget's theme}. Strings larger than
-            that value are going to be B{truncated}.
+        .. note:: The maximum length of the text label is going to be
+            determined *by the widget's theme*. Strings larger than
+            that value are going to be *truncated*.
 
-        @param label: The (text) label of the new item
-        @type label: string
-        @param func: Convenience callback function to take place when item
+        :param label: The (text) label of the new item
+        :type label: string
+        :param func: Convenience callback function to take place when item
             is selected
-        @type func: function
+        :type func: function
 
-        @return: A handle to the item added or C{None}, on errors
-        @rtype: L{FlipSelectorItem}
+        :return: A handle to the item added or ``None``, on errors
+        :rtype: :py:class:`FlipSelectorItem`
 
         """
         cdef Elm_Object_Item *item
@@ -178,30 +175,28 @@ cdef class FlipSelector(Object):
             return
 
     def item_prepend(self, label = None, callback = None, *args, **kwargs):
-        """item_prepend(label=None, callback=None, *args, **kwargs)
-
-        Prepend a (text) item to a flip selector widget
+        """Prepend a (text) item to a flip selector widget
 
         The widget's list of labels to show will be prepended with the
         given value. If the user wishes so, a callback function pointer
         can be passed, which will get called when this same item is
         selected.
 
-        @note: The current selection B{won't} be modified by prepending
+        .. note:: The current selection *won't* be modified by prepending
             an element to the list.
 
-        @note: The maximum length of the text label is going to be
-            determined B{by the widget's theme}. Strings larger than
-            that value are going to be B{truncated}.
+        .. note:: The maximum length of the text label is going to be
+            determined *by the widget's theme*. Strings larger than
+            that value are going to be *truncated*.
 
-        @param label: The (text) label of the new item
-        @type label: string
-        @param func: Convenience callback function to take place when item
+        :param label: The (text) label of the new item
+        :type label: string
+        :param func: Convenience callback function to take place when item
             is selected
-        @type func: function
+        :type func: function
 
-        @return: A handle to the item added or C{None}, on errors
-        @rtype: L{FlipSelectorItem}
+        :return: A handle to the item added or ``None``, on errors
+        :rtype: :py:class:`FlipSelectorItem`
 
         """
         cdef Elm_Object_Item *item
@@ -228,7 +223,7 @@ cdef class FlipSelector(Object):
     property items:
         """Get the internal list of items in a given flip selector widget.
 
-        This list is B{not} to be modified in any way and must not be
+        This list is *not* to be modified in any way and must not be
         freed. Use the list members with functions like
         elm_object_item_text_set(),
         elm_object_item_text_get(),
@@ -236,11 +231,11 @@ cdef class FlipSelector(Object):
         elm_flipselector_item_selected_get(),
         elm_flipselector_item_selected_set().
 
-        @warning: This list is only valid until C{obj} object's internal
+        .. warning:: This list is only valid until ``obj`` object's internal
             items list is changed. It should be fetched again with another
             call to this function when changes happen.
 
-        @type: tuple of L{FlipSelectorItem}s
+        :type: tuple of :py:class:`FlipSelectorItem`
 
         """
         def __get__(self):
@@ -250,10 +245,10 @@ cdef class FlipSelector(Object):
         """Get the first item in the given flip selector widget's list of
         items.
 
-        @see: L{item_append}()
-        @see: L{last_item}
+        .. seealso:: :py:func:`item_append`
+        .. seealso:: :py:attr:`last_item`
 
-        @type: L{FlipSelectorItem}
+        :type: :py:class:`FlipSelectorItem`
 
         """
         def __get__(self):
@@ -263,10 +258,10 @@ cdef class FlipSelector(Object):
         """Get the last item in the given flip selector widget's list of
         items.
 
-        @see: L{item_prepend()}
-        @see: L{first_item}
+        .. seealso:: :py:func:`item_prepend`
+        .. seealso:: :py:attr:`first_item`
 
-        @type: L{FlipSelectorItem}
+        :type: :py:class:`FlipSelectorItem`
 
         """
         def __get__(self):
@@ -275,7 +270,7 @@ cdef class FlipSelector(Object):
     property selected_item:
         """Get the currently selected item in a flip selector widget.
 
-        @type: L{FlipSelectorItem}
+        :type: :py:class:`FlipSelectorItem`
 
         """
         def __get__(self):
@@ -285,7 +280,7 @@ cdef class FlipSelector(Object):
         """The interval on time updates for a user mouse button hold on a
         flip selector widget.
 
-        This interval value is B{decreased} while the user holds the
+        This interval value is *decreased* while the user holds the
         mouse pointer either flipping up or flipping down a given flip
         selector.
 
@@ -298,9 +293,9 @@ cdef class FlipSelector(Object):
         1.05, so it decreases a little bit.
 
         The default starting interval value for automatic flips is
-        B{0}.85 seconds.
+        *0.85 seconds*.
 
-        @type: float
+        :type: float
 
         """
         def __set__(self, interval):
