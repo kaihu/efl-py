@@ -141,8 +141,8 @@ cython_outs = \
 	elementary/elementary.window.c
 
 CYTHONFLAGS = @CYTHONFLAGS@
-CYTHON_ELEMENTARY_FLAGS = -I@CYTHON_ELEMENTARY_INCLUDEDIR@
-EPYDOC = @EPYDOC@
+CYTHON_ELEMENTARY_FLAGS = -I@CYTHON_ELEMENTARY_INCLUDEDIR@ -X embedsignature=True
+SPHINX = @SPHINX@
 
 # python-elementary still does not export any public cpython/cython interfaces
 # pyincelementarydir = $(includedir)/@PACKAGE@/elementary

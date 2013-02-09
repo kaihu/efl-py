@@ -34,6 +34,7 @@ autodoc_default_flags = [
     'show-inheritance'
 ]
 autoclass_content = "both"
+autodoc_docstring_signature = True
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
