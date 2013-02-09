@@ -194,8 +194,8 @@ cdef class Image(Object):
         outside of the object, and the image will fill the entire object
         (*fill_outside* is *True*).
 
-        .. note:: This option will have no effect if
-            :py:attr:`aspect_fixed` is set to *False*.
+        .. note:: This option will have no effect if :py:attr:`aspect_fixed`
+            is set to *False*.
 
         .. seealso:: :py:attr:`aspect_fixed`
 

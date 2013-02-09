@@ -366,9 +366,9 @@ cdef class ObjectItem(object):
     property tooltip_style:
         """The style for this object tooltip.
 
-        .. note:: before you set a style you should define a tooltip with
-            :py:func:`tooltip_content_cb_set()` or
-            :py:func:`tooltip_text_set()`
+        .. note:: before you set a style you should define a tooltip
+            with :py:func:`tooltip_content_cb_set()`
+            or :py:func:`tooltip_text_set()`
 
         """
         def __set__(self, style):
@@ -410,8 +410,8 @@ cdef class ObjectItem(object):
     property cursor_style:
         """The style for this object cursor.
 
-        .. note:: before you set a style you should define a cursor with
-            :py:attr:`cursor`
+        .. note:: before you set a style you should define a cursor
+            with :py:attr:`cursor`
 
         """
         def __set__(self, style):
@@ -433,8 +433,8 @@ cdef class ObjectItem(object):
 
         Sets cursor engine only usage for this object.
 
-        .. note:: before you set a style you should define a cursor with
-            :py:attr:`cursor`
+        .. note:: before you set a style you should define a cursor
+            with :py:attr:`cursor`
 
         """
         def __set__(self, engine_only):

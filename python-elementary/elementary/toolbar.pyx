@@ -208,8 +208,8 @@ cdef class ToolbarItem(ObjectItem):
     def icon_memfile_set(self, img, size, format, key):
         """Set the icon associated with item to an image in a binary buffer.
 
-        .. note:: The icon image set by this function can be changed by
-            :py:attr:`icon`.
+        .. note:: The icon image set by this function can be changed
+            by :py:attr:`icon`.
 
         :param img: The binary data that will be used as an image
         :param size: The size of binary data ``img``
@@ -230,8 +230,8 @@ cdef class ToolbarItem(ObjectItem):
     property icon_file:
         """Set the icon associated with item to an image in a binary buffer.
 
-        .. note:: The icon image set by this function can be changed by
-            :py:attr:`icon`.
+        .. note:: The icon image set by this function can be changed
+            by :py:attr:`icon`.
 
         :type: string or tuple of strings
 

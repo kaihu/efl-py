@@ -423,9 +423,9 @@ cdef class Naviframe(LayoutClass):
         If is True, the contents of the naviframe item will receives events
         from mouse and keyboard during view changing such as item push/pop.
 
-        .. warning:: Events will be blocked by calling
-            :py:func:`freeze_events_set()` internally. So don't call the API
-            while pushing/popping items.
+        .. warning:: Events will be blocked by
+            calling :py:func:`freeze_events_set()` internally.
+            So don't call the API while pushing/popping items.
 
         .. seealso:: :py:attr:`evas.object.Object.freeze_events`
 
