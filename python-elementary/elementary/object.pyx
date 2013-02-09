@@ -123,6 +123,7 @@ cdef Eina_Bool _event_callback(void *data, Evas_Object *o, Evas_Object *src, Eva
     cdef Eina_Bool ret = False
     cdef EventKeyDown down_event
     cdef EventKeyUp up_event
+
     if t == EVAS_CALLBACK_KEY_DOWN:
         down_event = EventKeyDown()
         down_event._set_obj(event_info)
@@ -134,6 +135,7 @@ cdef Eina_Bool _event_callback(void *data, Evas_Object *o, Evas_Object *src, Eva
         ret = _event_dispatcher(obj, src_obj, t, up_event)
         up_event._unset_obj()
 
+    return ret
 
 cdef void _event_data_del_cb(void *data, Evas_Object *o, void *event_info) with gil:
     Py_DECREF(<object>data)
