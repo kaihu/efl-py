@@ -1,20 +1,8 @@
 Python Bindings for EFL Elementary
 ==================================
 
-Let's get started!
-------------------
-
-To write a Python Elementary app, you can get started with the following::
-
-    import elementary
-
-    elementary.init()
-    # create window(s) here and do any application init
-    elementary.run() # run main loop
-    elementary.shutdown() # after mainloop finishes running, shutdown
-
-Python specific features
-------------------------
+Features
+--------
 
 Logging
 ^^^^^^^
