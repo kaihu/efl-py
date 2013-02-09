@@ -1,48 +1,50 @@
 Python Bindings for EFL Elementary
 ==================================
 
-What is Elementary?
--------------------
+Let's get started!
+------------------
 
-This is a VERY SIMPLE toolkit. It is not meant for writing extensive desktop
-applications (yet). Small simple ones with simple needs.
+To write a Python Elementary app, you can get started with the following::
 
-It is meant to make the programmers work almost brainless but give them lots
-of flexibility.
+    import elementary
 
-To write an Elementary app, you can get started with the following::
-
-    from elementary import *
-
+    elementary.init()
     # create window(s) here and do any application init
-    run() # run main loop
-    shutdown() # after mainloop finishes running, shutdown
+    elementary.run() # run main loop
+    elementary.shutdown() # after mainloop finishes running, shutdown
 
+Python specific features
+------------------------
 
-There is a more advanced way of making use of the quicklaunch infrastructure
-in Elementary (which will not be covered here due to its more advanced
-nature).
+Logging
+^^^^^^^
 
-Now let's actually create an interactive "Hello World" gui that you can
-click the ok button to exit. It's more code because this now does something
-much more significant, but it's still very simple::
+Py-Elm provides `logging <http://docs.python.org/2/library/logging.html>`_
+to a Logger called *elementary*. It only has a NullHandler by default and
+doesn't propagate so you need to add handlers to it to get output.
 
-    from elementary import *
+Hello Python Elementary
+-----------------------
+
+Let's create an interactive "Hello World" gui that you can click the ok
+button to exit::
+
+    import elementary as elm
 
     def on_done(obj):
         # quit the mainloop
-        exit()
+        elm.exit()
 
     class Spam:
         def __init__(self):
             # new window - do the usual and give it a name (hello) and title (Hello)
-            win = StandardWindow("hello", "Hello")
+            win = elm.StandardWindow("hello", "Hello")
             # when the user clicks "close" on a window there is a request to delete
             win.callback_delete_request_add(on_done)
 
             # add a box object - default is vertical. a box holds children in a row,
             # either horizontally or vertically. nothing more.
-            box = Box(win)
+            box = elm.Box(win)
             # make the box horizontal
             box.horizontal = True
             # add object as a resize object for the window (controls window minimum
@@ -51,7 +53,7 @@ much more significant, but it's still very simple::
             box.show()
 
             # add a label widget, set the text and put it in the pad frame
-            lab = Label(win)
+            lab = elm.Label(win)
             # set default text of the label
             lab.text = "Hello out there world!"
             # pack the label at the end of the box
@@ -59,7 +61,7 @@ much more significant, but it's still very simple::
             lab.show()
 
             # add an ok button
-            btn = Button(win)
+            btn = elm.Button(win)
             # set default text of button to "OK"
             btn.text = "OK"
             # pack the button at the end of the box
@@ -72,14 +74,43 @@ much more significant, but it's still very simple::
             win.show()
 
     if __name__ == "__main__":
+        elm.init()
         food = Spam()
         # run the mainloop and process events and callbacks
-        run()
-        shutdown()
+        elm.run()
+        elm.shutdown()
 
+What is Elementary?
+-------------------
 
-Acknowledgements
-----------------
+Elementary is a VERY SIMPLE toolkit. It is not meant for writing extensive desktop
+applications (yet). Small simple ones with simple needs.
+
+It is meant to make the programmers work almost brainless but give them lots
+of flexibility.
+
+Python Elementary Acknowledgements
+----------------------------------
+
+:Copyright:
+    Python Bindings for EFL Elementary are Copyright (C) 2008-2012 Simon Busch
+    and various contributors (see AUTHORS).
+
+:License:
+    Python Bindings for EFL Elementary are licensed LGPL-3 (see COPYING).
+
+:Authors:
+    - `Simon Busch <mailto:morphis@gravedo.de>`_
+    - `Boris 'billiob' Faure <mailto:billiob@gmail.com>`_
+    - `Davide 'DaveMDS' Andreoli <mailto:dave@gurumeditation.it>`_
+    - `Fabiano Fidêncio <mailto:fidencio@profusion.mobi>`_
+    - `Bruno Dilly <mailto:bdilly@profusion.mobi>`_
+    - `Tiago Falcão <mailto:tiago@profusion.mobi>`_
+    - `Joost Albers <mailto:joost.albers@nomadrail.com>`_
+    - `Kai Huuhko <mailto:kai.huuhko@gmail.com>`_
+
+Elementary Acknowledgements
+---------------------------
 
 There is a lot that goes into making a widget set, and they don't happen out
 of nothing. It's like trying to make everyone everywhere happy, regardless
@@ -91,8 +122,7 @@ people and organizations behind this, as listed below:
     contributors (see AUTHORS).
 
 :License:
-    Elementary is licensed LGPL-2.1 (see its COPYING file), the python
-    bindings LGPL-2.1 or LGPL-3 (see COPYING).
+    Elementary is licensed LGPL-2.1 (see COPYING)
 
 :Authors:
     - `Carsten Haitzler <mailto:raster@rasterman.com>`_
