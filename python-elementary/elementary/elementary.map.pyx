@@ -18,8 +18,8 @@
 
 include "widget_header.pxi"
 
-from evas.general cimport eina_list_free, eina_list_append
-from evas.object cimport evas_object_data_get
+from evas.c_evas cimport eina_list_free, eina_list_append
+from evas.c_evas cimport evas_object_data_get
 import traceback
 
 cdef _elm_map_overlay_to_python(Elm_Map_Overlay *ov):

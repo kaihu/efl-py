@@ -1,5 +1,5 @@
-from evas.general cimport Eina_Bool, const_Eina_List
-from evas.object cimport Evas_Object, const_Evas_Object, Evas_Smart_Cb
+from evas.c_evas cimport Eina_Bool, const_Eina_List
+from evas.c_evas cimport Evas_Object, const_Evas_Object, Evas_Smart_Cb
 from object cimport Object
 from object_item cimport Elm_Object_Item, const_Elm_Object_Item, ObjectItem
 

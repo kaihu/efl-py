@@ -1,5 +1,5 @@
-from evas.object cimport Evas_Object
-from evas.general cimport Eina_Bool
+from evas.c_evas cimport Evas_Object
+from evas.c_evas cimport Eina_Bool
 from object cimport Object
 from general cimport tm
 

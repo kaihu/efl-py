@@ -1,4 +1,4 @@
-from evas.object cimport Evas_Object, Eina_Bool
+from evas.c_evas cimport Evas_Object, Eina_Bool
 from layout_class cimport LayoutClass
 from object cimport Object
 

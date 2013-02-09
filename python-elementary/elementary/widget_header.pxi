@@ -1,6 +1,6 @@
 from cpython cimport Py_INCREF, Py_DECREF
-from evas.object cimport Object as evasObject
-from evas.object cimport Object_from_instance
+from evas.c_evas cimport Object as evasObject
+from evas.c_evas cimport Object_from_instance
 from object cimport _elm_widget_type_register
 from general cimport _cfruni, _ctouni, _fruni, _touni
 from general cimport _METHOD_DEPRECATED

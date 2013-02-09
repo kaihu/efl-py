@@ -17,7 +17,7 @@
 #
 
 include "widget_header.pxi"
-from evas.object cimport evas_object_data_get
+from evas.c_evas cimport evas_object_data_get
 
 ctypedef enum Elm_Box_CLayout:
     ELM_BOX_LAYOUT_HORIZONTAL

@@ -1,5 +1,5 @@
-from evas.general cimport Eina_Bool, Eina_Rectangle
-from evas.object cimport Evas_Object, Evas_Coord
+from evas.c_evas cimport Eina_Bool, Eina_Rectangle
+from evas.c_evas cimport Evas_Object, Evas_Coord
 from object cimport Object
 from general cimport Elm_Wrap_Type, Elm_Text_Format, Elm_Cnp_Mode
 from scroller cimport Elm_Scroller_Policy

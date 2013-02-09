@@ -16,7 +16,7 @@
 # along with python-elementary.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from evas.object cimport Evas_Object, Eina_Bool
+from evas.c_evas cimport Evas_Object, Eina_Bool
 from object cimport Object
 
 cdef extern from *:

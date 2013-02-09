@@ -16,7 +16,7 @@
 # along with python-elementary.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from evas.object cimport evas_object_data_get
+from evas.c_evas cimport evas_object_data_get
 
 cdef Evas_Object *_tooltip_content_create(void *data, Evas_Object *o, Evas_Object *t) with gil:
     cdef Object ret, obj, tooltip

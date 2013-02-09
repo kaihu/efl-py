@@ -16,7 +16,7 @@
 # along with python-elementary.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from evas.general cimport Eina_Bool, Eina_List
+from evas.c_evas cimport Eina_Bool, Eina_List
 
 cdef extern from *:
     ctypedef char* const_char_ptr "const char *"

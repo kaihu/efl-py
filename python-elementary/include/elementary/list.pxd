@@ -1,5 +1,5 @@
-from evas.general cimport Eina_Bool, Eina_List, Eina_Compare_Cb
-from evas.object cimport Evas_Object, Evas_Smart_Cb
+from evas.c_evas cimport Eina_Bool, Eina_List, Eina_Compare_Cb
+from evas.c_evas cimport Evas_Object, Evas_Smart_Cb
 from object cimport Object, Elm_Object_Select_Mode
 from scroller cimport Elm_Scroller_Policy
 from object_item cimport Elm_Object_Item, ObjectItem

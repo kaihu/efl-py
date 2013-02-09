@@ -18,10 +18,10 @@
 
 include "widget_header.pxi"
 
-from evas.canvas cimport Evas
-from evas.object cimport evas_object_evas_get
-from evas.canvas cimport Canvas_from_instance
-from evas.object_image cimport Image as evasImage
+from evas.c_evas cimport Evas
+from evas.c_evas cimport evas_object_evas_get
+from evas.c_evas cimport Canvas_from_instance
+from evas.c_evas cimport Image as evasImage
 
 cdef class Window(Object):
 

@@ -1,5 +1,5 @@
-from evas.general cimport Eina_Bool, Eina_List
-from evas.object cimport Evas_Object, Evas_Smart_Cb
+from evas.c_evas cimport Eina_Bool, Eina_List
+from evas.c_evas cimport Evas_Object, Evas_Smart_Cb
 from button cimport Button
 from object cimport Object
 from object_item cimport Elm_Object_Item, ObjectItem

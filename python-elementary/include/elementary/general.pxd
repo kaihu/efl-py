@@ -16,15 +16,15 @@
 # along with python-elementary.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from evas.general cimport Eina_List, Eina_Bool, const_Eina_List
-from evas.general cimport Eina_Rectangle, Eina_Compare_Cb
-from evas.object cimport Evas_Object, const_Evas_Object
-from evas.general cimport Evas_Coord
-from evas.object cimport Evas_Callback_Type
-from evas.object cimport Evas_Smart_Cb
-from evas.object_text cimport Evas_Font_Size
-from evas.general cimport Evas_Load_Error
-from evas.events cimport Evas_Event_Flags
+from evas.c_evas cimport Eina_List, Eina_Bool, const_Eina_List
+from evas.c_evas cimport Eina_Rectangle, Eina_Compare_Cb
+from evas.c_evas cimport Evas_Object, const_Evas_Object
+from evas.c_evas cimport Evas_Coord
+from evas.c_evas cimport Evas_Callback_Type
+from evas.c_evas cimport Evas_Smart_Cb
+from evas.c_evas cimport Evas_Font_Size
+from evas.c_evas cimport Evas_Load_Error
+from evas.c_evas cimport Evas_Event_Flags
 
 cdef extern from *:
     ctypedef char* const_char_ptr "const char *"

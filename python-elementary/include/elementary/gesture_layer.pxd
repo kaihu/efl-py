@@ -1,6 +1,6 @@
-from evas.general cimport Eina_Bool
-from evas.object cimport Evas_Object, Evas_Coord
-from evas.events cimport Evas_Event_Flags
+from evas.c_evas cimport Eina_Bool
+from evas.c_evas cimport Evas_Object, Evas_Coord
+from evas.c_evas cimport Evas_Event_Flags
 from object cimport Object
 
 cdef extern from *:

@@ -19,7 +19,7 @@
 include "widget_header.pxi"
 import traceback
 
-from evas.events cimport EVAS_EVENT_FLAG_NONE
+from evas.c_evas cimport EVAS_EVENT_FLAG_NONE
 
 cdef Evas_Event_Flags _gesture_layer_event_cb(void *data, void *event_info) with gil:
     (callback, args, kwargs) = <object>data

@@ -16,9 +16,9 @@
 # along with python-elementary.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from evas.general cimport Eina_List, const_Eina_List, eina_list_append
-from evas.object cimport Evas_Object
-from evas.object cimport Object_from_instance
+from evas.c_evas cimport Eina_List, const_Eina_List, eina_list_append
+from evas.c_evas cimport Evas_Object
+from evas.c_evas cimport Object_from_instance
 
 cdef _strings_to_python(const_Eina_List *lst):
     cdef const_char_ptr s

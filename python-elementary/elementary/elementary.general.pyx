@@ -19,7 +19,7 @@
 from cpython cimport PyObject, Py_INCREF, Py_DECREF
 from cpython cimport PyMem_Malloc, PyMem_Free
 from cpython cimport bool
-from evas.object cimport Object_from_instance
+from evas.c_evas cimport Object_from_instance
 
 import sys
 import traceback

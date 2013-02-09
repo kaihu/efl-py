@@ -89,6 +89,7 @@ ${srcdir}/elementary/elementary.fileselector.pyx \
 ${srcdir}/elementary/elementary.fileselector_button.pyx \
 ${srcdir}/elementary/elementary.fileselector_entry.pyx \
 ${srcdir}/elementary/elementary.flip.pyx \
+${srcdir}/elementary/elementary.flipselector.pyx \
 ${srcdir}/elementary/elementary.frame.pyx \
 ${srcdir}/elementary/elementary.general.pyx \
 ${srcdir}/elementary/elementary.gengrid.pyx \

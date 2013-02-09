@@ -21,6 +21,7 @@ cython_ins = \
 	elementary/elementary.fileselector_entry.pyx \
 	elementary/elementary.fileselector_button.pyx \
 	elementary/elementary.flip.pyx \
+	elementary/elementary.flipselector.pyx \
 	elementary/elementary.frame.pyx \
 	elementary/elementary.general.pyx \
 	elementary/elementary.gengrid.pyx \
@@ -90,6 +91,7 @@ cython_outs = \
 	elementary/elementary.fileselector_entry.c \
 	elementary/elementary.fileselector_button.c \
 	elementary/elementary.flip.c \
+	elementary/elementary.flipselector.c \
 	elementary/elementary.frame.c \
 	elementary/elementary.general.c \
 	elementary/elementary.gengrid.c \
@@ -168,6 +170,7 @@ c_elementary_includes = \
 	include/elementary/fileselector_button.pxd \
 	include/elementary/fileselector_entry.pxd \
 	include/elementary/flip.pxd \
+	include/elementary/flipselector.pxd \
 	include/elementary/frame.pxd \
 	include/elementary/gengrid.pxd \
 	include/elementary/genlist.pxd \
@@ -239,6 +242,7 @@ examples_files = \
 	tests/test_entry.py \
 	tests/test_fileselector.py \
 	tests/test_flip.py \
+	tests/test_flipselector.py \
 	tests/test_genlist.py \
 	tests/test_gengrid.py \
 	tests/test_hover.py \
@@ -418,6 +422,9 @@ $(top_builddir)/elementary/elementary.fileselector_entry.c:$(top_srcdir)/element
 $(top_builddir)/elementary/elementary.flip.c:$(top_srcdir)/elementary/elementary.flip.pyx $(top_srcdir)/include/elementary/flip.pxd Makefile
 	@$(MKDIR_P) $(top_builddir)/elementary
 	$(AM_V_GEN)cd $(top_builddir) && $(PYTHON) -m cython $(CYTHON_ELEMENTARY_FLAGS) -I$(top_srcdir)/include $(CYTHONFLAGS) -o $@ $<
+$(top_builddir)/elementary/elementary.flipselector.c:$(top_srcdir)/elementary/elementary.flipselector.pyx $(top_srcdir)/include/elementary/flipselector.pxd Makefile
+	@$(MKDIR_P) $(top_builddir)/elementary
+	$(AM_V_GEN)cd $(top_builddir) && $(PYTHON) -m cython $(CYTHON_ELEMENTARY_FLAGS) -I$(top_srcdir)/include $(CYTHONFLAGS) -o $@ $<
 $(top_builddir)/elementary/elementary.frame.c:$(top_srcdir)/elementary/elementary.frame.pyx $(top_srcdir)/include/elementary/frame.pxd Makefile
 	@$(MKDIR_P) $(top_builddir)/elementary
 	$(AM_V_GEN)cd $(top_builddir) && $(PYTHON) -m cython $(CYTHON_ELEMENTARY_FLAGS) -I$(top_srcdir)/include $(CYTHONFLAGS) -o $@ $<
@@ -592,6 +599,7 @@ fileselector.la \
 fileselector_button.la \
 fileselector_entry.la \
 flip.la \
+flipselector.la \
 frame.la \
 gengrid.la \
 genlist.la \
@@ -743,6 +751,11 @@ flip_la_LIBADD = @ELEMENTARY_LIBS@
 flip_la_LDFLAGS = -module -avoid-version
 flip_la_LIBTOOLFLAGS = --tag=disable-static
 flip_la_SOURCES = $(top_builddir)/elementary/elementary.flip.c
+
+flipselector_la_LIBADD = @ELEMENTARY_LIBS@
+flipselector_la_LDFLAGS = -module -avoid-version
+flipselector_la_LIBTOOLFLAGS = --tag=disable-static
+flipselector_la_SOURCES = $(top_builddir)/elementary/elementary.flipselector.c
 
 frame_la_LIBADD = @ELEMENTARY_LIBS@
 frame_la_LDFLAGS = -module -avoid-version

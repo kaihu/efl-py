@@ -1,6 +1,6 @@
-from evas.general cimport Eina_Bool
-from evas.object cimport Evas_Object
-from evas.general cimport Evas_Load_Error
+from evas.c_evas cimport Eina_Bool
+from evas.c_evas cimport Evas_Object
+from evas.c_evas cimport Evas_Load_Error
 from object cimport Object
 
 cdef extern from *:

@@ -18,7 +18,7 @@
 
 include "widget_header.pxi"
 
-from evas.object_image cimport Image as evasImage
+from evas.c_evas cimport Image as evasImage
 from scroller cimport *
 
 cdef class Photocam(Object):

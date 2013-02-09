@@ -1,5 +1,5 @@
-from evas.general cimport Eina_Bool, Eina_List
-from evas.object cimport Evas_Object, const_Evas_Object, Evas_Coord
+from evas.c_evas cimport Eina_Bool, Eina_List
+from evas.c_evas cimport Evas_Object, const_Evas_Object, Evas_Coord
 from object cimport Object
 
 cdef extern from *:

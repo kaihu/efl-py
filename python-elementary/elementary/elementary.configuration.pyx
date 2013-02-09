@@ -17,8 +17,8 @@
 #
 
 from general cimport _ctouni, _cfruni
-from evas.general cimport eina_list_append
-from evas.object cimport Object_from_instance
+from evas.c_evas cimport eina_list_append
+from evas.c_evas cimport Object_from_instance
 
 include "conversions.pxi"
 

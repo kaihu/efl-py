@@ -1,6 +1,6 @@
-from evas.general cimport Eina_Bool
-from evas.object cimport Evas_Object, Evas_Coord, Eina_List
-from evas.object_smart cimport Evas_Smart_Cb
+from evas.c_evas cimport Eina_Bool
+from evas.c_evas cimport Evas_Object, Evas_Coord, Eina_List
+from evas.c_evas cimport Evas_Smart_Cb
 from object cimport Object
 from object_item cimport ObjectItem
 

@@ -17,22 +17,22 @@
 #
 
 from cpython cimport PyObject, Py_INCREF, Py_DECREF, PyObject_GetAttr
-from evas.object cimport Object as evasObject
-from evas.object cimport Object_from_instance
+from evas.c_evas cimport Object as evasObject
+from evas.c_evas cimport Object_from_instance
 from general cimport _cfruni, _ctouni, _fruni, _touni
 from general cimport _METHOD_DEPRECATED
 include "tooltips.pxi"
 
-from evas.events cimport EventKeyDown, EventKeyUp
-from evas.object cimport evas_object_data_get
-from evas.object_smart cimport evas_object_smart_callback_add
-from evas.object_smart cimport evas_object_smart_callback_del
-from evas.callbacks cimport EVAS_CALLBACK_KEY_DOWN
-from evas.callbacks cimport EVAS_CALLBACK_KEY_UP
-from evas.general cimport eina_list_append
-from evas.object import _extended_object_mapping_register
-from evas.object import _object_mapping_register
-from evas.object import _object_mapping_unregister
+from evas.c_evas cimport EventKeyDown, EventKeyUp
+from evas.c_evas cimport evas_object_data_get
+from evas.c_evas cimport evas_object_smart_callback_add
+from evas.c_evas cimport evas_object_smart_callback_del
+from evas.c_evas cimport EVAS_CALLBACK_KEY_DOWN
+from evas.c_evas cimport EVAS_CALLBACK_KEY_UP
+from evas.c_evas cimport eina_list_append
+from evas.c_evas import _extended_object_mapping_register
+from evas.c_evas import _object_mapping_register
+from evas.c_evas import _object_mapping_unregister
 
 from theme cimport Theme
 

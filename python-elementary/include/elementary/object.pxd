@@ -17,10 +17,10 @@
 #
 
 from cpython cimport PyObject, Py_INCREF, Py_DECREF
-from evas.general cimport Eina_Bool, Eina_List, const_Eina_List
-from evas.object cimport Evas_Object, Evas_Callback_Type, Evas_Smart_Cb
-from evas.object cimport Object as evasObject
-from evas.canvas cimport Canvas as evasCanvas
+from evas.c_evas cimport Eina_Bool, Eina_List, const_Eina_List
+from evas.c_evas cimport Evas_Object, Evas_Callback_Type, Evas_Smart_Cb
+from evas.c_evas cimport Object as evasObject
+from evas.c_evas cimport Canvas as evasCanvas
 
 cdef extern from *:
     ctypedef char* const_char_ptr "const char *"
