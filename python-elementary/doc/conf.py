@@ -16,7 +16,7 @@ import sys, os
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
-sys.path.insert(0, os.path.abspath('../build/lib.linux-i686-2.7'))
+sys.path.insert(0, os.path.abspath('../.libs'))
 #sys.path.insert(0, os.path.abspath('../build/lib.linux-i686-3.2'))
 
 # -- General configuration -----------------------------------------------------
