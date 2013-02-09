@@ -124,7 +124,18 @@ cdef void _py_elm_genlist_item_func(void *data, Evas_Object *obj, void *event_in
         except Exception as e:
             traceback.print_exc()
 
-cdef class GenlistItemClass:
+class GenlistItemsCount(int):
+    def __new__(cls, Object obj, int count):
+        return int.__new__(cls, count)
+
+    def __init__(self, Object obj, int count):
+        self.obj = obj
+
+    def __call__(self):
+        _METHOD_DEPRECATED(self.obj, None, "Use items_count instead")
+        return self.obj._items_count()
+
+cdef class GenlistItemClass(object):
     """
 
     Defines the behavior of each list item.
@@ -1566,6 +1577,9 @@ cdef class Genlist(Object):
         """
         elm_genlist_realized_items_update(self.obj)
 
+    def _items_count(self):
+        return elm_genlist_items_count(self.obj)
+
     property items_count:
         """Return how many items are currently in a list
 
@@ -1573,7 +1587,8 @@ cdef class Genlist(Object):
 
         """
         def __get__(self):
-            return elm_genlist_items_count(self.obj)
+            count = elm_genlist_items_count(self.obj)
+            return GenlistItemsCount(self, count)
 
     property homogeneous:
         """This will enable the homogeneous mode where items are of the same
