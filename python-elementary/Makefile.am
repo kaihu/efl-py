@@ -1001,19 +1001,15 @@ endif
 
 
 .PHONY: doc doc-clean
-if HAVE_EPYDOC
+if HAVE_SPHINX
 clean-local: doc-clean
 doc-clean:
-	rm -fr doc/api/html
-doc: $(pyexecelementary_LTLIBRARIES) $(pyelementarydir_PYTHON)
-	mkdir -p doc/api/html
-	$(AM_V_GEN)PYTHONPATH="$$PWD:$$PWD/.libs:$$PYTHONPATH" \
-		$(EPYDOC) --html -o doc/api/html \
-			-n "@PACKAGE@ @VERSION@ API" \
-			c_elementary
+	$(MAKE) -C doc clean
+doc:
+	$(MAKE) -C doc html
 else
 doc-clean:
-	@echo "Install epydoc then run ./configure again"
+	@echo "Install sphinx then run ./configure again"
 doc:
-	@echo "Install epydoc then run ./configure again"
+	@echo "Install sphinx then run ./configure again"
 endif

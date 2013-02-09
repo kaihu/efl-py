@@ -176,9 +176,9 @@ if test "x$CYTHON_FOUND" != "xyes"; then
 fi
 AM_CONDITIONAL(HAVE_CYTHON, [test "x$CYTHON_FOUND" = "xyes"])
 
-AC_PATH_PROG([EPYDOC], [epydoc], [no])
-AC_SUBST(EPYDOC)
-AM_CONDITIONAL(HAVE_EPYDOC, [test "x$EPYDOC" != "xno"])
+AC_PATH_PROG([SPHINX], [sphinx-build], [no])
+AC_SUBST(SPHINX)
+AM_CONDITIONAL(HAVE_SPHINX, [test "x$SPHINX" != "xno"])
 
 AC_ARG_ENABLE([examples],
    [AC_HELP_STRING([--disable-examples], [Do not install examples])],
