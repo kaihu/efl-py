@@ -30,8 +30,8 @@ from object_polygon import Polygon
 from object_rectangle import Rectangle
 from object_smart import SmartObject, ClippedSmartObject
 from object_text import Text
+from object_textblock import Textblock
 from rect import Rect
-from textblock import Textblock
 
 EVAS_HINT_EXPAND = 1.0
 EVAS_HINT_FILL = -1.0

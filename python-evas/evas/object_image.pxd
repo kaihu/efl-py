@@ -14,6 +14,15 @@ cdef extern from "Evas.h":
         EVAS_COLORSPACE_YCBCR422P709_PL
         EVAS_COLORSPACE_RGB565_A5P
 
+    cdef enum Evas_Load_Error:
+        EVAS_LOAD_ERROR_NONE = 0
+        EVAS_LOAD_ERROR_GENERIC = 1
+        EVAS_LOAD_ERROR_DOES_NOT_EXIST = 2
+        EVAS_LOAD_ERROR_PERMISSION_DENIED = 3
+        EVAS_LOAD_ERROR_RESOURCE_ALLOCATION_FAILED = 4
+        EVAS_LOAD_ERROR_CORRUPT_FILE = 5
+        EVAS_LOAD_ERROR_UNKNOWN_FORMAT = 6
+
     ctypedef struct Evas_Native_Surface
 
     ####################################################################

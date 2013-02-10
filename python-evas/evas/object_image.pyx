@@ -26,7 +26,6 @@ include "object_header.pxi"
 from canvas cimport Canvas
 from callbacks cimport *
 from general cimport Evas_Load_Error, EVAS_LOAD_ERROR_NONE
-from general import EvasLoadError
 from object cimport evas_object_geometry_get
 
 def image_mask_fill(Image source, Image mask, Image surface, int x_mask, int y_mask, int x_surface, int y_surface):
@@ -51,6 +50,26 @@ cdef int _data_size_get(Evas_Object *obj):
 
     return stride * h * bpp
 
+class EvasLoadError(Exception):
+    def __init__(self, int code, filename, key):
+        if code == EVAS_LOAD_ERROR_NONE:
+            msg = "No error on load"
+        elif code == EVAS_LOAD_ERROR_GENERIC:
+            msg = "A non-specific error occurred"
+        elif code == EVAS_LOAD_ERROR_DOES_NOT_EXIST:
+            msg = "File (or file path) does not exist"
+        elif code == EVAS_LOAD_ERROR_PERMISSION_DENIED:
+            msg = "Permission deinied to an existing file (or path)"
+        elif code == EVAS_LOAD_ERROR_RESOURCE_ALLOCATION_FAILED:
+            msg = "Allocation of resources failure prevented load"
+        elif code == EVAS_LOAD_ERROR_CORRUPT_FILE:
+            msg = "File corrupt (but was detected as a known format)"
+        elif code == EVAS_LOAD_ERROR_UNKNOWN_FORMAT:
+            msg = "File is not a known format"
+        self.code = code
+        self.file = filename
+        self.key = key
+        Exception.__init__(self, "%s (file=%s, key=%s)" % (msg, filename, key))
 
 cdef class Image(Object):
     """

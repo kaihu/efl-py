@@ -17,7 +17,8 @@
 
 from events cimport *
 from callbacks cimport *
-from object cimport evas_object_event_callbacks_len
+#from object cimport evas_object_event_callbacks_len
+evas_object_event_callbacks_len = 32
 from canvas cimport evas_canvas_event_callbacks_len
 
 cdef unicode _touni(char* s):

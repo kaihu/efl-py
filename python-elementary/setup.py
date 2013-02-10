@@ -5,6 +5,10 @@ from distutils.extension import Extension
 from Cython.Distutils import build_ext
 from Cython.Build import cythonize
 import commands
+import sys
+from distutils.sysconfig import get_python_inc
+print(sys.path)
+print(get_python_inc())
 
 try:
     from sphinx.setup_command import BuildDoc
@@ -103,13 +107,18 @@ ext_modules = []
 for m in modules:
     ext_modules.append(Extension("elementary."+m, ["elementary/"+m+".pyx"], **pkgconfig("elementary")))
 
+for e in ext_modules:
+    e.include_dirs = e.include_dirs + sys.path
+    e.include_dirs.append(get_python_inc())
+    e.include_dirs.append("/usr/local/include/python2.7")
+
 setup(
     name = "elementary",
     version = "1.7.0",
     description = "Python bindings for EFL Elementary",
     cmdclass = {'build_ext': build_ext, 'build_sphinx': BuildDoc, 'build_doc': BuildDoc},
     packages = ["elementary"],
-    ext_modules = cythonize(ext_modules, compiler_directives={"embedsignature": True}),
+    ext_modules = cythonize(ext_modules, include_path=sys.path, compiler_directives={"embedsignature": True}),
     requires = ["evas", "ecore", "edje"],
     provides = ["elementary"],
 )
