@@ -236,3 +236,5 @@ cdef unicode _touni(char* s)
 cdef unicode _ctouni(const_char_ptr s)
 cdef char* _fruni(s)
 cdef const_char_ptr _cfruni(s)
+
+#cdef color_parse(desc, is_premul)

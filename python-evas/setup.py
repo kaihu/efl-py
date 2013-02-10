@@ -41,8 +41,8 @@ modules=[
     "object_rectangle",
     "object_smart",
     "object_text",
+    "object_textblock",
     "rect",
-    "textblock",
 ]
 
 ext_modules=[]
