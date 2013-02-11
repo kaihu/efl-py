@@ -2,6 +2,7 @@ from evas.object cimport Evas_Object
 from layout_class cimport LayoutClass
 from object cimport Object
 from object_item cimport Elm_Object_Item
+from enums cimport Elm_Colorselector_Mode
 
 cdef extern from *:
     ctypedef char* const_char_ptr "const char *"
@@ -11,11 +12,6 @@ cdef extern from "Python.h":
         PyTypeObject *ob_type
 
 cdef extern from "Elementary.h":
-
-    ctypedef enum Elm_Colorselector_Mode:
-        ELM_COLORSELECTOR_PALETTE
-        ELM_COLORSELECTOR_COMPONENTS
-        ELM_COLORSELECTOR_BOTH
 
     # Colorselector         (api:DONE  cb:DONE  test:DONE  doc:DONE  py3:DONE)
     Evas_Object             *elm_colorselector_add(Evas_Object *parent)

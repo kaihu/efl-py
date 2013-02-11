@@ -1,9 +1,8 @@
 from evas.general cimport Eina_Bool
 from evas.object cimport Evas_Object, Evas_Smart_Cb
 from object cimport Object
-from icon cimport Elm_Icon_Lookup_Order
 from object_item cimport Elm_Object_Item, ObjectItem
-from object cimport Elm_Object_Select_Mode
+from enums cimport Elm_Object_Select_Mode, Elm_Toolbar_Shrink_Mode, Elm_Icon_Lookup_Order
 
 cdef extern from *:
     ctypedef char* const_char_ptr "const char *"
@@ -13,14 +12,6 @@ cdef extern from "Python.h":
         PyTypeObject *ob_type
 
 cdef extern from "Elementary.h":
-
-    ctypedef enum Elm_Toolbar_Shrink_Mode:
-        ELM_TOOLBAR_SHRINK_NONE
-        ELM_TOOLBAR_SHRINK_HIDE
-        ELM_TOOLBAR_SHRINK_SCROLL
-        ELM_TOOLBAR_SHRINK_MENU
-        ELM_TOOLBAR_SHRINK_EXPAND
-        ELM_TOOLBAR_SHRINK_LAST
 
     #toolbar
     ctypedef struct Elm_Toolbar_Item_State:

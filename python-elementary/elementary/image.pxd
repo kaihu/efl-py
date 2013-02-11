@@ -1,6 +1,7 @@
 from evas.general cimport Eina_Bool
 from evas.object cimport Evas_Object
 from object cimport Object
+from enums cimport Elm_Image_Orient
 
 cdef extern from *:
     ctypedef char* const_char_ptr "const char *"
@@ -11,16 +12,6 @@ cdef extern from "Python.h":
         PyTypeObject *ob_type
 
 cdef extern from "Elementary.h":
-
-    ctypedef enum Elm_Image_Orient:
-        ELM_IMAGE_ORIENT_NONE
-        ELM_IMAGE_ROTATE_90
-        ELM_IMAGE_ROTATE_180
-        ELM_IMAGE_ROTATE_270
-        ELM_IMAGE_FLIP_HORIZONTAL
-        ELM_IMAGE_FLIP_VERTICAL
-        ELM_IMAGE_FLIP_TRANSPOSE
-        ELM_IMAGE_FLIP_TRANSVERSE
 
     # Image                 (api:DONE  cb:DONE  test:DONE  doc:DONE  py3:DONE)
     Evas_Object             *elm_image_add(Evas_Object *parent)

@@ -1,6 +1,7 @@
 from evas.general cimport Eina_Bool
 from evas.object cimport Evas_Object
 from object cimport Object
+from enums cimport Elm_Panel_Orient
 
 cdef extern from *:
     ctypedef char* const_char_ptr "const char *"
@@ -10,12 +11,6 @@ cdef extern from "Python.h":
         PyTypeObject *ob_type
 
 cdef extern from "Elementary.h":
-
-    ctypedef enum Elm_Panel_Orient:
-        ELM_PANEL_ORIENT_TOP
-        ELM_PANEL_ORIENT_BOTTOM
-        ELM_PANEL_ORIENT_LEFT
-        ELM_PANEL_ORIENT_RIGHT
 
     # Panel                 (api:DONE  cb:N/A   test:DONE  doc:DONE)
     Evas_Object             *elm_panel_add(Evas_Object *parent)

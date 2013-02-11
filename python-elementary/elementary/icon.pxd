@@ -2,6 +2,7 @@ from evas.general cimport Eina_Bool
 from evas.object cimport Evas_Object
 from image cimport Image
 from object cimport Object
+from enums cimport Elm_Icon_Lookup_Order, Elm_Icon_Type
 
 cdef extern from *:
     ctypedef char* const_char_ptr "const char *"
@@ -11,17 +12,6 @@ cdef extern from "Python.h":
         PyTypeObject *ob_type
 
 cdef extern from "Elementary.h":
-
-    ctypedef enum Elm_Icon_Lookup_Order:
-        ELM_ICON_LOOKUP_FDO_THEME
-        ELM_ICON_LOOKUP_THEME_FDO
-        ELM_ICON_LOOKUP_FDO
-        ELM_ICON_LOOKUP_THEME
-
-    ctypedef enum Elm_Icon_Type:
-        ELM_ICON_NONE
-        ELM_ICON_FILE
-        ELM_ICON_STANDARD
 
     # Icon                  (api:DONE  cb:DONE  test:DONE  doc:DONE  py3:DONE)
     Evas_Object             *elm_icon_add(Evas_Object *parent)

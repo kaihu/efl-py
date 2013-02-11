@@ -17,7 +17,21 @@
 # along with python-elementary.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+"""
+:var ELM_PANEL_ORIENT_TOP: Panel (dis)appears from the top
+:var ELM_PANEL_ORIENT_BOTTOM: Panel (dis)appears from the bottom
+:var ELM_PANEL_ORIENT_LEFT: Panel (dis)appears from the left
+:var ELM_PANEL_ORIENT_RIGHT: Panel (dis)appears from the right
+"""
+
 include "widget_header.pxi"
+
+cimport enums
+
+ELM_PANEL_ORIENT_TOP = enums.ELM_PANEL_ORIENT_TOP
+ELM_PANEL_ORIENT_BOTTOM = enums.ELM_PANEL_ORIENT_BOTTOM
+ELM_PANEL_ORIENT_LEFT = enums.ELM_PANEL_ORIENT_LEFT
+ELM_PANEL_ORIENT_RIGHT = enums.ELM_PANEL_ORIENT_RIGHT
 
 cdef class Panel(Object):
 

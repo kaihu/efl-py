@@ -16,7 +16,21 @@
 # along with python-elementary.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+"""
+:var ELM_HOVER_AXIS_NONE: No preferred orientation
+:var ELM_HOVER_AXIS_HORIZONTAL: Horizontal orientation
+:var ELM_HOVER_AXIS_VERTICAL: Vertical orientation
+:var ELM_HOVER_AXIS_BOTH: Both
+"""
+
 include "widget_header.pxi"
+
+cimport enums
+
+ELM_HOVER_AXIS_NONE = enums.ELM_HOVER_AXIS_NONE
+ELM_HOVER_AXIS_HORIZONTAL = enums.ELM_HOVER_AXIS_HORIZONTAL
+ELM_HOVER_AXIS_VERTICAL = enums.ELM_HOVER_AXIS_VERTICAL
+ELM_HOVER_AXIS_BOTH = enums.ELM_HOVER_AXIS_BOTH
 
 cdef class Hover(LayoutClass):
 

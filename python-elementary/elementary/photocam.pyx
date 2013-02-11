@@ -16,10 +16,26 @@
 # along with python-elementary.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+"""
+:var ELM_PHOTOCAM_ZOOM_MODE_MANUAL:
+    Zoom controlled normally by :py:attr:`zoom`
+:var ELM_PHOTOCAM_ZOOM_MODE_AUTO_FIT: Zoom until photo fits in photocam
+:var ELM_PHOTOCAM_ZOOM_MODE_AUTO_FILL: Zoom until photo fills photocam
+:var ELM_PHOTOCAM_ZOOM_MODE_AUTO_FIT_IN: Zoom in until photo fits in photocam
+"""
+
 include "widget_header.pxi"
 
 from evas.object_image cimport Image as evasImage
 from scroller cimport *
+
+cimport enums
+
+ELM_PHOTOCAM_ZOOM_MODE_MANUAL = enums.ELM_PHOTOCAM_ZOOM_MODE_MANUAL
+ELM_PHOTOCAM_ZOOM_MODE_AUTO_FIT = enums.ELM_PHOTOCAM_ZOOM_MODE_AUTO_FIT
+ELM_PHOTOCAM_ZOOM_MODE_AUTO_FILL = enums.ELM_PHOTOCAM_ZOOM_MODE_AUTO_FILL
+ELM_PHOTOCAM_ZOOM_MODE_AUTO_FIT_IN = enums.ELM_PHOTOCAM_ZOOM_MODE_AUTO_FIT_IN
+ELM_PHOTOCAM_ZOOM_MODE_LAST = enums.ELM_PHOTOCAM_ZOOM_MODE_LAST
 
 cdef class Photocam(Object):
 

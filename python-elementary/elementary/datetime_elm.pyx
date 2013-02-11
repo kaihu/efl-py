@@ -16,9 +16,27 @@
 # along with python-elementary.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+"""
+:var ELM_DATETIME_YEAR: Year
+:var ELM_DATETIME_MONTH: Month
+:var ELM_DATETIME_DATE: Date
+:var ELM_DATETIME_HOUR: Hour
+:var ELM_DATETIME_MINUTE: Minute
+:var ELM_DATETIME_AMPM: Am/Pm
+"""
+
 include "widget_header.pxi"
 
 from datetime import datetime
+
+cimport enums
+
+ELM_DATETIME_YEAR = enums.ELM_DATETIME_YEAR
+ELM_DATETIME_MONTH = enums.ELM_DATETIME_MONTH
+ELM_DATETIME_DATE = enums.ELM_DATETIME_DATE
+ELM_DATETIME_HOUR = enums.ELM_DATETIME_HOUR
+ELM_DATETIME_MINUTE = enums.ELM_DATETIME_MINUTE
+ELM_DATETIME_AMPM = enums.ELM_DATETIME_AMPM
 
 cdef class Datetime(Object):
 

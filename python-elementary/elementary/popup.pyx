@@ -16,10 +16,45 @@
 # along with python-elementary.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+"""
+:var ELM_POPUP_ORIENT_TOP: Popup should appear in the top of parent, default
+:var ELM_POPUP_ORIENT_CENTER: Popup should appear in the center of parent
+:var ELM_POPUP_ORIENT_BOTTOM: Popup should appear in the bottom of parent
+:var ELM_POPUP_ORIENT_LEFT: Popup should appear in the left of parent
+:var ELM_POPUP_ORIENT_RIGHT: Popup should appear in the right of parent
+:var ELM_POPUP_ORIENT_TOP_LEFT: Popup should appear in the top left of parent
+:var ELM_POPUP_ORIENT_TOP_RIGHT: Popup should appear in the top right of parent
+:var ELM_POPUP_ORIENT_BOTTOM_LEFT: Popup should appear in the bottom left of parent
+:var ELM_POPUP_ORIENT_BOTTOM_RIGHT: Popup should appear in the bottom right of parent
+
+:var ELM_WRAP_NONE: No wrap
+:var ELM_WRAP_CHAR: Wrap between characters
+:var ELM_WRAP_WORD: Wrap in allowed wrapping points (as defined in the unicode standard)
+:var ELM_WRAP_MIXED: Word wrap, and if that fails, char wrap.
+"""
+
 include "widget_header.pxi"
 from object_item cimport    _object_item_callback, \
                             _object_item_to_python
 from general cimport PY_REFCOUNT
+
+cimport enums
+
+ELM_POPUP_ORIENT_TOP = enums.ELM_POPUP_ORIENT_TOP
+ELM_POPUP_ORIENT_CENTER = enums.ELM_POPUP_ORIENT_CENTER
+ELM_POPUP_ORIENT_BOTTOM = enums.ELM_POPUP_ORIENT_BOTTOM
+ELM_POPUP_ORIENT_LEFT = enums.ELM_POPUP_ORIENT_LEFT
+ELM_POPUP_ORIENT_RIGHT = enums.ELM_POPUP_ORIENT_RIGHT
+ELM_POPUP_ORIENT_TOP_LEFT = enums.ELM_POPUP_ORIENT_TOP_LEFT
+ELM_POPUP_ORIENT_TOP_RIGHT = enums.ELM_POPUP_ORIENT_TOP_RIGHT
+ELM_POPUP_ORIENT_BOTTOM_LEFT = enums.ELM_POPUP_ORIENT_BOTTOM_LEFT
+ELM_POPUP_ORIENT_BOTTOM_RIGHT = enums.ELM_POPUP_ORIENT_BOTTOM_RIGHT
+ELM_POPUP_ORIENT_LAST = enums.ELM_POPUP_ORIENT_LAST
+
+ELM_WRAP_NONE = enums.ELM_WRAP_NONE
+ELM_WRAP_CHAR = enums.ELM_WRAP_CHAR
+ELM_WRAP_WORD = enums.ELM_WRAP_WORD
+ELM_WRAP_MIXED = enums.ELM_WRAP_MIXED
 
 cdef class PopupItem(ObjectItem):
 

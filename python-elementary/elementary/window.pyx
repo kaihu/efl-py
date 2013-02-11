@@ -16,12 +16,150 @@
 # along with python-elementary.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+"""
+:var ELM_WIN_BASIC:
+    A normal window.
+
+    Indicates a normal, top-level window. Almost every window will be
+    created with this type.
+:var ELM_WIN_DIALOG_BASIC:
+    Used for simple dialog windows
+:var ELM_WIN_DESKTOP:
+    For special desktop windows, like a background window holding desktop icons.
+:var ELM_WIN_DOCK:
+    The window is used as a dock or panel.
+
+    Usually would be kept on top of any other window by the Window Manager.
+:var ELM_WIN_TOOLBAR:
+    The window is used to hold a floating toolbar, or similar.
+:var ELM_WIN_MENU:
+    Similar to ELM_WIN_TOOLBAR.
+:var ELM_WIN_UTILITY:
+    A persistent utility window, like a toolbox or palette.
+:var ELM_WIN_SPLASH:
+    Splash window for a starting up application.
+:var ELM_WIN_DROPDOWN_MENU:
+    The window is a dropdown menu, as when an entry in a menubar is clicked.
+
+    Typically used with elm_win_override_set(). This hint exists for
+    completion only, as the EFL way of implementing a menu would not
+    normally use a separate window for its contents.
+:var ELM_WIN_POPUP_MENU:
+    Like ELM_WIN_DROPDOWN_MENU, but for the menu triggered by right-clicking
+    an object.
+:var ELM_WIN_TOOLTIP:
+    The window is a tooltip.
+
+    A short piece of explanatory text that typically appear after the mouse
+    cursor hovers over an object for a while. Typically used with
+    elm_win_override_set() and also not very commonly used in the EFL.
+:var ELM_WIN_NOTIFICATION:
+    A notification window, like a warning about battery life or a new E-Mail
+    received.
+:var ELM_WIN_COMBO:
+    A window holding the contents of a combo box.
+
+    Not usually used in the EFL.
+:var ELM_WIN_DND:
+    Used to indicate the window is a representation of an object being
+    dragged across different windows, or even applications.
+
+    Typically used with elm_win_override_set().
+:var ELM_WIN_INLINED_IMAGE:
+    The window is rendered onto an image buffer.
+
+    No actual window is created for this type, instead the window and all of
+    its contents will be rendered to an image buffer. This allows to have
+    children window inside a parent one just like any other object would be,
+    and do other things like applying Evas_Map effects to it. This is the
+    only type of window that requires the parent parameter of elm_win_add()
+    to be a valid Evas_Object.
+:var ELM_WIN_SOCKET_IMAGE:
+    The window is rendered onto an image buffer and can be shown other
+    process's plug image object.
+
+    No actual window is created for this type, instead the window and all of
+    its contents will be rendered to an image buffer and can be shown other
+    process's plug image object
+
+:var ELM_WIN_INDICATOR_UNKNOWN: Unknown indicator state.
+:var ELM_WIN_INDICATOR_HIDE: Hides the indicator.
+:var ELM_WIN_INDICATOR_SHOW: Shows the indicator.
+
+:var ELM_WIN_INDICATOR_OPACITY_UNKNOWN: Unknown indicator opacity mode.
+:var ELM_WIN_INDICATOR_OPAQUE: Opacifies the indicator.
+:var ELM_WIN_INDICATOR_TRANSLUCENT: Be translucent the indicator.
+:var ELM_WIN_INDICATOR_TRANSPARENT: Transparentizes the indicator.
+
+:var ELM_WIN_KEYBOARD_UNKNOWN: Unknown keyboard state.
+:var ELM_WIN_KEYBOARD_OFF: Request to deactivate the keyboard.
+:var ELM_WIN_KEYBOARD_ON: Enable keyboard with default layout.
+:var ELM_WIN_KEYBOARD_ALPHA: Alpha (a-z) keyboard layout.
+:var ELM_WIN_KEYBOARD_NUMERIC: Numeric keyboard layout.
+:var ELM_WIN_KEYBOARD_PIN: PIN keyboard layout.
+:var ELM_WIN_KEYBOARD_PHONE_NUMBER: Phone keyboard layout.
+:var ELM_WIN_KEYBOARD_HEX: Hexadecimal numeric keyboard layout.
+:var ELM_WIN_KEYBOARD_TERMINAL: Full (QWERTY) keyboard layout.
+:var ELM_WIN_KEYBOARD_PASSWORD: Password keyboard layout.
+:var ELM_WIN_KEYBOARD_IP: IP keyboard layout.
+:var ELM_WIN_KEYBOARD_HOST: Host keyboard layout.
+:var ELM_WIN_KEYBOARD_FILE: File keyboard layout.
+:var ELM_WIN_KEYBOARD_URL: URL keyboard layout.
+:var ELM_WIN_KEYBOARD_KEYPAD: Keypad layout.
+:var ELM_WIN_KEYBOARD_J2ME: J2ME keyboard layout.
+"""
+
 include "widget_header.pxi"
 
 from evas.canvas cimport Evas
 from evas.object cimport evas_object_evas_get
 from evas.canvas cimport Canvas_from_instance
 from evas.object_image cimport Image as evasImage
+
+cimport enums
+
+ELM_WIN_BASIC = enums.ELM_WIN_BASIC
+ELM_WIN_DIALOG_BASIC = enums.ELM_WIN_DIALOG_BASIC
+ELM_WIN_DESKTOP = enums.ELM_WIN_DESKTOP
+ELM_WIN_DOCK = enums.ELM_WIN_DOCK
+ELM_WIN_TOOLBAR = enums.ELM_WIN_TOOLBAR
+ELM_WIN_MENU = enums.ELM_WIN_MENU
+ELM_WIN_UTILITY = enums.ELM_WIN_UTILITY
+ELM_WIN_SPLASH = enums.ELM_WIN_SPLASH
+ELM_WIN_DROPDOWN_MENU = enums.ELM_WIN_DROPDOWN_MENU
+ELM_WIN_POPUP_MENU = enums.ELM_WIN_POPUP_MENU
+ELM_WIN_TOOLTIP = enums.ELM_WIN_TOOLTIP
+ELM_WIN_NOTIFICATION = enums.ELM_WIN_NOTIFICATION
+ELM_WIN_COMBO = enums.ELM_WIN_COMBO
+ELM_WIN_DND = enums.ELM_WIN_DND
+ELM_WIN_INLINED_IMAGE = enums.ELM_WIN_INLINED_IMAGE
+ELM_WIN_SOCKET_IMAGE = enums.ELM_WIN_SOCKET_IMAGE
+
+ELM_WIN_INDICATOR_UNKNOWN = enums.ELM_WIN_INDICATOR_UNKNOWN
+ELM_WIN_INDICATOR_HIDE = enums.ELM_WIN_INDICATOR_HIDE
+ELM_WIN_INDICATOR_SHOW = enums.ELM_WIN_INDICATOR_SHOW
+
+ELM_WIN_INDICATOR_OPACITY_UNKNOWN = enums.ELM_WIN_INDICATOR_OPACITY_UNKNOWN
+ELM_WIN_INDICATOR_OPAQUE = enums.ELM_WIN_INDICATOR_OPAQUE
+ELM_WIN_INDICATOR_TRANSLUCENT = enums.ELM_WIN_INDICATOR_TRANSLUCENT
+ELM_WIN_INDICATOR_TRANSPARENT = enums.ELM_WIN_INDICATOR_TRANSPARENT
+
+ELM_WIN_KEYBOARD_UNKNOWN = enums.ELM_WIN_KEYBOARD_UNKNOWN
+ELM_WIN_KEYBOARD_OFF = enums.ELM_WIN_KEYBOARD_OFF
+ELM_WIN_KEYBOARD_ON = enums.ELM_WIN_KEYBOARD_ON
+ELM_WIN_KEYBOARD_ALPHA = enums.ELM_WIN_KEYBOARD_ALPHA
+ELM_WIN_KEYBOARD_NUMERIC = enums.ELM_WIN_KEYBOARD_NUMERIC
+ELM_WIN_KEYBOARD_PIN = enums.ELM_WIN_KEYBOARD_PIN
+ELM_WIN_KEYBOARD_PHONE_NUMBER = enums.ELM_WIN_KEYBOARD_PHONE_NUMBER
+ELM_WIN_KEYBOARD_HEX = enums.ELM_WIN_KEYBOARD_HEX
+ELM_WIN_KEYBOARD_TERMINAL = enums.ELM_WIN_KEYBOARD_TERMINAL
+ELM_WIN_KEYBOARD_PASSWORD = enums.ELM_WIN_KEYBOARD_PASSWORD
+ELM_WIN_KEYBOARD_IP = enums.ELM_WIN_KEYBOARD_IP
+ELM_WIN_KEYBOARD_HOST = enums.ELM_WIN_KEYBOARD_HOST
+ELM_WIN_KEYBOARD_FILE = enums.ELM_WIN_KEYBOARD_FILE
+ELM_WIN_KEYBOARD_URL = enums.ELM_WIN_KEYBOARD_URL
+ELM_WIN_KEYBOARD_KEYPAD = enums.ELM_WIN_KEYBOARD_KEYPAD
+ELM_WIN_KEYBOARD_J2ME = enums.ELM_WIN_KEYBOARD_J2ME
 
 cdef class Window(Object):
 

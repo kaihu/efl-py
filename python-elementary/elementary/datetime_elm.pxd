@@ -2,6 +2,7 @@ from evas.object cimport Evas_Object
 from evas.general cimport Eina_Bool
 from object cimport Object
 from general cimport tm
+from enums cimport Elm_Datetime_Field_Type
 
 cdef extern from *:
     ctypedef char* const_char_ptr "const char *"
@@ -11,14 +12,6 @@ cdef extern from "Python.h":
         PyTypeObject *ob_type
 
 cdef extern from "Elementary.h":
-
-    ctypedef enum Elm_Datetime_Field_Type:
-        ELM_DATETIME_YEAR    = 0
-        ELM_DATETIME_MONTH   = 1
-        ELM_DATETIME_DATE    = 2
-        ELM_DATETIME_HOUR    = 3
-        ELM_DATETIME_MINUTE  = 4
-        ELM_DATETIME_AMPM    = 5
 
     # Datetime              (api: DONE  cb:DONE  test:TODO  doc:DONE  py3:DONE)
     Evas_Object             *elm_datetime_add(Evas_Object *parent)

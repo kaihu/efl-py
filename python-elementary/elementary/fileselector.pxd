@@ -2,6 +2,7 @@ from evas.general cimport Eina_Bool
 from evas.object cimport Evas_Object
 from layout_class cimport LayoutClass
 from object cimport Object
+from enums cimport Elm_Fileselector_Mode
 
 cdef extern from *:
     ctypedef char* const_char_ptr "const char *"
@@ -11,10 +12,6 @@ cdef extern from "Python.h":
         PyTypeObject *ob_type
 
 cdef extern from "Elementary.h":
-
-    ctypedef enum Elm_Fileselector_Mode:
-        ELM_FILESELECTOR_LIST
-        ELM_FILESELECTOR_GRID
 
     # Fileselector          (api:DONE  cb:DONE  test:DONE  doc:DONE  py3:DONE)
     Evas_Object             *elm_fileselector_add(Evas_Object *parent)

@@ -16,7 +16,22 @@
 # along with python-elementary.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+"""
+:var ELM_BG_OPTION_CENTER: Center
+:var ELM_BG_OPTION_SCALE: Scale
+:var ELM_BG_OPTION_STRETCH: Stretch
+:var ELM_BG_OPTION_TILE: Tile
+"""
+
 include "widget_header.pxi"
+
+cimport enums
+
+ELM_BG_OPTION_CENTER = enums.ELM_BG_OPTION_CENTER
+ELM_BG_OPTION_SCALE = enums.ELM_BG_OPTION_SCALE
+ELM_BG_OPTION_STRETCH = enums.ELM_BG_OPTION_STRETCH
+ELM_BG_OPTION_TILE = enums.ELM_BG_OPTION_TILE
+ELM_BG_OPTION_LAST = enums.ELM_BG_OPTION_LAST
 
 cdef class Background(LayoutClass):
 

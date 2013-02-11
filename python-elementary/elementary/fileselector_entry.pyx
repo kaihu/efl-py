@@ -16,8 +16,18 @@
 # along with python-elementary.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+"""
+:var ELM_FILESELECTOR_LIST: Layout as a list
+:var ELM_FILESELECTOR_GRID: Layout as a grid
+"""
+
 include "widget_header.pxi"
 include "callbacks.pxi"
+
+cimport enums
+
+ELM_FILESELECTOR_LIST = enums.ELM_FILESELECTOR_LIST
+ELM_FILESELECTOR_GRID = enums.ELM_FILESELECTOR_GRID
 
 cdef class FileselectorEntry(Object):
 

@@ -1,6 +1,7 @@
 from evas.general cimport Eina_Bool
 from evas.object cimport Evas_Object
 from object cimport Object
+from enums cimport Elm_Thumb_Animation_Setting
 
 cdef extern from *:
     ctypedef char* const_char_ptr "const char *"
@@ -10,12 +11,6 @@ cdef extern from "Python.h":
         PyTypeObject *ob_type
 
 cdef extern from "Elementary.h":
-
-    ctypedef enum Elm_Thumb_Animation_Setting:
-        ELM_THUMB_ANIMATION_START
-        ELM_THUMB_ANIMATION_LOOP
-        ELM_THUMB_ANIMATION_STOP
-        ELM_THUMB_ANIMATION_LAST
 
     # Thumb                 (api:DONE  cb:DONE  test:DONE  doc:DONE  py3:DONE)
     Evas_Object             *elm_thumb_add(Evas_Object *parent)

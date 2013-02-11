@@ -2,10 +2,9 @@ from evas.general cimport Eina_Bool, Eina_List
 from evas.object cimport Evas_Object, Evas_Smart_Cb, Evas_Coord
 from object cimport Object
 from object_item cimport Elm_Object_Item
-from scroller cimport Elm_Scroller_Policy
-from object cimport Elm_Object_Select_Mode
-from genlist cimport Elm_Genlist_Item_Scrollto_Type
 from general cimport Elm_Tooltip_Item_Content_Cb
+from enums cimport Elm_Genlist_Item_Scrollto_Type, Elm_Scroller_Policy, \
+    Elm_Object_Select_Mode
 
 cdef extern from *:
     ctypedef char* const_char_ptr "const char *"

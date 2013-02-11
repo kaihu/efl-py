@@ -25,6 +25,7 @@ from evas.object cimport Evas_Smart_Cb
 from evas.object_text cimport Evas_Font_Size
 from evas.general cimport Evas_Load_Error
 from evas.events cimport Evas_Event_Flags
+from enums cimport Elm_Policy, Elm_Policy_Quit
 
 cdef extern from *:
     ctypedef char* const_char_ptr "const char *"
@@ -86,41 +87,6 @@ ctypedef struct Elm_Win:
 """
 
 cdef extern from "Elementary.h":
-
-    # enums
-
-    ctypedef enum Elm_Cnp_Mode:
-        ELM_CNP_MODE_MARKUP     # copy & paste text with markup tag
-        ELM_CNP_MODE_NO_IMAGE   # copy & paste text without item(image) tag
-        ELM_CNP_MODE_PLAINTEXT  # copy & paste text without markup tag
-
-    ctypedef enum Elm_Focus_Direction:
-        ELM_FOCUS_PREVIOUS
-        ELM_FOCUS_NEXT
-
-    ctypedef enum Elm_Illume_Command:
-        ELM_ILLUME_COMMAND_FOCUS_BACK
-        ELM_ILLUME_COMMAND_FOCUS_FORWARD
-        ELM_ILLUME_COMMAND_FOCUS_HOME
-        ELM_ILLUME_COMMAND_CLOSE
-
-    ctypedef enum Elm_Policy:
-        ELM_POLICY_QUIT
-        ELM_POLICY_LAST
-
-    ctypedef enum Elm_Policy_Quit:
-        ELM_POLICY_QUIT_NONE
-        ELM_POLICY_QUIT_LAST_WINDOW_CLOSED
-
-    ctypedef enum Elm_Text_Format:
-        ELM_TEXT_FORMAT_PLAIN_UTF8
-        ELM_TEXT_FORMAT_MARKUP_UTF8
-
-    ctypedef enum Elm_Wrap_Type:
-        ELM_WRAP_NONE
-        ELM_WRAP_CHAR
-        ELM_WRAP_WORD
-        ELM_WRAP_MIXED
 
     # types & structs
 

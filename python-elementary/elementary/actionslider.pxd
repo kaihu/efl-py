@@ -1,6 +1,7 @@
 from evas.object cimport Evas_Object
 from layout_class cimport LayoutClass
 from object cimport Object
+from enums cimport Elm_Actionslider_Pos
 
 cdef extern from *:
     ctypedef char* const_char_ptr "const char *"
@@ -10,13 +11,6 @@ cdef extern from "Python.h":
         PyTypeObject *ob_type
 
 cdef extern from "Elementary.h":
-
-    ctypedef enum Elm_Actionslider_Pos:
-        ELM_ACTIONSLIDER_NONE
-        ELM_ACTIONSLIDER_LEFT
-        ELM_ACTIONSLIDER_CENTER
-        ELM_ACTIONSLIDER_RIGHT
-        ELM_ACTIONSLIDER_ALL
 
     # Actionslider          (api:DONE  cb:DONE  test:DONE  doc:DONE)
     Evas_Object             *elm_actionslider_add(Evas_Object *parent)

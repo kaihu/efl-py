@@ -1,6 +1,7 @@
 from evas.general cimport Eina_Bool
 from evas.object cimport Evas_Object, Evas_Coord
 from object cimport Object
+from enums cimport Elm_Scroller_Policy
 
 cdef extern from *:
     ctypedef char* const_char_ptr "const char *"
@@ -10,11 +11,6 @@ cdef extern from "Python.h":
         PyTypeObject *ob_type
 
 cdef extern from "Elementary.h":
-
-    ctypedef enum Elm_Scroller_Policy:
-        ELM_SCROLLER_POLICY_AUTO
-        ELM_SCROLLER_POLICY_ON
-        ELM_SCROLLER_POLICY_OFF
 
     # Scroller              (api:DONE  cb:DONE  test:DONE  doc:DONE  py3:DONE)
     Evas_Object             *elm_scroller_add(Evas_Object *parent)

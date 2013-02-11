@@ -16,10 +16,70 @@
 # along with python-elementary.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+"""
+:var ELM_CALENDAR_UNIQUE:
+    Default value.
+
+    Marks will be displayed only on event day.
+:var ELM_CALENDAR_DAILY:
+    Marks will be displayed every day after event day (inclusive).
+:var ELM_CALENDAR_WEEKLY:
+    Marks will be displayed every week after event day (inclusive) - i.e.
+    each seven days.
+:var ELM_CALENDAR_MONTHLY:
+    Marks will be displayed every month day that coincides to event day.
+
+    E.g.: if an event is set to 30th Jan, no marks will be displayed on Feb,
+    but will be displayed on 30th Mar
+:var ELM_CALENDAR_ANNUALLY:
+    Marks will be displayed every year that coincides to event day (and month).
+
+    E.g. an event added to 30th Jan 2012 will be repeated on 30th Jan 2013.
+:var ELM_CALENDAR_LAST_DAY_OF_MONTH:
+    Marks will be displayed every last day of month after event day
+    (inclusive).
+
+:var ELM_CALENDAR_SELECT_MODE_DEFAULT: Default mode
+:var ELM_CALENDAR_SELECT_MODE_ALWAYS: Select always
+:var ELM_CALENDAR_SELECT_MODE_NONE: Don't select
+:var ELM_CALENDAR_SELECT_MODE_ONDEMAND: Select on demand
+
+:var ELM_DAY_SUNDAY: Sunday
+:var ELM_DAY_MONDAY: Monday
+:var ELM_DAY_TUESDAY: Tuesday
+:var ELM_DAY_WEDNESDAY: Wednesday
+:var ELM_DAY_THURSDAY: Thursday
+:var ELM_DAY_FRIDAY: Friday
+:var ELM_DAY_SATURDAY: Saturday
+"""
+
 include "widget_header.pxi"
 from cpython cimport PyMem_Malloc, PyMem_Free
 
 from datetime import date
+
+cimport enums
+
+ELM_CALENDAR_UNIQUE = enums.ELM_CALENDAR_UNIQUE
+ELM_CALENDAR_DAILY = enums.ELM_CALENDAR_DAILY
+ELM_CALENDAR_WEEKLY = enums.ELM_CALENDAR_WEEKLY
+ELM_CALENDAR_MONTHLY = enums.ELM_CALENDAR_MONTHLY
+ELM_CALENDAR_ANNUALLY = enums.ELM_CALENDAR_ANNUALLY
+ELM_CALENDAR_LAST_DAY_OF_MONTH = enums.ELM_CALENDAR_LAST_DAY_OF_MONTH
+
+ELM_CALENDAR_SELECT_MODE_DEFAULT = enums.ELM_CALENDAR_SELECT_MODE_DEFAULT
+ELM_CALENDAR_SELECT_MODE_ALWAYS = enums.ELM_CALENDAR_SELECT_MODE_ALWAYS
+ELM_CALENDAR_SELECT_MODE_NONE = enums.ELM_CALENDAR_SELECT_MODE_NONE
+ELM_CALENDAR_SELECT_MODE_ONDEMAND = enums.ELM_CALENDAR_SELECT_MODE_ONDEMAND
+
+ELM_DAY_SUNDAY = enums.ELM_DAY_SUNDAY
+ELM_DAY_MONDAY = enums.ELM_DAY_MONDAY
+ELM_DAY_TUESDAY = enums.ELM_DAY_TUESDAY
+ELM_DAY_WEDNESDAY = enums.ELM_DAY_WEDNESDAY
+ELM_DAY_THURSDAY = enums.ELM_DAY_THURSDAY
+ELM_DAY_FRIDAY = enums.ELM_DAY_FRIDAY
+ELM_DAY_SATURDAY = enums.ELM_DAY_SATURDAY
+ELM_DAY_LAST = enums.ELM_DAY_LAST
 
 cdef class CalendarMark(object):
 

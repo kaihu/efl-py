@@ -16,9 +16,21 @@
 # along with python-elementary.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+"""
+:var ELM_COLORSELECTOR_PALETTE: Show palette
+:var ELM_COLORSELECTOR_COMPONENTS: Show components
+:var ELM_COLORSELECTOR_BOTH: Show palette and components
+"""
+
 include "widget_header.pxi"
 from object_item cimport ObjectItem
 from object_item import _cb_object_item_conv
+
+cimport enums
+
+ELM_COLORSELECTOR_PALETTE = enums.ELM_COLORSELECTOR_PALETTE
+ELM_COLORSELECTOR_COMPONENTS = enums.ELM_COLORSELECTOR_COMPONENTS
+ELM_COLORSELECTOR_BOTH = enums.ELM_COLORSELECTOR_BOTH
 
 cdef class ColorselectorPaletteItem(ObjectItem):
 

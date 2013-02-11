@@ -2,7 +2,7 @@ from evas.general cimport Eina_Bool
 from evas.object cimport Evas_Object, Evas_Coord
 from layout_class cimport LayoutClass
 from object cimport Object
-from general cimport Elm_Wrap_Type
+from enums cimport Elm_Wrap_Type
 
 cdef extern from *:
     ctypedef char* const_char_ptr "const char *"

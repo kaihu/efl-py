@@ -2,6 +2,8 @@ from evas.general cimport Eina_Bool, Eina_List, const_Eina_List
 from evas.object cimport Evas_Object
 from layout_class cimport LayoutClass
 from object cimport Object
+from enums cimport Elm_Calendar_Mark_Repeat_Type, Elm_Calendar_Select_Mode, \
+    Elm_Calendar_Weekday
 
 cdef extern from *:
     ctypedef char* const_char_ptr "const char *"
@@ -30,29 +32,6 @@ cdef extern from "Python.h":
         PyTypeObject *ob_type
 
 cdef extern from "Elementary.h":
-
-    ctypedef enum Elm_Calendar_Mark_Repeat_Type:
-        ELM_CALENDAR_UNIQUE
-        ELM_CALENDAR_DAILY
-        ELM_CALENDAR_WEEKLY
-        ELM_CALENDAR_MONTHLY
-        ELM_CALENDAR_ANNUALLY
-
-    ctypedef enum Elm_Calendar_Select_Mode:
-        ELM_CALENDAR_SELECT_MODE_DEFAULT
-        ELM_CALENDAR_SELECT_MODE_ALWAYS
-        ELM_CALENDAR_SELECT_MODE_NONE
-        ELM_CALENDAR_SELECT_MODE_ONDEMAND
-
-    ctypedef enum Elm_Calendar_Weekday:
-        ELM_DAY_SUNDAY
-        ELM_DAY_MONDAY
-        ELM_DAY_TUESDAY
-        ELM_DAY_WEDNESDAY
-        ELM_DAY_THURSDAY
-        ELM_DAY_FRIDAY
-        ELM_DAY_SATURDAY
-        ELM_DAY_LAST
 
     ctypedef char           *(*Elm_Calendar_Format_Cb)     (tm *stime)
 

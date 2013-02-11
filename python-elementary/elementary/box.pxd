@@ -1,6 +1,7 @@
 from evas.general cimport Eina_Bool, Eina_List, const_Eina_List
 from evas.object cimport Evas_Object, Evas_Coord
 from object cimport Object
+from enums cimport Elm_Box_CLayout
 
 cdef extern from *:
     ctypedef char* const_char_ptr "const char *"

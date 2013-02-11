@@ -16,7 +16,29 @@
 # along with python-elementary.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+"""
+:var ELM_ICON_LOOKUP_FDO_THEME: freedesktop, theme
+:var ELM_ICON_LOOKUP_THEME_FDO: theme, freedesktop
+:var ELM_ICON_LOOKUP_FDO: freedesktop
+:var ELM_ICON_LOOKUP_THEME: theme
+
+:var ELM_ICON_NONE: No icon
+:var ELM_ICON_FILE: Icon is a file
+:var ELM_ICON_STANDARD: Icon is set with standards name
+"""
+
 include "widget_header.pxi"
+
+cimport enums
+
+ELM_ICON_LOOKUP_FDO_THEME = enums.ELM_ICON_LOOKUP_FDO_THEME
+ELM_ICON_LOOKUP_THEME_FDO = enums.ELM_ICON_LOOKUP_THEME_FDO
+ELM_ICON_LOOKUP_FDO = enums.ELM_ICON_LOOKUP_FDO
+ELM_ICON_LOOKUP_THEME = enums.ELM_ICON_LOOKUP_THEME
+
+ELM_ICON_NONE = enums.ELM_ICON_NONE
+ELM_ICON_FILE = enums.ELM_ICON_FILE
+ELM_ICON_STANDARD = enums.ELM_ICON_STANDARD
 
 cdef class Icon(Image):
 

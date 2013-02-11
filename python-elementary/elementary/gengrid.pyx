@@ -16,6 +16,13 @@
 # along with python-elementary.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+"""
+:var ELM_GENLIST_ITEM_SCROLLTO_NONE: No scroll to
+:var ELM_GENLIST_ITEM_SCROLLTO_IN: Scroll to the nearest viewport
+:var ELM_GENLIST_ITEM_SCROLLTO_TOP: Scroll to the top of viewport
+:var ELM_GENLIST_ITEM_SCROLLTO_MIDDLE: Scroll to the middle of viewport
+"""
+
 include "widget_header.pxi"
 include "tooltips.pxi"
 from object_item cimport    ObjectItem, \
@@ -24,11 +31,16 @@ from object_item cimport    ObjectItem, \
                             _object_item_from_python, \
                             _object_item_list_to_python
 from object_item import _cb_object_item_conv
-from genlist cimport ELM_GENLIST_ITEM_SCROLLTO_IN
 from general cimport strdup, PY_REFCOUNT
 from scroller cimport *
+cimport enums
 
 import traceback
+
+ELM_GENLIST_ITEM_SCROLLTO_NONE = enums.ELM_GENLIST_ITEM_SCROLLTO_NONE
+ELM_GENLIST_ITEM_SCROLLTO_IN = enums.ELM_GENLIST_ITEM_SCROLLTO_IN
+ELM_GENLIST_ITEM_SCROLLTO_TOP = enums.ELM_GENLIST_ITEM_SCROLLTO_TOP
+ELM_GENLIST_ITEM_SCROLLTO_MIDDLE = enums.ELM_GENLIST_ITEM_SCROLLTO_MIDDLE
 
 cdef _py_elm_gengrid_item_call(func, Evas_Object *obj, part, data) with gil:
     try:

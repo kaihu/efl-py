@@ -16,6 +16,11 @@
 # along with python-elementary.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+"""
+:var ELM_FOCUS_PREVIOUS: Focus previous
+:var ELM_FOCUS_NEXT: Focus next
+"""
+
 from cpython cimport PyObject, Py_INCREF, Py_DECREF, PyObject_GetAttr
 from evas.object cimport Object as evasObject
 from evas.object cimport Object_from_instance
@@ -37,6 +42,11 @@ from evas.object import _object_mapping_unregister
 from theme cimport Theme
 
 import traceback
+
+cimport enums
+
+ELM_FOCUS_PREVIOUS = enums.ELM_FOCUS_PREVIOUS
+ELM_FOCUS_NEXT = enums.ELM_FOCUS_NEXT
 
 cdef object _elm_widget_type_mapping
 

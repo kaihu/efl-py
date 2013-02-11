@@ -16,7 +16,21 @@
 # along with python-elementary.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+"""
+:var ELM_WRAP_NONE: No wrap
+:var ELM_WRAP_CHAR: Wrap between characters
+:var ELM_WRAP_WORD: Wrap in allowed wrapping points (as defined in the unicode standard)
+:var ELM_WRAP_MIXED: Word wrap, and if that fails, char wrap.
+"""
+
 include "widget_header.pxi"
+
+cimport enums
+
+ELM_WRAP_NONE = enums.ELM_WRAP_NONE
+ELM_WRAP_CHAR = enums.ELM_WRAP_CHAR
+ELM_WRAP_WORD = enums.ELM_WRAP_WORD
+ELM_WRAP_MIXED = enums.ELM_WRAP_MIXED
 
 cdef class Label(LayoutClass):
 
