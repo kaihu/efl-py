@@ -15,11 +15,6 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this Python-Evas.  If not, see <http://www.gnu.org/licenses/>.
 
-from events cimport *
-from callbacks cimport *
-#from object cimport evas_object_event_callbacks_len
-evas_object_event_callbacks_len = 32
-from canvas cimport evas_canvas_event_callbacks_len
 
 cdef unicode _touni(char* s):
     return s.decode('UTF-8', 'strict')
@@ -55,12 +50,13 @@ cdef const_char_ptr _cfruni(s):
 
 def init():
     # when changing these, also change __init__.py!
-    if evas_object_event_callbacks_len != EVAS_CALLBACK_LAST:
-        raise SystemError("Number of object callbacks changed from %d to %d." %
-                          (evas_object_event_callbacks_len, EVAS_CALLBACK_LAST))
-    if evas_canvas_event_callbacks_len != EVAS_CALLBACK_LAST:
-        raise SystemError("Number of canvas callbacks changed from %d to %d." %
-                          (evas_canvas_event_callbacks_len, EVAS_CALLBACK_LAST))
+    # XXX: Are these tests needed here? How about moving them to a build time test.
+#~     if evas_object_event_callbacks_len != EVAS_CALLBACK_LAST:
+#~         raise SystemError("Number of object callbacks changed from %d to %d." %
+#~                           (evas_object_event_callbacks_len, EVAS_CALLBACK_LAST))
+#~     if evas_canvas_event_callbacks_len != EVAS_CALLBACK_LAST:
+#~         raise SystemError("Number of canvas callbacks changed from %d to %d." %
+#~                           (evas_canvas_event_callbacks_len, EVAS_CALLBACK_LAST))
     return evas_init()
 
 

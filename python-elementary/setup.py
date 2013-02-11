@@ -7,8 +7,6 @@ from Cython.Build import cythonize
 import commands
 import sys
 from distutils.sysconfig import get_python_inc
-print(sys.path)
-print(get_python_inc())
 
 try:
     from sphinx.setup_command import BuildDoc
