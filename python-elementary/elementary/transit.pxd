@@ -1,30 +1,12 @@
 from evas.general cimport Eina_Bool, Eina_List, const_Eina_List
 from evas.object cimport Evas_Object, Evas_Coord
+from enums cimport Elm_Transit_Effect_Flip_Axis, Elm_Transit_Effect_Wipe_Dir, \
+    Elm_Transit_Effect_Wipe_Type, Elm_Transit_Tween_Mode
 
 cdef extern from *:
     ctypedef char* const_char_ptr "const char *"
 
 cdef extern from "Elementary.h":
-
-    ctypedef enum Elm_Transit_Effect_Flip_Axis:
-        ELM_TRANSIT_EFFECT_FLIP_AXIS_X
-        ELM_TRANSIT_EFFECT_FLIP_AXIS_Y
-
-    ctypedef enum Elm_Transit_Effect_Wipe_Dir:
-        ELM_TRANSIT_EFFECT_WIPE_DIR_LEFT
-        ELM_TRANSIT_EFFECT_WIPE_DIR_RIGHT
-        ELM_TRANSIT_EFFECT_WIPE_DIR_UP
-        ELM_TRANSIT_EFFECT_WIPE_DIR_DOWN
-
-    ctypedef enum Elm_Transit_Effect_Wipe_Type:
-        ELM_TRANSIT_EFFECT_WIPE_TYPE_HIDE
-        ELM_TRANSIT_EFFECT_WIPE_TYPE_SHOW
-
-    ctypedef enum Elm_Transit_Tween_Mode:
-        ELM_TRANSIT_TWEEN_MODE_LINEAR
-        ELM_TRANSIT_TWEEN_MODE_SINUSOIDAL
-        ELM_TRANSIT_TWEEN_MODE_DECELERATE
-        ELM_TRANSIT_TWEEN_MODE_ACCELERATE
 
     #transit
     ctypedef struct Elm_Transit

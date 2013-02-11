@@ -16,6 +16,14 @@
 # along with python-elementary.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+"""
+:var ELM_POLICY_QUIT: Under which circumstances the application should quit automatically.
+
+:var ELM_POLICY_QUIT_NONE: Never quit the application automatically
+:var ELM_POLICY_QUIT_LAST_WINDOW_CLOSED: Quit when the application's last window is closed
+
+"""
+
 from cpython cimport PyObject, Py_INCREF, Py_DECREF
 from cpython cimport PyMem_Malloc, PyMem_Free
 from cpython cimport bool
@@ -24,6 +32,13 @@ from evas.object cimport Object_from_instance
 import sys
 import traceback
 import logging
+
+cimport enums
+
+ELM_POLICY_QUIT = enums.ELM_POLICY_QUIT
+
+ELM_POLICY_QUIT_NONE = enums.ELM_POLICY_QUIT_NONE
+ELM_POLICY_QUIT_LAST_WINDOW_CLOSED = enums.ELM_POLICY_QUIT_LAST_WINDOW_CLOSED
 
 logging.basicConfig(level=logging.DEBUG)
 log = logging.getLogger("elementary")

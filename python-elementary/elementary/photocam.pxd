@@ -2,6 +2,7 @@ from evas.general cimport Eina_Bool
 from evas.object cimport Evas_Object
 from evas.general cimport Evas_Load_Error
 from object cimport Object
+from enums cimport Elm_Photocam_Zoom_Mode
 
 cdef extern from *:
     ctypedef char* const_char_ptr "const char *"
@@ -11,13 +12,6 @@ cdef extern from "Python.h":
         PyTypeObject *ob_type
 
 cdef extern from "Elementary.h":
-
-    ctypedef enum Elm_Photocam_Zoom_Mode:
-        ELM_PHOTOCAM_ZOOM_MODE_MANUAL
-        ELM_PHOTOCAM_ZOOM_MODE_AUTO_FIT
-        ELM_PHOTOCAM_ZOOM_MODE_AUTO_FILL
-        ELM_PHOTOCAM_ZOOM_MODE_AUTO_FIT_IN
-        ELM_PHOTOCAM_ZOOM_MODE_LAST
 
     # Photocam              (api:DONE  cb:DONE  test:TODO  doc:DONE  py3:DONE)
     Evas_Object             *elm_photocam_add(Evas_Object *parent)

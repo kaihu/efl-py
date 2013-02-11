@@ -3,7 +3,7 @@ from evas.object cimport Evas_Object, Evas_Smart_Cb
 from button cimport Button
 from object cimport Object
 from object_item cimport Elm_Object_Item, ObjectItem
-from icon cimport Elm_Icon_Type
+from enums cimport Elm_Icon_Type
 
 cdef extern from *:
     ctypedef char* const_char_ptr "const char *"

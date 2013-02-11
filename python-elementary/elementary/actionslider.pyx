@@ -16,8 +16,24 @@
 # along with python-elementary.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+"""
+:var ELM_ACTIONSLIDER_NONE: No position
+:var ELM_ACTIONSLIDER_LEFT: Left position
+:var ELM_ACTIONSLIDER_CENTER: Center position
+:var ELM_ACTIONSLIDER_RIGHT: Right position
+:var ELM_ACTIONSLIDER_ALL: All positions
+"""
+
 include "widget_header.pxi"
 include "callbacks.pxi"
+
+cimport enums
+
+ELM_ACTIONSLIDER_NONE = enums.ELM_ACTIONSLIDER_NONE
+ELM_ACTIONSLIDER_LEFT = enums.ELM_ACTIONSLIDER_LEFT
+ELM_ACTIONSLIDER_CENTER = enums.ELM_ACTIONSLIDER_CENTER
+ELM_ACTIONSLIDER_RIGHT = enums.ELM_ACTIONSLIDER_RIGHT
+ELM_ACTIONSLIDER_ALL = enums.ELM_ACTIONSLIDER_ALL
 
 cdef class Actionslider(LayoutClass):
 

@@ -16,7 +16,19 @@
 # along with python-elementary.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+"""
+:var ELM_SCROLLER_POLICY_AUTO: Show scrollbars as needed
+:var ELM_SCROLLER_POLICY_ON: Always show scrollbars
+:var ELM_SCROLLER_POLICY_OFF: Never show scrollbars
+"""
+
 include "widget_header.pxi"
+
+cimport enums
+
+ELM_SCROLLER_POLICY_AUTO = enums.ELM_SCROLLER_POLICY_AUTO
+ELM_SCROLLER_POLICY_ON = enums.ELM_SCROLLER_POLICY_ON
+ELM_SCROLLER_POLICY_OFF = enums.ELM_SCROLLER_POLICY_OFF
 
 cdef class Scroller(Object):
 

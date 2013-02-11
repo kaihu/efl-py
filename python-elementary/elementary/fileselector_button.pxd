@@ -2,6 +2,7 @@ from evas.general cimport Eina_Bool
 from evas.object cimport Evas_Object, Evas_Coord
 from button cimport Button
 from object cimport Object
+from enums cimport Elm_Fileselector_Mode
 
 cdef extern from *:
     ctypedef char* const_char_ptr "const char *"

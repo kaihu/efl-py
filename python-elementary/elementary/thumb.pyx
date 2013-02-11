@@ -16,7 +16,20 @@
 # along with python-elementary.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+"""
+:var ELM_THUMB_ANIMATION_START: Play animation once
+:var ELM_THUMB_ANIMATION_LOOP: Keep playing animation until stop is requested
+:var ELM_THUMB_ANIMATION_STOP: Stop playing the animation
+"""
+
 include "widget_header.pxi"
+
+cimport enums
+
+ELM_THUMB_ANIMATION_START = enums.ELM_THUMB_ANIMATION_START
+ELM_THUMB_ANIMATION_LOOP = enums.ELM_THUMB_ANIMATION_LOOP
+ELM_THUMB_ANIMATION_STOP = enums.ELM_THUMB_ANIMATION_STOP
+ELM_THUMB_ANIMATION_LAST = enums.ELM_THUMB_ANIMATION_LAST
 
 cdef class Thumb(Object):
 

@@ -17,6 +17,46 @@
 # along with python-elementary.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+"""
+:var ELM_LIST_COMPRESS:
+    The list won't set any of its size hints to inform how a possible container
+    should resize it.
+
+    Then, if it's not created as a "resize object", it might end with zeroed
+    dimensions. The list will respect the container's geometry and, if any of
+    its items won't fit into its transverse axis, one won't be able to scroll it
+    in that direction.
+:var ELM_LIST_SCROLL:
+    Default value.
+
+    This is the same as ELM_LIST_COMPRESS, with the exception that if any of
+    its items won't fit into its transverse axis, one will be able to scroll
+    it in that direction.
+:var ELM_LIST_LIMIT:
+    Sets a minimum size hint on the list object, so that containers may
+    respect it (and resize itself to fit the child properly).
+
+    More specifically, a minimum size hint will be set for its transverse
+    axis, so that the largest item in that direction fits well. This is
+    naturally bound by the list object's maximum size hints, set externally.
+:var ELM_LIST_EXPAND:
+    Besides setting a minimum size on the transverse axis, just like on
+    ELM_LIST_LIMIT, the list will set a minimum size on the longitudinal
+    axis, trying to reserve space to all its children to be visible at a time.
+
+    This is naturally bound by the list object's maximum size hints, set
+    externally.
+
+:var ELM_OBJECT_SELECT_MODE_DEFAULT: Default select mode
+:var ELM_OBJECT_SELECT_MODE_ALWAYS: Always select mode
+:var ELM_OBJECT_SELECT_MODE_NONE: No select mode
+:var ELM_OBJECT_SELECT_MODE_DISPLAY_ONLY: No select mode with no finger size rule
+
+:var ELM_SCROLLER_POLICY_AUTO: Show scrollbars as needed
+:var ELM_SCROLLER_POLICY_ON: Always show scrollbars
+:var ELM_SCROLLER_POLICY_OFF: Never show scrollbars
+"""
+
 include "widget_header.pxi"
 from object_item cimport    _object_item_callback, \
                             _object_item_to_python, \
@@ -24,6 +64,23 @@ from object_item cimport    _object_item_callback, \
 from object_item import _cb_object_item_conv
 from general cimport PY_REFCOUNT
 from scroller cimport *
+
+cimport enums
+
+ELM_LIST_COMPRESS = enums.ELM_LIST_COMPRESS
+ELM_LIST_SCROLL = enums.ELM_LIST_SCROLL
+ELM_LIST_LIMIT = enums.ELM_LIST_LIMIT
+ELM_LIST_EXPAND = enums.ELM_LIST_EXPAND
+
+ELM_OBJECT_SELECT_MODE_DEFAULT = enums.ELM_OBJECT_SELECT_MODE_DEFAULT
+ELM_OBJECT_SELECT_MODE_ALWAYS = enums.ELM_OBJECT_SELECT_MODE_ALWAYS
+ELM_OBJECT_SELECT_MODE_NONE = enums.ELM_OBJECT_SELECT_MODE_NONE
+ELM_OBJECT_SELECT_MODE_DISPLAY_ONLY = enums.ELM_OBJECT_SELECT_MODE_DISPLAY_ONLY
+ELM_OBJECT_SELECT_MODE_MAX = enums.ELM_OBJECT_SELECT_MODE_MAX
+
+ELM_SCROLLER_POLICY_AUTO = enums.ELM_SCROLLER_POLICY_AUTO
+ELM_SCROLLER_POLICY_ON = enums.ELM_SCROLLER_POLICY_ON
+ELM_SCROLLER_POLICY_OFF = enums.ELM_SCROLLER_POLICY_OFF
 
 cdef class List(Object)
 

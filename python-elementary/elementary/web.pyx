@@ -17,10 +17,36 @@
 # along with python-elementary.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+"""
+:var ELM_WEB_WINDOW_FEATURE_TOOLBAR: Toolbar
+:var ELM_WEB_WINDOW_FEATURE_STATUSBAR: Status bar
+:var ELM_WEB_WINDOW_FEATURE_SCROLLBARS: Scrollbars
+:var ELM_WEB_WINDOW_FEATURE_MENUBAR: Menu bar
+:var ELM_WEB_WINDOW_FEATURE_LOCATIONBAR: Location bar
+:var ELM_WEB_WINDOW_FEATURE_FULLSCREEN: Fullscreen
+
+:var ELM_WEB_ZOOM_MODE_MANUAL: Zoom controlled normally by :py:attr:`zoom`
+:var ELM_WEB_ZOOM_MODE_AUTO_FIT: Zoom until content fits in web object.
+:var ELM_WEB_ZOOM_MODE_AUTO_FILL: Zoom until content fills web object.
+"""
+
 include "widget_header.pxi"
 include "conversions.pxi"
 include "callbacks.pxi"
 import traceback
+
+cimport enums
+
+ELM_WEB_WINDOW_FEATURE_TOOLBAR = enums.ELM_WEB_WINDOW_FEATURE_TOOLBAR
+ELM_WEB_WINDOW_FEATURE_STATUSBAR = enums.ELM_WEB_WINDOW_FEATURE_STATUSBAR
+ELM_WEB_WINDOW_FEATURE_SCROLLBARS = enums.ELM_WEB_WINDOW_FEATURE_SCROLLBARS
+ELM_WEB_WINDOW_FEATURE_MENUBAR = enums.ELM_WEB_WINDOW_FEATURE_MENUBAR
+ELM_WEB_WINDOW_FEATURE_LOCATIONBAR = enums.ELM_WEB_WINDOW_FEATURE_LOCATIONBAR
+ELM_WEB_WINDOW_FEATURE_FULLSCREEN = enums.ELM_WEB_WINDOW_FEATURE_FULLSCREEN
+
+ELM_WEB_ZOOM_MODE_MANUAL = enums.ELM_WEB_ZOOM_MODE_MANUAL
+ELM_WEB_ZOOM_MODE_AUTO_FIT = enums.ELM_WEB_ZOOM_MODE_AUTO_FIT
+ELM_WEB_ZOOM_MODE_AUTO_FILL = enums.ELM_WEB_ZOOM_MODE_AUTO_FILL
 
 def _web_double_conv(long addr):
     cdef double *info = <double *>addr

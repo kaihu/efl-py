@@ -1,8 +1,8 @@
 from evas.general cimport Eina_Bool, const_Eina_List
 from evas.object cimport Evas_Object, Evas_Smart_Cb
 from object cimport Object
-from scroller cimport Elm_Scroller_Policy
 from object_item cimport Elm_Object_Item, ObjectItem
+from enums cimport Elm_Scroller_Policy
 
 cdef extern from *:
     ctypedef char* const_char_ptr "const char *"

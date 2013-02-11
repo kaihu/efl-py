@@ -16,10 +16,21 @@
 # along with python-elementary.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+"""
+:var ELM_ICON_NONE: No icon
+:var ELM_ICON_FILE: Icon is a file
+:var ELM_ICON_STANDARD: Icon is set with standards names
+"""
+
 include "widget_header.pxi"
-from icon cimport ELM_ICON_NONE
 from object_item cimport _object_item_callback, _object_item_list_to_python
 from object_item import _cb_object_item_conv
+
+cimport enums
+
+ELM_ICON_NONE = enums.ELM_ICON_NONE
+ELM_ICON_FILE = enums.ELM_ICON_FILE
+ELM_ICON_STANDARD = enums.ELM_ICON_STANDARD
 
 cdef class HoverselItem(ObjectItem):
 

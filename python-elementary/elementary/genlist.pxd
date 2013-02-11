@@ -1,10 +1,11 @@
 from evas.general cimport Eina_Bool, Eina_List, Eina_Compare_Cb
 from evas.object cimport Evas_Object, Evas_Smart_Cb, Evas_Coord
-from object cimport Object, Elm_Object_Select_Mode
+from object cimport Object
 from object_item cimport Elm_Object_Item
-from list cimport Elm_List_Mode
-from scroller cimport Elm_Scroller_Policy
 from general cimport Elm_Tooltip_Item_Content_Cb
+from enums cimport Elm_Scroller_Policy, Elm_List_Mode, Elm_Object_Select_Mode, \
+    Elm_Genlist_Item_Type, Elm_Genlist_Item_Scrollto_Type, \
+    Elm_Genlist_Item_Field_Type
 
 cdef extern from *:
     ctypedef char* const_char_ptr "const char *"
@@ -14,24 +15,6 @@ cdef extern from "Python.h":
         PyTypeObject *ob_type
 
 cdef extern from "Elementary.h":
-
-    ctypedef enum Elm_Genlist_Item_Type:
-        ELM_GENLIST_ITEM_NONE
-        ELM_GENLIST_ITEM_TREE
-        ELM_GENLIST_ITEM_GROUP
-        ELM_GENLIST_ITEM_MAX
-
-    ctypedef enum Elm_Genlist_Item_Field_Type:
-        ELM_GENLIST_ITEM_FIELD_ALL
-        ELM_GENLIST_ITEM_FIELD_TEXT
-        ELM_GENLIST_ITEM_FIELD_CONTENT
-        ELM_GENLIST_ITEM_FIELD_STATE
-
-    ctypedef enum Elm_Genlist_Item_Scrollto_Type:
-        ELM_GENLIST_ITEM_SCROLLTO_NONE      # no scrollto
-        ELM_GENLIST_ITEM_SCROLLTO_IN        # to the nearest viewport
-        ELM_GENLIST_ITEM_SCROLLTO_TOP       # to the top of viewport
-        ELM_GENLIST_ITEM_SCROLLTO_MIDDLE    # to the middle of viewport
 
     #genlist
     ctypedef char           *(*GenlistItemLabelGetFunc)     (void *data, Evas_Object *obj, const_char_ptr part)

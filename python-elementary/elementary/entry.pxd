@@ -1,41 +1,14 @@
 from evas.general cimport Eina_Bool, Eina_Rectangle
 from evas.object cimport Evas_Object, Evas_Coord
 from object cimport Object
-from general cimport Elm_Wrap_Type, Elm_Text_Format, Elm_Cnp_Mode
-from scroller cimport Elm_Scroller_Policy
+from enums cimport Elm_Wrap_Type, Elm_Text_Format, Elm_Cnp_Mode, \
+    Elm_Scroller_Policy, Elm_Input_Panel_Layout, Elm_Input_Panel_Lang, \
+    Elm_Input_Panel_Lang, Elm_Input_Panel_Return_Key_Type
 
 cdef extern from *:
     ctypedef char* const_char_ptr "const char *"
 
 cdef extern from "Elementary.h":
-
-    ctypedef enum Elm_Input_Panel_Lang:
-        ELM_INPUT_PANEL_LANG_AUTOMATIC
-        ELM_INPUT_PANEL_LANG_ALPHABET
-
-    ctypedef enum Elm_Input_Panel_Layout:
-        ELM_INPUT_PANEL_LAYOUT_NORMAL
-        ELM_INPUT_PANEL_LAYOUT_NUMBER
-        ELM_INPUT_PANEL_LAYOUT_EMAIL
-        ELM_INPUT_PANEL_LAYOUT_URL
-        ELM_INPUT_PANEL_LAYOUT_PHONENUMBER
-        ELM_INPUT_PANEL_LAYOUT_IP
-        ELM_INPUT_PANEL_LAYOUT_MONTH
-        ELM_INPUT_PANEL_LAYOUT_NUMBERONLY
-        ELM_INPUT_PANEL_LAYOUT_INVALID
-        ELM_INPUT_PANEL_LAYOUT_HEX
-        ELM_INPUT_PANEL_LAYOUT_TERMINAL
-        ELM_INPUT_PANEL_LAYOUT_PASSWORD
-
-    ctypedef enum Elm_Input_Panel_Return_Key_Type:
-        ELM_INPUT_PANEL_RETURN_KEY_TYPE_DEFAULT
-        ELM_INPUT_PANEL_RETURN_KEY_TYPE_DONE
-        ELM_INPUT_PANEL_RETURN_KEY_TYPE_GO
-        ELM_INPUT_PANEL_RETURN_KEY_TYPE_JOIN
-        ELM_INPUT_PANEL_RETURN_KEY_TYPE_LOGIN
-        ELM_INPUT_PANEL_RETURN_KEY_TYPE_NEXT
-        ELM_INPUT_PANEL_RETURN_KEY_TYPE_SEARCH
-        ELM_INPUT_PANEL_RETURN_KEY_TYPE_SEND
 
     #entry
     ctypedef struct Elm_Entry_Anchor_Info:

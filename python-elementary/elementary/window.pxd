@@ -1,7 +1,8 @@
 from evas.general cimport Eina_Bool
 from evas.object cimport Evas_Object, const_Evas_Object
 from object cimport Object
-from general cimport Elm_Illume_Command
+from enums cimport Elm_Illume_Command, Elm_Win_Type, Elm_Win_Indicator_Mode, \
+    Elm_Win_Indicator_Opacity_Mode, Elm_Win_Keyboard_Mode
 
 cdef extern from *:
     ctypedef char* const_char_ptr "const char *"
@@ -15,53 +16,6 @@ cdef extern from "Ecore_X.h":
     ctypedef Ecore_X_ID Ecore_X_Window
 
 cdef extern from "Elementary.h":
-
-    ctypedef enum Elm_Win_Type:
-        ELM_WIN_BASIC
-        ELM_WIN_DIALOG_BASIC
-        ELM_WIN_DESKTOP
-        ELM_WIN_DOCK
-        ELM_WIN_TOOLBAR
-        ELM_WIN_MENU
-        ELM_WIN_UTILITY
-        ELM_WIN_SPLASH
-        ELM_WIN_DROPDOWN_MENU
-        ELM_WIN_POPUP_MENU
-        ELM_WIN_TOOLTIP
-        ELM_WIN_NOTIFICATION
-        ELM_WIN_COMBO
-        ELM_WIN_DND
-        ELM_WIN_INLINED_IMAGE
-        ELM_WIN_SOCKET_IMAGE
-
-    ctypedef enum Elm_Win_Indicator_Mode:
-        ELM_WIN_INDICATOR_UNKNOWN
-        ELM_WIN_INDICATOR_HIDE
-        ELM_WIN_INDICATOR_SHOW
-
-    ctypedef enum Elm_Win_Indicator_Opacity_Mode:
-        ELM_WIN_INDICATOR_OPACITY_UNKNOWN
-        ELM_WIN_INDICATOR_OPAQUE
-        ELM_WIN_INDICATOR_TRANSLUCENT
-        ELM_WIN_INDICATOR_TRANSPARENT
-
-    ctypedef enum Elm_Win_Keyboard_Mode:
-        ELM_WIN_KEYBOARD_UNKNOWN      # Unknown keyboard state
-        ELM_WIN_KEYBOARD_OFF          # Request to deactivate the keyboard
-        ELM_WIN_KEYBOARD_ON           # Enable keyboard with default layout
-        ELM_WIN_KEYBOARD_ALPHA        # Alpha (a-z) keyboard layout
-        ELM_WIN_KEYBOARD_NUMERIC      # Numeric keyboard layout
-        ELM_WIN_KEYBOARD_PIN          # PIN keyboard layout
-        ELM_WIN_KEYBOARD_PHONE_NUMBER # Phone keyboard layout
-        ELM_WIN_KEYBOARD_HEX          # Hexadecimal numeric keyboard layout
-        ELM_WIN_KEYBOARD_TERMINAL     # Full (QWERTY) keyboard layout
-        ELM_WIN_KEYBOARD_PASSWORD     # Password keyboard layout
-        ELM_WIN_KEYBOARD_IP           # IP keyboard layout
-        ELM_WIN_KEYBOARD_HOST         # Host keyboard layout
-        ELM_WIN_KEYBOARD_FILE         # File keyboard layout
-        ELM_WIN_KEYBOARD_URL          # URL keyboard layout
-        ELM_WIN_KEYBOARD_KEYPAD       # Keypad layout
-        ELM_WIN_KEYBOARD_J2ME         # J2ME keyboard layout
 
     # Window                (api:DONE  cb:DONE  test:TODO  doc:TODO  py3:DONE)
     Evas_Object             *elm_win_add(Evas_Object *parent, const_char_ptr name, Elm_Win_Type type)

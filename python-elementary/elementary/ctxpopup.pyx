@@ -16,8 +16,24 @@
 # along with python-elementary.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+"""
+:var ELM_CTXPOPUP_DIRECTION_DOWN: Arrow is pointing down
+:var ELM_CTXPOPUP_DIRECTION_RIGHT: Arrow is pointing right
+:var ELM_CTXPOPUP_DIRECTION_LEFT: Arrow is pointing left
+:var ELM_CTXPOPUP_DIRECTION_UP: Arrow is pointing up
+:var ELM_CTXPOPUP_DIRECTION_UNKNOWN: Arrow direction is unknown
+"""
+
 include "widget_header.pxi"
 from object_item cimport ObjectItem, _object_item_callback
+
+cimport enums
+
+ELM_CTXPOPUP_DIRECTION_DOWN = enums.ELM_CTXPOPUP_DIRECTION_DOWN
+ELM_CTXPOPUP_DIRECTION_RIGHT = enums.ELM_CTXPOPUP_DIRECTION_RIGHT
+ELM_CTXPOPUP_DIRECTION_LEFT = enums.ELM_CTXPOPUP_DIRECTION_LEFT
+ELM_CTXPOPUP_DIRECTION_UP = enums.ELM_CTXPOPUP_DIRECTION_UP
+ELM_CTXPOPUP_DIRECTION_UNKNOWN = enums.ELM_CTXPOPUP_DIRECTION_UNKNOWN
 
 cdef class CtxpopupItem(ObjectItem):
     def __init__(self, evasObject ctxpopup, label = None, evasObject icon = None, callback = None, *args, **kargs):

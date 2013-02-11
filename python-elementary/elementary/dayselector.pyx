@@ -16,7 +16,28 @@
 # along with python-elementary.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+"""
+:var ELM_DAYSELECTOR_SUN: Sunday
+:var ELM_DAYSELECTOR_MON: Monday
+:var ELM_DAYSELECTOR_TUE: Tuesday
+:var ELM_DAYSELECTOR_WED: Wednesday
+:var ELM_DAYSELECTOR_THU: Thursday
+:var ELM_DAYSELECTOR_FRI: Friday
+:var ELM_DAYSELECTOR_SAT: Saturday
+"""
+
 include "widget_header.pxi"
+
+cimport enums
+
+ELM_DAYSELECTOR_SUN = enums.ELM_DAYSELECTOR_SUN
+ELM_DAYSELECTOR_MON = enums.ELM_DAYSELECTOR_MON
+ELM_DAYSELECTOR_TUE = enums.ELM_DAYSELECTOR_TUE
+ELM_DAYSELECTOR_WED = enums.ELM_DAYSELECTOR_WED
+ELM_DAYSELECTOR_THU = enums.ELM_DAYSELECTOR_THU
+ELM_DAYSELECTOR_FRI = enums.ELM_DAYSELECTOR_FRI
+ELM_DAYSELECTOR_SAT = enums.ELM_DAYSELECTOR_SAT
+ELM_DAYSELECTOR_MAX = enums.ELM_DAYSELECTOR_MAX
 
 cdef class Dayselector(LayoutClass):
 

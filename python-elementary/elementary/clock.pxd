@@ -2,6 +2,7 @@ from evas.object cimport Evas_Object
 from evas.general cimport Eina_Bool
 from layout_class cimport LayoutClass
 from object cimport Object
+from enums cimport Elm_Clock_Edit_Mode
 
 cdef extern from *:
     ctypedef char* const_char_ptr "const char *"
@@ -11,16 +12,6 @@ cdef extern from "Python.h":
         PyTypeObject *ob_type
 
 cdef extern from "Elementary.h":
-
-    ctypedef enum Elm_Clock_Edit_Mode:
-        ELM_CLOCK_EDIT_DEFAULT = 0
-        ELM_CLOCK_EDIT_HOUR_DECIMAL = 1 << 0
-        ELM_CLOCK_EDIT_HOUR_UNIT = 1 << 1
-        ELM_CLOCK_EDIT_MIN_DECIMAL = 1 << 2
-        ELM_CLOCK_EDIT_MIN_UNIT = 1 << 3
-        ELM_CLOCK_EDIT_SEC_DECIMAL = 1 << 4
-        ELM_CLOCK_EDIT_SEC_UNIT = 1 << 5
-        ELM_CLOCK_EDIT_ALL = (1 << 6) - 1
 
     # Clock                 (api:DONE  cb:DONE  test:DONE  doc:DONE)
     Evas_Object             *elm_clock_add(Evas_Object *parent)

@@ -16,10 +16,48 @@
 # along with python-elementary.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+"""
+:var ELM_GESTURE_STATE_UNDEFINED: Gesture not started
+:var ELM_GESTURE_STATE_START: Gesture started
+:var ELM_GESTURE_STATE_MOVE: Gesture is ongoing
+:var ELM_GESTURE_STATE_END: Gesture completed
+:var ELM_GESTURE_STATE_ABORT: Ongoing gesture was aborted
+
+:var ELM_GESTURE_N_TAPS: N fingers single taps
+:var ELM_GESTURE_N_LONG_TAPS: N fingers single long-taps
+:var ELM_GESTURE_N_DOUBLE_TAPS: N fingers double-single taps
+:var ELM_GESTURE_N_TRIPLE_TAPS: N fingers triple-single taps
+:var ELM_GESTURE_MOMENTUM: Reports momentum in the direction of move
+:var ELM_GESTURE_N_LINES: N fingers line gesture
+:var ELM_GESTURE_N_FLICKS: N fingers flick gesture
+:var ELM_GESTURE_ZOOM: Zoom
+:var ELM_GESTURE_ROTATE: Rotate
+"""
+
 include "widget_header.pxi"
 import traceback
 
 from evas.events cimport EVAS_EVENT_FLAG_NONE
+
+cimport enums
+
+ELM_GESTURE_STATE_UNDEFINED = enums.ELM_GESTURE_STATE_UNDEFINED
+ELM_GESTURE_STATE_START = enums.ELM_GESTURE_STATE_START
+ELM_GESTURE_STATE_MOVE = enums.ELM_GESTURE_STATE_MOVE
+ELM_GESTURE_STATE_END = enums.ELM_GESTURE_STATE_END
+ELM_GESTURE_STATE_ABORT = enums.ELM_GESTURE_STATE_ABORT
+
+ELM_GESTURE_FIRST = enums.ELM_GESTURE_FIRST
+ELM_GESTURE_N_TAPS = enums.ELM_GESTURE_N_TAPS
+ELM_GESTURE_N_LONG_TAPS = enums.ELM_GESTURE_N_LONG_TAPS
+ELM_GESTURE_N_DOUBLE_TAPS = enums.ELM_GESTURE_N_DOUBLE_TAPS
+ELM_GESTURE_N_TRIPLE_TAPS = enums.ELM_GESTURE_N_TRIPLE_TAPS
+ELM_GESTURE_MOMENTUM = enums.ELM_GESTURE_MOMENTUM
+ELM_GESTURE_N_LINES = enums.ELM_GESTURE_N_LINES
+ELM_GESTURE_N_FLICKS = enums.ELM_GESTURE_N_FLICKS
+ELM_GESTURE_ZOOM = enums.ELM_GESTURE_ZOOM
+ELM_GESTURE_ROTATE = enums.ELM_GESTURE_ROTATE
+ELM_GESTURE_LAST = enums.ELM_GESTURE_LAST
 
 cdef Evas_Event_Flags _gesture_layer_event_cb(void *data, void *event_info) with gil:
     (callback, args, kwargs) = <object>data

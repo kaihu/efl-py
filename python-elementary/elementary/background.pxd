@@ -2,18 +2,12 @@ from evas.general cimport Eina_Bool
 from evas.object cimport Evas_Object, Evas_Coord
 from layout_class cimport LayoutClass
 from object cimport Object
+from enums cimport Elm_Bg_Option
 
 cdef extern from *:
     ctypedef char* const_char_ptr "const char *"
 
 cdef extern from "Elementary.h":
-
-    ctypedef enum Elm_Bg_Option:
-        ELM_BG_OPTION_CENTER
-        ELM_BG_OPTION_SCALE
-        ELM_BG_OPTION_STRETCH
-        ELM_BG_OPTION_TILE
-        ELM_BG_OPTION_LAST
 
     # Background            (api:DONE  cb:N/A   test:DONE  doc:DONE  py3:DONE)
     Evas_Object             *elm_bg_add(Evas_Object *parent)

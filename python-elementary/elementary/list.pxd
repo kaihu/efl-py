@@ -1,8 +1,8 @@
 from evas.general cimport Eina_Bool, Eina_List, Eina_Compare_Cb
 from evas.object cimport Evas_Object, Evas_Smart_Cb
-from object cimport Object, Elm_Object_Select_Mode
-from scroller cimport Elm_Scroller_Policy
+from object cimport Object
 from object_item cimport Elm_Object_Item, ObjectItem
+from enums cimport Elm_List_Mode, Elm_Object_Select_Mode, Elm_Scroller_Policy
 
 cdef extern from *:
     ctypedef char* const_char_ptr "const char *"
@@ -12,12 +12,6 @@ cdef extern from "Python.h":
         PyTypeObject *ob_type
 
 cdef extern from "Elementary.h":
-
-    ctypedef enum Elm_List_Mode:
-        ELM_LIST_COMPRESS
-        ELM_LIST_SCROLL
-        ELM_LIST_LIMIT
-        ELM_LIST_EXPAND
 
     # List                  (api:TODO  cb:DONE  test:DONE  doc:DONE  py3:DONE)
     Evas_Object             *elm_list_add(Evas_Object *parent)

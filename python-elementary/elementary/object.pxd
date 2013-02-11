@@ -21,6 +21,7 @@ from evas.general cimport Eina_Bool, Eina_List, const_Eina_List
 from evas.object cimport Evas_Object, Evas_Callback_Type, Evas_Smart_Cb
 from evas.object cimport Object as evasObject
 from evas.canvas cimport Canvas as evasCanvas
+from enums cimport Elm_Focus_Direction
 
 cdef extern from *:
     ctypedef char* const_char_ptr "const char *"
@@ -34,17 +35,6 @@ cdef extern from "Edje.h":
     ctypedef void (*Edje_Signal_Cb)(void *data, Evas_Object *obj, const_char_ptr emission, const_char_ptr source)
 
 cdef extern from "Elementary.h":
-
-    ctypedef enum Elm_Focus_Direction:
-        ELM_FOCUS_PREVIOUS
-        ELM_FOCUS_NEXT
-
-    ctypedef enum Elm_Object_Select_Mode:
-        ELM_OBJECT_SELECT_MODE_DEFAULT        # default select mode
-        ELM_OBJECT_SELECT_MODE_ALWAYS         # always select mode
-        ELM_OBJECT_SELECT_MODE_NONE           # no select mode
-        ELM_OBJECT_SELECT_MODE_DISPLAY_ONLY   # no select mode with no finger size rule
-        ELM_OBJECT_SELECT_MODE_MAX
 
     ctypedef struct Elm_Theme
 

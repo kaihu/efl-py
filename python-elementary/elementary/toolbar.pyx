@@ -16,10 +16,53 @@
 # along with python-elementary.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+"""
+:var ELM_ICON_LOOKUP_FDO_THEME: freedesktop, theme
+:var ELM_ICON_LOOKUP_THEME_FDO: theme, freedesktop
+:var ELM_ICON_LOOKUP_FDO: freedesktop
+:var ELM_ICON_LOOKUP_THEME: theme
+
+:var ELM_OBJECT_SELECT_MODE_DEFAULT: Default select mode
+:var ELM_OBJECT_SELECT_MODE_ALWAYS: Always select mode
+:var ELM_OBJECT_SELECT_MODE_NONE: No select mode
+:var ELM_OBJECT_SELECT_MODE_DISPLAY_ONLY: No select mode with no finger size rule
+
+:var ELM_TOOLBAR_SHRINK_NONE:
+    Set toolbar minimum size to fit all the items
+:var ELM_TOOLBAR_SHRINK_HIDE:
+    Hide exceeding items
+:var ELM_TOOLBAR_SHRINK_SCROLL:
+    Allow accessing exceeding items through a scroller
+:var ELM_TOOLBAR_SHRINK_MENU:
+    Inserts a button to pop up a menu with exceeding items
+:var ELM_TOOLBAR_SHRINK_EXPAND:
+    Expand all items according the size of the toolbar.
+"""
+
 include "widget_header.pxi"
 from object_item cimport    _object_item_callback, \
                             _object_item_to_python
 from menu cimport Menu
+
+cimport enums
+
+ELM_ICON_LOOKUP_FDO_THEME = enums.ELM_ICON_LOOKUP_FDO_THEME
+ELM_ICON_LOOKUP_THEME_FDO = enums.ELM_ICON_LOOKUP_THEME_FDO
+ELM_ICON_LOOKUP_FDO = enums.ELM_ICON_LOOKUP_FDO
+ELM_ICON_LOOKUP_THEME = enums.ELM_ICON_LOOKUP_THEME
+
+ELM_OBJECT_SELECT_MODE_DEFAULT = enums.ELM_OBJECT_SELECT_MODE_DEFAULT
+ELM_OBJECT_SELECT_MODE_ALWAYS = enums.ELM_OBJECT_SELECT_MODE_ALWAYS
+ELM_OBJECT_SELECT_MODE_NONE = enums.ELM_OBJECT_SELECT_MODE_NONE
+ELM_OBJECT_SELECT_MODE_DISPLAY_ONLY = enums.ELM_OBJECT_SELECT_MODE_DISPLAY_ONLY
+ELM_OBJECT_SELECT_MODE_MAX = enums.ELM_OBJECT_SELECT_MODE_MAX
+
+ELM_TOOLBAR_SHRINK_NONE = enums.ELM_TOOLBAR_SHRINK_NONE
+ELM_TOOLBAR_SHRINK_HIDE = enums.ELM_TOOLBAR_SHRINK_HIDE
+ELM_TOOLBAR_SHRINK_SCROLL = enums.ELM_TOOLBAR_SHRINK_SCROLL
+ELM_TOOLBAR_SHRINK_MENU = enums.ELM_TOOLBAR_SHRINK_MENU
+ELM_TOOLBAR_SHRINK_EXPAND = enums.ELM_TOOLBAR_SHRINK_EXPAND
+ELM_TOOLBAR_SHRINK_LAST = enums.ELM_TOOLBAR_SHRINK_LAST
 
 cdef class ToolbarItemState(object):
 

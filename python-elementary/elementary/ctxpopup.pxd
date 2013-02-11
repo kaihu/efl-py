@@ -2,6 +2,7 @@ from evas.general cimport Eina_Bool
 from evas.object cimport Evas_Object, Evas_Smart_Cb
 from object cimport Object
 from object_item cimport Elm_Object_Item
+from enums cimport Elm_Ctxpopup_Direction
 
 cdef extern from *:
     ctypedef char* const_char_ptr "const char *"
@@ -11,13 +12,6 @@ cdef extern from "Python.h":
         PyTypeObject *ob_type
 
 cdef extern from "Elementary.h":
-
-    ctypedef enum Elm_Ctxpopup_Direction:
-        ELM_CTXPOPUP_DIRECTION_DOWN
-        ELM_CTXPOPUP_DIRECTION_RIGHT
-        ELM_CTXPOPUP_DIRECTION_LEFT
-        ELM_CTXPOPUP_DIRECTION_UP
-        ELM_CTXPOPUP_DIRECTION_UNKNOWN
 
     # Ctxpopup              (api:DONE  cb:DONE  test:DONE  doc:DONE  py3:DONE)
     Evas_Object             *elm_ctxpopup_add(Evas_Object *parent)

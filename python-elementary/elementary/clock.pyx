@@ -16,7 +16,29 @@
 # along with python-elementary.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+"""
+:var ELM_CLOCK_EDIT_DEFAULT: Default edit
+:var ELM_CLOCK_EDIT_HOUR_DECIMAL: Edit hours' decimal
+:var ELM_CLOCK_EDIT_HOUR_UNIT: Edit hours' unit
+:var ELM_CLOCK_EDIT_MIN_DECIMAL: Edit minutes' decimal
+:var ELM_CLOCK_EDIT_MIN_UNIT: Edit minutes' unit
+:var ELM_CLOCK_EDIT_SEC_DECIMAL: Edit seconds' decimal
+:var ELM_CLOCK_EDIT_SEC_UNIT: Edit seconds' unit
+:var ELM_CLOCK_EDIT_ALL: Edit all
+"""
+
 include "widget_header.pxi"
+
+cimport enums
+
+ELM_CLOCK_EDIT_DEFAULT = enums.ELM_CLOCK_EDIT_DEFAULT
+ELM_CLOCK_EDIT_HOUR_DECIMAL = enums.ELM_CLOCK_EDIT_HOUR_DECIMAL
+ELM_CLOCK_EDIT_HOUR_UNIT = enums.ELM_CLOCK_EDIT_HOUR_UNIT
+ELM_CLOCK_EDIT_MIN_DECIMAL = enums.ELM_CLOCK_EDIT_MIN_DECIMAL
+ELM_CLOCK_EDIT_MIN_UNIT = enums.ELM_CLOCK_EDIT_MIN_UNIT
+ELM_CLOCK_EDIT_SEC_DECIMAL = enums.ELM_CLOCK_EDIT_SEC_DECIMAL
+ELM_CLOCK_EDIT_SEC_UNIT = enums.ELM_CLOCK_EDIT_SEC_UNIT
+ELM_CLOCK_EDIT_ALL = enums.ELM_CLOCK_EDIT_ALL
 
 cdef class Clock(LayoutClass):
 

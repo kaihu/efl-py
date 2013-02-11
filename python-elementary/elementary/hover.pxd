@@ -1,17 +1,12 @@
 from evas.object cimport Evas_Object
 from layout_class cimport LayoutClass
 from object cimport Object
+from enums cimport Elm_Hover_Axis
 
 cdef extern from *:
     ctypedef char* const_char_ptr "const char *"
 
 cdef extern from "Elementary.h":
-
-    ctypedef enum Elm_Hover_Axis:
-        ELM_HOVER_AXIS_NONE
-        ELM_HOVER_AXIS_HORIZONTAL
-        ELM_HOVER_AXIS_VERTICAL
-        ELM_HOVER_AXIS_BOTH
 
     # Hover                 (api:DONE  cb:DONE  test:DONE  doc:DONE)
     Evas_Object             *elm_hover_add(Evas_Object *parent)

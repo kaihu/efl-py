@@ -2,7 +2,7 @@ from evas.general cimport Eina_Bool
 from evas.object cimport Evas_Object, Evas_Smart_Cb
 from object cimport Object
 from object_item cimport Elm_Object_Item, ObjectItem
-from general cimport Elm_Wrap_Type
+from enums cimport Elm_Wrap_Type, Elm_Popup_Orient
 
 cdef extern from *:
     ctypedef char* const_char_ptr "const char *"
@@ -12,18 +12,6 @@ cdef extern from "Python.h":
         PyTypeObject *ob_type
 
 cdef extern from "Elementary.h":
-
-    ctypedef enum Elm_Popup_Orient:
-        ELM_POPUP_ORIENT_TOP
-        ELM_POPUP_ORIENT_CENTER
-        ELM_POPUP_ORIENT_BOTTOM
-        ELM_POPUP_ORIENT_LEFT
-        ELM_POPUP_ORIENT_RIGHT
-        ELM_POPUP_ORIENT_TOP_LEFT
-        ELM_POPUP_ORIENT_TOP_RIGHT
-        ELM_POPUP_ORIENT_BOTTOM_LEFT
-        ELM_POPUP_ORIENT_BOTTOM_RIGHT
-        ELM_POPUP_ORIENT_LAST
 
     # Popup                 (api:DONE  cb:DONE  test:TODO  doc:DONE  py3:DONE)
     Evas_Object             *elm_popup_add(Evas_Object *parent)

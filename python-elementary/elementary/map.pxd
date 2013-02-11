@@ -1,6 +1,8 @@
 from evas.general cimport Eina_Bool, Eina_List
 from evas.object cimport Evas_Object, const_Evas_Object, Evas_Coord
 from object cimport Object
+from enums cimport Elm_Map_Overlay_Type, Elm_Map_Route_Method, \
+    Elm_Map_Route_Type, Elm_Map_Source_Type, Elm_Map_Zoom_Mode
 
 cdef extern from *:
     ctypedef char* const_char_ptr "const char *"
@@ -19,41 +21,6 @@ cdef extern from "Elementary.h":
     ctypedef void (*Elm_Map_Overlay_Del_Cb)(void *data, Evas_Object *map, Elm_Map_Overlay *overlay)
     ctypedef void (*Elm_Map_Route_Cb)(void *data, Evas_Object *map, Elm_Map_Route *route)
     ctypedef void (*Elm_Map_Name_Cb)(void *data, Evas_Object *map, Elm_Map_Name *name)
-
-    ctypedef enum Elm_Map_Overlay_Type:
-        ELM_MAP_OVERLAY_TYPE_NONE
-        ELM_MAP_OVERLAY_TYPE_DEFAULT
-        ELM_MAP_OVERLAY_TYPE_CLASS
-        ELM_MAP_OVERLAY_TYPE_GROUP
-        ELM_MAP_OVERLAY_TYPE_BUBBLE
-        ELM_MAP_OVERLAY_TYPE_ROUTE
-        ELM_MAP_OVERLAY_TYPE_LINE
-        ELM_MAP_OVERLAY_TYPE_POLYGON
-        ELM_MAP_OVERLAY_TYPE_CIRCLE
-        ELM_MAP_OVERLAY_TYPE_SCALE
-
-    ctypedef enum Elm_Map_Route_Method:
-        ELM_MAP_ROUTE_METHOD_FASTEST
-        ELM_MAP_ROUTE_METHOD_SHORTEST
-        ELM_MAP_ROUTE_METHOD_LAST
-
-    ctypedef enum Elm_Map_Route_Type:
-        ELM_MAP_ROUTE_TYPE_MOTOCAR
-        ELM_MAP_ROUTE_TYPE_BICYCLE
-        ELM_MAP_ROUTE_TYPE_FOOT
-        ELM_MAP_ROUTE_TYPE_LAST
-
-    ctypedef enum Elm_Map_Source_Type:
-        ELM_MAP_SOURCE_TYPE_TILE
-        ELM_MAP_SOURCE_TYPE_ROUTE
-        ELM_MAP_SOURCE_TYPE_NAME
-        ELM_MAP_SOURCE_TYPE_LAST
-
-    ctypedef enum Elm_Map_Zoom_Mode:
-        ELM_MAP_ZOOM_MODE_MANUAL
-        ELM_MAP_ZOOM_MODE_AUTO_FIT
-        ELM_MAP_ZOOM_MODE_AUTO_FILL
-        ELM_MAP_ZOOM_MODE_LAST
 
     Evas_Object             *elm_map_add(Evas_Object *parent)
     void                     elm_map_zoom_set(Evas_Object *obj, int zoom)

@@ -16,11 +16,80 @@
 # along with python-elementary.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+"""
+:var ELM_MAP_OVERLAY_TYPE_NONE: None
+:var ELM_MAP_OVERLAY_TYPE_DEFAULT: Default
+:var ELM_MAP_OVERLAY_TYPE_CLASS: Class
+:var ELM_MAP_OVERLAY_TYPE_GROUP: Group
+:var ELM_MAP_OVERLAY_TYPE_BUBBLE: Bubble
+:var ELM_MAP_OVERLAY_TYPE_ROUTE: Route
+:var ELM_MAP_OVERLAY_TYPE_LINE: Line
+:var ELM_MAP_OVERLAY_TYPE_POLYGON: Polygon
+:var ELM_MAP_OVERLAY_TYPE_CIRCLE: Circle
+:var ELM_MAP_OVERLAY_TYPE_SCALE: Scale
+
+:var ELM_MAP_ROUTE_METHOD_FASTEST: Route should prioritize time
+:var ELM_MAP_ROUTE_METHOD_SHORTEST: Route should prioritize distance
+
+:var ELM_MAP_ROUTE_TYPE_MOTOCAR:
+    Route should consider an automobile will be used.
+:var ELM_MAP_ROUTE_TYPE_BICYCLE:
+    Route should consider a bicycle will be used by the user.
+:var ELM_MAP_ROUTE_TYPE_FOOT:
+    Route should consider user will be walking.
+
+:var ELM_MAP_SOURCE_TYPE_TILE: Map tile provider
+:var ELM_MAP_SOURCE_TYPE_ROUTE: Route service provider
+:var ELM_MAP_SOURCE_TYPE_NAME: Name service provider
+
+:var ELM_MAP_ZOOM_MODE_MANUAL:
+    Zoom controlled manually by :py:attr:`zoom_set`
+
+    It's set by default.
+:var ELM_MAP_ZOOM_MODE_AUTO_FIT:
+    Zoom until map fits inside the scroll frame with no pixels outside this
+    area.
+:var ELM_MAP_ZOOM_MODE_AUTO_FILL:
+    Zoom until map fills scroll, ensuring no pixels are left unfilled.
+"""
+
 include "widget_header.pxi"
 
 from evas.general cimport eina_list_free, eina_list_append
 from evas.object cimport evas_object_data_get
 import traceback
+
+cimport enums
+
+ELM_MAP_OVERLAY_TYPE_NONE = enums.ELM_MAP_OVERLAY_TYPE_NONE
+ELM_MAP_OVERLAY_TYPE_DEFAULT = enums.ELM_MAP_OVERLAY_TYPE_DEFAULT
+ELM_MAP_OVERLAY_TYPE_CLASS = enums.ELM_MAP_OVERLAY_TYPE_CLASS
+ELM_MAP_OVERLAY_TYPE_GROUP = enums.ELM_MAP_OVERLAY_TYPE_GROUP
+ELM_MAP_OVERLAY_TYPE_BUBBLE = enums.ELM_MAP_OVERLAY_TYPE_BUBBLE
+ELM_MAP_OVERLAY_TYPE_ROUTE = enums.ELM_MAP_OVERLAY_TYPE_ROUTE
+ELM_MAP_OVERLAY_TYPE_LINE = enums.ELM_MAP_OVERLAY_TYPE_LINE
+ELM_MAP_OVERLAY_TYPE_POLYGON = enums.ELM_MAP_OVERLAY_TYPE_POLYGON
+ELM_MAP_OVERLAY_TYPE_CIRCLE = enums.ELM_MAP_OVERLAY_TYPE_CIRCLE
+ELM_MAP_OVERLAY_TYPE_SCALE = enums.ELM_MAP_OVERLAY_TYPE_SCALE
+
+ELM_MAP_ROUTE_METHOD_FASTEST = enums.ELM_MAP_ROUTE_METHOD_FASTEST
+ELM_MAP_ROUTE_METHOD_SHORTEST = enums.ELM_MAP_ROUTE_METHOD_SHORTEST
+ELM_MAP_ROUTE_METHOD_LAST = enums.ELM_MAP_ROUTE_METHOD_LAST
+
+ELM_MAP_ROUTE_TYPE_MOTOCAR = enums.ELM_MAP_ROUTE_TYPE_MOTOCAR
+ELM_MAP_ROUTE_TYPE_BICYCLE = enums.ELM_MAP_ROUTE_TYPE_BICYCLE
+ELM_MAP_ROUTE_TYPE_FOOT = enums.ELM_MAP_ROUTE_TYPE_FOOT
+ELM_MAP_ROUTE_TYPE_LAST = enums.ELM_MAP_ROUTE_TYPE_LAST
+
+ELM_MAP_SOURCE_TYPE_TILE = enums.ELM_MAP_SOURCE_TYPE_TILE
+ELM_MAP_SOURCE_TYPE_ROUTE = enums.ELM_MAP_SOURCE_TYPE_ROUTE
+ELM_MAP_SOURCE_TYPE_NAME = enums.ELM_MAP_SOURCE_TYPE_NAME
+ELM_MAP_SOURCE_TYPE_LAST = enums.ELM_MAP_SOURCE_TYPE_LAST
+
+ELM_MAP_ZOOM_MODE_MANUAL = enums.ELM_MAP_ZOOM_MODE_MANUAL
+ELM_MAP_ZOOM_MODE_AUTO_FIT = enums.ELM_MAP_ZOOM_MODE_AUTO_FIT
+ELM_MAP_ZOOM_MODE_AUTO_FILL = enums.ELM_MAP_ZOOM_MODE_AUTO_FILL
+ELM_MAP_ZOOM_MODE_LAST = enums.ELM_MAP_ZOOM_MODE_LAST
 
 cdef _elm_map_overlay_to_python(Elm_Map_Overlay *ov):
     cdef void *data

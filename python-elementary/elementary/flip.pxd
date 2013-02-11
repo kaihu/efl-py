@@ -1,6 +1,7 @@
 from evas.general cimport Eina_Bool
 from evas.object cimport Evas_Object, Evas_Coord
 from object cimport Object
+from enums cimport Elm_Flip_Direction, Elm_Flip_Interaction, Elm_Flip_Mode
 
 cdef extern from *:
     ctypedef char* const_char_ptr "const char *"
@@ -10,32 +11,6 @@ cdef extern from "Python.h":
         PyTypeObject *ob_type
 
 cdef extern from "Elementary.h":
-
-    ctypedef enum Elm_Flip_Direction:
-        ELM_FLIP_DIRECTION_UP
-        ELM_FLIP_DIRECTION_DOWN
-        ELM_FLIP_DIRECTION_LEFT
-        ELM_FLIP_DIRECTION_RIGHT
-
-    ctypedef enum Elm_Flip_Interaction:
-        ELM_FLIP_INTERACTION_NONE
-        ELM_FLIP_INTERACTION_ROTATE
-        ELM_FLIP_INTERACTION_CUBE
-        ELM_FLIP_INTERACTION_PAGE
-
-    ctypedef enum Elm_Flip_Mode:
-        ELM_FLIP_ROTATE_Y_CENTER_AXIS
-        ELM_FLIP_ROTATE_X_CENTER_AXIS
-        ELM_FLIP_ROTATE_XZ_CENTER_AXIS
-        ELM_FLIP_ROTATE_YZ_CENTER_AXIS
-        ELM_FLIP_CUBE_LEFT
-        ELM_FLIP_CUBE_RIGHT
-        ELM_FLIP_CUBE_UP
-        ELM_FLIP_CUBE_DOWN
-        ELM_FLIP_PAGE_LEFT
-        ELM_FLIP_PAGE_RIGHT
-        ELM_FLIP_PAGE_UP
-        ELM_FLIP_PAGE_DOWN
 
     # Flip                  (api:DONE  cb:DONE  test:DONE  doc:DONE)
     Evas_Object             *elm_flip_add(Evas_Object *parent)

@@ -16,8 +16,32 @@
 # along with python-elementary.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+"""
+:var ELM_IMAGE_ORIENT_NONE: No change
+:var ELM_IMAGE_ROTATE_90: Rotate 90 degrees clockwise
+:var ELM_IMAGE_ROTATE_180: Rotate 180 degrees clockwise
+:var ELM_IMAGE_ROTATE_270: Rotate 270 degrees clockwise
+:var ELM_IMAGE_FLIP_HORIZONTAL: Flip the image horizontally
+:var ELM_IMAGE_FLIP_VERTICAL: Flip the image vertically
+:var ELM_IMAGE_FLIP_TRANSPOSE: Flip the image along the y = (width - x) line
+    (bottom-left to top-right)
+:var ELM_IMAGE_FLIP_TRANSVERSE: Flip the image along the y = x line
+    (top-left to bottom-right)
+"""
+
 include "widget_header.pxi"
 include "callbacks.pxi"
+
+cimport enums
+
+ELM_IMAGE_ORIENT_NONE = enums.ELM_IMAGE_ORIENT_NONE
+ELM_IMAGE_ROTATE_90 = enums.ELM_IMAGE_ROTATE_90
+ELM_IMAGE_ROTATE_180 = enums.ELM_IMAGE_ROTATE_180
+ELM_IMAGE_ROTATE_270 = enums.ELM_IMAGE_ROTATE_270
+ELM_IMAGE_FLIP_HORIZONTAL = enums.ELM_IMAGE_FLIP_HORIZONTAL
+ELM_IMAGE_FLIP_VERTICAL = enums.ELM_IMAGE_FLIP_VERTICAL
+ELM_IMAGE_FLIP_TRANSPOSE = enums.ELM_IMAGE_FLIP_TRANSPOSE
+ELM_IMAGE_FLIP_TRANSVERSE = enums.ELM_IMAGE_FLIP_TRANSVERSE
 
 cdef class Image(Object):
 
