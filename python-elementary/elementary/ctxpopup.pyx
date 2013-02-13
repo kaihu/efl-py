@@ -17,11 +17,29 @@
 #
 
 """
-:var ELM_CTXPOPUP_DIRECTION_DOWN: Arrow is pointing down
-:var ELM_CTXPOPUP_DIRECTION_RIGHT: Arrow is pointing right
-:var ELM_CTXPOPUP_DIRECTION_LEFT: Arrow is pointing left
-:var ELM_CTXPOPUP_DIRECTION_UP: Arrow is pointing up
-:var ELM_CTXPOPUP_DIRECTION_UNKNOWN: Arrow direction is unknown
+
+.. rubric:: Ctxpopup arrow directions
+
+.. data:: ELM_CTXPOPUP_DIRECTION_DOWN
+
+    Arrow is pointing down
+
+.. data:: ELM_CTXPOPUP_DIRECTION_RIGHT
+
+    Arrow is pointing right
+
+.. data:: ELM_CTXPOPUP_DIRECTION_LEFT
+
+    Arrow is pointing left
+
+.. data:: ELM_CTXPOPUP_DIRECTION_UP
+
+    Arrow is pointing up
+
+.. data:: ELM_CTXPOPUP_DIRECTION_UNKNOWN
+
+    Arrow direction is unknown
+
 """
 
 include "widget_header.pxi"
@@ -133,7 +151,9 @@ cdef class Ctxpopup(Object):
         return bool(elm_ctxpopup_horizontal_get(self.obj))
 
     def item_append(self, label, evasObject icon = None, func = None, *args, **kwargs):
-        """Add a new item to a ctxpopup object.
+        """item_append(unicode label, evas.Object icon, func, *args, **kwargs) -> CtxpopupItem
+
+        Add a new item to a ctxpopup object.
 
         .. warning:: Ctxpopup can't hold both an item list and a content at the
             same time. When an item is added, any previous content will be
@@ -196,7 +216,9 @@ cdef class Ctxpopup(Object):
         return elm_ctxpopup_direction_get(self.obj)
 
     def dismiss(self):
-        """Dismiss a ctxpopup object
+        """dismiss()
+
+        Dismiss a ctxpopup object
 
         Use this function to simulate clicking outside the ctxpopup to
         dismiss it. In this way, the ctxpopup will be hidden and the

@@ -68,15 +68,21 @@ cdef class Video(LayoutClass):
         return Object_from_instance(elm_video_emotion_get(self.obj))
 
     def play(self):
-        """Start to play the video and cancel all suspend state."""
+        """play()
+
+        Start to play the video and cancel all suspend state."""
         elm_video_play(self.obj)
 
     def pause(self):
-        """Pause the video and start a timer to trigger suspend mode."""
+        """pause()
+
+        Pause the video and start a timer to trigger suspend mode."""
         elm_video_pause(self.obj)
 
     def stop(self):
-        """Stop the video and put the emotion in deep sleep mode."""
+        """stop()
+
+        Stop the video and put the emotion in deep sleep mode."""
         elm_video_stop(self.obj)
 
     property is_playing:

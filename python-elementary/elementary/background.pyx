@@ -17,10 +17,25 @@
 #
 
 """
-:var ELM_BG_OPTION_CENTER: Center
-:var ELM_BG_OPTION_SCALE: Scale
-:var ELM_BG_OPTION_STRETCH: Stretch
-:var ELM_BG_OPTION_TILE: Tile
+
+.. rubric:: Background tiling modes
+
+.. data:: ELM_BG_OPTION_CENTER
+
+    Center
+
+.. data:: ELM_BG_OPTION_SCALE
+
+    Scale
+
+.. data:: ELM_BG_OPTION_STRETCH
+
+    Stretch
+
+.. data:: ELM_BG_OPTION_TILE
+
+    Tile
+
 """
 
 include "widget_header.pxi"

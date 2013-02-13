@@ -17,16 +17,41 @@
 #
 
 """
-:var ELM_IMAGE_ORIENT_NONE: No change
-:var ELM_IMAGE_ROTATE_90: Rotate 90 degrees clockwise
-:var ELM_IMAGE_ROTATE_180: Rotate 180 degrees clockwise
-:var ELM_IMAGE_ROTATE_270: Rotate 270 degrees clockwise
-:var ELM_IMAGE_FLIP_HORIZONTAL: Flip the image horizontally
-:var ELM_IMAGE_FLIP_VERTICAL: Flip the image vertically
-:var ELM_IMAGE_FLIP_TRANSPOSE: Flip the image along the y = (width - x) line
-    (bottom-left to top-right)
-:var ELM_IMAGE_FLIP_TRANSVERSE: Flip the image along the y = x line
-    (top-left to bottom-right)
+
+.. rubric:: Image manipulation types
+
+.. data:: ELM_IMAGE_ORIENT_NONE
+
+    No change
+
+.. data:: ELM_IMAGE_ROTATE_90
+
+    Rotate 90 degrees clockwise
+
+.. data:: ELM_IMAGE_ROTATE_180
+
+    Rotate 180 degrees clockwise
+
+.. data:: ELM_IMAGE_ROTATE_270
+
+    Rotate 270 degrees clockwise
+
+.. data:: ELM_IMAGE_FLIP_HORIZONTAL
+
+    Flip the image horizontally
+
+.. data:: ELM_IMAGE_FLIP_VERTICAL
+
+    Flip the image vertically
+
+.. data:: ELM_IMAGE_FLIP_TRANSPOSE
+
+    Flip the image along the y = (width - x) line (bottom-left to top-right)
+
+.. data:: ELM_IMAGE_FLIP_TRANSVERSE
+
+    Flip the image along the y = x line (top-left to bottom-right)
+
 """
 
 include "widget_header.pxi"

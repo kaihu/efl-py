@@ -17,40 +17,92 @@
 #
 
 """
-:var ELM_CALENDAR_UNIQUE:
+
+.. rubric:: Calendar mark types
+
+.. data:: ELM_CALENDAR_UNIQUE
+
     Default value.
 
     Marks will be displayed only on event day.
-:var ELM_CALENDAR_DAILY:
+
+.. data:: ELM_CALENDAR_DAILY
+
     Marks will be displayed every day after event day (inclusive).
-:var ELM_CALENDAR_WEEKLY:
+
+.. data:: ELM_CALENDAR_WEEKLY
+
     Marks will be displayed every week after event day (inclusive) - i.e.
     each seven days.
-:var ELM_CALENDAR_MONTHLY:
+
+.. data:: ELM_CALENDAR_MONTHLY
+
     Marks will be displayed every month day that coincides to event day.
 
     E.g.: if an event is set to 30th Jan, no marks will be displayed on Feb,
     but will be displayed on 30th Mar
-:var ELM_CALENDAR_ANNUALLY:
+
+.. data:: ELM_CALENDAR_ANNUALLY
+
     Marks will be displayed every year that coincides to event day (and month).
 
     E.g. an event added to 30th Jan 2012 will be repeated on 30th Jan 2013.
-:var ELM_CALENDAR_LAST_DAY_OF_MONTH:
+
+.. data:: ELM_CALENDAR_LAST_DAY_OF_MONTH
+
     Marks will be displayed every last day of month after event day
     (inclusive).
 
-:var ELM_CALENDAR_SELECT_MODE_DEFAULT: Default mode
-:var ELM_CALENDAR_SELECT_MODE_ALWAYS: Select always
-:var ELM_CALENDAR_SELECT_MODE_NONE: Don't select
-:var ELM_CALENDAR_SELECT_MODE_ONDEMAND: Select on demand
 
-:var ELM_DAY_SUNDAY: Sunday
-:var ELM_DAY_MONDAY: Monday
-:var ELM_DAY_TUESDAY: Tuesday
-:var ELM_DAY_WEDNESDAY: Wednesday
-:var ELM_DAY_THURSDAY: Thursday
-:var ELM_DAY_FRIDAY: Friday
-:var ELM_DAY_SATURDAY: Saturday
+.. rubric:: Calendar selection modes
+
+.. data:: ELM_CALENDAR_SELECT_MODE_DEFAULT
+
+    Default mode
+
+.. data:: ELM_CALENDAR_SELECT_MODE_ALWAYS
+
+    Select always
+
+.. data:: ELM_CALENDAR_SELECT_MODE_NONE
+
+    Don't select
+
+.. data:: ELM_CALENDAR_SELECT_MODE_ONDEMAND
+
+    Select on demand
+
+
+.. rubric:: Days
+
+.. data:: ELM_DAY_SUNDAY
+
+    Sunday
+
+.. data:: ELM_DAY_MONDAY
+
+    Monday
+
+.. data:: ELM_DAY_TUESDAY
+
+    Tuesday
+
+.. data:: ELM_DAY_WEDNESDAY
+
+    Wednesday
+
+.. data:: ELM_DAY_THURSDAY
+
+    Thursday
+
+.. data:: ELM_DAY_FRIDAY
+
+    Friday
+
+.. data:: ELM_DAY_SATURDAY
+
+    Saturday
+
 """
 
 include "widget_header.pxi"
@@ -104,7 +156,9 @@ cdef class CalendarMark(object):
         self.obj = elm_calendar_mark_add(cal.obj, _cfruni(mark_type), &time, repeat)
 
     def delete(self):
-        """Delete a mark from the calendar.
+        """delete()
+
+        Delete a mark from the calendar.
 
         If deleting all calendar marks is required, :py:func:`marks_clear()`
         should be used instead of getting marks list and deleting each one.
@@ -250,7 +304,7 @@ cdef class Calendar(LayoutClass):
             time.tm_isdst = tmtup.tm_isdst
             elm_calendar_selected_time_set(self.obj, &time)
 
-    def format_function_set(self, format_func):
+    property format_function:
         """Set a function to format the string that will be used to display
         month and year.
 
@@ -276,11 +330,14 @@ cdef class Calendar(LayoutClass):
         :type format_func: function
 
         """
-        pass
-        #elm_calendar_format_function_set(self.obj, format_func)
+        def __set__(self, format_func):
+            pass
+            #elm_calendar_format_function_set(self.obj, format_func)
 
     def mark_add(self, mark_type, mark_time, repeat):
-        """Add a new mark to the calendar
+        """mark_add(mark_type, mark_time, repeat) -> CalendarMark
+
+        Add a new mark to the calendar
 
         Add a mark that will be drawn in the calendar respecting the insertion
         time and periodicity. It will emit the type as signal to the widget theme.
@@ -342,7 +399,9 @@ cdef class Calendar(LayoutClass):
             elm_calendar_marks_clear(self.obj)
 
     def marks_draw(self):
-        """Draw calendar marks.
+        """marks_draw()
+
+        Draw calendar marks.
 
         Should be used after adding, removing or clearing marks.
         It will go through the entire marks list updating the calendar.

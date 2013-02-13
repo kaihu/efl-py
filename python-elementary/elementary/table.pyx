@@ -86,7 +86,9 @@ cdef class Table(Object):
         return (horizontal, vertical)
 
     def pack(self, evasObject subobj, x, y, w, h):
-        """Add a subobject on the table with the coordinates passed
+        """pack(evas.Object subobj, int x, int y, int w, int h)
+
+        Add a subobject on the table with the coordinates passed
 
         .. note:: All positioning inside the table is relative to rows and
             columns, so a value of 0 for x and y, means the top left cell of
@@ -108,7 +110,9 @@ cdef class Table(Object):
         elm_table_pack(self.obj, subobj.obj, x, y, w, h)
 
     def unpack(self, evasObject subobj):
-        """Remove child from table.
+        """unpack(evas.Object subobj)
+
+        Remove child from table.
 
         :param subobj: The subobject
         :type subobj: :py:class:`evas.object.Object`
@@ -117,7 +121,9 @@ cdef class Table(Object):
         elm_table_unpack(self.obj, subobj.obj)
 
     def clear(self, clear):
-        """Faster way to remove all child objects from a table object.
+        """clear(bool clear)
+
+        Faster way to remove all child objects from a table object.
 
         :param clear: If True, will delete children, else just remove from table.
         :type clear: bool
@@ -126,7 +132,9 @@ cdef class Table(Object):
         elm_table_clear(self.obj, clear)
 
 def table_pack_set(evasObject subobj, x, y, w, h):
-    """Set the packing location of an existing child of the table
+    """table_pack_set(evas.Object subobj, int x, int y, int w, int h)
+
+    Set the packing location of an existing child of the table
 
     Modifies the position of an object already in the table.
 
@@ -150,7 +158,9 @@ def table_pack_set(evasObject subobj, x, y, w, h):
     elm_table_pack_set(subobj.obj, x, y, w, h)
 
 def table_pack_get(evasObject subobj):
-    """Get the packing location of an existing child of the table
+    """table_pack_get(evas.Object subobj) -> (int x, int y, int w, int h)
+
+    Get the packing location of an existing child of the table
 
     .. seealso:: :py:func:`table_pack_set`
 

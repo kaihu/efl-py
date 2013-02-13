@@ -349,7 +349,9 @@ cdef class Object(object):
         evas_object_del(obj)
 
     def delete(self):
-        """Delete object and free it's internal (wrapped) resources.
+        """delete()
+
+        Delete object and free it's internal (wrapped) resources.
 
         .. note:: after this operation the object will be still alive in
             Python, but it will be shallow and every operation
@@ -363,7 +365,9 @@ cdef class Object(object):
         evas_object_del(self.obj)
 
     def is_deleted(self):
-        """:rtype: bool"""
+        """is_deleted()
+
+        :rtype: bool"""
         return bool(self.obj == NULL)
 
     def _set_common_params(self, size=None, pos=None, geometry=None,
@@ -381,7 +385,6 @@ cdef class Object(object):
             self.name_set(name)
 
     def evas_get(self):
-        """:rtype: :py:class:`evas.canvas.Canvas`"""
         return self.evas
 
     property type:
@@ -415,19 +418,25 @@ cdef class Object(object):
         return evas_object_layer_get(self.obj)
 
     def raise_(self):
-        """Raise to the top of its layer.
+        """raise_()
+
+        Raise to the top of its layer.
 
         """
         evas_object_raise(self.obj)
 
     def lower(self):
-        """Lower to the bottom of its layer.
+        """lower()
+
+        Lower to the bottom of its layer.
 
         """
         evas_object_lower(self.obj)
 
     def stack_above(self, Object above):
-        """Reorder to be above the given one.
+        """stack_above(Object above)
+
+        Reorder to be above the given one.
 
         :param above:
         :type above: :py:class:`evas.object.Object`
@@ -436,7 +445,9 @@ cdef class Object(object):
         evas_object_stack_above(self.obj, above.obj)
 
     def stack_below(self, Object below):
-        """Reorder to be below the given one.
+        """stack_below(Object below)
+
+        Reorder to be below the given one.
 
         :param below:
         :type below: :py:class:`evas.object.Object`
@@ -549,7 +560,9 @@ cdef class Object(object):
         evas_object_resize(self.obj, w, h)
 
     def resize(self, int w, int h):
-        """Same as L{size_set()}.
+        """resize(int w, int h)
+
+        Same as L{size_set()}.
 
         :param w: Width.
         :type w: int
@@ -1055,13 +1068,17 @@ cdef class Object(object):
         evas_object_size_hint_padding_set(self.obj, l, r, t, b)
 
     def move(self, int x, int y):
-        """Same as L{pos_set()}.
+        """move(int x, int y)
+
+        Same as L{pos_set()}.
 
         """
         evas_object_move(self.obj, x, y)
 
     def move_relative(self, int dx, int dy):
-        """Move relatively to current position.
+        """move(int dx, int dy)
+
+        Move relatively to current position.
 
         """
         cdef int x, y
@@ -1069,13 +1086,17 @@ cdef class Object(object):
         evas_object_move(self.obj, x + dx, y + dy)
 
     def show(self):
-        """Show the object.
+        """show()
+
+        Show the object.
 
         """
         evas_object_show(self.obj)
 
     def hide(self):
-        """Hide the object.
+        """hide()
+
+        Hide the object.
 
         """
         evas_object_hide(self.obj)
@@ -1285,7 +1306,9 @@ cdef class Object(object):
         evas_object_focus_set(self.obj, value)
 
     def event_callback_add(self, int type, func, *args, **kargs):
-        """Add a new callback for the given event.
+        """event_callback_add(int type, func, *args, **kargs)
+
+        Add a new callback for the given event.
 
         :param type: an integer with event type code, like
             *EVAS_CALLBACK_MOUSE_IN*, *EVAS_CALLBACK_KEY_DOWN* and
@@ -1320,7 +1343,9 @@ cdef class Object(object):
                 evas_object_event_callback_add(self.obj, type, cb, <void*>self)
 
     def event_callback_del(self, int type, func):
-        """Remove callback for the given event.
+        """event_callback_add(int type, func)
+
+        Remove callback for the given event.
 
         :param type: an integer with event type code.
         :type type: int
@@ -1696,6 +1721,11 @@ cdef class Object(object):
         return Object_from_instance(obj)
 
     property map_enabled:
+        """Map enabled state
+
+        :type: bool
+
+        """
         def __get__(self):
             return bool(evas_object_map_enable_get(self.obj))
         def __set__(self, value):
@@ -1707,6 +1737,11 @@ cdef class Object(object):
         return bool(evas_object_map_enable_get(self.obj))
 
     property map:
+        """Map
+
+        :type: Map
+
+        """
         def __get__(self):
             return None # TODO
         def __set__(self, Map map):

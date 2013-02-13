@@ -17,8 +17,17 @@
 #
 
 """
-:var ELM_FILESELECTOR_LIST: Layout as a list
-:var ELM_FILESELECTOR_GRID: Layout as a grid
+
+.. rubric:: Fileselector modes
+
+.. data:: ELM_FILESELECTOR_LIST
+
+    Layout as a list
+
+.. data:: ELM_FILESELECTOR_GRID
+
+    Layout as a grid
+
 """
 
 include "widget_header.pxi"

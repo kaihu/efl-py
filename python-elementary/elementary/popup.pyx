@@ -17,20 +17,64 @@
 #
 
 """
-:var ELM_POPUP_ORIENT_TOP: Popup should appear in the top of parent, default
-:var ELM_POPUP_ORIENT_CENTER: Popup should appear in the center of parent
-:var ELM_POPUP_ORIENT_BOTTOM: Popup should appear in the bottom of parent
-:var ELM_POPUP_ORIENT_LEFT: Popup should appear in the left of parent
-:var ELM_POPUP_ORIENT_RIGHT: Popup should appear in the right of parent
-:var ELM_POPUP_ORIENT_TOP_LEFT: Popup should appear in the top left of parent
-:var ELM_POPUP_ORIENT_TOP_RIGHT: Popup should appear in the top right of parent
-:var ELM_POPUP_ORIENT_BOTTOM_LEFT: Popup should appear in the bottom left of parent
-:var ELM_POPUP_ORIENT_BOTTOM_RIGHT: Popup should appear in the bottom right of parent
 
-:var ELM_WRAP_NONE: No wrap
-:var ELM_WRAP_CHAR: Wrap between characters
-:var ELM_WRAP_WORD: Wrap in allowed wrapping points (as defined in the unicode standard)
-:var ELM_WRAP_MIXED: Word wrap, and if that fails, char wrap.
+.. rubric:: Popup orientation types
+
+.. data:: ELM_POPUP_ORIENT_TOP
+
+    Popup should appear in the top of parent, default
+
+.. data:: ELM_POPUP_ORIENT_CENTER
+
+    Popup should appear in the center of parent
+
+.. data:: ELM_POPUP_ORIENT_BOTTOM
+
+    Popup should appear in the bottom of parent
+
+.. data:: ELM_POPUP_ORIENT_LEFT
+
+    Popup should appear in the left of parent
+
+.. data:: ELM_POPUP_ORIENT_RIGHT
+
+    Popup should appear in the right of parent
+
+.. data:: ELM_POPUP_ORIENT_TOP_LEFT
+
+    Popup should appear in the top left of parent
+
+.. data:: ELM_POPUP_ORIENT_TOP_RIGHT
+
+    Popup should appear in the top right of parent
+
+.. data:: ELM_POPUP_ORIENT_BOTTOM_LEFT
+
+    Popup should appear in the bottom left of parent
+
+.. data:: ELM_POPUP_ORIENT_BOTTOM_RIGHT
+
+    Popup should appear in the bottom right of parent
+
+
+.. rubric:: Wrap modes
+
+.. data:: ELM_WRAP_NONE
+
+    No wrap
+
+.. data:: ELM_WRAP_CHAR
+
+    Wrap between characters
+
+.. data:: ELM_WRAP_WORD
+
+    Wrap in allowed wrapping points (as defined in the unicode standard)
+
+.. data:: ELM_WRAP_MIXED
+
+    Word wrap, and if that fails, char wrap.
+
 """
 
 include "widget_header.pxi"
@@ -198,7 +242,9 @@ cdef class Popup(Object):
         self._set_obj(elm_popup_add(parent.obj))
 
     def item_append(self, label, evasObject icon, func = None, *args, **kwargs):
-        """Add a new item to a Popup object
+        """item_append(unicode label, evas.Object icon, func = None, *args, **kwargs) -> PopupItem
+
+        Add a new item to a Popup object
 
         Both an item list and a content cannot be set at the same time!
         Once you add an item, the previous content will be removed.

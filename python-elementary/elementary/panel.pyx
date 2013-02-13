@@ -18,10 +18,25 @@
 #
 
 """
-:var ELM_PANEL_ORIENT_TOP: Panel (dis)appears from the top
-:var ELM_PANEL_ORIENT_BOTTOM: Panel (dis)appears from the bottom
-:var ELM_PANEL_ORIENT_LEFT: Panel (dis)appears from the left
-:var ELM_PANEL_ORIENT_RIGHT: Panel (dis)appears from the right
+
+.. rubric:: Panel orientation types
+
+.. data:: ELM_PANEL_ORIENT_TOP
+
+    Panel (dis)appears from the top
+
+.. data:: ELM_PANEL_ORIENT_BOTTOM
+
+    Panel (dis)appears from the bottom
+
+.. data:: ELM_PANEL_ORIENT_LEFT
+
+    Panel (dis)appears from the left
+
+.. data:: ELM_PANEL_ORIENT_RIGHT
+
+    Panel (dis)appears from the right
+
 """
 
 include "widget_header.pxi"
@@ -94,7 +109,9 @@ cdef class Panel(Object):
         return elm_panel_hidden_get(self.obj)
 
     def toggle(self):
-        """Toggle the hidden state of the panel from code."""
+        """toggle()
+
+        Toggle the hidden state of the panel from code."""
         elm_panel_toggle(self.obj)
 
 _elm_widget_type_register("panel", Panel)

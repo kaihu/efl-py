@@ -63,7 +63,9 @@ cdef class Grid(Object):
         return (w, h)
 
     def pack(self, evasObject subobj, x, y, w, h):
-        """Pack child at given position and size
+        """pack(evas.Object subobj, int x, int y, int w, int h)
+
+        Pack child at given position and size
 
         :param subobj: The child to pack
         :type subobj: :py:class:`evas.object.Object`
@@ -80,7 +82,9 @@ cdef class Grid(Object):
         elm_grid_pack(self.obj, subobj.obj, x, y, w, h)
 
     def unpack(self, evasObject subobj):
-        """Unpack a child from a grid object
+        """unpack(evas.Object subobj)
+
+        Unpack a child from a grid object
 
         :param subobj: The child to unpack
         :type subobj: :py:class:`evas.object.Object`
@@ -89,9 +93,11 @@ cdef class Grid(Object):
         elm_grid_unpack(self.obj, subobj.obj)
 
     def clear(self, clear):
-        """Faster way to remove all child objects from a grid object.
+        """clear(bool clear)
 
-        :param clear: If True, it will delete just removed children
+        Faster way to remove all child objects from a grid object.
+
+        :param clear: If True, will also delete the just removed children
         :type clear: bool
 
         """
@@ -110,7 +116,9 @@ cdef class Grid(Object):
         return _object_list_to_python(elm_grid_children_get(self.obj))
 
 def grid_pack_set(evasObject subobj, x, y, w, h):
-    """Set packing of an existing child at to position and size
+    """grid_pack_set(evas.Object subobj, int x, int y, int w, int h)
+
+    Set packing of an existing child at to position and size
 
     :param subobj: The child to set packing of
     :type subobj: :py:class:`evas.object.Object`
@@ -127,7 +135,9 @@ def grid_pack_set(evasObject subobj, x, y, w, h):
     elm_grid_pack_set(subobj.obj, x, y, w, h)
 
 def grid_pack_get(evasObject subobj):
-    """Get packing of a child
+    """grid_pack_get(evas.Object subobj) -> (int x, int y, int w, int h)
+
+    Get packing of a child
 
     :param subobj: The child to query
     :type subobj: :py:class:`evas.object.Object`

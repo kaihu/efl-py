@@ -17,10 +17,14 @@
 #
 
 def need_efreet():
+    """need_efreet() -> bool"""
     return bool(elm_need_efreet())
 def need_e_dbus():
+    """need_e_dbus() -> bool"""
     return bool(elm_need_e_dbus())
 def need_ethumb():
+    """need_ethumb() -> bool"""
     return bool(elm_need_ethumb())
 def need_web():
+    """need_web() -> bool"""
     return bool(elm_need_web())

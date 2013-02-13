@@ -281,7 +281,9 @@ cdef class Menu(Object):
         return Object_from_instance(elm_menu_parent_get(self.obj))
 
     def move(self, x, y):
-        """Move the menu to a new position
+        """move(int x, int y)
+
+        Move the menu to a new position
 
         Sets the top-left position of the menu to (``x``,``y``).
 
@@ -296,7 +298,9 @@ cdef class Menu(Object):
         elm_menu_move(self.obj, x, y)
 
     def close(self):
-        """Close a opened menu
+        """close()
+
+        Close a opened menu
 
         Hides the menu and all it's sub-menus.
 
@@ -316,7 +320,9 @@ cdef class Menu(Object):
         return _object_item_list_to_python(elm_menu_items_get(self.obj))
 
     def item_add(self, parent = None, label = None, icon = None, callback = None, *args, **kwargs):
-        """Add an item at the end of the given menu widget
+        """item_add(parent = None, label = None, icon = None, callback = None, *args, **kwargs) -> MenuItem
+
+        Add an item at the end of the given menu widget
 
         :param parent: The parent menu item (optional)
         :type parent: :py:class:`Object`
@@ -335,7 +341,9 @@ cdef class Menu(Object):
         return MenuItem(self, parent, label, icon, callback, *args, **kwargs)
 
     def item_separator_add(self, parent = None):
-        """Add a separator item to menu under ``parent``.
+        """item_separator_add(parent = None) -> MenuSeparatorItem
+
+        Add a separator item to menu under ``parent``.
 
         This item is a :py:class:`Separator`.
 

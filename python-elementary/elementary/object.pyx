@@ -17,8 +17,17 @@
 #
 
 """
-:var ELM_FOCUS_PREVIOUS: Focus previous
-:var ELM_FOCUS_NEXT: Focus next
+
+.. rubric:: Focus direction
+
+.. data:: ELM_FOCUS_PREVIOUS
+
+    Focus previous
+
+.. data:: ELM_FOCUS_NEXT
+
+    Focus next
+
 """
 
 from cpython cimport PyObject, Py_INCREF, Py_DECREF, PyObject_GetAttr
@@ -28,16 +37,20 @@ from general cimport _cfruni, _ctouni, _fruni, _touni
 from general cimport _METHOD_DEPRECATED
 include "tooltips.pxi"
 
-from evas.events cimport EventKeyDown, EventKeyUp
+from evas.events cimport EventKeyDown, EventKeyUp, EventMouseWheel
 from evas.object cimport evas_object_data_get
 from evas.object_smart cimport evas_object_smart_callback_add
 from evas.object_smart cimport evas_object_smart_callback_del
 from evas.callbacks cimport EVAS_CALLBACK_KEY_DOWN
 from evas.callbacks cimport EVAS_CALLBACK_KEY_UP
+from evas.callbacks cimport EVAS_CALLBACK_MOUSE_WHEEL
 from evas.general cimport eina_list_append
 from evas.object import _extended_object_mapping_register
 from evas.object import _object_mapping_register
 from evas.object import _object_mapping_unregister
+
+import logging
+log = logging.getLogger("elementary")
 
 from theme cimport Theme
 
@@ -126,7 +139,6 @@ cdef Eina_Bool _event_dispatcher(o, src, Evas_Callback_Type t, event_info):
                 return True
     return False
 
-#TODO: More event types
 cdef Eina_Bool _event_callback(void *data, Evas_Object *o, Evas_Object *src, Evas_Callback_Type t, void *event_info) with gil:
     cdef Object obj = <Object>Object_from_instance(o)
     cdef Object src_obj = <Object>Object_from_instance(src)
@@ -143,6 +155,13 @@ cdef Eina_Bool _event_callback(void *data, Evas_Object *o, Evas_Object *src, Eva
         up_event._set_obj(event_info)
         ret = _event_dispatcher(obj, src_obj, t, up_event)
         up_event._unset_obj()
+    elif t == EVAS_CALLBACK_MOUSE_WHEEL:
+        wheel_event = EventMouseWheel()
+        wheel_event._set_obj(event_info)
+        ret = _event_dispatcher(obj, src_obj, t, wheel_event)
+        wheel_event._unset_obj()
+    else:
+        log.debug("Unhandled elm input event of type %i" % (t))
 
 
 cdef void _event_data_del_cb(void *data, Evas_Object *o, void *event_info) with gil:
@@ -164,12 +183,9 @@ cdef Eina_List * _strings_from_python(strings):
         lst = eina_list_append(lst, _cfruni(s))
     return lst
 
-def _cb_string_conv(long addr):
+cdef object _cb_string_conv(long addr):
     cdef const_char_ptr s = <const_char_ptr>addr
-    if s == NULL:
-        return None
-    else:
-        return s
+    return s if s is not NULL else None
 
 cdef _object_list_to_python(const_Eina_List *lst):
     cdef Evas_Object *o
@@ -196,7 +212,9 @@ cdef class Object(evasObject):
     """
 
     def part_text_set(self, part, text):
-        """Sets the text of a given part of this object.
+        """part_text_set(unicode part, unicode text)
+
+        Sets the text of a given part of this object.
 
         .. seealso:: :py:attr:`text` and :py:func:`part_text_get()`
 
@@ -209,7 +227,9 @@ cdef class Object(evasObject):
         elm_object_part_text_set(self.obj, _cfruni(part) if part is not None else NULL, _cfruni(text))
 
     def part_text_get(self, part):
-        """Gets the text of a given part of this object.
+        """part_text_get(unicode part) -> unicode
+
+        Gets the text of a given part of this object.
 
         .. seealso:: :py:attr:`text` and :py:func:`part_text_set()`
 
@@ -239,7 +259,9 @@ cdef class Object(evasObject):
         return _ctouni(elm_object_text_get(self.obj))
 
     def part_content_set(self, part, evasObject content):
-        """Set a content of an object
+        """part_content_set(unicode part, evas.Object content)
+
+        Set a content of an object
 
         This sets a new object to a widget as a content object. If any
         object was already set as a content object in the same part,
@@ -256,7 +278,9 @@ cdef class Object(evasObject):
         elm_object_part_content_set(self.obj, _cfruni(part) if part is not None else NULL, content.obj)
 
     def part_content_get(self, part):
-        """Get a content of an object
+        """part_content_get(unicode part) -> evas.Object
+
+        Get a content of an object
 
         .. note:: Elementary objects may have many contents
 
@@ -269,7 +293,9 @@ cdef class Object(evasObject):
         return Object_from_instance(elm_object_part_content_get(self.obj, _cfruni(part) if part is not None else NULL))
 
     def part_content_unset(self, part):
-        """Unset a content of an object
+        """part_content_unset(unicode part)
+
+        Unset a content of an object
 
         .. note:: Elementary objects may have many contents
 
@@ -298,7 +324,9 @@ cdef class Object(evasObject):
         return Object_from_instance(elm_object_content_unset(self.obj))
 
     def access_info_set(self, txt):
-        """Set the text to read out when in accessibility mode
+        """access_info_set(unicode txt)
+
+        Set the text to read out when in accessibility mode
 
         :param txt: The text that describes the widget to people with poor
             or no vision
@@ -308,7 +336,9 @@ cdef class Object(evasObject):
         elm_object_access_info_set(self.obj, _cfruni(txt))
 
     def name_find(self, name not None, int recurse = 0):
-        """Get a named object from the children
+        """name_find(unicode name, int recurse = 0) -> evas.Object
+
+        Get a named object from the children
 
         This function searches the children (or recursively children of
         children and so on) of the given object looking for a child with the
@@ -371,7 +401,9 @@ cdef class Object(evasObject):
         return bool(elm_object_disabled_get(self.obj))
 
     def widget_check(self):
-        """Check if the given Evas Object is an Elementary widget.
+        """widget_check() -> bool
+
+        Check if the given Evas Object is an Elementary widget.
 
         :return: ``True`` if it is an elementary widget variant, ``False``
             otherwise
@@ -430,7 +462,9 @@ cdef class Object(evasObject):
         return Object_from_instance(elm_object_top_widget_get(self.obj))
 
     def signal_emit(self, emission, source):
-        """Send a signal to the widget edje object.
+        """signal_emit(unicode emission, unicode source)
+
+        Send a signal to the widget edje object.
 
         This function sends a signal to the edje object of the obj. An edje
         program can respond to a signal by specifying matching 'signal' and
@@ -452,7 +486,9 @@ cdef class Object(evasObject):
 
     # XXX: Clashes badly with evas event_callback_*
     def elm_event_callback_add(self, func, *args, **kargs):
-        """Add a callback for input events (key up, key down, mouse wheel)
+        """elm_event_callback_add(func, *args, **kargs)
+
+        Add a callback for input events (key up, key down, mouse wheel)
         on a given Elementary widget
 
         Every widget in an Elementary interface set to receive focus, with
@@ -513,7 +549,9 @@ cdef class Object(evasObject):
         self._elm_event_cbs.append(data)
 
     def elm_event_callback_del(self, func, *args, **kargs):
-        """Remove an event callback from a widget.
+        """elm_event_callback_del(func, *args, **kargs)
+
+        Remove an event callback from a widget.
 
         This function removes a callback, previously attached to event emission.
         The parameters func and args, kwargs must match exactly those passed to
@@ -663,7 +701,9 @@ cdef class Object(evasObject):
         return _object_list_to_python(elm_object_focus_custom_chain_get(self.obj))
 
     def focus_custom_chain_append(self, Object child, Object relative_child=None):
-        """Append object to custom focus chain.
+        """focus_custom_chain_append(Object child, Object relative_child=None)
+
+        Append object to custom focus chain.
 
         .. note:: If relative_child equal to None or not in custom chain, the
             object will be added in end.
@@ -683,7 +723,9 @@ cdef class Object(evasObject):
         elm_object_focus_custom_chain_append(self.obj, child.obj, rel)
 
     def focus_custom_chain_prepend(self, Object child, Object relative_child=None):
-        """Prepend object to custom focus chain.
+        """focus_custom_chain_prepend(Object child, Object relative_child=None)
+
+        Prepend object to custom focus chain.
 
         .. note:: If relative_child equal to None or not in custom chain, the
             object will be added in begin.
@@ -795,7 +837,9 @@ cdef class Object(evasObject):
 
     # Scrollhints
     def scroll_hold_push(self):
-        """Push the scroll hold by 1
+        """scroll_hold_push()
+
+        Push the scroll hold by 1
 
         This increments the scroll hold count by one. If it is more
         than 0 it will take effect on the parents of the indicated
@@ -805,7 +849,9 @@ cdef class Object(evasObject):
         elm_object_scroll_hold_push(self.obj)
 
     def scroll_hold_pop(self):
-        """Pop the scroll hold by 1
+        """scroll_hold_pop()
+
+        Pop the scroll hold by 1
 
         This decrements the scroll hold count by one. If it is more than 0
         it will take effect on the parents of the indicated object.
@@ -814,7 +860,9 @@ cdef class Object(evasObject):
         elm_object_scroll_hold_pop(self.obj)
 
     def scroll_freeze_push(self):
-        """Push the scroll freeze by 1
+        """scroll_freeze_push()
+
+        Push the scroll freeze by 1
 
         This increments the scroll freeze count by one. If it is more than 0
         it will take effect on the parents of the indicated object.
@@ -823,7 +871,9 @@ cdef class Object(evasObject):
         elm_object_scroll_freeze_push(self.obj)
 
     def scroll_freeze_pop(self):
-        """Pop the scroll freeze by 1
+        """scroll_freeze_pop()
+
+        Pop the scroll freeze by 1
 
         This decrements the scroll freeze count by one. If it is more than 0
         it will take effect on the parents of the indicated object.
@@ -881,7 +931,9 @@ cdef class Object(evasObject):
 
     # Tooltips
     def tooltip_show(self):
-        """Force show the tooltip and disable hide on mouse_out If another
+        """tooltip_show()
+
+        Force show the tooltip and disable hide on mouse_out If another
         content is set as tooltip, the visible tooltip will hidden and
         showed again with new content.
 
@@ -891,14 +943,18 @@ cdef class Object(evasObject):
         elm_object_tooltip_show(self.obj)
 
     def tooltip_hide(self):
-        """Force hide tooltip of the object and (re)enable future mouse
+        """tooltip_hide()
+
+        Force hide tooltip of the object and (re)enable future mouse
         interactions.
 
         """
         elm_object_tooltip_hide(self.obj)
 
     def tooltip_text_set(self, text):
-        """Set the text to be shown in the tooltip object
+        """tooltip_text_set(unicode text)
+
+        Set the text to be shown in the tooltip object
 
         Setup the text as tooltip object. The object can have only one
         tooltip, so any previous tooltip data is removed. Internally, this
@@ -914,7 +970,9 @@ cdef class Object(evasObject):
         elm_object_tooltip_translatable_text_set(self.obj, _cfruni(text))
 
     def tooltip_content_cb_set(self, func, *args, **kargs):
-        """Set the content to be shown in the tooltip object
+        """tooltip_content_cb_set(func, *args, **kargs)
+
+        Set the content to be shown in the tooltip object
 
         Setup the tooltip to object. The object can have only one tooltip,
         so any previews tooltip data is removed. C{func(owner, tooltip,
@@ -939,7 +997,9 @@ cdef class Object(evasObject):
                                           cbdata, _tooltip_data_del_cb)
 
     def tooltip_unset(self):
-        """Unset tooltip from object
+        """tooltip_unset()
+
+        Unset tooltip from object
 
         Remove tooltip from object. If used the :py:func:`tooltip_text_set` the
         internal copy of label will be removed correctly. If used
@@ -978,7 +1038,9 @@ cdef class Object(evasObject):
 
     #Translatable text
     def domain_translatable_text_part_set(self, part, domain, text):
-        """Set the text for an objects' part, marking it as translatable.
+        """domain_translatable_text_part_set(unicode part, unicode domain, unicode text)
+
+        Set the text for an objects' part, marking it as translatable.
 
         The string to set as ``text`` must be the original one. Do not pass the
         return of ``gettext()`` here. Elementary will translate the string
@@ -1004,10 +1066,15 @@ cdef class Object(evasObject):
         elm_object_domain_translatable_text_part_set(self.obj, _cfruni(part), _cfruni(domain), _cfruni(text))
 
     def domain_translatable_text_set(self, domain, text):
+        """domain_translatable_text_set(unicode domain, unicode text)
+
+        Convenience function"""
         elm_object_domain_translatable_text_set(self.obj, _cfruni(domain), _cfruni(text))
 
     def translatable_text_part_get(self, part):
-        """Gets the original string set as translatable for an object
+        """domain_translatable_text_part_get(unicode part) -> unicode
+
+        Gets the original string set as translatable for an object
 
         When setting translated strings, the function :py:func:`part_text_get()`
         will return the translation returned by *gettext()*. To get the
@@ -1034,6 +1101,10 @@ cdef class Object(evasObject):
         return _ctouni(elm_object_translatable_text_get(self.obj))
 
     # Callbacks
+    #
+    # XXX: Should these be internal only? (cdef)
+    #      Or remove the individual widget callback_*_add/del methods and use just these.
+    #
     def _callback_add_full(self, event, event_conv, func, *args, **kargs):
         """Add a callback for the smart event specified by event.
 

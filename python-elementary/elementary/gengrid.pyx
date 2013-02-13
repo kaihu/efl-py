@@ -17,10 +17,25 @@
 #
 
 """
-:var ELM_GENLIST_ITEM_SCROLLTO_NONE: No scroll to
-:var ELM_GENLIST_ITEM_SCROLLTO_IN: Scroll to the nearest viewport
-:var ELM_GENLIST_ITEM_SCROLLTO_TOP: Scroll to the top of viewport
-:var ELM_GENLIST_ITEM_SCROLLTO_MIDDLE: Scroll to the middle of viewport
+
+.. rubric:: Items' scroll to types
+
+.. data:: ELM_GENLIST_ITEM_SCROLLTO_NONE
+
+    No scroll to
+
+.. data:: ELM_GENLIST_ITEM_SCROLLTO_IN
+
+    Scroll to the nearest viewport
+
+.. data:: ELM_GENLIST_ITEM_SCROLLTO_TOP
+
+    Scroll to the top of viewport
+
+.. data:: ELM_GENLIST_ITEM_SCROLLTO_MIDDLE
+
+    Scroll to the middle of viewport
+
 """
 
 include "widget_header.pxi"
@@ -384,7 +399,9 @@ cdef class GengridItem(ObjectItem):
         return elm_gengrid_item_index_get(self.item)
 
     def update(self):
-        """This updates an item by calling all the item class functions
+        """update()
+
+        This updates an item by calling all the item class functions
         again to get the contents, texts and states. Use this when the
         original item data has changed and you want the changes to be
         reflected.
@@ -413,7 +430,9 @@ cdef class GengridItem(ObjectItem):
         return bool(elm_gengrid_item_selected_get(self.item))
 
     def show(self, scrollto_type = ELM_GENLIST_ITEM_SCROLLTO_IN):
-        """This causes gengrid to **redraw** its viewport's contents to the
+        """show(int scrollto_type = ELM_GENLIST_ITEM_SCROLLTO_IN)
+
+        This causes gengrid to **redraw** its viewport's contents to the
         region containing the given @p item item, if it is not fully
         visible.
 
@@ -425,7 +444,9 @@ cdef class GengridItem(ObjectItem):
         elm_gengrid_item_show(self.item, scrollto_type)
 
     def bring_in(self, scrollto_type = ELM_GENLIST_ITEM_SCROLLTO_IN):
-        """This causes gengrid to jump to the item and show
+        """bring_in(int scrollto_type = ELM_GENLIST_ITEM_SCROLLTO_IN)
+
+        This causes gengrid to jump to the item and show
         it (by scrolling), if it is not fully visible. This will use
         animation to do so and take a period of time to complete.
 
@@ -466,7 +487,9 @@ cdef class GengridItem(ObjectItem):
             return self.tooltip_text_get()
 
     def tooltip_content_cb_set(self, func, *args, **kargs):
-        """Set the content to be shown in the tooltip object
+        """tooltip_content_cb_set(func, *args, **kargs)
+
+        Set the content to be shown in the tooltip object
 
         Setup the tooltip to object. The object can have only one tooltip,
         so any previews tooltip data is removed. ``func(args, kargs)`` will
@@ -492,7 +515,9 @@ cdef class GengridItem(ObjectItem):
                                                 _tooltip_item_data_del_cb)
 
     def item_tooltip_unset(self):
-        """ Unset tooltip from object
+        """item_tooltip_unset()
+
+        Unset tooltip from object
 
         Remove tooltip from object. If used the :py:func:`tooltip_text_set`
         the internal copy of label will be removed correctly. If used
@@ -791,7 +816,9 @@ cdef class Gengrid(Object):
         self._set_obj(elm_gengrid_add(parent.obj))
 
     def clear(self):
-        """Remove all items from a given gengrid widget."""
+        """clear()
+
+        Remove all items from a given gengrid widget."""
         elm_gengrid_clear(self.obj)
 
     property multi_select:
@@ -868,7 +895,9 @@ cdef class Gengrid(Object):
 
     def item_append(self, GengridItemClass item_class not None,
                     item_data, func=None):
-        """Append a new item (add as last item) to this gengrid.
+        """item_append(self, GengridItemClass item_class, item_data, func=None) -> GengridItem
+
+        Append a new item (add as last item) to this gengrid.
 
         :param item_class: a valid instance that defines the
             behavior of this item. See :py:class:`GengridItemClass`.
@@ -914,7 +943,9 @@ cdef class Gengrid(Object):
 
     def item_prepend(self, GengridItemClass item_class not None,
                      item_data, func=None):
-        """Prepend a new item (add as first item) to this gengrid.
+        """item_prepend(self, GengridItemClass item_class, item_data, func=None) -> GengridItem
+
+        Prepend a new item (add as first item) to this gengrid.
 
         :param item_class: a valid instance that defines the
             behavior of this item. See :py:class:`GengridItemClass`.
@@ -960,7 +991,9 @@ cdef class Gengrid(Object):
     def item_insert_before(self, GengridItemClass item_class not None,
                            item_data, GengridItem before_item=None,
                            func=None):
-        """Insert a new item before another item in this gengrid.
+        """item_insert_before(self, GengridItemClass item_class, item_data, GengridItem before_item=None, func=None) -> GengridItem
+
+        Insert a new item before another item in this gengrid.
 
         :param item_class: a valid instance that defines the
             behavior of this item. See :py:class:`GengridItemClass`.
@@ -1011,7 +1044,9 @@ cdef class Gengrid(Object):
     def item_insert_after(self, GengridItemClass item_class not None,
                           item_data, GengridItem after_item=None,
                           func=None):
-        """Insert a new item after another item in this gengrid.
+        """item_insert_after(self, GengridItemClass item_class, item_data, GengridItem after_item=None, func=None) -> GengridItem
+
+        Insert a new item after another item in this gengrid.
 
         :param item_class: a valid instance that defines the
             behavior of this item. See :py:class:`GengridItemClass`.
@@ -1106,7 +1141,9 @@ cdef class Gengrid(Object):
         return _object_item_list_to_python(elm_gengrid_realized_items_get(self.obj))
 
     def realized_items_update(self):
-        """This updates all realized items by calling all the item class
+        """realized_items_update()
+
+        This updates all realized items by calling all the item class
         functions again to get the contents, texts and states. Use this when
         the original item data has changed and the changes are desired to be
         reflected.
@@ -1394,7 +1431,9 @@ cdef class Gengrid(Object):
         return (h_pagenum, v_pagenum)
 
     def page_show(self, h_pagenum, v_pagenum):
-        """Show a specific virtual region within the gengrid content object
+        """page_show(int h_pagenum, int v_pagenum)
+
+        Show a specific virtual region within the gengrid content object
         by page number.
 
         :param h_pagenumber: The horizontal page number
@@ -1417,7 +1456,9 @@ cdef class Gengrid(Object):
         elm_scroller_page_show(self.obj, h_pagenum, v_pagenum)
 
     def page_bring_in(self, h_pagenum, v_pagenum):
-        """Show a specific virtual region within the gengrid content object
+        """page_show(int h_pagenum, int v_pagenum)
+
+        Show a specific virtual region within the gengrid content object
         by page number.
 
         :param h_pagenumber: The horizontal page number

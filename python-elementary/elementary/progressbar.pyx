@@ -18,6 +18,16 @@
 
 include "widget_header.pxi"
 
+class ProgressbarPulseState(int):
+    def __new__(cls, Object obj, int state):
+        return int.__new__(cls, state)
+
+    def __init__(self, Object obj, int state):
+        self.obj = obj
+
+    def __call__(self, int state):
+        return self.obj._pulse(state)
+
 cdef class Progressbar(LayoutClass):
 
     """
@@ -68,8 +78,8 @@ cdef class Progressbar(LayoutClass):
         Object.__init__(self, parent.evas)
         self._set_obj(elm_progressbar_add(parent.obj))
 
-    def pulse_set(self, pulse):
-        """Set whether a given progress bar widget is at "pulsing mode" or not.
+    property pulse:
+        """Whether a given progress bar widget is at "pulsing mode" or not.
 
         By default, progress bars will display values from the low to high
         value boundaries. There are, though, contexts in which the progress
@@ -79,41 +89,18 @@ cdef class Progressbar(LayoutClass):
         values. In the default theme, it will animate its bar with the
         contents filling in constantly and back to non-filled, in a loop. To
         start and stop this pulsing animation, one has to explicitly call
-        :py:func:`pulse()`.
+        pulse(True) or pulse(False).
 
-        .. seealso:: :py:func:`pulse_get()`
-        .. seealso:: :py:func:`pulse()`
-
-        :param pulse: ``True`` to put the object in pulsing mode,
-            ``False`` to put it back to its default one
         :type pulse: bool
 
         """
-        elm_progressbar_pulse_set(self.obj, pulse)
+        def __set__(self, pulse):
+            elm_progressbar_pulse_set(self.obj, pulse)
 
-    def pulse_get(self):
-        """Get whether a given progress bar widget is at "pulsing mode" or not.
+        def __get__(self):
+            return ProgressbarPulseState(elm_progressbar_pulse_get(self.obj))
 
-        :return: ``True``, if the object is in pulsing mode, ``False``
-            if it's in the default one (and on errors)
-        :rtype: bool
-
-        """
-        return elm_progressbar_pulse_get(self.obj)
-
-    def pulse(self, state):
-        """Start/stop a given progress bar "pulsing" animation, if its
-        under that mode
-
-        .. note:: This call won't do anything if the object is not under "pulsing mode".
-
-        .. seealso:: :py:func:`pulse_set()` for more details.
-
-        :param state: ``True``, to **start** the pulsing animation, ``False`` to
-            **stop** it
-        :type state: bool
-
-        """
+    def _pulse(self, state):
         elm_progressbar_pulse(self.obj, state)
 
     property value:

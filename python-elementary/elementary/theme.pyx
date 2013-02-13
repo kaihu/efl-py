@@ -105,17 +105,14 @@ cdef class Theme(object):
 
         """
         cdef Elm_Theme *th
-        if default:
-            th = elm_theme_default_get()
-        else:
-            th = elm_theme_new()
+        th = elm_theme_default_get() if default else elm_theme_new()
 
         if th != NULL:
             self.th = th
         else:
             Py_DECREF(self)
 
-    def __dealloc__(self):
+    def free(self):
         """Free a specific theme
 
         This frees a theme created with elm_theme_new().
@@ -125,8 +122,10 @@ cdef class Theme(object):
             elm_theme_free(self.th)
             self.th = NULL
 
-    def copy(self, Theme thdst):
-        """Copy the theme from the source to the destination theme
+    def copy(self):
+        """copy() -> Theme
+
+        Copy the theme from the source to the destination theme
 
         This makes a one-time static copy of all the theme config, extensions
         and overlays from ``th`` to ``thdst``. If ``th`` references a theme, then
@@ -137,7 +136,11 @@ cdef class Theme(object):
         :type thdst: :py:class:`Theme`
 
         """
-        elm_theme_copy(self.th, thdst.th)
+        cdef Elm_Theme * thdst = NULL
+        cdef Theme t = Theme()
+        elm_theme_free(t.th)
+        elm_theme_copy(self.th, thdst)
+        t.th = thdst
 
     property reference:
         """Tell the source theme to reference the ref theme
@@ -154,11 +157,14 @@ cdef class Theme(object):
 
         def __get__(self):
             cdef Theme thref = Theme()
+            elm_theme_free(thref.th)
             thref.th = elm_theme_ref_get(self.th)
             return thref
 
     def overlay_add(self, item):
-        """Prepends a theme overlay to the list of overlays
+        """overlay_add(unicode item)
+
+        Prepends a theme overlay to the list of overlays
 
         Use this if your application needs to provide some custom overlay
         theme (An Edje file that replaces some default styles of widgets)
@@ -178,7 +184,9 @@ cdef class Theme(object):
         elm_theme_overlay_add(self.th, _cfruni(item))
 
     def overlay_del(self, item):
-        """Delete a theme overlay from the list of overlays
+        """overlay_del(unicode item)
+
+        Delete a theme overlay from the list of overlays
 
         .. seealso:: :py:func:`overlay_add()`
 
@@ -200,7 +208,9 @@ cdef class Theme(object):
             return tuple(_strings_to_python(elm_theme_overlay_list_get(self.th)))
 
     def extension_add(self, item):
-        """Appends a theme extension to the list of extensions.
+        """extension_add(unicode item)
+
+        Appends a theme extension to the list of extensions.
 
         This is intended when an application needs more styles of widgets or
         new widget themes that the default does not provide (or may not
@@ -223,7 +233,9 @@ cdef class Theme(object):
         elm_theme_extension_add(self.th, _cfruni(item))
 
     def extension_del(self, item):
-        """Deletes a theme extension from the list of extensions.
+        """extension_del(unicode item)
+
+        Deletes a theme extension from the list of extensions.
 
         .. seealso:: :py:func:`extension_add()`
 
@@ -287,7 +299,9 @@ cdef class Theme(object):
             return tuple(_strings_to_python(elm_theme_list_get(self.th)))
 
     def flush(self):
-        """Flush the current theme.
+        """flush()
+
+        Flush the current theme.
 
         This flushes caches that let elementary know where to find theme elements
         in the given theme. If ``th`` is NULL, then the default theme is flushed.
@@ -298,7 +312,9 @@ cdef class Theme(object):
         elm_theme_flush(self.th)
 
     def data_get(self, key):
-        """Get a data item from a theme
+        """data_get(unicode key) -> unicode
+
+        Get a data item from a theme
 
         This function is used to return data items from edc in ``th``, an
         overlay, or an extension. It works the same way as
@@ -314,7 +330,9 @@ cdef class Theme(object):
         return _ctouni(elm_theme_data_get(self.th, _cfruni(key)))
 
 def theme_list_item_path_get(f, in_search_path):
-    """Return the full path for a theme element
+    """theme_list_item_path_get(unicode f, bool in_search_path) -> unicode
+
+    Return the full path for a theme element
 
     This returns a string you should free with free() on success, NULL on
     failure. This will search for the given theme element, and if it is a
@@ -338,7 +356,9 @@ def theme_list_item_path_get(f, in_search_path):
     return _ctouni(elm_theme_list_item_path_get(_cfruni(f), &path))
 
 def theme_full_flush():
-    """This flushes all themes (default and specific ones).
+    """theme_full_flush()
+
+    This flushes all themes (default and specific ones).
 
     This will flush all themes in the current application context, by calling
     elm_theme_flush() on each of them.
@@ -347,7 +367,9 @@ def theme_full_flush():
     elm_theme_full_flush()
 
 def theme_name_available_list():
-    """Return a list of theme elements in the theme search path
+    """theme_name_available_list()
+
+    Return a list of theme elements in the theme search path
 
     This lists all available theme files in the standard Elementary search path
     for theme elements, and returns them in alphabetical order as theme

@@ -34,7 +34,9 @@ cdef class Plug(Object):
         self._set_obj(elm_plug_add(parent.obj))
 
     def connect(self, svcname, svcnum, svcsys):
-        """Connect a plug widget to service provided by socket image.
+        """connect(unicode svcname, int svcnum, bool svcsys) -> bool
+
+        Connect a plug widget to service provided by socket image.
 
         :param svcname: The service name to connect to set up by the socket.
         :type svcname: string

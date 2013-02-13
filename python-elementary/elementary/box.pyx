@@ -17,15 +17,45 @@
 #
 
 """
-:var ELM_BOX_LAYOUT_HORIZONTAL: Horizontal layout
-:var ELM_BOX_LAYOUT_VERTICAL: Vertical layout
-:var ELM_BOX_LAYOUT_HOMOGENEOUS_VERTICAL: Homogeneous vertical layout
-:var ELM_BOX_LAYOUT_HOMOGENEOUS_HORIZONTAL: Homogeneous horizontal layout
-:var ELM_BOX_LAYOUT_HOMOGENEOUS_MAX_SIZE_HORIZONTAL: Homogeneous layout, maximum size on the horizontal axis
-:var ELM_BOX_LAYOUT_HOMOGENEOUS_MAX_SIZE_VERTICAL: Homogeneous layout, maximum size on the horizontal axis
-:var ELM_BOX_LAYOUT_FLOW_HORIZONTAL: Horizontally flowing layout
-:var ELM_BOX_LAYOUT_FLOW_VERTICAL: Vertically flowing layout
-:var ELM_BOX_LAYOUT_STACK: Stacking layout
+
+.. rubric:: Box layout modes
+
+.. data:: ELM_BOX_LAYOUT_HORIZONTAL
+
+    Horizontal layout
+
+.. data:: ELM_BOX_LAYOUT_VERTICAL
+
+    Vertical layout
+
+.. data:: ELM_BOX_LAYOUT_HOMOGENEOUS_VERTICAL
+
+    Homogeneous vertical layout
+
+.. data:: ELM_BOX_LAYOUT_HOMOGENEOUS_HORIZONTAL
+
+    Homogeneous horizontal layout
+
+.. data:: ELM_BOX_LAYOUT_HOMOGENEOUS_MAX_SIZE_HORIZONTAL
+
+    Homogeneous layout, maximum size on the horizontal axis
+
+.. data:: ELM_BOX_LAYOUT_HOMOGENEOUS_MAX_SIZE_VERTICAL
+
+    Homogeneous layout, maximum size on the horizontal axis
+
+.. data:: ELM_BOX_LAYOUT_FLOW_HORIZONTAL
+
+    Horizontally flowing layout
+
+.. data:: ELM_BOX_LAYOUT_FLOW_VERTICAL
+
+    Vertically flowing layout
+
+.. data:: ELM_BOX_LAYOUT_STACK
+
+    Stacking layout
+
 """
 
 include "widget_header.pxi"
@@ -193,7 +223,9 @@ cdef class Box(Object):
         return bool(elm_box_homogeneous_get(self.obj))
 
     def pack_start(self, evasObject obj):
-        """Add an object to the beginning of the pack list.
+        """pack_start(evas.Object obj)
+
+        Add an object to the beginning of the pack list.
 
         Pack ``subobj`` into the box, placing it first in the list of
         children objects. The actual position the object will get on screen
@@ -216,7 +248,9 @@ cdef class Box(Object):
         elm_box_pack_start(self.obj, obj.obj)
 
     def pack_end(self, evasObject obj):
-        """Add an object at the end of the pack list.
+        """pack_end(evas.Object obj)
+
+        Add an object at the end of the pack list.
 
         Pack ``subobj`` into the box, placing it last in the list of
         children objects. The actual position the object will get on screen
@@ -239,7 +273,9 @@ cdef class Box(Object):
         elm_box_pack_end(self.obj, obj.obj)
 
     def pack_before(self, evasObject obj, evasObject before):
-        """Adds an object to the box before the indicated object.
+        """pack_before(evas.Object obj, evas.Object before)
+
+        Adds an object to the box before the indicated object.
 
         This will add the ``subobj`` to the box indicated before the object
         indicated with ``before}. If C{before`` is not already in the box, results
@@ -263,7 +299,9 @@ cdef class Box(Object):
         elm_box_pack_before(self.obj, obj.obj, before.obj)
 
     def pack_after(self, evasObject obj, evasObject after):
-        """Adds an object to the box after the indicated object.
+        """pack_after(evas.Object obj, evas.Object)
+
+        Adds an object to the box after the indicated object.
 
         This will add the ``subobj`` to the box indicated after the object
         indicated with *after*. If ``after`` is not already in the box, results
@@ -287,7 +325,9 @@ cdef class Box(Object):
         elm_box_pack_after(self.obj, obj.obj, after.obj)
 
     def clear(self):
-        """Clear the box of all children
+        """clear()
+
+        Clear the box of all children
 
         Remove all the elements contained by the box, deleting the respective
         objects.
@@ -298,7 +338,9 @@ cdef class Box(Object):
         elm_box_clear(self.obj)
 
     def unpack(self, evasObject obj):
-        """Unpack a box item.
+        """unpack(evas.Object obj)
+
+        Unpack a box item.
 
         Remove the object given by ``subobj`` from the box without
         deleting it.
@@ -312,7 +354,9 @@ cdef class Box(Object):
         elm_box_unpack(self.obj, obj.obj)
 
     def unpack_all(self):
-        """Remove all items from the box, without deleting them.
+        """unpack_all()
+
+        Remove all items from the box, without deleting them.
 
         Clear the box from all children, but don't delete the respective objects.
         If no other references of the box children exist, the objects will never
@@ -424,7 +468,9 @@ cdef class Box(Object):
         return (horizontal, vertical)
 
     def recalculate(self):
-        """Force the box to recalculate its children packing.
+        """recalculate()
+
+        Force the box to recalculate its children packing.
 
         If any children was added or removed, box will not calculate the
         values immediately rather leaving it to the next main loop
@@ -468,7 +514,9 @@ cdef class Box(Object):
         elm_box_layout_set(self.obj, ly, NULL, NULL)
 
     def layout_transition(self, duration, from_layout, to_layout):
-        """Perform an animation between two given different layout.
+        """layout_transition(float duration, from_layout, to_layout)
+
+        Perform an animation between two given different layout.
 
         If you want to animate the change from one layout to another, you
         just need to call this function with the starting layout and
@@ -477,7 +525,7 @@ cdef class Box(Object):
         .. seealso:: :py:attr:`layout` for the list of available layouts.
 
         :param duration: the animation duration in seconds
-        :type duration: double
+        :type duration: float
         :param from_layout: one of elementary.ELM_BOX_LAYOUT
         :type from_layout: Evas_Object_Box_Layout
         :param to_layout: one of elementary.ELM_BOX_LAYOUT

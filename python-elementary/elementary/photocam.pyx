@@ -17,11 +17,25 @@
 #
 
 """
-:var ELM_PHOTOCAM_ZOOM_MODE_MANUAL:
+
+.. rubric:: Photocam zoom modes
+
+.. data:: ELM_PHOTOCAM_ZOOM_MODE_MANUAL
+
     Zoom controlled normally by :py:attr:`zoom`
-:var ELM_PHOTOCAM_ZOOM_MODE_AUTO_FIT: Zoom until photo fits in photocam
-:var ELM_PHOTOCAM_ZOOM_MODE_AUTO_FILL: Zoom until photo fills photocam
-:var ELM_PHOTOCAM_ZOOM_MODE_AUTO_FIT_IN: Zoom in until photo fits in photocam
+
+.. data:: ELM_PHOTOCAM_ZOOM_MODE_AUTO_FIT
+
+    Zoom until photo fits in photocam
+
+.. data:: ELM_PHOTOCAM_ZOOM_MODE_AUTO_FILL
+
+    Zoom until photo fills photocam
+
+.. data:: ELM_PHOTOCAM_ZOOM_MODE_AUTO_FIT_IN
+
+    Zoom in until photo fits in photocam
+
 """
 
 include "widget_header.pxi"
@@ -165,7 +179,9 @@ cdef class Photocam(Object):
             return (x, y, w, h)
 
     def image_region_show(self, x, y, w, h):
-        """Set the viewed region of the image
+        """image_region_show(int x, int y, int w, int h)
+
+        Set the viewed region of the image
 
         This shows the region of the image without using animation.
 
@@ -182,7 +198,9 @@ cdef class Photocam(Object):
         elm_photocam_image_region_show(self.obj, x, y, w, h)
 
     def image_region_bring_in(self, x, y, w, h):
-        """Bring in the viewed portion of the image
+        """image_region_bring_in(int x, int y, int w, int h)
+
+        Bring in the viewed portion of the image
 
         This shows the region of the image using animation.
 

@@ -17,21 +17,64 @@
 #
 
 """
-:var ELM_GENLIST_ITEM_NONE: Simple item
-:var ELM_GENLIST_ITEM_TREE: The item may be expanded and have child items
-:var ELM_GENLIST_ITEM_GROUP: An index item of a group of items
 
-:var ELM_GENLIST_ITEM_FIELD_ALL: Match all fields
-:var ELM_GENLIST_ITEM_FIELD_TEXT: Match text fields
-:var ELM_GENLIST_ITEM_FIELD_CONTENT: Match content fields
-:var ELM_GENLIST_ITEM_FIELD_STATE: Match state fields
+.. rubric:: Genlist item types
 
-:var ELM_GENLIST_ITEM_SCROLLTO_NONE: No scroll to
-:var ELM_GENLIST_ITEM_SCROLLTO_IN: Scroll to the nearest viewport
-:var ELM_GENLIST_ITEM_SCROLLTO_TOP: Scroll to the top of viewport
-:var ELM_GENLIST_ITEM_SCROLLTO_MIDDLE: Scroll to the middle of viewport
+.. data:: ELM_GENLIST_ITEM_NONE
 
-:var ELM_LIST_COMPRESS:
+    Simple item
+
+.. data:: ELM_GENLIST_ITEM_TREE
+
+    The item may be expanded and have child items
+
+.. data:: ELM_GENLIST_ITEM_GROUP
+
+    An index item of a group of items
+
+
+.. rubric:: Genlist items' field types
+
+.. data:: ELM_GENLIST_ITEM_FIELD_ALL
+
+    Match all fields
+
+.. data:: ELM_GENLIST_ITEM_FIELD_TEXT
+
+    Match text fields
+
+.. data:: ELM_GENLIST_ITEM_FIELD_CONTENT
+
+    Match content fields
+
+.. data:: ELM_GENLIST_ITEM_FIELD_STATE
+
+    Match state fields
+
+
+.. rubric:: Genlist items' scroll-to types
+
+.. data:: ELM_GENLIST_ITEM_SCROLLTO_NONE
+
+    No scroll to
+
+.. data:: ELM_GENLIST_ITEM_SCROLLTO_IN
+
+    Scroll to the nearest viewport
+
+.. data:: ELM_GENLIST_ITEM_SCROLLTO_TOP
+
+    Scroll to the top of viewport
+
+.. data:: ELM_GENLIST_ITEM_SCROLLTO_MIDDLE
+
+    Scroll to the middle of viewport
+
+
+.. rubric:: List sizing
+
+.. data:: ELM_LIST_COMPRESS
+
     The list won't set any of its size hints to inform how a possible container
     should resize it.
 
@@ -39,20 +82,26 @@
     dimensions. The list will respect the container's geometry and, if any of
     its items won't fit into its transverse axis, one won't be able to scroll it
     in that direction.
-:var ELM_LIST_SCROLL:
+
+.. data:: ELM_LIST_SCROLL
+
     Default value.
 
     This is the same as ELM_LIST_COMPRESS, with the exception that if any of
     its items won't fit into its transverse axis, one will be able to scroll
     it in that direction.
-:var ELM_LIST_LIMIT:
+
+.. data:: ELM_LIST_LIMIT
+
     Sets a minimum size hint on the list object, so that containers may
     respect it (and resize itself to fit the child properly).
 
     More specifically, a minimum size hint will be set for its transverse
     axis, so that the largest item in that direction fits well. This is
     naturally bound by the list object's maximum size hints, set externally.
-:var ELM_LIST_EXPAND:
+
+.. data:: ELM_LIST_EXPAND
+
     Besides setting a minimum size on the transverse axis, just like on
     ELM_LIST_LIMIT, the list will set a minimum size on the longitudinal
     axis, trying to reserve space to all its children to be visible at a time.
@@ -60,14 +109,40 @@
     This is naturally bound by the list object's maximum size hints, set
     externally.
 
-:var ELM_OBJECT_SELECT_MODE_DEFAULT: Default select mode
-:var ELM_OBJECT_SELECT_MODE_ALWAYS: Always select mode
-:var ELM_OBJECT_SELECT_MODE_NONE: No select mode
-:var ELM_OBJECT_SELECT_MODE_DISPLAY_ONLY: No select mode with no finger size rule
 
-:var ELM_SCROLLER_POLICY_AUTO: Show scrollbars as needed
-:var ELM_SCROLLER_POLICY_ON: Always show scrollbars
-:var ELM_SCROLLER_POLICY_OFF: Never show scrollbars
+.. rubric:: Selection modes
+
+.. data:: ELM_OBJECT_SELECT_MODE_DEFAULT
+
+    Default select mode
+
+.. data:: ELM_OBJECT_SELECT_MODE_ALWAYS
+
+    Always select mode
+
+.. data:: ELM_OBJECT_SELECT_MODE_NONE
+
+    No select mode
+
+.. data:: ELM_OBJECT_SELECT_MODE_DISPLAY_ONLY
+
+    No select mode with no finger size rule
+
+
+.. rubric:: Scrollbar visibility
+
+.. data:: ELM_SCROLLER_POLICY_AUTO
+
+    Show scrollbars as needed
+
+.. data:: ELM_SCROLLER_POLICY_ON
+
+    Always show scrollbars
+
+.. data:: ELM_SCROLLER_POLICY_OFF
+
+    Never show scrollbars
+
 
 """
 
@@ -496,7 +571,9 @@ cdef class GenlistItem(ObjectItem):
                 self.params[1])
 
     def append_to(self, Genlist genlist):
-        """Append a new item (add as last row) to this genlist.
+        """append_to(Genlist genlist)
+
+        Append a new item (add as last row) to this genlist.
 
         :param genlist: The Genlist upon which this item is to be appended.
         :type genlist: :py:class:`Genlist`
@@ -520,7 +597,9 @@ cdef class GenlistItem(ObjectItem):
             return None
 
     def prepend_to(self, Genlist genlist):
-        """Prepend a new item (add as first row) to this Genlist.
+        """prepend_to(Genlist genlist)
+
+        Prepend a new item (add as first row) to this Genlist.
 
         :param genlist: The Genlist upon which this item is to be prepended.
         :type genlist: :py:class:`Genlist`
@@ -544,7 +623,9 @@ cdef class GenlistItem(ObjectItem):
             return None
 
     def insert_before(self, GenlistItem before_item=None):
-        """Insert a new item (row) before another item in this genlist.
+        """insert_before(GenlistItem before_item=None)
+
+        Insert a new item (row) before another item in this genlist.
 
         :param before_item: a reference item to use, the new item
             will be inserted before it.
@@ -573,7 +654,9 @@ cdef class GenlistItem(ObjectItem):
             return None
 
     def insert_after(self, GenlistItem after_item=None):
-        """Insert a new item (row) after another item in this genlist.
+        """insert_after(GenlistItem after_item=None)
+
+        Insert a new item (row) after another item in this genlist.
 
         :param after_item: a reference item to use, the new item
             will be inserted after it.
@@ -662,7 +745,9 @@ cdef class GenlistItem(ObjectItem):
         return bool(elm_genlist_item_selected_get(self.item))
 
     def show(self, scrollto_type = ELM_GENLIST_ITEM_SCROLLTO_IN):
-        """This causes genlist to jump to the item and show it (by
+        """show(int scrollto_type = ELM_GENLIST_ITEM_SCROLLTO_IN)
+
+        This causes genlist to jump to the item and show it (by
         jumping to that position), if it is not fully visible.
 
         .. seealso:: :py:func:`bring_in()`
@@ -671,7 +756,9 @@ cdef class GenlistItem(ObjectItem):
         elm_genlist_item_show(self.item, scrollto_type)
 
     def bring_in(self, scrollto_type = ELM_GENLIST_ITEM_SCROLLTO_IN):
-        """This causes genlist to jump to the item and show it (by
+        """bring_in(int scrollto_type = ELM_GENLIST_ITEM_SCROLLTO_IN)
+
+        This causes genlist to jump to the item and show it (by
         animatedly scrolling), if it is not fully visible.
         This may use animation and take a some time to do so.
 
@@ -681,7 +768,9 @@ cdef class GenlistItem(ObjectItem):
         elm_genlist_item_bring_in(self.item, scrollto_type)
 
     def update(self):
-        """This updates an item by calling all the item class functions again
+        """update()
+
+        This updates an item by calling all the item class functions again
         to get the contents, texts and states. Use this when the original
         item data has changed and the changes are desired to be reflected.
 
@@ -720,8 +809,10 @@ cdef class GenlistItem(ObjectItem):
     def index_get(self):
         return elm_genlist_item_index_get(self.item)
 
-    def tooltip_text_set(self, char *text):
-        """ Set the text to be shown in the tooltip object
+    def tooltip_text_set(self, text):
+        """tooltip_text_set(unicode text)
+
+        Set the text to be shown in the tooltip object
 
         Setup the text as tooltip object. The object can have only one
         tooltip, so any previous tooltip data is removed.
@@ -731,7 +822,9 @@ cdef class GenlistItem(ObjectItem):
         elm_genlist_item_tooltip_text_set(self.item, _cfruni(text))
 
     def tooltip_content_cb_set(self, func, *args, **kargs):
-        """ Set the content to be shown in the tooltip object
+        """tooltip_content_cb_set(func, *args, **kargs)
+
+        Set the content to be shown in the tooltip object
 
         Setup the tooltip to object. The object can have only one tooltip,
         so any previews tooltip data is removed. ``func(args,kargs)`` will
@@ -757,7 +850,9 @@ cdef class GenlistItem(ObjectItem):
                                                 _tooltip_item_data_del_cb)
 
     def tooltip_unset(self):
-        """Unset tooltip from object
+        """tooltip_unset()
+
+        Unset tooltip from object
 
         Remove tooltip from object. If used the :py:func:`tooltip_text_set`
         the internal copy of label will be removed correctly. If used
@@ -885,7 +980,9 @@ cdef class GenlistItem(ObjectItem):
         return _object_item_to_python(elm_genlist_item_parent_get(self.item))
 
     def subitems_clear(self):
-        """This removes all items that are children (and their descendants)
+        """subitems_clear()
+
+        This removes all items that are children (and their descendants)
         of the item.
 
         """
@@ -930,7 +1027,9 @@ cdef class GenlistItem(ObjectItem):
         return elm_genlist_item_expanded_depth_get(self.item)
 
     def all_contents_unset(self):
-        """This instructs genlist to release references to contents in the
+        """all_contents_unset() -> list
+
+        This instructs genlist to release references to contents in the
         item, meaning that they will no longer be managed by genlist and are
         floating "orphans" that can be re-used elsewhere if the user wants to.
 
@@ -940,19 +1039,25 @@ cdef class GenlistItem(ObjectItem):
         return _object_item_list_to_python(lst)
 
     def promote(self):
-        """Promote an item to the top of the list
+        """promote()
+
+        Promote an item to the top of the list
 
         """
         elm_genlist_item_promote(self.item)
 
     def demote(self):
-        """Demote an item to the end of the list
+        """demote()
+
+        Demote an item to the end of the list
 
         """
         elm_genlist_item_demote(self.item)
 
     def fields_update(self, parts, itf):
-        """This updates an item's part by calling item's fetching functions again
+        """fields_update(unicode parts, itf)
+
+        This updates an item's part by calling item's fetching functions again
         to get the contents, texts and states. Use this when the original
         item data has changed and the changes are desired to be reflected.
         Second parts argument is used for globbing to match '*', '?', and '.'
@@ -1405,7 +1510,9 @@ cdef class Genlist(Object):
         self._set_obj(elm_genlist_add(parent.obj))
 
     def clear(self):
-        """Remove all items from a given genlist widget.
+        """clear()
+
+        Remove all items from a given genlist widget.
 
         """
         elm_genlist_clear(self.obj)
@@ -1639,7 +1746,9 @@ cdef class Genlist(Object):
         return (policy_h, policy_v)
 
     def realized_items_update(self):
-        """This updates all realized items by calling all the item class
+        """realized_items_update()
+
+        This updates all realized items by calling all the item class
         functions again to get the contents, texts and states. Use this when
         the original item data has changed and the changes are desired to be
         reflected.
@@ -1733,7 +1842,9 @@ cdef class Genlist(Object):
         return elm_genlist_longpress_timeout_get(self.obj)
 
     def at_xy_item_get(self, int x, int y):
-        """Get the item that is at the x, y canvas coords.
+        """at_xy_item_get(int x, int y) -> GenlistItem
+
+        Get the item that is at the x, y canvas coords.
 
         :param x: The input x coordinate
         :param y: The input y coordinate

@@ -116,7 +116,7 @@ setup(
     description = "Python bindings for EFL Elementary",
     cmdclass = {'build_ext': build_ext, 'build_sphinx': BuildDoc, 'build_doc': BuildDoc},
     packages = ["elementary"],
-    ext_modules = cythonize(ext_modules, include_path=sys.path, compiler_directives={"embedsignature": True}),
+    ext_modules = cythonize(ext_modules, include_path=sys.path, compiler_directives={"embedsignature": False}),
     requires = ["evas", "ecore", "edje"],
     provides = ["elementary"],
 )

@@ -108,7 +108,9 @@ cdef class FlipSelector(Object):
         self._set_obj(elm_flipselector_add(parent.obj))
 
     def next(self):
-        """Programmatically select the next item of a flip selector widget
+        """next()
+
+        Programmatically select the next item of a flip selector widget
 
         .. note:: The selection will be animated. Also, if it reaches the
             end of its list of member items, it will continue with the first
@@ -118,7 +120,9 @@ cdef class FlipSelector(Object):
         elm_flipselector_flip_next(self.obj)
 
     def prev(self):
-        """Programmatically select the previous item of a flip selector
+        """prev()
+
+        Programmatically select the previous item of a flip selector
         widget
 
         .. note:: The selection will be animated.  Also, if it reaches the
@@ -129,7 +133,9 @@ cdef class FlipSelector(Object):
         elm_flipselector_flip_prev(self.obj)
 
     def item_append(self, label = None, callback = None, *args, **kwargs):
-        """Append a (text) item to a flip selector widget
+        """item_append(unicode label = None, callback = None, *args, **kwargs) -> FlipSelectorItem
+
+        Append a (text) item to a flip selector widget
 
         The widget's list of labels to show will be appended with the
         given value. If the user wishes so, a callback function pointer
@@ -175,7 +181,9 @@ cdef class FlipSelector(Object):
             return
 
     def item_prepend(self, label = None, callback = None, *args, **kwargs):
-        """Prepend a (text) item to a flip selector widget
+        """item_prepend(unicode label = None, callback = None, *args, **kwargs) -> FlipSelectorItem
+
+        Prepend a (text) item to a flip selector widget
 
         The widget's list of labels to show will be prepended with the
         given value. If the user wishes so, a callback function pointer

@@ -17,9 +17,18 @@
 #
 
 """
-:var ELM_ICON_NONE: No icon
-:var ELM_ICON_FILE: Icon is a file
-:var ELM_ICON_STANDARD: Icon is set with standards names
+.. data:: ELM_ICON_NONE
+
+    No icon
+
+.. data:: ELM_ICON_FILE
+
+    Icon is a file
+
+.. data:: ELM_ICON_STANDARD
+
+    Icon is set with standards names
+
 """
 
 include "widget_header.pxi"
@@ -76,7 +85,9 @@ cdef class HoverselItem(ObjectItem):
         self.params = (callback, args, kargs)
 
     def add_to(self, Hoversel hoversel):
-        """Add an item to the hoversel button
+        """add_to(Hoversel hoversel)
+
+        Add an item to the hoversel button
 
         This adds an item to the hoversel to show when it is clicked.
 
@@ -215,14 +226,18 @@ cdef class Hoversel(Button):
         return Object_from_instance(elm_hoversel_hover_parent_get(self.obj))
 
     def hover_begin(self):
-        """This triggers the hoversel popup from code, the same as if the user
+        """hover_begin()
+
+        This triggers the hoversel popup from code, the same as if the user
         had clicked the button.
 
         """
         elm_hoversel_hover_begin(self.obj)
 
     def hover_end(self):
-        """This dismisses the hoversel popup as if the user had clicked outside
+        """hover_end()
+
+        This dismisses the hoversel popup as if the user had clicked outside
         the hover.
 
         """
@@ -241,7 +256,9 @@ cdef class Hoversel(Button):
         return bool(elm_hoversel_expanded_get(self.obj))
 
     def clear(self):
-        """This will remove all the children items from the hoversel.
+        """clear()
+
+        This will remove all the children items from the hoversel.
 
         .. warning:: Should **not** be called while the hoversel is active;
             use :py:attr:`expanded` to check first.
