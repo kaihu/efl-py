@@ -17,9 +17,21 @@
 #
 
 """
-:var ELM_THUMB_ANIMATION_START: Play animation once
-:var ELM_THUMB_ANIMATION_LOOP: Keep playing animation until stop is requested
-:var ELM_THUMB_ANIMATION_STOP: Stop playing the animation
+
+.. rubric:: Thumb animation modes
+
+.. data:: ELM_THUMB_ANIMATION_START
+
+    Play animation once
+
+.. data:: ELM_THUMB_ANIMATION_LOOP
+
+    Keep playing animation until stop is requested
+
+.. data:: ELM_THUMB_ANIMATION_STOP
+
+    Stop playing the animation
+
 """
 
 include "widget_header.pxi"
@@ -77,7 +89,9 @@ cdef class Thumb(Object):
         self._set_obj(elm_thumb_add(parent.obj))
 
     def reload(self):
-        """Reload thumbnail if it was generated before.
+        """reload()
+
+        Reload thumbnail if it was generated before.
 
         This is useful if the ethumb client configuration changed, like its
         size, aspect or any other property one set in the handle returned
@@ -201,14 +215,16 @@ cdef class Thumb(Object):
         return None
         #return elm_thumb_ethumb_client_get(void)
 
-    def ethumb_client_connected_get(self):
+    property ethumb_client_connected:
         """Get the ethumb_client connection state.
 
-        :return: True if the client is connected to the server or False
-            otherwise.
-        :rtype: bool
+        :type: bool
 
         """
+        def __get__(self):
+            return bool(elm_thumb_ethumb_client_connected_get())
+
+    def ethumb_client_connected_get(self):
         return bool(elm_thumb_ethumb_client_connected_get())
 
     property editable:

@@ -17,10 +17,25 @@
 #
 
 """
-:var ELM_WRAP_NONE: No wrap
-:var ELM_WRAP_CHAR: Wrap between characters
-:var ELM_WRAP_WORD: Wrap in allowed wrapping points (as defined in the unicode standard)
-:var ELM_WRAP_MIXED: Word wrap, and if that fails, char wrap.
+
+.. rubric:: Wrap modes
+
+.. data:: ELM_WRAP_NONE
+
+    No wrap
+
+.. data:: ELM_WRAP_CHAR
+
+    Wrap between characters
+
+.. data:: ELM_WRAP_WORD
+
+    Wrap in allowed wrapping points (as defined in the unicode standard)
+
+.. data:: ELM_WRAP_MIXED
+
+    Word wrap, and if that fails, char wrap.
+
 """
 
 include "widget_header.pxi"

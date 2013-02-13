@@ -48,7 +48,9 @@ cdef class InnerWindow(LayoutClass):
         self._set_obj(elm_win_inwin_add(parent.obj))
 
     def activate(self):
-        """Activates an inwin object, ensuring its visibility
+        """activate()
+
+        Activates an inwin object, ensuring its visibility
 
         This function will make sure that the inwin is completely visible
         by calling :py:func:`show()` and :py:func:`_raise()` on it, to bring it
@@ -62,16 +64,6 @@ cdef class InnerWindow(LayoutClass):
         elm_win_inwin_activate(self.obj)
 
     def content_set(self, evasObject content):
-        """Set the content of an inwin object.
-
-        Once the content object is set, a previously set one will be deleted.
-        If you want to keep that old content object, use the
-        :py:func:`content_unset()` function.
-
-        :param content: The object to set as content
-        :type content: :py:class:`evas.object.Object`
-
-        """
         cdef Evas_Object *o
         if content is not None:
             o = content.obj
@@ -80,32 +72,9 @@ cdef class InnerWindow(LayoutClass):
         elm_win_inwin_content_set(self.obj, o)
 
     def content_get(self):
-        """Get the content of an inwin object.
-
-        Return the content object for this widget.
-
-        The returned object is valid as long as the inwin is still alive and no
-        other content is set on it. Deleting the object will notify the inwin
-        about it and this one will be left empty.
-
-        If you need to remove an inwin's content to be reused somewhere else,
-        see :py:func:`content_unset()`.
-
-        :return: The content that is being used
-        :rtype: :py:class:`evas.object.Object`
-
-        """
         return Object_from_instance(elm_win_inwin_content_get(self.obj))
 
     def content_unset(self):
-        """Unset the content of an inwin object.
-
-        Unparent and return the content object which was set for this widget.
-
-        :return: The content that was being used
-        :rtype: :py:class:`evas.object.Object`
-
-        """
         return Object_from_instance(elm_win_inwin_content_unset(self.obj))
 
     property content:

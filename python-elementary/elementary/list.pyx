@@ -18,7 +18,11 @@
 #
 
 """
-:var ELM_LIST_COMPRESS:
+
+.. rubric:: List sizing modes
+
+.. data:: ELM_LIST_COMPRESS
+
     The list won't set any of its size hints to inform how a possible container
     should resize it.
 
@@ -26,20 +30,26 @@
     dimensions. The list will respect the container's geometry and, if any of
     its items won't fit into its transverse axis, one won't be able to scroll it
     in that direction.
-:var ELM_LIST_SCROLL:
+
+.. data:: ELM_LIST_SCROLL
+
     Default value.
 
     This is the same as ELM_LIST_COMPRESS, with the exception that if any of
     its items won't fit into its transverse axis, one will be able to scroll
     it in that direction.
-:var ELM_LIST_LIMIT:
+
+.. data:: ELM_LIST_LIMIT
+
     Sets a minimum size hint on the list object, so that containers may
     respect it (and resize itself to fit the child properly).
 
     More specifically, a minimum size hint will be set for its transverse
     axis, so that the largest item in that direction fits well. This is
     naturally bound by the list object's maximum size hints, set externally.
-:var ELM_LIST_EXPAND:
+
+.. data:: ELM_LIST_EXPAND
+
     Besides setting a minimum size on the transverse axis, just like on
     ELM_LIST_LIMIT, the list will set a minimum size on the longitudinal
     axis, trying to reserve space to all its children to be visible at a time.
@@ -47,14 +57,40 @@
     This is naturally bound by the list object's maximum size hints, set
     externally.
 
-:var ELM_OBJECT_SELECT_MODE_DEFAULT: Default select mode
-:var ELM_OBJECT_SELECT_MODE_ALWAYS: Always select mode
-:var ELM_OBJECT_SELECT_MODE_NONE: No select mode
-:var ELM_OBJECT_SELECT_MODE_DISPLAY_ONLY: No select mode with no finger size rule
 
-:var ELM_SCROLLER_POLICY_AUTO: Show scrollbars as needed
-:var ELM_SCROLLER_POLICY_ON: Always show scrollbars
-:var ELM_SCROLLER_POLICY_OFF: Never show scrollbars
+.. rubric:: Selection modes
+
+.. data:: ELM_OBJECT_SELECT_MODE_DEFAULT
+
+    Default select mode
+
+.. data:: ELM_OBJECT_SELECT_MODE_ALWAYS
+
+    Always select mode
+
+.. data:: ELM_OBJECT_SELECT_MODE_NONE
+
+    No select mode
+
+.. data:: ELM_OBJECT_SELECT_MODE_DISPLAY_ONLY
+
+    No select mode with no finger size rule
+
+
+.. rubric:: Scrollbar visibility
+
+.. data:: ELM_SCROLLER_POLICY_AUTO
+
+    Show scrollbars as needed
+
+.. data:: ELM_SCROLLER_POLICY_ON
+
+    Always show scrollbars
+
+.. data:: ELM_SCROLLER_POLICY_OFF
+
+    Never show scrollbars
+
 """
 
 include "widget_header.pxi"
@@ -148,7 +184,9 @@ cdef class ListItem(ObjectItem):
              bool(self.part_content_get("end")), self.params[0], self.params[1], self.params[2])
 
     def append_to(self, List list):
-        """Append a new item to the list object.
+        """append_to(List list)
+
+        Append a new item to the list object.
 
         A new item will be created and appended to the list, i.e., will
         be set as **last** item.
@@ -197,7 +235,9 @@ cdef class ListItem(ObjectItem):
             Py_DECREF(self)
 
     def prepend_to(self, List list):
-        """Prepend a new item to the list object.
+        """prepend_to(List list)
+
+        Prepend a new item to the list object.
 
         .. seealso::
             :py:func:`append_to()`
@@ -229,7 +269,9 @@ cdef class ListItem(ObjectItem):
             Py_DECREF(self)
 
     def insert_before(self, ListItem before):
-        """Insert a new item into the list object before item *before*.
+        """insert_before(ListItem before)
+
+        Insert a new item into the list object before item *before*.
 
         .. seealso::
             :py:func:`append_to()`
@@ -263,7 +305,9 @@ cdef class ListItem(ObjectItem):
             Py_DECREF(self)
 
     def insert_after(self, ListItem after):
-        """Insert a new item into the list object after item *after*.
+        """insert_after(ListItem after)
+
+        Insert a new item into the list object after item *after*.
 
         .. seealso::
             :py:func:`append_to()`
@@ -391,7 +435,9 @@ cdef class ListItem(ObjectItem):
         return bool(elm_list_item_separator_get(self.item))
 
     def show(self):
-        """Show the item in the list view.
+        """show()
+
+        Show the item in the list view.
 
         It won't animate list until item is visible. If such behavior is
         wanted, use :py:func:`bring_in()` instead.
@@ -400,7 +446,9 @@ cdef class ListItem(ObjectItem):
         elm_list_item_show(self.item)
 
     def bring_in(self):
-        """Bring in the given item to list view.
+        """bring_in()
+
+        Bring in the given item to list view.
 
         This causes list to jump to the given item and show it
         (by scrolling), if it is not fully visible.
@@ -513,7 +561,9 @@ cdef class List(Object):
         self._set_obj(elm_list_add(parent.obj))
 
     def go(self):
-        """Starts the list.
+        """go()
+
+        Starts the list.
 
         Example::
 
@@ -701,7 +751,9 @@ cdef class List(Object):
         return ListItem(label, icon, end, callback, *args, **kargs).insert_after(after)
 
     def clear(self):
-        """Remove all list's items.
+        """clear()
+
+        Remove all list's items.
 
         .. seealso::
             :py:func:`object_item.ObjectItem.delete()`

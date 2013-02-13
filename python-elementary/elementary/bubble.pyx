@@ -17,10 +17,25 @@
 #
 
 """
-:var ELM_BUBBLE_POS_TOP_LEFT: Top left position
-:var ELM_BUBBLE_POS_TOP_RIGHT: Top right position
-:var ELM_BUBBLE_POS_BOTTOM_LEFT: Bottom left position
-:var ELM_BUBBLE_POS_BOTTOM_RIGHT: Bottom right position
+
+.. rubric:: Bubble arrow positions
+
+.. data:: ELM_BUBBLE_POS_TOP_LEFT
+
+    Top left position
+
+.. data:: ELM_BUBBLE_POS_TOP_RIGHT
+
+    Top right position
+
+.. data:: ELM_BUBBLE_POS_BOTTOM_LEFT
+
+    Bottom left position
+
+.. data:: ELM_BUBBLE_POS_BOTTOM_RIGHT
+
+    Bottom right position
+
 """
 
 include "widget_header.pxi"

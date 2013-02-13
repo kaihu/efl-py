@@ -127,7 +127,9 @@ cdef class ObjectItem(object):
         return Object_from_instance(elm_object_item_widget_get(self.item))
 
     def part_content_set(self, part, Object content not None):
-        """Set a content of an object item
+        """part_content_set(unicode part, Object content)
+
+        Set a content of an object item
 
         This sets a new object to an item as a content object. If any object
         was already set as a content object in the same part, previous
@@ -143,7 +145,9 @@ cdef class ObjectItem(object):
         elm_object_item_part_content_set(self.item, _cfruni(part) if part is not None else NULL, content.obj)
 
     def part_content_get(self, part):
-        """Get a content of an object item
+        """part_content_get(unicode part) -> Object
+
+        Get a content of an object item
 
         .. note:: Elementary object items may have many contents
 
@@ -157,7 +161,9 @@ cdef class ObjectItem(object):
         return Object_from_instance(elm_object_item_part_content_get(self.item, _cfruni(part) if part is not None else NULL))
 
     def part_content_unset(self, part):
-        """Unset a content of an object item
+        """part_content_unset(unicode part)
+
+        Unset a content of an object item
 
         .. note:: Elementary object items may have many contents
 
@@ -169,6 +175,7 @@ cdef class ObjectItem(object):
         return Object_from_instance(elm_object_item_part_content_unset(self.item, _cfruni(part) if part is not None else NULL))
 
     property content:
+        """The default content part of this ObjectItem."""
         def __set__(self, evasObject content):
             elm_object_item_content_set(self.item, content.obj)
 
@@ -186,7 +193,9 @@ cdef class ObjectItem(object):
         return Object_from_instance(elm_object_item_content_unset(self.item))
 
     def part_text_set(self, part, text):
-        """Sets the text of a given part of this object.
+        """part_text_set(unicode part, unicode text)
+
+        Sets the text of a given part of this object.
 
         .. seealso:: :py:attr:`text` and :py:func:`part_text_get()`
 
@@ -199,7 +208,9 @@ cdef class ObjectItem(object):
         elm_object_item_part_text_set(self.item, _cfruni(part) if part is not None else NULL, _cfruni(text))
 
     def part_text_get(self, part):
-        """Gets the text of a given part of this object.
+        """part_text_set(unicode part) -> unicode text
+
+        Gets the text of a given part of this object.
 
         .. seealso:: text_get() and :py:func:`part_text_set()`
 
@@ -258,7 +269,9 @@ cdef class ObjectItem(object):
         self.params = tuple(callback, *args, **kwargs)
 
     def signal_emit(self, emission, source):
-        """Send a signal to the edje object of the widget item.
+        """signal_emit(unicode emission, unicode source)
+
+        Send a signal to the edje object of the widget item.
 
         This function sends a signal to the edje object of the obj item. An
         edje program can respond to a signal by specifying matching
@@ -298,13 +311,20 @@ cdef class ObjectItem(object):
         #elm_object_item_del_cb_set(self.item, del_cb)
 
     def delete(self):
+        """delete()
+
+        Delete this ObjectItem.
+
+        """
         if self.item == NULL:
             raise ValueError("Object already deleted")
         elm_object_item_del(self.item)
         Py_DECREF(self)
 
-    def tooltip_text_set(self, char *text):
-        """Set the text to be shown in the tooltip object
+    def tooltip_text_set(self, text):
+        """tooltip_text_set(unicode text)
+
+        Set the text to be shown in the tooltip object
 
         Setup the text as tooltip object. The object can have only one
         tooltip, so any previous tooltip data is removed. Internally, this
@@ -327,7 +347,9 @@ cdef class ObjectItem(object):
         return bool(elm_object_item_tooltip_window_mode_get(self.item))
 
     def tooltip_content_cb_set(self, func, *args, **kargs):
-        """Set the content to be shown in the tooltip object
+        """tooltip_content_cb_set(func, *args, **kargs)
+
+        Set the content to be shown in the tooltip object
 
         Setup the tooltip to object. The object can have only one tooltip,
         so any previews tooltip data is removed. ``func(owner, tooltip,
@@ -353,7 +375,9 @@ cdef class ObjectItem(object):
                                           cbdata, _tooltip_item_data_del_cb)
 
     def tooltip_unset(self):
-        """Unset tooltip from object
+        """tooltip_unset()
+
+        Unset tooltip from object
 
         Remove tooltip from object. If used the :py:func:`tooltip_text_set`
         the internal copy of label will be removed correctly. If used

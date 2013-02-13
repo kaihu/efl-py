@@ -18,16 +18,48 @@
 #
 
 """
-:var ELM_WEB_WINDOW_FEATURE_TOOLBAR: Toolbar
-:var ELM_WEB_WINDOW_FEATURE_STATUSBAR: Status bar
-:var ELM_WEB_WINDOW_FEATURE_SCROLLBARS: Scrollbars
-:var ELM_WEB_WINDOW_FEATURE_MENUBAR: Menu bar
-:var ELM_WEB_WINDOW_FEATURE_LOCATIONBAR: Location bar
-:var ELM_WEB_WINDOW_FEATURE_FULLSCREEN: Fullscreen
 
-:var ELM_WEB_ZOOM_MODE_MANUAL: Zoom controlled normally by :py:attr:`zoom`
-:var ELM_WEB_ZOOM_MODE_AUTO_FIT: Zoom until content fits in web object.
-:var ELM_WEB_ZOOM_MODE_AUTO_FILL: Zoom until content fills web object.
+.. rubric:: Web window features
+
+.. data:: ELM_WEB_WINDOW_FEATURE_TOOLBAR
+
+    Toolbar
+
+.. data:: ELM_WEB_WINDOW_FEATURE_STATUSBAR
+
+    Status bar
+
+.. data:: ELM_WEB_WINDOW_FEATURE_SCROLLBARS
+
+    Scrollbars
+
+.. data:: ELM_WEB_WINDOW_FEATURE_MENUBAR
+
+    Menu bar
+
+.. data:: ELM_WEB_WINDOW_FEATURE_LOCATIONBAR
+
+    Location bar
+
+.. data:: ELM_WEB_WINDOW_FEATURE_FULLSCREEN
+
+    Fullscreen
+
+
+.. rubric:: Web zoom modes
+
+.. data:: ELM_WEB_ZOOM_MODE_MANUAL
+
+    Zoom controlled normally by :py:attr:`zoom`
+
+.. data:: ELM_WEB_ZOOM_MODE_AUTO_FIT
+
+    Zoom until content fits in web object.
+
+.. data:: ELM_WEB_ZOOM_MODE_AUTO_FILL
+
+    Zoom until content fills web object.
+
 """
 
 include "widget_header.pxi"

@@ -17,9 +17,21 @@
 #
 
 """
-:var ELM_COLORSELECTOR_PALETTE: Show palette
-:var ELM_COLORSELECTOR_COMPONENTS: Show components
-:var ELM_COLORSELECTOR_BOTH: Show palette and components
+
+.. rubric:: Colorselector modes
+
+.. data:: ELM_COLORSELECTOR_PALETTE
+
+    Show palette
+
+.. data:: ELM_COLORSELECTOR_COMPONENTS
+
+    Show components
+
+.. data:: ELM_COLORSELECTOR_BOTH
+
+    Show palette and components
+
 """
 
 include "widget_header.pxi"
@@ -139,7 +151,9 @@ cdef class Colorselector(LayoutClass):
         return elm_colorselector_mode_get(self.obj)
 
     def palette_color_add(self, r, g, b, a):
-        """Add a new color item to palette.
+        """palette_color_add(int r, int g, int b, int a) -> ColorselectorPaletteItem
+
+        Add a new color item to palette.
 
         :param r: r-value of color
         :type r: int
@@ -156,7 +170,9 @@ cdef class Colorselector(LayoutClass):
         return ColorselectorPaletteItem(self, r, g, b, a)
 
     def palette_clear(self):
-        """Clear the palette items."""
+        """palette_clear()
+
+        Clear the palette items."""
         elm_colorselector_palette_clear(self.obj)
 
     property palette_name:

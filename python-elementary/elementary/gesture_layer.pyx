@@ -17,21 +17,68 @@
 #
 
 """
-:var ELM_GESTURE_STATE_UNDEFINED: Gesture not started
-:var ELM_GESTURE_STATE_START: Gesture started
-:var ELM_GESTURE_STATE_MOVE: Gesture is ongoing
-:var ELM_GESTURE_STATE_END: Gesture completed
-:var ELM_GESTURE_STATE_ABORT: Ongoing gesture was aborted
 
-:var ELM_GESTURE_N_TAPS: N fingers single taps
-:var ELM_GESTURE_N_LONG_TAPS: N fingers single long-taps
-:var ELM_GESTURE_N_DOUBLE_TAPS: N fingers double-single taps
-:var ELM_GESTURE_N_TRIPLE_TAPS: N fingers triple-single taps
-:var ELM_GESTURE_MOMENTUM: Reports momentum in the direction of move
-:var ELM_GESTURE_N_LINES: N fingers line gesture
-:var ELM_GESTURE_N_FLICKS: N fingers flick gesture
-:var ELM_GESTURE_ZOOM: Zoom
-:var ELM_GESTURE_ROTATE: Rotate
+.. rubric:: Gesture states
+
+.. data:: ELM_GESTURE_STATE_UNDEFINED
+
+    Gesture not started
+
+.. data:: ELM_GESTURE_STATE_START
+
+    Gesture started
+
+.. data:: ELM_GESTURE_STATE_MOVE
+
+    Gesture is ongoing
+
+.. data:: ELM_GESTURE_STATE_END
+
+    Gesture completed
+
+.. data:: ELM_GESTURE_STATE_ABORT
+
+    Ongoing gesture was aborted
+
+
+.. rubric:: Gesture types
+
+.. data:: ELM_GESTURE_N_TAPS
+
+    N fingers single taps
+
+.. data:: ELM_GESTURE_N_LONG_TAPS
+
+    N fingers single long-taps
+
+.. data:: ELM_GESTURE_N_DOUBLE_TAPS
+
+    N fingers double-single taps
+
+.. data:: ELM_GESTURE_N_TRIPLE_TAPS
+
+    N fingers triple-single taps
+
+.. data:: ELM_GESTURE_MOMENTUM
+
+    Reports momentum in the direction of move
+
+.. data:: ELM_GESTURE_N_LINES
+
+    N fingers line gesture
+
+.. data:: ELM_GESTURE_N_FLICKS
+
+    N fingers flick gesture
+
+.. data:: ELM_GESTURE_ZOOM
+
+    Zoom
+
+.. data:: ELM_GESTURE_ROTATE
+
+    Rotate
+
 """
 
 include "widget_header.pxi"
@@ -154,7 +201,9 @@ cdef class GestureLayer(Object):
         self._set_obj(elm_gesture_layer_add(parent.obj))
 
     def cb_set(self, Elm_Gesture_Type idx, callback, Elm_Gesture_State cb_type, *args, **kwargs):
-        """Use this function to set callbacks to be notified about change of
+        """cb_set(Elm_Gesture_Type idx, callback, Elm_Gesture_State cb_type, *args, **kwargs)
+
+        Use this function to set callbacks to be notified about change of
         state of gesture. When a user registers a callback with this function
         this means this gesture has to be tested.
 
@@ -228,7 +277,9 @@ cdef class GestureLayer(Object):
             return elm_gesture_layer_rotate_step_get(self.obj)
 
     def attach(self, evasObject target):
-        """Attach a given gesture layer widget to an Evas object, thus setting
+        """attach(evas.Object target)
+
+        Attach a given gesture layer widget to an Evas object, thus setting
         the widget's **target**.
 
         A gesture layer target may be whichever Evas object one chooses.

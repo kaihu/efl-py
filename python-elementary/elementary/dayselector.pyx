@@ -17,13 +17,37 @@
 #
 
 """
-:var ELM_DAYSELECTOR_SUN: Sunday
-:var ELM_DAYSELECTOR_MON: Monday
-:var ELM_DAYSELECTOR_TUE: Tuesday
-:var ELM_DAYSELECTOR_WED: Wednesday
-:var ELM_DAYSELECTOR_THU: Thursday
-:var ELM_DAYSELECTOR_FRI: Friday
-:var ELM_DAYSELECTOR_SAT: Saturday
+
+.. rubric:: Dayselector days
+
+.. data:: ELM_DAYSELECTOR_SUN
+
+    Sunday
+
+.. data:: ELM_DAYSELECTOR_MON
+
+    Monday
+
+.. data:: ELM_DAYSELECTOR_TUE
+
+    Tuesday
+
+.. data:: ELM_DAYSELECTOR_WED
+
+    Wednesday
+
+.. data:: ELM_DAYSELECTOR_THU
+
+    Thursday
+
+.. data:: ELM_DAYSELECTOR_FRI
+
+    Friday
+
+.. data:: ELM_DAYSELECTOR_SAT
+
+    Saturday
+
 """
 
 include "widget_header.pxi"
@@ -94,7 +118,9 @@ cdef class Dayselector(LayoutClass):
         self._set_obj(elm_dayselector_add(parent.obj))
 
     def day_selected_set(self, day, selected):
-        """Set the state of given Dayselector_Day.
+        """day_selected_set(int day, bool selected)
+
+        Set the state of given Dayselector_Day.
 
         .. seealso:: Elm_Dayselector_Day
         .. seealso:: :py:func:`day_selected_get()`
@@ -108,7 +134,9 @@ cdef class Dayselector(LayoutClass):
         elm_dayselector_day_selected_set(self.obj, day, selected)
 
     def day_selected_get(self, day):
-        """Get the state of given Dayselector_Day.
+        """day_selected_get(int day):
+
+        Get the state of given Dayselector_Day.
 
         .. seealso:: Elm_Dayselector_Day
         .. seealso:: :py:func:`day_selected_set()`

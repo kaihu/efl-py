@@ -17,14 +17,40 @@
 #
 
 """
-:var ELM_ICON_LOOKUP_FDO_THEME: freedesktop, theme
-:var ELM_ICON_LOOKUP_THEME_FDO: theme, freedesktop
-:var ELM_ICON_LOOKUP_FDO: freedesktop
-:var ELM_ICON_LOOKUP_THEME: theme
 
-:var ELM_ICON_NONE: No icon
-:var ELM_ICON_FILE: Icon is a file
-:var ELM_ICON_STANDARD: Icon is set with standards name
+.. rubric:: Icon lookup modes
+
+.. data:: ELM_ICON_LOOKUP_FDO_THEME
+
+    freedesktop, theme
+
+.. data:: ELM_ICON_LOOKUP_THEME_FDO
+
+    theme, freedesktop
+
+.. data:: ELM_ICON_LOOKUP_FDO
+
+    freedesktop
+
+.. data:: ELM_ICON_LOOKUP_THEME
+
+    theme
+
+
+.. rubric:: Icon type
+
+.. data:: ELM_ICON_NONE
+
+    No icon
+
+.. data:: ELM_ICON_FILE
+
+    Icon is a file
+
+.. data:: ELM_ICON_STANDARD
+
+    Icon is set with standards name
+
 """
 
 include "widget_header.pxi"

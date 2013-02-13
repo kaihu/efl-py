@@ -17,10 +17,24 @@
 #
 
 """
-:var ELM_POLICY_QUIT: Under which circumstances the application should quit automatically.
 
-:var ELM_POLICY_QUIT_NONE: Never quit the application automatically
-:var ELM_POLICY_QUIT_LAST_WINDOW_CLOSED: Quit when the application's last window is closed
+.. rubric:: Policy types
+
+.. data:: ELM_POLICY_QUIT
+
+    Under which circumstances the application should quit automatically.
+
+
+.. rubric:: Quit policy types
+
+.. data:: ELM_POLICY_QUIT_NONE
+
+    Never quit the application automatically
+
+.. data:: ELM_POLICY_QUIT_LAST_WINDOW_CLOSED
+
+    Quit when the application's last window is closed
+
 
 """
 
@@ -95,6 +109,7 @@ cdef inline const_char_ptr _cfruni(s):
     return c_string
 
 def init():
+    """Initialize Elementary"""
     cdef int argc, i, arg_len
     cdef char **argv, *arg
     argc = len(sys.argv)
@@ -108,13 +123,16 @@ def init():
     elm_init(argc, argv)
 
 def shutdown():
+    """Shutdown Elementary"""
     elm_shutdown()
 
 def run():
+    """Begin main loop"""
     with nogil:
         elm_run()
 
 def exit():
+    """Exit main loop"""
     elm_exit()
 
 def policy_set(policy, value):

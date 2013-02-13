@@ -61,7 +61,7 @@ setup(
     description = "Python bindings for EFL Evas",
     cmdclass = {'build_ext': build_ext, 'build_sphinx': BuildDoc, 'build_doc': BuildDoc},
     packages = ["evas"],
-    ext_modules = cythonize(ext_modules, compiler_directives={"embedsignature": True}),
+    ext_modules = cythonize(ext_modules, compiler_directives={"embedsignature": False}),
     package_data = {"evas": ["*.pxd"]},
     headers = ["evas/evas_object_image_python_extras.h"],
     provides = ["evas"],

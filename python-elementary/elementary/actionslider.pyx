@@ -17,11 +17,28 @@
 #
 
 """
-:var ELM_ACTIONSLIDER_NONE: No position
-:var ELM_ACTIONSLIDER_LEFT: Left position
-:var ELM_ACTIONSLIDER_CENTER: Center position
-:var ELM_ACTIONSLIDER_RIGHT: Right position
-:var ELM_ACTIONSLIDER_ALL: All positions
+
+.. rubric:: Actionslider positions
+
+.. data:: ELM_ACTIONSLIDER_NONE
+
+    No position
+
+.. data:: ELM_ACTIONSLIDER_LEFT
+
+    Left position
+
+.. data:: ELM_ACTIONSLIDER_CENTER
+
+    Center position
+.. data:: ELM_ACTIONSLIDER_RIGHT
+
+    Right position
+
+.. data:: ELM_ACTIONSLIDER_ALL
+
+    All positions
+
 """
 
 include "widget_header.pxi"

@@ -2,3 +2,4 @@
 --------------------
 
 .. automodule:: elementary.object
+    :inherited-members:

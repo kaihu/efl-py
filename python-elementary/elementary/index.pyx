@@ -183,7 +183,9 @@ cdef class Index(LayoutClass):
         return elm_index_item_level_get(self.obj)
 
     def selected_item_get(self, level):
-        """Returns the last selected item, for a given index widget.
+        """selected_item_get(int level) -> IndexItem
+
+        Returns the last selected item, for a given index widget.
 
         :param level: ``0`` or ``1``, the currently implemented levels.
         :type level: int
@@ -195,7 +197,9 @@ cdef class Index(LayoutClass):
         return _object_item_to_python(elm_index_selected_item_get(self.obj, level))
 
     def item_append(self, letter, callback = None, *args, **kargs):
-        """Append a new item on a given index widget.
+        """item_append(unicode letter, callback = None, *args, **kargs) -> IndexItem
+
+        Append a new item on a given index widget.
 
         Despite the most common usage of the ``letter`` argument is for
         single char strings, one could use arbitrary strings as index
@@ -217,7 +221,9 @@ cdef class Index(LayoutClass):
                         None, callback, *args, **kargs)
 
     def item_prepend(self, letter, callback = None, *args, **kargs):
-        """Prepend a new item on a given index widget.
+        """item_prepend(unicode letter, callback = None, *args, **kargs) -> IndexItem
+
+        Prepend a new item on a given index widget.
 
         Despite the most common usage of the ``letter`` argument is for
         single char strings, one could use arbitrary strings as index
@@ -238,7 +244,9 @@ cdef class Index(LayoutClass):
                         None, callback, *args, **kargs)
 
     def item_insert_after(self, IndexItem after, letter, callback = None, *args, **kargs):
-        """Insert a new item into the index object after item ``after``.
+        """item_insert_after(IndexItem after, unicode letter, callback = None, *args, **kargs) -> IndexItem
+
+        Insert a new item into the index object after item ``after``.
 
         Despite the most common usage of the ``letter`` argument is for
         single char strings, one could use arbitrary strings as index
@@ -264,7 +272,9 @@ cdef class Index(LayoutClass):
                         after, callback, *args, **kargs)
 
     def item_insert_before(self, IndexItem before, letter, callback = None, *args, **kargs):
-        """Insert a new item into the index object before item ``before``.
+        """item_insert_before(IndexItem before, unicode letter, callback = None, *args, **kargs) -> IndexItem
+
+        Insert a new item into the index object before item ``before``.
 
         Despite the most common usage of the ``letter`` argument is for
         single char strings, one could use arbitrary strings as index
@@ -329,18 +339,23 @@ cdef class Index(LayoutClass):
                         #None, callback, *args, **kargs)
 
     def item_find(self, data):
-        """Find a given index widget's item, **using item data**.
+        """item_find(data) -> IndexItem
+
+        Find a given index widget's item, **using item data**.
 
         :param data: The item data pointed to by the desired index item
         :return: The index item handle, if found, or ``None`` otherwise
         :rtype: :py:class:`IndexItem`
 
         """
+        return None
         # XXX: This doesn't seem right.
         # return _object_item_to_python(elm_index_item_find(self.obj, <void*>data))
 
     def item_clear(self):
-        """Removes **all** items from a given index widget.
+        """item_clear()
+
+        Removes **all** items from a given index widget.
 
         If deletion callbacks are set, via :py:func:`delete_cb_set()`,
         that callback function will be called for each item.
@@ -349,7 +364,9 @@ cdef class Index(LayoutClass):
         elm_index_item_clear(self.obj)
 
     def level_go(self, level):
-        """Go to a given items level on a index widget
+        """level_go(int level)
+
+        Go to a given items level on a index widget
 
         :param level: The index level (one of ``0`` or ``1``)
         :type level: int

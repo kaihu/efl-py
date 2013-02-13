@@ -109,7 +109,9 @@ cdef class SegmentControl(LayoutClass):
         self._set_obj(elm_segment_control_add(parent.obj))
 
     def item_add(self, evasObject icon, label = None):
-        """Append a new item to the segment control object.
+        """item_add(self, evas.Object icon, unicode label = None) -> SegmentControlItem
+
+        Append a new item to the segment control object.
 
         A new item will be created and appended to the segment control,
         i.e., will be set as **last** item.
@@ -160,7 +162,9 @@ cdef class SegmentControl(LayoutClass):
             return None
 
     def item_insert_at(self, evasObject icon, label = None, index = 0):
-        """Insert a new item to the segment control object at specified position.
+        """item_insert_at(self, evas.Object icon, unicode label = None, int index = 0) -> SegmentControlItem
+
+        Insert a new item to the segment control object at specified position.
 
         Index values must be between ``0``, when item will be prepended to
         segment control, and items count, that can be get with
@@ -203,7 +207,9 @@ cdef class SegmentControl(LayoutClass):
             return None
 
     def item_del_at(self, index):
-        """Remove a segment control item at given index from its parent,
+        """item_del_at(int index)
+
+        Remove a segment control item at given index from its parent,
         deleting it.
 
         Items can be added with elm_segment_control_item_add() or
@@ -227,7 +233,9 @@ cdef class SegmentControl(LayoutClass):
             return elm_segment_control_item_count_get(self.obj)
 
     def item_get(self, index):
-        """Get the item placed at specified index.
+        """item_get(int index) -> SegmentControlItem
+
+        Get the item placed at specified index.
 
         Index is the position of an item in segment control widget. Its
         range is from ``0`` to <tt> count - 1 </tt>.
@@ -243,7 +251,9 @@ cdef class SegmentControl(LayoutClass):
         return _object_item_to_python(elm_segment_control_item_get(self.obj, index))
 
     def item_label_get(self, index):
-        """Get the label of item.
+        """item_label_get(int index) -> unicode
+
+        Get the label of item.
 
         The return value is a pointer to the label associated to the item when
         it was created, with function elm_segment_control_item_add(), or later
@@ -263,7 +273,9 @@ cdef class SegmentControl(LayoutClass):
         return _ctouni(elm_segment_control_item_label_get(self.obj, index))
 
     def item_icon_get(self, index):
-        """Get the icon associated to the item.
+        """item_icon_get(int index) -> evas.Object
+
+        Get the icon associated to the item.
 
         The return value is a pointer to the icon associated to the item when
         it was created, with function elm_segment_control_item_add(), or later

@@ -17,40 +17,108 @@
 #
 
 """
-:var ELM_MAP_OVERLAY_TYPE_NONE: None
-:var ELM_MAP_OVERLAY_TYPE_DEFAULT: Default
-:var ELM_MAP_OVERLAY_TYPE_CLASS: Class
-:var ELM_MAP_OVERLAY_TYPE_GROUP: Group
-:var ELM_MAP_OVERLAY_TYPE_BUBBLE: Bubble
-:var ELM_MAP_OVERLAY_TYPE_ROUTE: Route
-:var ELM_MAP_OVERLAY_TYPE_LINE: Line
-:var ELM_MAP_OVERLAY_TYPE_POLYGON: Polygon
-:var ELM_MAP_OVERLAY_TYPE_CIRCLE: Circle
-:var ELM_MAP_OVERLAY_TYPE_SCALE: Scale
 
-:var ELM_MAP_ROUTE_METHOD_FASTEST: Route should prioritize time
-:var ELM_MAP_ROUTE_METHOD_SHORTEST: Route should prioritize distance
+.. rubric:: Map overlay types
 
-:var ELM_MAP_ROUTE_TYPE_MOTOCAR:
+.. data:: ELM_MAP_OVERLAY_TYPE_NONE
+
+    None
+
+.. data:: ELM_MAP_OVERLAY_TYPE_DEFAULT
+
+    Default
+
+.. data:: ELM_MAP_OVERLAY_TYPE_CLASS
+
+    Class
+
+.. data:: ELM_MAP_OVERLAY_TYPE_GROUP
+
+    Group
+
+.. data:: ELM_MAP_OVERLAY_TYPE_BUBBLE
+
+    Bubble
+
+.. data:: ELM_MAP_OVERLAY_TYPE_ROUTE
+
+    Route
+
+.. data:: ELM_MAP_OVERLAY_TYPE_LINE
+
+    Line
+
+.. data:: ELM_MAP_OVERLAY_TYPE_POLYGON
+
+    Polygon
+
+.. data:: ELM_MAP_OVERLAY_TYPE_CIRCLE
+
+    Circle
+
+.. data:: ELM_MAP_OVERLAY_TYPE_SCALE
+
+    Scale
+
+
+.. rubric:: Map route methods
+
+.. data:: ELM_MAP_ROUTE_METHOD_FASTEST
+
+    Route should prioritize time
+
+.. data:: ELM_MAP_ROUTE_METHOD_SHORTEST
+
+    Route should prioritize distance
+
+
+.. rubric:: Map route types
+
+.. data:: ELM_MAP_ROUTE_TYPE_MOTOCAR
+
     Route should consider an automobile will be used.
-:var ELM_MAP_ROUTE_TYPE_BICYCLE:
+
+.. data:: ELM_MAP_ROUTE_TYPE_BICYCLE
+
     Route should consider a bicycle will be used by the user.
-:var ELM_MAP_ROUTE_TYPE_FOOT:
+
+.. data:: ELM_MAP_ROUTE_TYPE_FOOT
+
     Route should consider user will be walking.
 
-:var ELM_MAP_SOURCE_TYPE_TILE: Map tile provider
-:var ELM_MAP_SOURCE_TYPE_ROUTE: Route service provider
-:var ELM_MAP_SOURCE_TYPE_NAME: Name service provider
 
-:var ELM_MAP_ZOOM_MODE_MANUAL:
+.. rubric:: Map source types
+
+.. data:: ELM_MAP_SOURCE_TYPE_TILE
+
+    Map tile provider
+
+.. data:: ELM_MAP_SOURCE_TYPE_ROUTE
+
+    Route service provider
+
+.. data:: ELM_MAP_SOURCE_TYPE_NAME
+
+    Name service provider
+
+
+.. rubric:: Map zoom modes
+
+.. data:: ELM_MAP_ZOOM_MODE_MANUAL
+
     Zoom controlled manually by :py:attr:`zoom_set`
 
     It's set by default.
-:var ELM_MAP_ZOOM_MODE_AUTO_FIT:
+
+.. data:: ELM_MAP_ZOOM_MODE_AUTO_FIT
+
     Zoom until map fits inside the scroll frame with no pixels outside this
     area.
-:var ELM_MAP_ZOOM_MODE_AUTO_FILL:
+
+.. data:: ELM_MAP_ZOOM_MODE_AUTO_FILL
+
     Zoom until map fills scroll, ensuring no pixels are left unfilled.
+
 """
 
 include "widget_header.pxi"

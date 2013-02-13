@@ -17,12 +17,33 @@
 #
 
 """
-:var ELM_DATETIME_YEAR: Year
-:var ELM_DATETIME_MONTH: Month
-:var ELM_DATETIME_DATE: Date
-:var ELM_DATETIME_HOUR: Hour
-:var ELM_DATETIME_MINUTE: Minute
-:var ELM_DATETIME_AMPM: Am/Pm
+
+.. rubric:: Datetime fields
+
+.. data:: ELM_DATETIME_YEAR
+
+    Year
+
+.. data:: ELM_DATETIME_MONTH
+
+    Month
+
+.. data:: ELM_DATETIME_DATE
+
+    Date
+
+.. data:: ELM_DATETIME_HOUR
+
+    Hour
+
+.. data:: ELM_DATETIME_MINUTE
+
+    Minute
+
+.. data:: ELM_DATETIME_AMPM
+
+    Am/Pm
+
 """
 
 include "widget_header.pxi"
@@ -450,7 +471,9 @@ cdef class Datetime(Object):
             elm_datetime_value_set(self.obj, &time)
 
     def field_visible_get(self, fieldtype):
-        """Whether a field can be visible/not
+        """field_visible_get(int fieldtype) -> bool
+
+        Whether a field can be visible/not
 
         .. seealso:: :py:func:`field_visible_set()`
 
@@ -463,7 +486,9 @@ cdef class Datetime(Object):
         return bool(elm_datetime_field_visible_get(self.obj, fieldtype))
 
     def field_visible_set(self, fieldtype, visible):
-        """Set a field to be visible or not.
+        """field_visible_set(int fieldtype, bool visible)
+
+        Set a field to be visible or not.
 
         Setting this API True does not ensure that the field is visible,
         apart from this, the field's format must be present in Datetime

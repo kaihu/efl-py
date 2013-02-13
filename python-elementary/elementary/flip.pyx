@@ -17,48 +17,120 @@
 #
 
 """
-:var ELM_FLIP_DIRECTION_UP: Allows interaction with the top of the widget.
-:var ELM_FLIP_DIRECTION_DOWN: Allows interaction with the bottom of the widget.
-:var ELM_FLIP_DIRECTION_LEFT: Allows interaction with the left portion of
+
+.. rubric:: Flip directions
+
+.. data:: ELM_FLIP_DIRECTION_UP
+
+    Allows interaction with the top of the widget.
+
+.. data:: ELM_FLIP_DIRECTION_DOWN
+
+    Allows interaction with the bottom of the widget.
+
+.. data:: ELM_FLIP_DIRECTION_LEFT
+
+    Allows interaction with the left portion of
+
     the widget.
-:var ELM_FLIP_DIRECTION_RIGHT: Allows interaction with the right portion of
+.. data:: ELM_FLIP_DIRECTION_RIGHT
+
+    Allows interaction with the right portion of
+
     the widget.
 
-:var ELM_FLIP_INTERACTION_NONE: No interaction is allowed
-:var ELM_FLIP_INTERACTION_ROTATE: Interaction will cause rotate animation
-:var ELM_FLIP_INTERACTION_CUBE: Interaction will cause cube animation
-:var ELM_FLIP_INTERACTION_PAGE: Interaction will cause page animation
 
-:var ELM_FLIP_ROTATE_Y_CENTER_AXIS: Rotate the currently visible content
-    around a vertical axis in the middle of its width, the other content is
-    shown as the other side of the flip.
-:var ELM_FLIP_ROTATE_X_CENTER_AXIS: Rotate the currently visible content
-    around a horizontal axis in the middle of its height, the other content
-    is shown as the other side of the flip.
-:var ELM_FLIP_ROTATE_XZ_CENTER_AXIS: Rotate the currently visible content
-    around a diagonal axis in the middle of its width, the other content is
-    shown as the other side of the flip.
-:var ELM_FLIP_ROTATE_YZ_CENTER_AXIS: Rotate the currently visible content
-    around a diagonal axis in the middle of its height, the other content is
-    shown as the other side of the flip.
-:var ELM_FLIP_CUBE_LEFT: Rotate the currently visible content to the left as
-    if the flip was a cube, the other content is show as the right face of
-    the cube.
-:var ELM_FLIP_CUBE_RIGHT: Rotate the currently visible content to the right
-    as if the flip was a cube, the other content is show as the left face of
-    the cube.
-:var ELM_FLIP_CUBE_UP: Rotate the currently visible content up as if the
-    flip was a cube, the other content is show as the bottom face of the cube.
-:var ELM_FLIP_CUBE_DOWN: Rotate the currently visible content down as if the
-    flip was a cube, the other content is show as the upper face of the cube.
-:var ELM_FLIP_PAGE_LEFT: Move the currently visible content to the left as
-    if the flip was a book, the other content is shown as the page below that.
-:var ELM_FLIP_PAGE_RIGHT: Move the currently visible content to the right as
-    if the flip was a book, the other content is shown as the page below that.
-:var ELM_FLIP_PAGE_UP: Move the currently visible content up as if the flip
-    was a book, the other content is shown as the page below that.
-:var ELM_FLIP_PAGE_DOWN: Move the currently visible content down as if the
-    flip was a book, the other content is shown as the page below that.
+.. rubric:: Flip interaction modes
+
+.. data:: ELM_FLIP_INTERACTION_NONE
+
+    No interaction is allowed
+
+.. data:: ELM_FLIP_INTERACTION_ROTATE
+
+    Interaction will cause rotate animation
+
+.. data:: ELM_FLIP_INTERACTION_CUBE
+
+    Interaction will cause cube animation
+
+.. data:: ELM_FLIP_INTERACTION_PAGE
+
+    Interaction will cause page animation
+
+
+.. rubric:: Flip rotation modes
+
+.. data:: ELM_FLIP_ROTATE_Y_CENTER_AXIS
+
+    Rotate the currently visible content around a vertical axis in the
+    middle of its width, the other content is shown as the other side of the
+    flip.
+
+.. data:: ELM_FLIP_ROTATE_X_CENTER_AXIS
+
+    Rotate the currently visible content around a horizontal axis in the
+    middle of its height, the other content is shown as the other side of
+    the flip.
+
+.. data:: ELM_FLIP_ROTATE_XZ_CENTER_AXIS
+
+    Rotate the currently visible content around a diagonal axis in the
+    middle of its width, the other content is shown as the other side of the
+    flip.
+
+.. data:: ELM_FLIP_ROTATE_YZ_CENTER_AXIS
+
+    Rotate the currently visible content around a diagonal axis in the
+    middle of its height, the other content is shown as the other side of
+    the flip.
+
+
+.. rubric:: Flip cube modes
+
+.. data:: ELM_FLIP_CUBE_LEFT
+
+    Rotate the currently visible content to the left as if the flip was a
+    cube, the other content is show as the right face of the cube.
+
+.. data:: ELM_FLIP_CUBE_RIGHT
+
+    Rotate the currently visible content to the right as if the flip was a
+    cube, the other content is show as the left face of the cube.
+
+.. data:: ELM_FLIP_CUBE_UP
+
+    Rotate the currently visible content up as if the flip was a cube, the
+    other content is show as the bottom face of the cube.
+
+.. data:: ELM_FLIP_CUBE_DOWN
+
+    Rotate the currently visible content down as if the flip was a cube, the
+    other content is show as the upper face of the cube.
+
+
+.. rubric:: Flip page modes
+
+.. data:: ELM_FLIP_PAGE_LEFT
+
+    Move the currently visible content to the left as if the flip was a
+    book, the other content is shown as the page below that.
+
+.. data:: ELM_FLIP_PAGE_RIGHT
+
+    Move the currently visible content to the right as if the flip was a
+    book, the other content is shown as the page below that.
+
+.. data:: ELM_FLIP_PAGE_UP
+
+    Move the currently visible content up as if the flip was a book, the
+    other content is shown as the page below that.
+
+.. data:: ELM_FLIP_PAGE_DOWN
+
+    Move the currently visible content down as if the flip was a book, the
+    other content is shown as the page below that.
+
 """
 
 include "widget_header.pxi"
@@ -154,7 +226,9 @@ cdef class Flip(Object):
         elm_flip_perspective_set(self.obj, foc, x, y)
 
     def go(self, flip_mode):
-        """Runs the flip animation
+        """go(int flip_mode)
+
+        Runs the flip animation
 
         Flips the front and back contents using the ``mode`` animation. This
         effectively hides the currently visible content and shows the hidden one.
@@ -240,7 +314,9 @@ cdef class Flip(Object):
         return elm_flip_interaction_get(self.obj)
 
     def interaction_direction_enabled_set(self, direction, enable):
-        """Set which directions of the flip respond to interactive flip
+        """interaction_direction_enabled_set(int direction, bool enable)
+
+        Set which directions of the flip respond to interactive flip
 
         By default all directions are disabled, so you may want to enable the
         desired directions for flipping if you need interactive flipping.
@@ -249,8 +325,8 @@ cdef class Flip(Object):
 
         .. seealso:: :py:attr:`interaction`
 
-        :param dir: The direction to change
-        :type dir: Elm_Flip_Direction
+        :param direction: The direction to change
+        :type direction: Elm_Flip_Direction
         :param enabled: If that direction is enabled or not
         :type enabled: bool
 
@@ -258,7 +334,9 @@ cdef class Flip(Object):
         elm_flip_interaction_direction_enabled_set(self.obj, direction, enable)
 
     def interaction_direction_enabled_get(self, direction):
-        """Get the enabled state of that flip direction
+        """interaction_direction_enabled_get(int direction) -> bool
+
+        Get the enabled state of that flip direction
 
         Gets the enabled state set by
         :py:func:`interaction_direction_enabled_set()`
@@ -274,7 +352,9 @@ cdef class Flip(Object):
         return elm_flip_interaction_direction_enabled_get(self.obj, direction)
 
     def interaction_direction_hitsize_set(self, direction, hitsize):
-        """Set the amount of the flip that is sensitive to interactive flip
+        """interaction_direction_hitsize_set(int direction, float hitsize)
+
+        Set the amount of the flip that is sensitive to interactive flip
 
         Set the amount of the flip that is sensitive to interactive flip,
         with 0 representing no area in the flip and 1 representing the
@@ -287,13 +367,15 @@ cdef class Flip(Object):
         :param dir: The direction to modify
         :type dir: Elm_Flip_Direction
         :param hitsize: The amount of that dimension (0.0 to 1.0) to use
-        :type hitsize: double
+        :type hitsize: float
 
         """
         elm_flip_interaction_direction_hitsize_set(self.obj, direction, hitsize)
 
     def interaction_direction_hitsize_get(self, direction):
-        """Get the amount of the flip that is sensitive to interactive flip
+        """interaction_direction_hitsize_get(int direction) -> float
+
+        Get the amount of the flip that is sensitive to interactive flip
 
         Returns the amount of sensitive area set by
         :py:func:`interaction_direction_hitsize_set()`.

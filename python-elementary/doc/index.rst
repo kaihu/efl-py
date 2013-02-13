@@ -8,13 +8,43 @@ Logging
 ^^^^^^^
 
 Py-Elm provides `logging <http://docs.python.org/2/library/logging.html>`_
-to a Logger called *elementary*. It only has a NullHandler by default and
+to a Logger called *elementary*. It has a NullHandler by default and
 doesn't propagate so you need to add handlers to it to get output.
+
+Callbacks
+^^^^^^^^^
+
+.. rubric:: Widget callbacks
+
+Widget callbacks are set with callback_*_add methods which take a callable,
+and optional args, kwargs as data.
+
+The callbacks have a signature of either::
+
+    obj, *args, **kwargs
+
+or::
+
+    obj, event_info, *args, **kwargs
+
+.. rubric:: Event callbacks
+
+Event callbacks have signature of::
+
+    object, source_object, event_type, event_info, *args, **kwargs
+
+C API compatibility
+^^^^^^^^^^^^^^^^^^^
+
+All class properties have their respective _get/_set methods defined, for C
+API compatibility.
+
+We do not document them nor encourage their use.
 
 Hello Python Elementary
 -----------------------
 
-Let's create an interactive "Hello World" gui that you can click the ok
+Let's create an interactive "Hello World" gui where you can click the ok
 button to exit::
 
     import elementary as elm

@@ -17,26 +17,67 @@
 #
 
 """
-:var ELM_ICON_LOOKUP_FDO_THEME: freedesktop, theme
-:var ELM_ICON_LOOKUP_THEME_FDO: theme, freedesktop
-:var ELM_ICON_LOOKUP_FDO: freedesktop
-:var ELM_ICON_LOOKUP_THEME: theme
 
-:var ELM_OBJECT_SELECT_MODE_DEFAULT: Default select mode
-:var ELM_OBJECT_SELECT_MODE_ALWAYS: Always select mode
-:var ELM_OBJECT_SELECT_MODE_NONE: No select mode
-:var ELM_OBJECT_SELECT_MODE_DISPLAY_ONLY: No select mode with no finger size rule
+.. rubric:: Icon lookup modes
 
-:var ELM_TOOLBAR_SHRINK_NONE:
+.. data:: ELM_ICON_LOOKUP_FDO_THEME
+
+    freedesktop, theme
+
+.. data:: ELM_ICON_LOOKUP_THEME_FDO
+
+    theme, freedesktop
+
+.. data:: ELM_ICON_LOOKUP_FDO
+
+    freedesktop
+
+.. data:: ELM_ICON_LOOKUP_THEME
+
+    theme
+
+
+.. rubric:: Selection modes
+
+.. data:: ELM_OBJECT_SELECT_MODE_DEFAULT
+
+    Default select mode
+
+.. data:: ELM_OBJECT_SELECT_MODE_ALWAYS
+
+    Always select mode
+
+.. data:: ELM_OBJECT_SELECT_MODE_NONE
+
+    No select mode
+
+.. data:: ELM_OBJECT_SELECT_MODE_DISPLAY_ONLY
+
+    No select mode with no finger size rule
+
+
+.. rubric:: Toolbar shrink modes
+
+.. data:: ELM_TOOLBAR_SHRINK_NONE
+
     Set toolbar minimum size to fit all the items
-:var ELM_TOOLBAR_SHRINK_HIDE:
+
+.. data:: ELM_TOOLBAR_SHRINK_HIDE
+
     Hide exceeding items
-:var ELM_TOOLBAR_SHRINK_SCROLL:
+
+.. data:: ELM_TOOLBAR_SHRINK_SCROLL
+
     Allow accessing exceeding items through a scroller
-:var ELM_TOOLBAR_SHRINK_MENU:
+
+.. data:: ELM_TOOLBAR_SHRINK_MENU
+
     Inserts a button to pop up a menu with exceeding items
-:var ELM_TOOLBAR_SHRINK_EXPAND:
+
+.. data:: ELM_TOOLBAR_SHRINK_EXPAND
+
     Expand all items according the size of the toolbar.
+
 """
 
 include "widget_header.pxi"
@@ -458,7 +499,9 @@ cdef class Toolbar(Object):
         return elm_toolbar_icon_order_lookup_get(self.obj)
 
     def item_append(self, icon, label, callback = None, *args, **kargs):
-        """Append item to the toolbar.
+        """item_append(unicode icon, unicode label, callback = None, *args, **kargs) -> ToolbarItem
+
+        Append item to the toolbar.
 
         A new item will be created and appended to the toolbar, i.e., will
         be set as **last** item.
@@ -623,7 +666,9 @@ cdef class Toolbar(Object):
         return _object_item_to_python(elm_toolbar_last_item_get(self.obj))
 
     def item_find_by_label(self, label):
-        """Returns a toolbar item by its label.
+        """item_find_by_label(unicode label) -> ToolbarItem
+
+        Returns a toolbar item by its label.
 
         :param label: The label of the item to find.
         :type label: string
@@ -778,7 +823,9 @@ cdef class Toolbar(Object):
         return elm_toolbar_horizontal_get(self.obj)
 
     def items_count(self):
-        """Get the number of items in a toolbar
+        """items_count()
+
+        Get the number of items in a toolbar
 
         :return: The number of items in toolbar
         :rtype: int

@@ -75,7 +75,9 @@ cdef class NaviframeItem(ObjectItem):
             self.item_content = content.obj
 
     def push_to(self, Naviframe naviframe):
-        """Push a new item to the top of the naviframe stack (and show it).
+        """push_to(Naviframe naviframe)
+
+        Push a new item to the top of the naviframe stack (and show it).
 
         The item pushed becomes one page of the naviframe, this item will be
         deleted when it is popped.
@@ -104,7 +106,9 @@ cdef class NaviframeItem(ObjectItem):
             return None
 
     def insert_before(self, NaviframeItem before):
-        """Insert a new item into the naviframe before item *before*.
+        """insert_before(NaviframeItem before)
+
+        Insert a new item into the naviframe before item *before*.
 
         The item is inserted into the naviframe straight away without any
         transition operations. This item will be deleted when it is popped.
@@ -140,7 +144,9 @@ cdef class NaviframeItem(ObjectItem):
             return None
 
     def insert_after(self, NaviframeItem after):
-        """Insert a new item into the naviframe after item *after*.
+        """insert_after(NaviframeItem after)
+
+        Insert a new item into the naviframe after item *after*.
 
         The item is inserted into the naviframe straight away without any
         transition operations. This item will be deleted when it is popped.
@@ -180,7 +186,9 @@ cdef class NaviframeItem(ObjectItem):
         elm_naviframe_item_pop_to(self.item)
 
     def pop_to(self):
-        """Pop the items between the top and the above one on the given item.
+        """pop_to()
+
+        Pop the items between the top and the above one on the given item.
 
         """
         elm_naviframe_item_pop_to(self.item)
@@ -190,7 +198,9 @@ cdef class NaviframeItem(ObjectItem):
         elm_naviframe_item_promote(self.item)
 
     def promote(self):
-        """Promote an item already in the naviframe stack to the top of the
+        """promote()
+
+        Promote an item already in the naviframe stack to the top of the
         stack
 
         This will take the indicated item and promote it to the top of the
@@ -331,7 +341,9 @@ cdef class Naviframe(LayoutClass):
         return NaviframeItem(title_label, prev_btn, next_btn, content, item_style).insert_after(after)
 
     def item_pop(self):
-        """Pop an item that is on top of the stack
+        """item_pop() -> evas.Object
+
+        Pop an item that is on top of the stack
 
         This pops an item that is on the top (visible) of the naviframe,
         makes it disappear, then deletes the item. The item that was
@@ -443,7 +455,9 @@ cdef class Naviframe(LayoutClass):
         return bool(elm_naviframe_event_enabled_get(self.obj))
 
     def item_simple_push(self, evasObject content):
-        """Simple version of :py:func:`NaviframeItem.push_to()`.
+        """item_simple_push(evas.Object content) -> NaviframeItem
+
+        Simple version of :py:func:`NaviframeItem.push_to()`.
 
         .. seealso:: :py:func:`NaviframeItem.push_to()`
 
@@ -459,7 +473,9 @@ cdef class Naviframe(LayoutClass):
             return None
 
     def item_simple_promote(self, evasObject content):
-        """Simple version of :py:func:`NaviframeItem.promote()`.
+        """item_simple_promote(evas.Object content)
+
+        Simple version of :py:func:`NaviframeItem.promote()`.
 
         .. seealso:: :py:func:`NaviframeItem.promote()`
 

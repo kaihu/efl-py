@@ -17,55 +17,87 @@
 #
 
 """
-:var ELM_WIN_BASIC:
+
+.. rubric:: Window types
+
+.. data:: ELM_WIN_BASIC
+
     A normal window.
 
     Indicates a normal, top-level window. Almost every window will be
     created with this type.
-:var ELM_WIN_DIALOG_BASIC:
+
+.. data:: ELM_WIN_DIALOG_BASIC
+
     Used for simple dialog windows
-:var ELM_WIN_DESKTOP:
+
+.. data:: ELM_WIN_DESKTOP
+
     For special desktop windows, like a background window holding desktop icons.
-:var ELM_WIN_DOCK:
+
+.. data:: ELM_WIN_DOCK
+
     The window is used as a dock or panel.
 
     Usually would be kept on top of any other window by the Window Manager.
-:var ELM_WIN_TOOLBAR:
+
+.. data:: ELM_WIN_TOOLBAR
+
     The window is used to hold a floating toolbar, or similar.
-:var ELM_WIN_MENU:
+
+.. data:: ELM_WIN_MENU
+
     Similar to ELM_WIN_TOOLBAR.
-:var ELM_WIN_UTILITY:
+
+.. data:: ELM_WIN_UTILITY
+
     A persistent utility window, like a toolbox or palette.
-:var ELM_WIN_SPLASH:
+
+.. data:: ELM_WIN_SPLASH
+
     Splash window for a starting up application.
-:var ELM_WIN_DROPDOWN_MENU:
+
+.. data:: ELM_WIN_DROPDOWN_MENU
+
     The window is a dropdown menu, as when an entry in a menubar is clicked.
 
     Typically used with elm_win_override_set(). This hint exists for
     completion only, as the EFL way of implementing a menu would not
     normally use a separate window for its contents.
-:var ELM_WIN_POPUP_MENU:
+
+.. data:: ELM_WIN_POPUP_MENU
+
     Like ELM_WIN_DROPDOWN_MENU, but for the menu triggered by right-clicking
     an object.
-:var ELM_WIN_TOOLTIP:
+
+.. data:: ELM_WIN_TOOLTIP
+
     The window is a tooltip.
 
     A short piece of explanatory text that typically appear after the mouse
     cursor hovers over an object for a while. Typically used with
     elm_win_override_set() and also not very commonly used in the EFL.
-:var ELM_WIN_NOTIFICATION:
+
+.. data:: ELM_WIN_NOTIFICATION
+
     A notification window, like a warning about battery life or a new E-Mail
     received.
-:var ELM_WIN_COMBO:
+
+.. data:: ELM_WIN_COMBO
+
     A window holding the contents of a combo box.
 
     Not usually used in the EFL.
-:var ELM_WIN_DND:
+
+.. data:: ELM_WIN_DND
+
     Used to indicate the window is a representation of an object being
     dragged across different windows, or even applications.
 
     Typically used with elm_win_override_set().
-:var ELM_WIN_INLINED_IMAGE:
+
+.. data:: ELM_WIN_INLINED_IMAGE
+
     The window is rendered onto an image buffer.
 
     No actual window is created for this type, instead the window and all of
@@ -74,7 +106,9 @@
     and do other things like applying Evas_Map effects to it. This is the
     only type of window that requires the parent parameter of elm_win_add()
     to be a valid Evas_Object.
-:var ELM_WIN_SOCKET_IMAGE:
+
+.. data:: ELM_WIN_SOCKET_IMAGE
+
     The window is rendered onto an image buffer and can be shown other
     process's plug image object.
 
@@ -82,31 +116,107 @@
     its contents will be rendered to an image buffer and can be shown other
     process's plug image object
 
-:var ELM_WIN_INDICATOR_UNKNOWN: Unknown indicator state.
-:var ELM_WIN_INDICATOR_HIDE: Hides the indicator.
-:var ELM_WIN_INDICATOR_SHOW: Shows the indicator.
 
-:var ELM_WIN_INDICATOR_OPACITY_UNKNOWN: Unknown indicator opacity mode.
-:var ELM_WIN_INDICATOR_OPAQUE: Opacifies the indicator.
-:var ELM_WIN_INDICATOR_TRANSLUCENT: Be translucent the indicator.
-:var ELM_WIN_INDICATOR_TRANSPARENT: Transparentizes the indicator.
+.. rubric:: Indicator states
 
-:var ELM_WIN_KEYBOARD_UNKNOWN: Unknown keyboard state.
-:var ELM_WIN_KEYBOARD_OFF: Request to deactivate the keyboard.
-:var ELM_WIN_KEYBOARD_ON: Enable keyboard with default layout.
-:var ELM_WIN_KEYBOARD_ALPHA: Alpha (a-z) keyboard layout.
-:var ELM_WIN_KEYBOARD_NUMERIC: Numeric keyboard layout.
-:var ELM_WIN_KEYBOARD_PIN: PIN keyboard layout.
-:var ELM_WIN_KEYBOARD_PHONE_NUMBER: Phone keyboard layout.
-:var ELM_WIN_KEYBOARD_HEX: Hexadecimal numeric keyboard layout.
-:var ELM_WIN_KEYBOARD_TERMINAL: Full (QWERTY) keyboard layout.
-:var ELM_WIN_KEYBOARD_PASSWORD: Password keyboard layout.
-:var ELM_WIN_KEYBOARD_IP: IP keyboard layout.
-:var ELM_WIN_KEYBOARD_HOST: Host keyboard layout.
-:var ELM_WIN_KEYBOARD_FILE: File keyboard layout.
-:var ELM_WIN_KEYBOARD_URL: URL keyboard layout.
-:var ELM_WIN_KEYBOARD_KEYPAD: Keypad layout.
-:var ELM_WIN_KEYBOARD_J2ME: J2ME keyboard layout.
+.. data:: ELM_WIN_INDICATOR_UNKNOWN
+
+    Unknown indicator state.
+
+.. data:: ELM_WIN_INDICATOR_HIDE
+
+    Hides the indicator.
+
+.. data:: ELM_WIN_INDICATOR_SHOW
+
+    Shows the indicator.
+
+
+.. rubric:: Indicator opacity
+
+.. data:: ELM_WIN_INDICATOR_OPACITY_UNKNOWN
+
+    Unknown indicator opacity mode.
+
+.. data:: ELM_WIN_INDICATOR_OPAQUE
+
+    Opacifies the indicator.
+
+.. data:: ELM_WIN_INDICATOR_TRANSLUCENT
+
+    Be translucent the indicator.
+
+.. data:: ELM_WIN_INDICATOR_TRANSPARENT
+
+    Transparentizes the indicator.
+
+
+.. rubric:: Keyboard virtual keyboard modes
+
+.. data:: ELM_WIN_KEYBOARD_UNKNOWN
+
+    Unknown keyboard state.
+
+.. data:: ELM_WIN_KEYBOARD_OFF
+
+    Request to deactivate the keyboard.
+
+.. data:: ELM_WIN_KEYBOARD_ON
+
+    Enable keyboard with default layout.
+
+.. data:: ELM_WIN_KEYBOARD_ALPHA
+
+    Alpha (a-z) keyboard layout.
+
+.. data:: ELM_WIN_KEYBOARD_NUMERIC
+
+    Numeric keyboard layout.
+
+.. data:: ELM_WIN_KEYBOARD_PIN
+
+    PIN keyboard layout.
+
+.. data:: ELM_WIN_KEYBOARD_PHONE_NUMBER
+
+    Phone keyboard layout.
+
+.. data:: ELM_WIN_KEYBOARD_HEX
+
+    Hexadecimal numeric keyboard layout.
+
+.. data:: ELM_WIN_KEYBOARD_TERMINAL
+
+    Full (QWERTY) keyboard layout.
+
+.. data:: ELM_WIN_KEYBOARD_PASSWORD
+
+    Password keyboard layout.
+
+.. data:: ELM_WIN_KEYBOARD_IP
+
+    IP keyboard layout.
+
+.. data:: ELM_WIN_KEYBOARD_HOST
+
+    Host keyboard layout.
+
+.. data:: ELM_WIN_KEYBOARD_FILE
+
+    File keyboard layout.
+
+.. data:: ELM_WIN_KEYBOARD_URL
+
+    URL keyboard layout.
+
+.. data:: ELM_WIN_KEYBOARD_KEYPAD
+
+    Keypad layout.
+
+.. data:: ELM_WIN_KEYBOARD_J2ME
+
+    J2ME keyboard layout.
+
 """
 
 include "widget_header.pxi"
@@ -260,7 +370,9 @@ cdef class Window(Object):
         evasObject.__init__(self, canvas)
 
     def resize_object_add(self, evasObject subobj):
-        """Add ``subobj`` as a resize object of the window.
+        """resize_object_add(evas.Object subobj)
+
+        Add ``subobj`` as a resize object of the window.
 
         Setting an object as a resize object of the window means that the
         ``subobj`` child's size and position will be controlled by the window
@@ -289,7 +401,9 @@ cdef class Window(Object):
         elm_win_resize_object_add(self.obj, subobj.obj)
 
     def resize_object_del(self, evasObject subobj):
-        """Delete ``subobj`` as a resize object of the window.
+        """resize_object_del(evas.Object subobj)
+
+        Delete ``subobj`` as a resize object of the window.
 
         This function removes the object ``subobj`` from the resize objects of
         the window. It will not delete the object itself, which will be
@@ -402,7 +516,9 @@ cdef class Window(Object):
         return elm_win_autodel_get(self.obj)
 
     def activate(self):
-        """Activate a window object.
+        """activate()
+
+        Activate a window object.
 
         This function sends a request to the Window Manager to activate the
         window. If honored by the WM, the window will receive the keyboard
@@ -416,7 +532,9 @@ cdef class Window(Object):
         elm_win_activate(self.obj)
 
     def lower(self):
-        """Lower a window object.
+        """lower()
+
+        Lower a window object.
 
         Places the window at the bottom of the stack, so that no other
         window is covered by it.
@@ -428,7 +546,9 @@ cdef class Window(Object):
         elm_win_lower(self.obj)
 
     def _raise(self):
-        """Raise a window object.
+        """_raise()
+
+        Raise a window object.
 
         Places the window at the top of the stack, so that it's not covered
         by any other window.
@@ -440,7 +560,9 @@ cdef class Window(Object):
         elm_win_raise(self.obj)
 
     def center(self, h, v):
-        """Center a window on its screen
+        """center(bool h, bool v)
+
+        Center a window on its screen
 
         This function centers window horizontally and/or vertically
         based on the values of ``h`` and ``v``.
@@ -903,7 +1025,9 @@ cdef class Window(Object):
         elm_win_prop_focus_skip_set(self.obj, skip)
 
     def illume_command_send(self, command, *args, **kwargs):
-        """Send a command to the windowing environment
+        """illume_command_send(command, *args, **kwargs)
+
+        Send a command to the windowing environment
 
         This is intended to work in touchscreen or small screen device
         environments where there is a more simplistic window management
@@ -1105,7 +1229,9 @@ cdef class Window(Object):
         return (x, y)
 
     def socket_listen(self, svcname, svcnum, svcsys):
-        """Create a socket to provide the service for Plug widget
+        """socket_listen(unicode svcname, int svcnum, bool svcsys)
+
+        Create a socket to provide the service for Plug widget
 
         :param svcname: The name of the service to be advertised. ensure
             that it is unique.

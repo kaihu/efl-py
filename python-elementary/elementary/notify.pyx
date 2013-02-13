@@ -16,15 +16,45 @@
 # along with python-elementary. If not, see <http://www.gnu.org/licenses/>.
 
 """
-:var ELM_NOTIFY_ORIENT_TOP: Top orientation
-:var ELM_NOTIFY_ORIENT_CENTER: Center orientation
-:var ELM_NOTIFY_ORIENT_BOTTOM: Bottom orientation
-:var ELM_NOTIFY_ORIENT_LEFT: Left orientation
-:var ELM_NOTIFY_ORIENT_RIGHT: Right orientation
-:var ELM_NOTIFY_ORIENT_TOP_LEFT: Top left orientation
-:var ELM_NOTIFY_ORIENT_TOP_RIGHT: Top right orientation
-:var ELM_NOTIFY_ORIENT_BOTTOM_LEFT: Bottom left orientation
-:var ELM_NOTIFY_ORIENT_BOTTOM_RIGHT: Bottom right orientation
+
+.. rubric:: Notify orientation types
+
+.. data:: ELM_NOTIFY_ORIENT_TOP
+
+    Top orientation
+
+.. data:: ELM_NOTIFY_ORIENT_CENTER
+
+    Center orientation
+
+.. data:: ELM_NOTIFY_ORIENT_BOTTOM
+
+    Bottom orientation
+
+.. data:: ELM_NOTIFY_ORIENT_LEFT
+
+    Left orientation
+
+.. data:: ELM_NOTIFY_ORIENT_RIGHT
+
+    Right orientation
+
+.. data:: ELM_NOTIFY_ORIENT_TOP_LEFT
+
+    Top left orientation
+
+.. data:: ELM_NOTIFY_ORIENT_TOP_RIGHT
+
+    Top right orientation
+
+.. data:: ELM_NOTIFY_ORIENT_BOTTOM_LEFT
+
+    Bottom left orientation
+
+.. data:: ELM_NOTIFY_ORIENT_BOTTOM_RIGHT
+
+    Bottom right orientation
+
 """
 
 include "widget_header.pxi"

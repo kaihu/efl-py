@@ -17,10 +17,22 @@
 #
 
 """
-:var ELM_HOVER_AXIS_NONE: No preferred orientation
-:var ELM_HOVER_AXIS_HORIZONTAL: Horizontal orientation
-:var ELM_HOVER_AXIS_VERTICAL: Vertical orientation
-:var ELM_HOVER_AXIS_BOTH: Both
+.. data:: ELM_HOVER_AXIS_NONE
+
+    No preferred orientation
+
+.. data:: ELM_HOVER_AXIS_HORIZONTAL
+
+    Horizontal orientation
+
+.. data:: ELM_HOVER_AXIS_VERTICAL
+
+    Vertical orientation
+
+.. data:: ELM_HOVER_AXIS_BOTH
+
+    Both
+
 """
 
 include "widget_header.pxi"
@@ -142,8 +154,10 @@ cdef class Hover(LayoutClass):
         def __get__(self):
             return Object_from_instance(elm_hover_parent_get(self.obj))
 
-    def best_content_location_get(self, axis):
-        """Returns the best swallow location for content in the hover.
+    def best_content_location_get(self, pref_axis):
+        """best_content_location_get(int pref_axis) -> unicode
+
+        Returns the best swallow location for content in the hover.
 
         Best is defined here as the location at which there is the most
         available space.
@@ -164,19 +178,21 @@ cdef class Hover(LayoutClass):
 
         .. seealso:: :py:func:`part_content_set()`
 
-        :param axis: The preferred orientation axis for the hover
+        :param pref_axis: The preferred orientation axis for the hover
             object to use
-        :type axis: Elm_Hover_Axis
+        :type pref_axis: Elm_Hover_Axis
 
         :return: The edje location to place content into the hover or *None*,
             on errors.
         :rtype: string
 
         """
-        return _ctouni(elm_hover_best_content_location_get(self.obj, axis))
+        return _ctouni(elm_hover_best_content_location_get(self.obj, pref_axis))
 
     def dismiss(self):
-        """Dismiss a hover object
+        """dismiss()
+
+        Dismiss a hover object
 
         Use this function to simulate clicking outside the hover to dismiss
         it. In this way, the hover will be hidden and the "clicked" signal

@@ -17,14 +17,41 @@
 #
 
 """
-:var ELM_CLOCK_EDIT_DEFAULT: Default edit
-:var ELM_CLOCK_EDIT_HOUR_DECIMAL: Edit hours' decimal
-:var ELM_CLOCK_EDIT_HOUR_UNIT: Edit hours' unit
-:var ELM_CLOCK_EDIT_MIN_DECIMAL: Edit minutes' decimal
-:var ELM_CLOCK_EDIT_MIN_UNIT: Edit minutes' unit
-:var ELM_CLOCK_EDIT_SEC_DECIMAL: Edit seconds' decimal
-:var ELM_CLOCK_EDIT_SEC_UNIT: Edit seconds' unit
-:var ELM_CLOCK_EDIT_ALL: Edit all
+
+.. rubric:: Clock edit modes
+
+.. data:: ELM_CLOCK_EDIT_DEFAULT
+
+    Default edit
+
+.. data:: ELM_CLOCK_EDIT_HOUR_DECIMAL
+
+    Edit hours' decimal
+
+.. data:: ELM_CLOCK_EDIT_HOUR_UNIT
+
+    Edit hours' unit
+
+.. data:: ELM_CLOCK_EDIT_MIN_DECIMAL
+
+    Edit minutes' decimal
+
+.. data:: ELM_CLOCK_EDIT_MIN_UNIT
+
+    Edit minutes' unit
+
+.. data:: ELM_CLOCK_EDIT_SEC_DECIMAL
+
+    Edit seconds' decimal
+
+.. data:: ELM_CLOCK_EDIT_SEC_UNIT
+
+    Edit seconds' unit
+
+.. data:: ELM_CLOCK_EDIT_ALL
+
+    Edit all
+
 """
 
 include "widget_header.pxi"

@@ -266,7 +266,9 @@ cdef class Diskselector(Object):
             elm_scroller_policy_set(self.obj, h_policy, v_policy)
 
     def clear(self):
-        """Remove all diskselector's items.
+        """clear()
+
+        Remove all diskselector's items.
 
         .. seealso::
             :py:func:`elementary.object_item.ObjectItem.delete()`
@@ -302,7 +304,9 @@ cdef class Diskselector(Object):
             return ret
 
     def item_append(self, label, evasObject icon = None, callback = None, *args, **kwargs):
-        """Appends a new item to the diskselector object.
+        """item_append(self, unicode label, evas.Object icon = None, callback = None, *args, **kwargs) -> DiskselectorItem
+
+        Appends a new item to the diskselector object.
 
         A new item will be created and appended to the diskselector, i.e.,
         will be set as last item. Also, if there is no selected item, it will
