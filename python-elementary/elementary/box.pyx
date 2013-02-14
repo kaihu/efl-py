@@ -278,7 +278,7 @@ cdef class Box(Object):
         Adds an object to the box before the indicated object.
 
         This will add the ``subobj`` to the box indicated before the object
-        indicated with ``before}. If C{before`` is not already in the box, results
+        indicated with ``before``. If ``before`` is not already in the box, results
         are undefined. Before means either to the left of the indicated object or
         above it depending on orientation.
 
