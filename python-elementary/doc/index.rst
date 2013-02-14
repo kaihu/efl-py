@@ -9,7 +9,11 @@ Logging
 
 Py-Elm provides `logging <http://docs.python.org/2/library/logging.html>`_
 to a Logger called *elementary*. It has a NullHandler by default and
-doesn't propagate so you need to add handlers to it to get output.
+doesn't propagate so you need to add handlers to it to get output::
+
+    import logging
+    log_from_an_elm = logging.getLogger("elementary")
+    log_from_an_elm.addHandler(logging.StreamHandler())
 
 Callbacks
 ^^^^^^^^^
