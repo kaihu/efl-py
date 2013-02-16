@@ -15,13 +15,50 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this Python-EFL.  If not, see <http://www.gnu.org/licenses/>.
 
+include "widget_header.pxi"
 
 cdef class InnerWindow(LayoutClass):
+
+    """
+
+    An inwin is a window inside a window that is useful for a quick popup.
+    It does not hover.
+
+    It works by creating an object that will occupy the entire window, so it
+    must be created using an :py:class:`elementary.window.Window` as parent
+    only. The inwin object can be hidden or restacked below every other
+    object if it's needed to show what's behind it without destroying it. If
+    this is done, the :py:func:`activate()` function can be used to bring it
+    back to full visibility again.
+
+    There are three styles available in the default theme. These are:
+        - default: The inwin is sized to take over most of the window it's
+            placed in.
+        - minimal: The size of the inwin will be the minimum necessary to show
+            its contents.
+        - minimal_vertical: Horizontally, the inwin takes as much space as
+            possible, but it's sized vertically the most it needs to fit its
+            contents.
+
+    """
 
     def __init__(self, evasObject parent):
         self._set_obj(elm_win_inwin_add(parent.obj))
 
     def activate(self):
+        """activate()
+
+        Activates an inwin object, ensuring its visibility
+
+        This function will make sure that the inwin is completely visible
+        by calling :py:func:`show()` and :py:func:`_raise()` on it, to bring it
+        to the front. It also sets the keyboard focus to it, which will be passed
+        onto its content.
+
+        The object's theme will also receive the signal "elm,action,show" with
+        source "elm".
+
+        """
         elm_win_inwin_activate(self.obj)
 
     def content_set(self, evasObject content):
@@ -39,6 +76,13 @@ cdef class InnerWindow(LayoutClass):
         return object_from_instance(elm_win_inwin_content_unset(self.obj))
 
     property content:
+        """The content of an inwin object.
+
+        Once the content object is set, a previously set one will be deleted.
+
+        :type: :py:class:`evas.object.Object`
+
+        """
         def __get__(self):
             return object_from_instance(elm_win_inwin_content_get(self.obj))
 

@@ -15,24 +15,40 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this Python-EFL.  If not, see <http://www.gnu.org/licenses/>.
 
+include "widget_header.pxi"
 
 cdef class Separator(LayoutClass):
+
+    """
+
+    Separator is a very thin object used to separate other objects.
+
+    A separator can be vertical or horizontal.
+
+    This widget emits the signals coming from
+    :py:class:`elementary.layout_class.LayoutClass`.
+
+    """
 
     def __init__(self, evasObject parent):
         self._set_obj(elm_separator_add(parent.obj))
 
-    def horizontal_set(self, b):
-        elm_separator_horizontal_set(self.obj, b)
-
-    def horizontal_get(self):
-        return elm_separator_horizontal_get(self.obj)
-
     property horizontal:
+        """The horizontal mode of a separator object
+
+        :type: bool
+
+        """
         def __get__(self):
             return elm_separator_horizontal_get(self.obj)
 
         def __set__(self, b):
             elm_separator_horizontal_set(self.obj, b)
+
+    def horizontal_set(self, b):
+        elm_separator_horizontal_set(self.obj, b)
+    def horizontal_get(self):
+        return elm_separator_horizontal_get(self.obj)
 
 
 _object_mapping_register("elm_separator", Separator)

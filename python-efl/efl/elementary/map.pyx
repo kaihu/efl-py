@@ -14,7 +14,150 @@
 #
 # You should have received a copy of the GNU Lesser General Public License
 # along with this Python-EFL.  If not, see <http://www.gnu.org/licenses/>.
+#
 
+"""
+
+.. rubric:: Map overlay types
+
+.. data:: ELM_MAP_OVERLAY_TYPE_NONE
+
+    None
+
+.. data:: ELM_MAP_OVERLAY_TYPE_DEFAULT
+
+    Default
+
+.. data:: ELM_MAP_OVERLAY_TYPE_CLASS
+
+    Class
+
+.. data:: ELM_MAP_OVERLAY_TYPE_GROUP
+
+    Group
+
+.. data:: ELM_MAP_OVERLAY_TYPE_BUBBLE
+
+    Bubble
+
+.. data:: ELM_MAP_OVERLAY_TYPE_ROUTE
+
+    Route
+
+.. data:: ELM_MAP_OVERLAY_TYPE_LINE
+
+    Line
+
+.. data:: ELM_MAP_OVERLAY_TYPE_POLYGON
+
+    Polygon
+
+.. data:: ELM_MAP_OVERLAY_TYPE_CIRCLE
+
+    Circle
+
+.. data:: ELM_MAP_OVERLAY_TYPE_SCALE
+
+    Scale
+
+
+.. rubric:: Map route methods
+
+.. data:: ELM_MAP_ROUTE_METHOD_FASTEST
+
+    Route should prioritize time
+
+.. data:: ELM_MAP_ROUTE_METHOD_SHORTEST
+
+    Route should prioritize distance
+
+
+.. rubric:: Map route types
+
+.. data:: ELM_MAP_ROUTE_TYPE_MOTOCAR
+
+    Route should consider an automobile will be used.
+
+.. data:: ELM_MAP_ROUTE_TYPE_BICYCLE
+
+    Route should consider a bicycle will be used by the user.
+
+.. data:: ELM_MAP_ROUTE_TYPE_FOOT
+
+    Route should consider user will be walking.
+
+
+.. rubric:: Map source types
+
+.. data:: ELM_MAP_SOURCE_TYPE_TILE
+
+    Map tile provider
+
+.. data:: ELM_MAP_SOURCE_TYPE_ROUTE
+
+    Route service provider
+
+.. data:: ELM_MAP_SOURCE_TYPE_NAME
+
+    Name service provider
+
+
+.. rubric:: Map zoom modes
+
+.. data:: ELM_MAP_ZOOM_MODE_MANUAL
+
+    Zoom controlled manually by :py:attr:`zoom_set`
+
+    It's set by default.
+
+.. data:: ELM_MAP_ZOOM_MODE_AUTO_FIT
+
+    Zoom until map fits inside the scroll frame with no pixels outside this
+    area.
+
+.. data:: ELM_MAP_ZOOM_MODE_AUTO_FILL
+
+    Zoom until map fills scroll, ensuring no pixels are left unfilled.
+
+"""
+
+include "widget_header.pxi"
+
+from evas.general cimport eina_list_free, eina_list_append
+from evas.object cimport evas_object_data_get
+import traceback
+
+cimport enums
+
+ELM_MAP_OVERLAY_TYPE_NONE = enums.ELM_MAP_OVERLAY_TYPE_NONE
+ELM_MAP_OVERLAY_TYPE_DEFAULT = enums.ELM_MAP_OVERLAY_TYPE_DEFAULT
+ELM_MAP_OVERLAY_TYPE_CLASS = enums.ELM_MAP_OVERLAY_TYPE_CLASS
+ELM_MAP_OVERLAY_TYPE_GROUP = enums.ELM_MAP_OVERLAY_TYPE_GROUP
+ELM_MAP_OVERLAY_TYPE_BUBBLE = enums.ELM_MAP_OVERLAY_TYPE_BUBBLE
+ELM_MAP_OVERLAY_TYPE_ROUTE = enums.ELM_MAP_OVERLAY_TYPE_ROUTE
+ELM_MAP_OVERLAY_TYPE_LINE = enums.ELM_MAP_OVERLAY_TYPE_LINE
+ELM_MAP_OVERLAY_TYPE_POLYGON = enums.ELM_MAP_OVERLAY_TYPE_POLYGON
+ELM_MAP_OVERLAY_TYPE_CIRCLE = enums.ELM_MAP_OVERLAY_TYPE_CIRCLE
+ELM_MAP_OVERLAY_TYPE_SCALE = enums.ELM_MAP_OVERLAY_TYPE_SCALE
+
+ELM_MAP_ROUTE_METHOD_FASTEST = enums.ELM_MAP_ROUTE_METHOD_FASTEST
+ELM_MAP_ROUTE_METHOD_SHORTEST = enums.ELM_MAP_ROUTE_METHOD_SHORTEST
+ELM_MAP_ROUTE_METHOD_LAST = enums.ELM_MAP_ROUTE_METHOD_LAST
+
+ELM_MAP_ROUTE_TYPE_MOTOCAR = enums.ELM_MAP_ROUTE_TYPE_MOTOCAR
+ELM_MAP_ROUTE_TYPE_BICYCLE = enums.ELM_MAP_ROUTE_TYPE_BICYCLE
+ELM_MAP_ROUTE_TYPE_FOOT = enums.ELM_MAP_ROUTE_TYPE_FOOT
+ELM_MAP_ROUTE_TYPE_LAST = enums.ELM_MAP_ROUTE_TYPE_LAST
+
+ELM_MAP_SOURCE_TYPE_TILE = enums.ELM_MAP_SOURCE_TYPE_TILE
+ELM_MAP_SOURCE_TYPE_ROUTE = enums.ELM_MAP_SOURCE_TYPE_ROUTE
+ELM_MAP_SOURCE_TYPE_NAME = enums.ELM_MAP_SOURCE_TYPE_NAME
+ELM_MAP_SOURCE_TYPE_LAST = enums.ELM_MAP_SOURCE_TYPE_LAST
+
+ELM_MAP_ZOOM_MODE_MANUAL = enums.ELM_MAP_ZOOM_MODE_MANUAL
+ELM_MAP_ZOOM_MODE_AUTO_FIT = enums.ELM_MAP_ZOOM_MODE_AUTO_FIT
+ELM_MAP_ZOOM_MODE_AUTO_FILL = enums.ELM_MAP_ZOOM_MODE_AUTO_FILL
+ELM_MAP_ZOOM_MODE_LAST = enums.ELM_MAP_ZOOM_MODE_LAST
 
 cdef _elm_map_overlay_to_python(Elm_Map_Overlay *ov):
     cdef void *data
@@ -94,27 +237,26 @@ cdef class MapRoute(object):
         self.route = NULL
         Py_DECREF(self)
 
+    property distance:
+        def __get__(self):
+            return elm_map_route_distance_get(self.route)
+
     def distance_get(self):
         return elm_map_route_distance_get(self.route)
 
-    property distance:
+    property node:
         def __get__(self):
-            return self.distance_get()
+            return elm_map_route_node_get(self.route)
 
     def node_get(self):
         return elm_map_route_node_get(self.route)
 
-    property node:
+    property waypoint:
         def __get__(self):
-            return self.node_get()
+            return elm_map_route_waypoint_get(self.route)
 
     def waypoint_get(self):
         return elm_map_route_waypoint_get(self.route)
-
-    property waypoint:
-        def __get__(self):
-            return self.waypoint_get()
-
 
 cdef class MapName(object):
     cdef Elm_Map_Name *name
@@ -142,22 +284,24 @@ cdef class MapName(object):
         self.name = NULL
         Py_DECREF(self)
 
+    property address:
+        def __get__(self):
+            return _ctouni(elm_map_name_address_get(self.name))
+
     def address_get(self):
         return _ctouni(elm_map_name_address_get(self.name))
 
-    property address:
+    property region:
         def __get__(self):
-            return self.address_get()
+            cdef double lon, lat
+
+            elm_map_name_region_get(self.name, &lon, &lat)
+            return (lon, lat)
 
     def region_get(self):
         cdef double lon, lat
-
         elm_map_name_region_get(self.name, &lon, &lat)
         return (lon, lat)
-
-    property region:
-        def __get__(self):
-            return self.region_get()
 
 
 cdef class MapOverlay(object):
@@ -183,107 +327,117 @@ cdef class MapOverlay(object):
             raise ValueError("Object already deleted")
         elm_map_overlay_del(self.overlay)
 
+    property type:
+        def __get__(self):
+            return elm_map_overlay_type_get(self.overlay)
+
     def type_get(self):
         return elm_map_overlay_type_get(self.overlay)
 
-    property type:
+    property hide:
         def __get__(self):
-            return self.type_get()
+            return bool(elm_map_overlay_hide_get(self.overlay))
+
+        def __set__(self, hide):
+            elm_map_overlay_hide_set(self.overlay, bool(hide))
 
     def hide_set(self, hide):
         elm_map_overlay_hide_set(self.overlay, bool(hide))
-
     def hide_get(self):
         return bool(elm_map_overlay_hide_get(self.overlay))
 
-    property hide:
+    property displayed_zoom_min:
         def __get__(self):
-            return self.hide_get()
-        def __set__(self, value):
-            self.hide_set(value)
+            return elm_map_overlay_displayed_zoom_min_get(self.overlay)
+
+        def __set__(self, zoom):
+            elm_map_overlay_displayed_zoom_min_set(self.overlay, zoom)
 
     def displayed_zoom_min_set(self, zoom):
         elm_map_overlay_displayed_zoom_min_set(self.overlay, zoom)
-
     def displayed_zoom_min_get(self):
         return elm_map_overlay_displayed_zoom_min_get(self.overlay)
 
-    property displayed_zoom_min:
+    property paused:
         def __get__(self):
-            return self.displayed_zoom_min_get()
-        def __set__(self, value):
-            self.displayed_zoom_min_set(value)
+            return elm_map_overlay_paused_get(self.overlay)
+
+        def __set__(self, paused):
+            elm_map_overlay_paused_set(self.overlay, paused)
 
     def paused_set(self, paused):
         elm_map_overlay_paused_set(self.overlay, paused)
-
     def paused_get(self):
         return elm_map_overlay_paused_get(self.overlay)
 
-    property paused:
+    property visible:
         def __get__(self):
-            return self.paused_get()
-        def __set__(self, value):
-            self.paused_set(value)
+            return bool(elm_map_overlay_visible_get(self.overlay))
 
     def visible_get(self):
         return bool(elm_map_overlay_visible_get(self.overlay))
 
-    property visible:
+    property content:
         def __get__(self):
-            return self.visible_get()
+            cdef Evas_Object *obj = <Evas_Object *>elm_map_overlay_content_get(self.overlay)
+            return object_from_instance(obj)
+
+        def __set__(self, Object content):
+            elm_map_overlay_content_set(self.overlay, content.obj)
 
     def content_set(self, Object content):
         elm_map_overlay_content_set(self.overlay, content.obj)
-
     def content_get(self):
-        return object_from_instance(elm_map_overlay_content_get(self.overlay))
-
-    property content:
-        def __get__(self):
-            return self.content_get()
-        def __set__(self, value):
-            self.content_set(value)
-
-    def icon_set(self, Object icon):
-        elm_map_overlay_icon_set(self.overlay, icon.obj)
-
-    def icon_get(self):
-        return object_from_instance(elm_map_overlay_icon_get(self.overlay))
+        cdef Evas_Object *obj = <Evas_Object *>elm_map_overlay_content_get(self.overlay)
+        return object_from_instance(obj)
 
     property icon:
         def __get__(self):
-            return self.icon_get()
+            cdef Evas_Object *obj = <Evas_Object *>elm_map_overlay_icon_get(self.overlay)
+            return object_from_instance(obj)
+
+        def __set__(self, Object icon):
+            elm_map_overlay_icon_set(self.overlay, icon.obj)
+
+    def icon_set(self, Object icon):
+        elm_map_overlay_icon_set(self.overlay, icon.obj)
+    def icon_get(self):
+        cdef Evas_Object *obj = <Evas_Object *>elm_map_overlay_icon_get(self.overlay)
+        return object_from_instance(obj)
+
+    property region:
+        def __get__(self):
+            cdef double lon, lat
+            elm_map_overlay_region_get(self.overlay, &lon, &lat)
+            return (lon, lat)
+
         def __set__(self, value):
-            self.icon_set(value)
+            lon, lat = value
+            elm_map_overlay_region_set(self.overlay, lon, lat)
 
     def region_set(self, lon, lat):
         elm_map_overlay_region_set(self.overlay, lon, lat)
-
     def region_get(self):
         cdef double lon, lat
         elm_map_overlay_region_get(self.overlay, &lon, &lat)
         return (lon, lat)
 
-    property region:
+    property color:
         def __get__(self):
-            return self.region_get()
+            cdef int r, g, b, a
+            elm_map_overlay_color_get(self.overlay, &r, &g, &b, &a)
+            return (r, g, b, a)
+
         def __set__(self, value):
-            self.region_set(*value)
+            r, g, b, a = value
+            elm_map_overlay_color_set(self.overlay, r, g, b, a)
 
     def color_set(self, r, g, b, a):
         elm_map_overlay_color_set(self.overlay, r, g, b, a)
-
     def color_get(self):
         cdef int r, g, b, a
         elm_map_overlay_color_get(self.overlay, &r, &g, &b, &a)
         return (r, g, b, a)
-
-    property color:
-        def __get__(self):
-            return self.color_get()
-        def __set__(self, value):
-            self.color_set(*value)
 
     def show(self):
         elm_map_overlay_show(self.overlay)
@@ -318,17 +472,33 @@ cdef class MapOverlayClass(MapOverlay):
     def remove(self, MapOverlay overlay):
         elm_map_overlay_class_remove(self.overlay, overlay.overlay)
 
+    property zoom_max:
+        def __get__(self):
+            return elm_map_overlay_class_zoom_max_get(self.overlay)
+
+        def __set__(self, zoom):
+            elm_map_overlay_class_zoom_max_set(self.overlay, zoom)
+
     def zoom_max_set(self, zoom):
         elm_map_overlay_class_zoom_max_set(self.overlay, zoom)
-
     def zoom_max_get(self):
         return elm_map_overlay_class_zoom_max_get(self.overlay)
 
-    property zoom_max:
+    property members:
         def __get__(self):
-            return self.zoom_max_get()
-        def __set__(self, value):
-            self.zoom_max_set(value)
+            cdef Eina_List *lst
+            cdef Elm_Map_Overlay *ov
+            lst = elm_map_overlay_group_members_get(self.overlay)# TODO this is somehow wrong... group <> class
+
+            ret = []
+            ret_append = ret.append
+            while lst:
+                ov = <Elm_Map_Overlay *>lst.data
+                lst = lst.next
+                o = _elm_map_overlay_to_python(ov)
+                if o is not None:
+                    ret_append(o)
+            return ret
 
     def members_get(self):
         cdef Eina_List *lst
@@ -344,11 +514,6 @@ cdef class MapOverlayClass(MapOverlay):
             if o is not None:
                 ret_append(o)
         return ret
-
-    property members:
-        def __get__(self):
-            return self.members_get()
-
 
 cdef class MapOverlayBubble(MapOverlay):
 
@@ -416,68 +581,71 @@ cdef class MapOverlayRoute(MapOverlay):
         Py_INCREF(self)
 
 
-cdef class Map(Object):
+cdef public class Map(Object)[object PyElementaryMap, type PyElementaryMap_Type]:
 
     def __init__(self, evasObject parent):
-#         Object.__init__(self, parent.evas)
+        Object.__init__(self, parent.evas)
         self._set_obj(elm_map_add(parent.obj))
-
-    def zoom_set(self, zoom):
-        elm_map_zoom_set(self.obj, zoom)
-
-    def zoom_get(self):
-        return elm_map_zoom_get(self.obj)
 
     property zoom:
         def __get__(self):
-            return self.zoom_get()
-        def __set__(self, value):
-            self.zoom_set(value)
+            return elm_map_zoom_get(self.obj)
 
-    def zoom_mode_set(self, mode):
-        elm_map_zoom_mode_set(self.obj, mode)
+        def __set__(self, zoom):
+            elm_map_zoom_set(self.obj, zoom)
 
-    def zoom_mode_get(self):
-        return elm_map_zoom_mode_get(self.obj)
+
+    def zoom_set(self, zoom):
+        elm_map_zoom_set(self.obj, zoom)
+    def zoom_get(self):
+        return elm_map_zoom_get(self.obj)
 
     property zoom_mode:
         def __get__(self):
-            return self.zoom_mode_get()
-        def __set__(self, value):
-            self.zoom_mode_set(value)
+            return elm_map_zoom_mode_get(self.obj)
 
-    def zoom_min_set(self, zoom):
-        elm_map_zoom_min_set(self.obj, zoom)
+        def __set__(self, mode):
+            elm_map_zoom_mode_set(self.obj, mode)
 
-    def zoom_min_get(self):
-        return elm_map_zoom_min_get(self.obj)
+    def zoom_mode_set(self, mode):
+        elm_map_zoom_mode_set(self.obj, mode)
+    def zoom_mode_get(self):
+        return elm_map_zoom_mode_get(self.obj)
 
     property zoom_min:
         def __get__(self):
-            return self.zoom_min_get()
-        def __set__(self, value):
-            self.zoom_min_set(value)
+            return elm_map_zoom_min_get(self.obj)
 
-    def zoom_max_set(self, zoom):
-        elm_map_zoom_max_set(self.obj, zoom)
+        def __set__(self, zoom):
+            elm_map_zoom_min_set(self.obj, zoom)
 
-    def zoom_max_get(self):
-        return elm_map_zoom_max_get(self.obj)
+    def zoom_min_set(self, zoom):
+        elm_map_zoom_min_set(self.obj, zoom)
+    def zoom_min_get(self):
+        return elm_map_zoom_min_get(self.obj)
 
     property zoom_max:
         def __get__(self):
-            return self.zoom_max_get()
-        def __set__(self, value):
-            self.zoom_max_set(value)
+            return elm_map_zoom_max_get(self.obj)
+
+        def __set__(self, zoom):
+            elm_map_zoom_max_set(self.obj, zoom)
+
+    def zoom_max_set(self, zoom):
+        elm_map_zoom_max_set(self.obj, zoom)
+    def zoom_max_get(self):
+        return elm_map_zoom_max_get(self.obj)
+
+    property region:
+        def __get__(self):
+            cdef double lon, lat
+            elm_map_region_get(self.obj, &lon, &lat)
+            return (lon, lat)
 
     def region_get(self):
         cdef double lon, lat
         elm_map_region_get(self.obj, &lon, &lat)
         return (lon, lat)
-
-    property region:
-        def __get__(self):
-            return self.region_get()
 
     def region_bring_in(self, lon, lat):
         elm_map_region_bring_in(self.obj, lon, lat)
@@ -503,51 +671,77 @@ cdef class Map(Object):
 
     property paused:
         def __get__(self):
-            return self.paused_get()
+            return bool(elm_map_paused_get(self.obj))
+
+        def __set__(self, paused):
+            elm_map_paused_set(self.obj, bool(paused))
+
+    def paused_set(self, paused):
+        elm_map_paused_set(self.obj, bool(paused))
+    def paused_get(self):
+        return bool(elm_map_paused_get(self.obj))
+
+    property rotate:
+        def __get__(self):
+            cdef double degree
+            cdef Evas_Coord cx, cy
+            elm_map_rotate_get(self.obj, &degree, &cx, &cy)
+            return (degree, cx, cy)
+
         def __set__(self, value):
-            self.paused_set(value)
+            degree, cx, cy = value
+            elm_map_rotate_set(self.obj, degree, cx, cy)
 
     def rotate_set(self, degree, cx, cy):
         elm_map_rotate_set(self.obj, degree, cx, cy)
-
     def rotate_get(self):
         cdef double degree
         cdef Evas_Coord cx, cy
         elm_map_rotate_get(self.obj, &degree, &cx, &cy)
         return (degree, cx, cy)
 
-    property rotate:
+    property wheel_disabled:
         def __get__(self):
-            return self.rotate_get()
-        def __set__(self, value):
-            self.rotate_set(*value)
+            return bool(elm_map_wheel_disabled_get(self.obj))
+
+        def __set__(self, disabled):
+            elm_map_wheel_disabled_set(self.obj, bool(disabled))
 
     def wheel_disabled_set(self, disabled):
         elm_map_wheel_disabled_set(self.obj, bool(disabled))
-
     def wheel_disabled_get(self):
         return bool(elm_map_wheel_disabled_get(self.obj))
 
-    property wheel_disabled:
+    property user_agent:
         def __get__(self):
-            return self.wheel_disabled_get()
-        def __set__(self, value):
-            self.wheel_disabled_set(value)
+            return elm_map_user_agent_get(self.obj)
+
+        def __set__(self, user_agent):
+            elm_map_user_agent_set(self.obj, user_agent)
 
     def user_agent_set(self, user_agent):
         elm_map_user_agent_set(self.obj, user_agent)
-
     def user_agent_get(self):
         return elm_map_user_agent_get(self.obj)
 
-    property user_agent:
-        def __get__(self):
-            return self.user_agent_get()
-        def __set__(self, value):
-            self.user_agent_set(value)
-
     def overlay_add(self, lon, lat):
         return MapOverlay(self, lon, lat)
+
+    property overlays:
+        def __get__(self):
+            cdef Eina_List *lst
+            cdef Elm_Map_Overlay *ov
+            lst = elm_map_overlays_get(self.obj)
+
+            ret = []
+            ret_append = ret.append
+            while lst:
+                ov = <Elm_Map_Overlay *>lst.data
+                lst = lst.next
+                o = _elm_map_overlay_to_python(ov)
+                if o is not None:
+                    ret_append(o)
+            return ret
 
     def overlays_get(self):
         cdef Eina_List *lst
@@ -563,10 +757,6 @@ cdef class Map(Object):
             if o is not None:
                 ret_append(o)
         return ret
-
-    property overlays:
-        def __get__(self):
-            return self.overlays_get()
 
     def overlays_show(self, overlays):
         cdef Eina_List *lst
@@ -599,15 +789,17 @@ cdef class Map(Object):
     def overlay_route_add(self, route):
         return MapOverlayRoute(self, route)
 
+    property tile_load_status:
+        def __get__(self):
+            cdef int try_num, finish_num
+
+            elm_map_tile_load_status_get(self.obj, &try_num, &finish_num)
+            return (try_num, finish_num)
+
     def tile_load_status_get(self):
         cdef int try_num, finish_num
-
         elm_map_tile_load_status_get(self.obj, &try_num, &finish_num)
         return (try_num, finish_num)
-
-    property tile_load_status_get:
-        def __get__(self):
-            return self.tile_load_status_get_get()
 
     def sources_get(self, type):
         cdef const_char_ptr *lst

@@ -14,7 +14,70 @@
 #
 # You should have received a copy of the GNU Lesser General Public License
 # along with this Python-EFL.  If not, see <http://www.gnu.org/licenses/>.
+#
 
+"""
+
+.. rubric:: Web window features
+
+.. data:: ELM_WEB_WINDOW_FEATURE_TOOLBAR
+
+    Toolbar
+
+.. data:: ELM_WEB_WINDOW_FEATURE_STATUSBAR
+
+    Status bar
+
+.. data:: ELM_WEB_WINDOW_FEATURE_SCROLLBARS
+
+    Scrollbars
+
+.. data:: ELM_WEB_WINDOW_FEATURE_MENUBAR
+
+    Menu bar
+
+.. data:: ELM_WEB_WINDOW_FEATURE_LOCATIONBAR
+
+    Location bar
+
+.. data:: ELM_WEB_WINDOW_FEATURE_FULLSCREEN
+
+    Fullscreen
+
+
+.. rubric:: Web zoom modes
+
+.. data:: ELM_WEB_ZOOM_MODE_MANUAL
+
+    Zoom controlled normally by :py:attr:`zoom`
+
+.. data:: ELM_WEB_ZOOM_MODE_AUTO_FIT
+
+    Zoom until content fits in web object.
+
+.. data:: ELM_WEB_ZOOM_MODE_AUTO_FILL
+
+    Zoom until content fills web object.
+
+"""
+
+include "widget_header.pxi"
+include "conversions.pxi"
+include "callbacks.pxi"
+import traceback
+
+cimport enums
+
+ELM_WEB_WINDOW_FEATURE_TOOLBAR = enums.ELM_WEB_WINDOW_FEATURE_TOOLBAR
+ELM_WEB_WINDOW_FEATURE_STATUSBAR = enums.ELM_WEB_WINDOW_FEATURE_STATUSBAR
+ELM_WEB_WINDOW_FEATURE_SCROLLBARS = enums.ELM_WEB_WINDOW_FEATURE_SCROLLBARS
+ELM_WEB_WINDOW_FEATURE_MENUBAR = enums.ELM_WEB_WINDOW_FEATURE_MENUBAR
+ELM_WEB_WINDOW_FEATURE_LOCATIONBAR = enums.ELM_WEB_WINDOW_FEATURE_LOCATIONBAR
+ELM_WEB_WINDOW_FEATURE_FULLSCREEN = enums.ELM_WEB_WINDOW_FEATURE_FULLSCREEN
+
+ELM_WEB_ZOOM_MODE_MANUAL = enums.ELM_WEB_ZOOM_MODE_MANUAL
+ELM_WEB_ZOOM_MODE_AUTO_FIT = enums.ELM_WEB_ZOOM_MODE_AUTO_FIT
+ELM_WEB_ZOOM_MODE_AUTO_FILL = enums.ELM_WEB_ZOOM_MODE_AUTO_FILL
 
 def _web_double_conv(long addr):
     cdef double *info = <double *>addr
