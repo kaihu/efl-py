@@ -17,6 +17,8 @@
 
 from cpython cimport PyObject
 
+import urllib
+
 from evas.object import _object_mapping_register
 from evas.object cimport Object_from_instance
 
@@ -66,33 +68,48 @@ EMOTION_META_INFO_TRACK_COUNT = enums.EMOTION_META_INFO_TRACK_COUNT
 EMOTION_CHANNEL_AUTO = enums.EMOTION_CHANNEL_AUTO
 EMOTION_CHANNEL_DEFAULT = enums.EMOTION_CHANNEL_DEFAULT
 
+EMOTION_VIS_NONE = enums.EMOTION_VIS_NONE
+EMOTION_VIS_GOOM = enums.EMOTION_VIS_GOOM
+EMOTION_VIS_LIBVISUAL_BUMPSCOPE = enums.EMOTION_VIS_LIBVISUAL_BUMPSCOPE
+EMOTION_VIS_LIBVISUAL_CORONA = enums.EMOTION_VIS_LIBVISUAL_CORONA
+EMOTION_VIS_LIBVISUAL_DANCING_PARTICLES = enums.EMOTION_VIS_LIBVISUAL_DANCING_PARTICLES
+EMOTION_VIS_LIBVISUAL_GDKPIXBUF = enums.EMOTION_VIS_LIBVISUAL_GDKPIXBUF
+EMOTION_VIS_LIBVISUAL_G_FORCE = enums.EMOTION_VIS_LIBVISUAL_G_FORCE
+EMOTION_VIS_LIBVISUAL_GOOM = enums.EMOTION_VIS_LIBVISUAL_GOOM
+EMOTION_VIS_LIBVISUAL_INFINITE = enums.EMOTION_VIS_LIBVISUAL_INFINITE
+EMOTION_VIS_LIBVISUAL_JAKDAW = enums.EMOTION_VIS_LIBVISUAL_JAKDAW
+EMOTION_VIS_LIBVISUAL_JESS = enums.EMOTION_VIS_LIBVISUAL_JESS
+EMOTION_VIS_LIBVISUAL_LV_ANALYSER = enums.EMOTION_VIS_LIBVISUAL_LV_ANALYSER
+EMOTION_VIS_LIBVISUAL_LV_FLOWER = enums.EMOTION_VIS_LIBVISUAL_LV_FLOWER
+EMOTION_VIS_LIBVISUAL_LV_GLTEST = enums.EMOTION_VIS_LIBVISUAL_LV_GLTEST
+EMOTION_VIS_LIBVISUAL_LV_SCOPE = enums.EMOTION_VIS_LIBVISUAL_LV_SCOPE
+EMOTION_VIS_LIBVISUAL_MADSPIN = enums.EMOTION_VIS_LIBVISUAL_MADSPIN
+EMOTION_VIS_LIBVISUAL_NEBULUS = enums.EMOTION_VIS_LIBVISUAL_NEBULUS
+EMOTION_VIS_LIBVISUAL_OINKSIE = enums.EMOTION_VIS_LIBVISUAL_OINKSIE
+EMOTION_VIS_LIBVISUAL_PLASMA = enums.EMOTION_VIS_LIBVISUAL_PLASMA
+EMOTION_VIS_LAST = enums.EMOTION_VIS_LAST
+
+EMOTION_WAKEUP = enums.EMOTION_WAKEUP
+EMOTION_SLEEP = enums.EMOTION_SLEEP
+EMOTION_DEEP_SLEEP = enums.EMOTION_DEEP_SLEEP
+EMOTION_HIBERNATE = enums.EMOTION_HIBERNATE
+
+EMOTION_ASPECT_KEEP_NONE = enums.EMOTION_ASPECT_KEEP_NONE
+EMOTION_ASPECT_KEEP_WIDTH = enums.EMOTION_ASPECT_KEEP_WIDTH
+EMOTION_ASPECT_KEEP_HEIGHT = enums.EMOTION_ASPECT_KEEP_HEIGHT
+EMOTION_ASPECT_KEEP_BOTH = enums.EMOTION_ASPECT_KEEP_BOTH
+EMOTION_ASPECT_CROP = enums.EMOTION_ASPECT_CROP
+EMOTION_ASPECT_CUSTOM = enums.EMOTION_ASPECT_CUSTOM
+
 cdef int PY_REFCOUNT(object o):
     cdef PyObject *obj = <PyObject *>o
     return obj.ob_refcnt
 
-cdef unicode _touni(char* s):
-    return s.decode('UTF-8', 'strict')
+cdef inline unicode _ctouni(const_char_ptr s):
+    return s.decode('UTF-8', 'strict') if s else None
 
-cdef unicode _ctouni(const_char_ptr s):
-    return s.decode('UTF-8', 'strict')
-
-cdef char* _fruni(s):
-    cdef char* c_string
-    if not s:
-        return NULL
-    if isinstance(s, unicode):
-        string = s.encode('UTF-8')
-        c_string = string
-    elif isinstance(s, str):
-        c_string = s
-    else:
-        raise TypeError("Expected str or unicode object, got %s" % (type(s).__name__))
-    return c_string
-
-cdef const_char_ptr _cfruni(s):
+cdef inline const_char_ptr _cfruni(s):
     cdef const_char_ptr c_string
-    if not s:
-        return NULL
     if isinstance(s, unicode):
         string = s.encode('UTF-8')
         c_string = string
@@ -173,21 +190,94 @@ cdef class Emotion(Object):
                 self.name_get(), self.file_get(), x, y, w, h, r, g, b, a,
                 self.layer_get(), self.clip_get(), self.visible_get())
 
-    def file_get(self):
-        cdef const_char_ptr f
-        f = emotion_object_file_get(self.obj)
-        if f != NULL:
-            return f
 
-    def file_set(self, char *value):
-        emotion_object_file_set(self.obj, value)
+    property border:
+        def __set__(self, value):
+            cdef int l, r, t, b
+            l, r, t, b = value
+            emotion_object_border_set(self.obj, l, r, t, b)
+
+        def __get__(self):
+            cdef int l, r, t, b
+            emotion_object_border_get(self.obj, &l, &r, &t, &b)
+            return l, r, t, b
+
+    def border_set(self, int l, int r, int t, int b):
+        emotion_object_border_set(self.obj, l, r, t, b)
+
+    def border_get(self):
+        cdef int l, r, t, b
+        emotion_object_border_get(self.obj, &l, &r, &t, &b)
+        return l, r, t, b
+
+    property bg_color:
+        def __set__(self, value):
+            cdef int r, g, b, a
+            r, g, b, a = value
+            emotion_object_bg_color_set(self.obj, r, g, b, a)
+
+        def __get__(self):
+            cdef int r, g, b, a
+            emotion_object_bg_color_get(self.obj, &r, &g, &b, &a)
+            return r, g, b, a
+
+    def bg_color_set(self, int r, int g, int b, int a):
+        emotion_object_bg_color_set(self.obj, r, g, b, a)
+
+    def bg_color_get(self):
+        cdef int r, g, b, a
+        emotion_object_bg_color_get(self.obj, &r, &g, &b, &a)
+        return r, g, b, a
+
+    property keep_aspect:
+        def __set__(self, int a):
+            emotion_object_keep_aspect_set(self.obj, <Emotion_Aspect>a)
+
+        def __get__(self):
+            int(emotion_object_keep_aspect_get(self.obj))
+
+    def keep_aspect_set(self, int a):
+        emotion_object_keep_aspect_set(self.obj, <Emotion_Aspect>a)
+    def keep_aspect_get(self):
+        int(emotion_object_keep_aspect_get(self.obj))
+
+    property unquoted_url:
+        def __get__(self):
+            cdef const_char_ptr f = emotion_object_file_get(self.obj)
+            if not f:
+                return None
+            fn = urllib.unquote(f)
+            fn = fn.decode("utf-8")
+            return fn
+
+        def __set__(self, unicode fn):
+            cdef const_char_ptr f
+            fn = fn.encode("utf-8")
+            fn = urllib.quote(fn)
+            f = fn
+            emotion_object_file_set(self.obj, f)
 
     property file:
         def __get__(self):
-            return self.file_get()
+            cdef const_char_ptr f = emotion_object_file_get(self.obj)
+            return f if f else None
 
-        def __set__(self, char *value):
-            self.file_set(value)
+        def __set__(self, value):
+            emotion_object_file_set(self.obj, _cfruni(value))
+
+    def file_get(self):
+        cdef const_char_ptr f = emotion_object_file_get(self.obj)
+        return f if f else None
+
+    def file_set(self, value):
+        emotion_object_file_set(self.obj, _cfruni(value))
+
+    property play:
+        def __get__(self):
+            return bool(emotion_object_play_get(self.obj))
+
+        def __set__(self, int value):
+            emotion_object_play_set(self.obj, value)
 
     def play_get(self):
         return bool(emotion_object_play_get(self.obj))
@@ -195,12 +285,12 @@ cdef class Emotion(Object):
     def play_set(self, int value):
         emotion_object_play_set(self.obj, value)
 
-    property play:
+    property position:
         def __get__(self):
-            return self.play_get()
+            return emotion_object_position_get(self.obj)
 
-        def __set__(self, int value):
-            self.play_set(value)
+        def __set__(self, double value):
+            emotion_object_position_set(self.obj, value)
 
     def position_get(self):
         return emotion_object_position_get(self.obj)
@@ -208,239 +298,26 @@ cdef class Emotion(Object):
     def position_set(self, double value):
         emotion_object_position_set(self.obj, value)
 
-    property position:
+    property buffer_size:
         def __get__(self):
-            return self.position_get()
-
-        def __set__(self, double value):
-            self.position_set(value)
+            return emotion_object_buffer_size_get(self.obj)
 
     def buffer_size_get(self):
         return emotion_object_buffer_size_get(self.obj)
 
-    property buffer_size:
+    property seekable:
         def __get__(self):
-            return self.buffer_size_get()
-
-    def video_handled_get(self):
-        return bool(emotion_object_video_handled_get(self.obj))
-
-    property video_handled:
-        def __get__(self):
-            return self.video_handled_get()
-
-    def audio_handled_get(self):
-        return bool(emotion_object_audio_handled_get(self.obj))
-
-    property audio_handled:
-        def __get__(self):
-            return self.audio_handled_get()
+            return bool(emotion_object_seekable_get(self.obj))
 
     def seekable_get(self):
         return bool(emotion_object_seekable_get(self.obj))
 
-    property seekable:
+    property play_length:
         def __get__(self):
-            return self.seekable_get()
+            return emotion_object_play_length_get(self.obj)
 
     def play_length_get(self):
         return emotion_object_play_length_get(self.obj)
-
-    property play_length:
-        def __get__(self):
-            return self.play_length_get()
-
-    def image_size_get(self):
-        cdef int w, h
-        emotion_object_size_get(self.obj, &w, &h)
-        return (w, h)
-
-    property image_size:
-        def __get__(self):
-            return self.image_size_get()
-
-    def smooth_scale_get(self):
-        return bool(emotion_object_smooth_scale_get(self.obj))
-
-    def smooth_scale_set(self, int value):
-        emotion_object_smooth_scale_set(self.obj, value)
-
-    property smooth_scale:
-        def __get__(self):
-            return self.smooth_scale_get()
-
-        def __set__(self, int value):
-            self.smooth_scale_set(value)
-
-    def ratio_get(self):
-        return emotion_object_ratio_get(self.obj)
-
-    property ratio:
-        def __get__(self):
-            return self.ratio_get()
-
-    def event_simple_send(self, int event_id):
-        emotion_object_event_simple_send(self.obj, <Emotion_Event>event_id)
-
-    def audio_volume_get(self):
-        return emotion_object_audio_volume_get(self.obj)
-
-    def audio_volume_set(self, double value):
-        emotion_object_audio_volume_set(self.obj, value)
-
-    property audio_volume:
-        def __get__(self):
-            return self.audio_volume_get()
-
-        def __set__(self, double value):
-            self.audio_volume_set(value)
-
-    def audio_mute_get(self):
-        return emotion_object_audio_mute_get(self.obj)
-
-    def audio_mute_set(self, int value):
-        emotion_object_audio_mute_set(self.obj, value)
-
-    property audio_mute:
-        def __get__(self):
-            return self.audio_mute_get()
-
-        def __set__(self, int value):
-            self.audio_mute_set(value)
-
-    def audio_channel_count(self):
-        return emotion_object_audio_channel_count(self.obj)
-
-    def audio_channel_name_get(self, int channel):
-        cdef const_char_ptr n
-        n = emotion_object_audio_channel_name_get(self.obj, channel)
-        if n != NULL:
-            return n
-
-    def audio_channel_get(self):
-        return emotion_object_audio_channel_get(self.obj)
-
-    def audio_channel_set(self, int channel):
-        emotion_object_audio_channel_set(self.obj, channel)
-
-    property audio_channel:
-        def __get__(self):
-            return self.audio_channel_get()
-
-        def __set__(self, int value):
-            self.audio_channel_set(value)
-
-    def video_mute_get(self):
-        return emotion_object_video_mute_get(self.obj)
-
-    def video_mute_set(self, int value):
-        emotion_object_video_mute_set(self.obj, value)
-
-    property video_mute:
-        def __get__(self):
-            return self.video_mute_get()
-
-        def __set__(self, int value):
-            self.video_mute_set(value)
-
-    def video_channel_count(self):
-        return emotion_object_video_channel_count(self.obj)
-
-    def video_channel_name_get(self, int channel):
-        cdef const_char_ptr n
-        n = emotion_object_video_channel_name_get(self.obj, channel)
-        if n != NULL:
-            return n
-
-    def video_channel_get(self):
-        return emotion_object_video_channel_get(self.obj)
-
-    def video_channel_set(self, int value):
-        emotion_object_video_channel_set(self.obj, value)
-
-    property video_channel:
-        def __get__(self):
-            return self.video_channel_get()
-
-        def __set__(self, int value):
-            self.video_channel_set(value)
-
-    def spu_mute_get(self):
-        return emotion_object_spu_mute_get(self.obj)
-
-    def spu_mute_set(self, int value):
-        emotion_object_spu_mute_set(self.obj, value)
-
-    property spu_mute:
-        def __get__(self):
-            return self.spu_mute_get()
-
-        def __set__(self, int value):
-            self.spu_mute_set(value)
-
-    def spu_channel_count(self):
-        return emotion_object_spu_channel_count(self.obj)
-
-    def spu_channel_name_get(self, int channel):
-        cdef const_char_ptr n
-        n = emotion_object_spu_channel_name_get(self.obj, channel)
-        if n != NULL:
-            return n
-
-    def spu_channel_get(self):
-        return emotion_object_spu_channel_get(self.obj)
-
-    def spu_channel_set(self, int value):
-        emotion_object_spu_channel_set(self.obj, value)
-
-    def spu_button_count_get(self):
-        return emotion_object_spu_button_count_get(self.obj)
-
-    property spu_button_count:
-        def __get__(self):
-            return self.spu_button_count_get()
-
-    def spu_button_get(self):
-        return emotion_object_spu_button_get(self.obj)
-
-    property spu_button:
-        def __get__(self):
-            return self.spu_button_get()
-
-    property spu_channel:
-        def __get__(self):
-            return self.spu_channel_get()
-
-        def __set__(self, int value):
-            self.spu_channel_set(value)
-
-    def chapter_count(self):
-        return emotion_object_chapter_count(self.obj)
-
-    def chapter_name_get(self, int channel):
-        cdef const_char_ptr n
-        n = emotion_object_chapter_name_get(self.obj, channel)
-        if n != NULL:
-            return n
-
-    def chapter_get(self):
-        return emotion_object_chapter_get(self.obj)
-
-    def chapter_set(self, int value):
-        emotion_object_chapter_set(self.obj, value)
-
-    property chapter:
-        def __get__(self):
-            return self.chapter_get()
-
-        def __set__(self, int value):
-            self.chapter_set(value)
-
-    def play_speed_get(self):
-        return emotion_object_play_speed_get(self.obj)
-
-    def play_speed_set(self, double value):
-        emotion_object_play_speed_set(self.obj, value)
 
     property play_speed:
         def __get__(self):
@@ -449,58 +326,247 @@ cdef class Emotion(Object):
         def __set__(self, double value):
             self.play_speed_set(value)
 
-    def eject(self):
-        emotion_object_eject(self.obj)
+    def play_speed_get(self):
+        return emotion_object_play_speed_get(self.obj)
 
-    def title_get(self):
-        cdef const_char_ptr t
-        t = emotion_object_title_get(self.obj)
-        if t != NULL:
-            return t
-
-    property title:
-        def __get__(self):
-            return self.title_get()
-
-    def progress_info_get(self):
-        cdef const_char_ptr s
-        s = emotion_object_progress_info_get(self.obj)
-        if s != NULL:
-            return s
+    def play_speed_set(self, double value):
+        emotion_object_play_speed_set(self.obj, value)
 
     property progress_info:
         def __get__(self):
             return self.progress_info_get()
 
-    def progress_status_get(self):
-        return emotion_object_progress_status_get(self.obj)
+    def progress_info_get(self):
+        return _ctouni(emotion_object_progress_info_get(self.obj))
 
     property progress_status:
         def __get__(self):
             return self.progress_status_get()
 
-    def ref_file_get(self):
-        cdef const_char_ptr s
-        s = emotion_object_ref_file_get(self.obj)
-        if s != NULL:
-            return s
+    def progress_status_get(self):
+        return emotion_object_progress_status_get(self.obj)
+
+    property video_handled:
+        def __get__(self):
+            return bool(emotion_object_video_handled_get(self.obj))
+
+    def video_handled_get(self):
+        return bool(emotion_object_video_handled_get(self.obj))
+
+    property audio_handled:
+        def __get__(self):
+            return bool(emotion_object_audio_handled_get(self.obj))
+
+    def audio_handled_get(self):
+        return bool(emotion_object_audio_handled_get(self.obj))
+
+    property ratio:
+        def __get__(self):
+            return emotion_object_ratio_get(self.obj)
+
+    def ratio_get(self):
+        return emotion_object_ratio_get(self.obj)
+
+    # Override evas here?
+    property image_size:
+        def __get__(self):
+            cdef int w, h
+            emotion_object_size_get(self.obj, &w, &h)
+            return (w, h)
+
+    def image_size_get(self):
+        cdef int w, h
+        emotion_object_size_get(self.obj, &w, &h)
+        return (w, h)
+
+    property smooth_scale:
+        def __get__(self):
+            return bool(emotion_object_smooth_scale_get(self.obj))
+
+        def __set__(self, int value):
+            emotion_object_smooth_scale_set(self.obj, value)
+
+    def smooth_scale_get(self):
+        return bool(emotion_object_smooth_scale_get(self.obj))
+
+    def smooth_scale_set(self, int value):
+        emotion_object_smooth_scale_set(self.obj, value)
+
+    def event_simple_send(self, int event_id):
+        emotion_object_event_simple_send(self.obj, <Emotion_Event>event_id)
+
+    property audio_volume:
+        def __get__(self):
+            return emotion_object_audio_volume_get(self.obj)
+
+        def __set__(self, double value):
+            emotion_object_audio_volume_set(self.obj, value)
+
+    def audio_volume_get(self):
+        return emotion_object_audio_volume_get(self.obj)
+
+    def audio_volume_set(self, double value):
+        emotion_object_audio_volume_set(self.obj, value)
+
+    property audio_mute:
+        def __get__(self):
+            return emotion_object_audio_mute_get(self.obj)
+
+        def __set__(self, int value):
+            emotion_object_audio_mute_set(self.obj, value)
+
+    def audio_mute_get(self):
+        return emotion_object_audio_mute_get(self.obj)
+
+    def audio_mute_set(self, int value):
+        emotion_object_audio_mute_set(self.obj, value)
+
+    def audio_channel_count(self):
+        return emotion_object_audio_channel_count(self.obj)
+
+    def audio_channel_name_get(self, int channel):
+        return _ctouni(emotion_object_audio_channel_name_get(self.obj, channel))
+
+    property audio_channel:
+        def __get__(self):
+            return emotion_object_audio_channel_get(self.obj)
+
+        def __set__(self, int channel):
+            emotion_object_audio_channel_set(self.obj, channel)
+
+    def audio_channel_get(self):
+        return emotion_object_audio_channel_get(self.obj)
+
+    def audio_channel_set(self, int channel):
+        emotion_object_audio_channel_set(self.obj, channel)
+
+    property video_mute:
+        def __get__(self):
+            return self.video_mute_get()
+
+        def __set__(self, int value):
+            self.video_mute_set(value)
+
+    def video_mute_get(self):
+        return emotion_object_video_mute_get(self.obj)
+
+    def video_mute_set(self, int value):
+        emotion_object_video_mute_set(self.obj, value)
+
+    def video_channel_count(self):
+        return emotion_object_video_channel_count(self.obj)
+
+    def video_channel_name_get(self, int channel):
+        return _ctouni(emotion_object_video_channel_name_get(self.obj, channel))
+
+    property video_channel:
+        def __get__(self):
+            return self.video_channel_get()
+
+        def __set__(self, int value):
+            self.video_channel_set(value)
+
+    def video_channel_get(self):
+        return emotion_object_video_channel_get(self.obj)
+
+    def video_channel_set(self, int value):
+        emotion_object_video_channel_set(self.obj, value)
+
+    property spu_mute:
+        def __get__(self):
+            return self.spu_mute_get()
+
+        def __set__(self, int value):
+            self.spu_mute_set(value)
+
+    def spu_mute_get(self):
+        return emotion_object_spu_mute_get(self.obj)
+
+    def spu_mute_set(self, int value):
+        emotion_object_spu_mute_set(self.obj, value)
+
+    def spu_channel_count(self):
+        return emotion_object_spu_channel_count(self.obj)
+
+    def spu_channel_name_get(self, int channel):
+        return _ctouni(emotion_object_spu_channel_name_get(self.obj, channel))
+
+    property spu_channel:
+        def __get__(self):
+            return self.spu_channel_get()
+
+        def __set__(self, int value):
+            self.spu_channel_set(value)
+
+    def spu_channel_get(self):
+        return emotion_object_spu_channel_get(self.obj)
+
+    def spu_channel_set(self, int value):
+        emotion_object_spu_channel_set(self.obj, value)
+
+    property spu_button_count:
+        def __get__(self):
+            return self.spu_button_count_get()
+
+    def spu_button_count_get(self):
+        return emotion_object_spu_button_count_get(self.obj)
+
+    property spu_button:
+        def __get__(self):
+            return self.spu_button_get()
+
+    def spu_button_get(self):
+        return emotion_object_spu_button_get(self.obj)
+
+    def chapter_count(self):
+        return emotion_object_chapter_count(self.obj)
+
+    def chapter_name_get(self, int channel):
+        return _ctouni(emotion_object_chapter_name_get(self.obj, channel))
+
+    property chapter:
+        def __get__(self):
+            return self.chapter_get()
+
+        def __set__(self, int value):
+            self.chapter_set(value)
+
+    def chapter_get(self):
+        return emotion_object_chapter_get(self.obj)
+
+    def chapter_set(self, int value):
+        emotion_object_chapter_set(self.obj, value)
+
+    def eject(self):
+        emotion_object_eject(self.obj)
+
+    property title:
+        def __get__(self):
+            return self.title_get()
+
+    def title_get(self):
+        return _ctouni(emotion_object_title_get(self.obj))
 
     property ref_file:
         def __get__(self):
             return self.ref_file_get()
 
-    def ref_num_get(self):
-        return emotion_object_ref_num_get(self.obj)
+    def ref_file_get(self):
+        return _ctouni(emotion_object_ref_file_get(self.obj))
 
     property ref_num:
         def __get__(self):
             return self.ref_num_get()
 
+    def ref_num_get(self):
+        return emotion_object_ref_num_get(self.obj)
+
     def meta_info_get(self, int meta_id):
-        cdef const_char_ptr s
-        s = emotion_object_meta_info_get(self.obj, <Emotion_Meta_Info>meta_id)
-        if s != NULL:
-            return s
+        return _ctouni(emotion_object_meta_info_get(self.obj, <Emotion_Meta_Info>meta_id))
+
+    property meta_info_dict:
+        def __get__(self):
+            return self.meta_info_dict_get()
 
     def meta_info_dict_get(self):
         cdef const_char_ptr info
@@ -520,9 +586,46 @@ cdef class Emotion(Object):
                 ret[i] = info
         return ret
 
-    property meta_info_dict:
+    property vis:
+        def __set__(self, int visualization):
+            emotion_object_vis_set(self.obj, <Emotion_Vis>visualization)
+
         def __get__(self):
-            return self.meta_info_dict_get()
+            return int(emotion_object_vis_get(self.obj))
+
+    def vis_supported_get(self, int visualization):
+        return bool(emotion_object_vis_supported(self.obj, <Emotion_Vis>visualization))
+
+    property priority:
+        def __set__(self, int priority):
+            emotion_object_priority_set(self.obj, priority)
+
+        def __get__(self):
+            return bool(emotion_object_priority_get(self.obj))
+
+    property suspend:
+        def __set__(self, int state):
+            emotion_object_suspend_set(self.obj, <Emotion_Suspend>state)
+
+        def __get__(self):
+            return int(motion_object_suspend_get(self.obj))
+
+    def last_position_load(self):
+        emotion_object_last_position_load(self.obj)
+
+    def last_position_save(self):
+        emotion_object_last_position_save(self.obj)
+
+    def may_play_fast_get(self, filename):
+        return bool(emotion_object_extension_may_play_fast_get(_cfruni(filename)))
+
+    def may_play_get(self, filename):
+        return bool(emotion_object_extension_may_play_get(_cfruni(filename)))
+
+    property image:
+        def __get__(self):
+            return Object_from_instance(emotion_object_image_get(self.obj))
+
 
     def callback_add(self, char *event, func, *args, **kargs):
         """Add callback to given emotion event.

@@ -5,6 +5,8 @@ from distutils.extension import Extension
 from Cython.Distutils import build_ext
 from Cython.Build import cythonize
 import commands
+import sys
+from distutils.sysconfig import get_python_inc
 
 try:
     from sphinx.setup_command import BuildDoc
