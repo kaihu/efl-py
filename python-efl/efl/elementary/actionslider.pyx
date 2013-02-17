@@ -44,6 +44,8 @@
 include "widget_header.pxi"
 include "callbacks.pxi"
 
+from layout_class cimport LayoutClass
+
 cimport enums
 
 ELM_ACTIONSLIDER_NONE = enums.ELM_ACTIONSLIDER_NONE

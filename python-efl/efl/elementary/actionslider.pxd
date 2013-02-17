@@ -1,5 +1,4 @@
-from evas.object cimport Evas_Object
-from layout_class cimport LayoutClass
+from efl.evas cimport Evas_Object
 from object cimport Object
 from enums cimport Elm_Actionslider_Pos
 

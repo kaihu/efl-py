@@ -31,23 +31,23 @@
 """
 
 from cpython cimport PyObject, Py_INCREF, Py_DECREF, PyObject_GetAttr
-from evas.object cimport Object as evasObject
-from evas.object cimport Object_from_instance
+from efl.evas cimport Object as evasObject
+from efl.evas cimport Object_from_instance
 from general cimport _cfruni, _ctouni, _fruni, _touni
 from general cimport _METHOD_DEPRECATED
 include "tooltips.pxi"
 
-from evas.events cimport EventKeyDown, EventKeyUp, EventMouseWheel
-from evas.object cimport evas_object_data_get
-from evas.object_smart cimport evas_object_smart_callback_add
-from evas.object_smart cimport evas_object_smart_callback_del
-from evas.callbacks cimport EVAS_CALLBACK_KEY_DOWN
-from evas.callbacks cimport EVAS_CALLBACK_KEY_UP
-from evas.callbacks cimport EVAS_CALLBACK_MOUSE_WHEEL
-from evas.general cimport eina_list_append
-from evas.object import _extended_object_mapping_register
-from evas.object import _object_mapping_register
-from evas.object import _object_mapping_unregister
+from efl.evas cimport EventKeyDown, EventKeyUp, EventMouseWheel
+#from efl.evas cimport evas_object_data_get
+from efl.evas cimport evas_object_smart_callback_add
+from efl.evas cimport evas_object_smart_callback_del
+from efl.evas cimport EVAS_CALLBACK_KEY_DOWN
+from efl.evas cimport EVAS_CALLBACK_KEY_UP
+from efl.evas cimport EVAS_CALLBACK_MOUSE_WHEEL
+from efl.evas cimport eina_list_append
+#from efl.evas import _extended_object_mapping_register
+#from efl.evas import _object_mapping_register
+#from efl.evas import _object_mapping_unregister
 
 import logging
 log = logging.getLogger("elementary")
@@ -196,7 +196,7 @@ cdef void _event_data_del_cb(void *data, Evas_Object *o, void *event_info) with 
 #             ret.append(_ctouni(s))
 #         lst = lst.next
 #     return ret
-# 
+#
 # cdef Eina_List * _strings_from_python(strings):
 #     cdef Eina_List *lst = NULL
 #     for s in strings:

@@ -1,5 +1,5 @@
-from evas.general cimport Eina_Bool, const_Eina_List
-from evas.object cimport Evas_Object, Evas_Smart_Cb
+from efl.evas cimport Eina_Bool, const_Eina_List
+from efl.evas cimport Evas_Object, Evas_Smart_Cb
 
 cdef extern from *:
     ctypedef char* const_char_ptr "const char *"

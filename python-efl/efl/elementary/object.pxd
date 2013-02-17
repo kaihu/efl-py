@@ -17,10 +17,10 @@
 #
 
 from cpython cimport PyObject, Py_INCREF, Py_DECREF
-from evas.general cimport Eina_Bool, Eina_List, const_Eina_List
-from evas.object cimport Evas_Object, Evas_Callback_Type, Evas_Smart_Cb
-from evas.object cimport Object as evasObject
-from evas.canvas cimport Canvas as evasCanvas
+from efl.evas cimport Eina_Bool, Eina_List, const_Eina_List
+from efl.evas cimport Evas_Object, Evas_Callback_Type, Evas_Smart_Cb
+from efl.evas cimport Object as evasObject
+from efl.evas cimport Canvas as evasCanvas
 from enums cimport Elm_Focus_Direction
 
 cdef extern from *:

@@ -27,11 +27,13 @@ cdef Evas_Object *_tooltip_item_content_create(void *data, Evas_Object *o, Evas_
    if not ret:
        return NULL
    return ret.obj
+
 include "widget_header.pxi"
 include "tooltips.pxi"
 
 cdef void _tooltip_item_data_del_cb(void *data, Evas_Object *o, void *event_info) with gil:
    Py_DECREF(<object>data)
+
 from object cimport Object
 import traceback
 
