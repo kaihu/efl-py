@@ -16,23 +16,11 @@
 # along with this Python-EFL.  If not, see <http://www.gnu.org/licenses/>.
 
 
-cdef Evas_Object *_tooltip_item_content_create(void *data, Evas_Object *o, Evas_Object *t, void *it) with gil:
-   cdef Object ret, obj, tooltip
-
-#    obj = <Object>evas_object_data_get(o, "python-evas")
-   obj = object_from_instance(o)
-   tooltip = object_from_instance(t)
-   (func, item, args, kargs) = <object>data
-   ret = func(obj, item, *args, **kargs)
-   if not ret:
-       return NULL
-   return ret.obj
-
 include "widget_header.pxi"
 include "tooltips.pxi"
 
-cdef void _tooltip_item_data_del_cb(void *data, Evas_Object *o, void *event_info) with gil:
-   Py_DECREF(<object>data)
+# cdef void _tooltip_item_data_del_cb(void *data, Evas_Object *o, void *event_info) with gil:
+#    Py_DECREF(<object>data)
 
 from object cimport Object
 import traceback

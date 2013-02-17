@@ -154,7 +154,7 @@ from object_item cimport    ObjectItem, \
                             _object_item_list_to_python, \
                             elm_object_item_data_get
 from object_item import _cb_object_item_conv
-from general cimport strdup, PY_REFCOUNT
+from general cimport strdup
 from efl.evas cimport eina_list_remove_list
 from scroller cimport *
 cimport enums

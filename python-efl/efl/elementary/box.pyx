@@ -177,7 +177,6 @@ cdef class Box(Object):
         :rtype: :py:class:`elementary.object.Object`
 
         """
-        Object.__init__(self, parent.evas)
         self._set_obj(elm_box_add(parent.obj))
 
     property horizontal:

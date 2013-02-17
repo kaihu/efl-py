@@ -22,7 +22,6 @@ include "conversions.pxi"
 from layout_class cimport LayoutClass
 
 import traceback
-from general cimport PY_REFCOUNT
 from object_item cimport    _object_item_to_python, \
                             _object_item_list_to_python
 from object_item import _cb_object_item_conv

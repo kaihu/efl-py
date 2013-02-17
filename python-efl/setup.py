@@ -94,7 +94,7 @@ elm_exts = [
     Extension("efl.elementary.box", ["efl/elementary/box.pyx"]),
     Extension("efl.elementary.bubble", ["efl/elementary/bubble.pyx"]),
     Extension("efl.elementary.button", ["efl/elementary/button.pyx"]),
-    Extension("efl.elementary.calendar", ["efl/elementary/calendar.pyx"]),
+    Extension("efl.elementary.calendar_elm", ["efl/elementary/calendar_elm.pyx"]),
     Extension("efl.elementary.check", ["efl/elementary/check.pyx"]),
     Extension("efl.elementary.clock", ["efl/elementary/clock.pyx"]),
     Extension("efl.elementary.colorselector", ["efl/elementary/colorselector.pyx"]),
@@ -141,7 +141,7 @@ elm_exts = [
     Extension("efl.elementary.photo", ["efl/elementary/photo.pyx"]),
     Extension("efl.elementary.plug", ["efl/elementary/plug.pyx"]),
     Extension("efl.elementary.popup", ["efl/elementary/popup.pyx"]),
-    Extension("efl.elementary.proggressbar", ["efl/elementary/proggressbar.pyx"]),
+    Extension("efl.elementary.progressbar", ["efl/elementary/progressbar.pyx"]),
     Extension("efl.elementary.radio", ["efl/elementary/radio.pyx"]),
     Extension("efl.elementary.scroller", ["efl/elementary/scroller.pyx"]),
     Extension("efl.elementary.segment_control", ["efl/elementary/segment_control.pyx"]),
@@ -162,7 +162,7 @@ elm_exts = [
 for e in elm_exts:
     e.include_dirs = ['include/']
     e.extra_compile_args = elm_cflags + eo_cflags
-    e. extra_link_args = elm_libs
+    e.extra_link_args = elm_libs
 
 modules = modules + elm_exts
 

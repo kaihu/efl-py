@@ -22,7 +22,7 @@ from background import Background
 from box import Box
 from bubble import Bubble
 from button import Button
-from calendar import Calendar, CalendarMark
+from calendar_elm import Calendar, CalendarMark
 from check import Check
 from clock import Clock
 from colorselector import Colorselector, ColorselectorPaletteItem
@@ -124,7 +124,7 @@ from bubble import \
     ELM_BUBBLE_POS_BOTTOM_LEFT, \
     ELM_BUBBLE_POS_BOTTOM_RIGHT
 
-from calendar import \
+from calendar_elm import \
     ELM_CALENDAR_UNIQUE, \
     ELM_CALENDAR_DAILY, \
     ELM_CALENDAR_WEEKLY, \
@@ -171,7 +171,7 @@ from datetime_elm import \
     ELM_DATETIME_MINUTE, \
     ELM_DATETIME_AMPM
 
-from calendar import \
+from calendar_elm import \
     ELM_DAY_SUNDAY, \
     ELM_DAY_MONDAY, \
     ELM_DAY_TUESDAY, \

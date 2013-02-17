@@ -40,9 +40,9 @@ from efl.evas cimport EventKeyDown, EventKeyUp, EventMouseWheel
 from efl.evas cimport evas_object_smart_callback_add
 from efl.evas cimport evas_object_smart_callback_del
 
-from efl.evas cimport EVAS_CALLBACK_KEY_DOWN
-from efl.evas cimport EVAS_CALLBACK_KEY_UP
-from efl.evas cimport EVAS_CALLBACK_MOUSE_WHEEL
+from efl.evas import EVAS_CALLBACK_KEY_DOWN
+from efl.evas import EVAS_CALLBACK_KEY_UP
+from efl.evas import EVAS_CALLBACK_MOUSE_WHEEL
 
 from efl.evas cimport eina_list_append
 #from efl.evas import _extended_object_mapping_register
@@ -66,7 +66,6 @@ cdef void _object_callback(void *data,
                            Evas_Object *o, void *event_info) with gil:
     cdef Object obj
     cdef object event, ei
-#     obj = <Object>evas_object_data_get(o, "python-evas")
     obj = object_from_instance(o)
     event = <object>data
     lst = tuple(obj._elmcallbacks[event])
@@ -79,22 +78,6 @@ cdef void _object_callback(void *data,
                 func(obj, ei, *args, **kargs)
         except Exception, e:
             traceback.print_exc()
-
-cdef Evas_Object *_tooltip_content_create(void *data, Evas_Object *o, Evas_Object *t) with gil:
-    cdef Object ret, obj, tooltip
-
-#     obj = <Object>evas_object_data_get(o, "python-evas")
-#     tooltip = Object_from_instance(t)
-    obj = object_from_instance(o)
-    tooltip = object_from_instance(t)
-    (func, args, kargs) = <object>data
-    ret = func(obj, tooltip, *args, **kargs)
-    if not ret:
-        return NULL
-    return ret.obj
-
-cdef void _tooltip_data_del_cb(void *data, Evas_Object *o, void *event_info) with gil:
-    Py_DECREF(<object>data)
 
 cdef Eina_Bool _event_dispatcher(o, src, Evas_Callback_Type t, event_info):
     cdef Object obj = o
@@ -139,22 +122,6 @@ cdef void _event_data_del_cb(void *data, Evas_Object *o, void *event_info) with 
     pass
 #     Py_DECREF(<object>data)
 
-# MOVED TO efl.eo.pyx
-# cdef _strings_to_python(const_Eina_List *lst):
-#     cdef const_char_ptr s
-#     ret = []
-#     while lst:
-#         s = <const_char_ptr>lst.data
-#         if s != NULL:
-#             ret.append(_ctouni(s))
-#         lst = lst.next
-#     return ret
-#
-# cdef Eina_List * _strings_from_python(strings):
-#     cdef Eina_List *lst = NULL
-#     for s in strings:
-#         lst = eina_list_append(lst, _cfruni(s))
-#     return lst
 
 def _cb_string_conv(long addr):
     cdef const_char_ptr s = <const_char_ptr>addr

@@ -506,7 +506,6 @@ cdef class Entry(Object):
         :rtype: :py:class:`elementary.object.Object`
 
         """
-        Object.__init__(self, parent.evas)
         self._set_obj(elm_entry_add(parent.obj))
 
     property single_line:

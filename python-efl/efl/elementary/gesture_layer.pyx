@@ -86,7 +86,7 @@ from object cimport Object
 
 import traceback
 
-from efl.evas cimport EVAS_EVENT_FLAG_NONE
+from efl.evas import EVAS_EVENT_FLAG_NONE
 
 cimport enums
 

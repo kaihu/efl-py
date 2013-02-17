@@ -95,8 +95,6 @@ cdef class Bubble(LayoutClass):
     def __init__(self, evasObject parent):
         self._set_obj(elm_bubble_add(parent.obj))
 
-
-
     property pos:
         """The corner of the bubble
 
