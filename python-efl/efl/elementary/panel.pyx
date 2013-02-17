@@ -40,6 +40,8 @@
 
 include "widget_header.pxi"
 
+from object cimport Object
+
 cimport enums
 
 ELM_PANEL_ORIENT_TOP = enums.ELM_PANEL_ORIENT_TOP

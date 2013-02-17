@@ -221,10 +221,12 @@
 
 include "widget_header.pxi"
 
-from evas.canvas cimport Evas
-from evas.object cimport evas_object_evas_get
-from evas.canvas cimport Canvas_from_instance
-from evas.object_image cimport Image as evasImage
+from object cimport Object
+
+from efl.evas cimport Evas
+from efl.evas cimport evas_object_evas_get
+#from efl.evas cimport Canvas_from_instance
+from efl.evas cimport Image as evasImage
 
 cimport enums
 

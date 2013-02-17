@@ -40,7 +40,9 @@
 
 include "widget_header.pxi"
 
-from evas.object_image cimport Image as evasImage
+from object cimport Object
+
+from efl.evas cimport Image as evasImage
 from scroller cimport *
 
 cimport enums

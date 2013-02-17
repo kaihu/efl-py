@@ -1,30 +1,29 @@
-# Copyright (c) 2008 Simon Busch
+# Copyright (C) 2007-2013 various contributors (see AUTHORS)
 #
-# This file is part of python-elementary.
+# This file is part of Python-EFL.
 #
-# python-elementary is free software: you can redistribute it and/or modify
-# it under the terms of the GNU Lesser General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
+# Python-EFL is free software; you can redistribute it and/or
+# modify it under the terms of the GNU Lesser General Public
+# License as published by the Free Software Foundation; either
+# version 2.1 of the License, or (at your option) any later version.
 #
-# python-elementary is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU Lesser General Public License for more details.
+# Python-EFL is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# Lesser General Public License for more details.
 #
 # You should have received a copy of the GNU Lesser General Public License
-# along with python-elementary.  If not, see <http://www.gnu.org/licenses/>.
+# along with this Python-EFL.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from evas.general cimport Eina_List, Eina_Bool, const_Eina_List
-from evas.general cimport Eina_Rectangle, Eina_Compare_Cb
-from evas.object cimport Evas_Object, const_Evas_Object
-from evas.general cimport Evas_Coord
-from evas.object cimport Evas_Callback_Type
-from evas.object cimport Evas_Smart_Cb
-from evas.object_text cimport Evas_Font_Size
-from evas.general cimport Evas_Load_Error
-from evas.events cimport Evas_Event_Flags
+from efl.evas cimport Eina_List, Eina_Bool, const_Eina_List
+from efl.evas cimport Eina_Rectangle, Eina_Compare_Cb
+from efl.evas cimport Evas_Object, const_Evas_Object
+from efl.evas cimport Evas_Coord
+from efl.evas cimport Evas_Callback_Type, Evas_Smart_Cb
+from efl.evas cimport Evas_Font_Size
+from efl.evas cimport Evas_Load_Error
+from efl.evas cimport Evas_Event_Flags
 from enums cimport Elm_Policy, Elm_Policy_Quit
 
 cdef extern from *:
@@ -62,29 +61,6 @@ cdef extern from "Ecore.h":
 
 cdef extern from "Edje.h":
     ctypedef void (*Edje_Signal_Cb)(void *data, Evas_Object *obj, const_char_ptr emission, const_char_ptr source)
-
-# For Debugging
-"""
-cdef extern from "Ecore_Evas.h":
-    ctypedef struct Ecore_Evas
-    void ecore_evas_geometry_get(Ecore_Evas *ee, int *x, int *y, int *w, int *h)
-
-cdef extern from "Ecore.h":
-    ctypedef struct Ecore_Job
-
-ctypedef struct Elm_Win:
-    Ecore_Evas *ee
-    evas.c_evas.Evas *evas
-    Evas_Object *parent
-    Evas_Object *win_obj
-    Eina_List *subobjs
-    Ecore_X_ID xwin
-    Ecore_Job *deferred_resize_job
-    Ecore_Job *deferred_child_eval_job
-    Elm_Win_Type type
-    Elm_Win_Keyboard_Mode kbdmode
-    Eina_Bool autodel = 1
-"""
 
 cdef extern from "Elementary.h":
 
@@ -148,9 +124,9 @@ cdef extern from "Elementary.h":
     # Finger
     void                     elm_coords_finger_size_adjust(int times_w, Evas_Coord *w, int times_h, Evas_Coord *h)
 
-cdef int PY_REFCOUNT(object o)
-cdef _METHOD_DEPRECATED(self, replacement=*, message=*)
-cdef inline unicode _touni(char* s)
-cdef inline unicode _ctouni(const_char_ptr s)
-cdef inline char* _fruni(s)
-cdef inline const_char_ptr _cfruni(s)
+#cdef int PY_REFCOUNT(object o)
+#cdef _METHOD_DEPRECATED(self, replacement=*, message=*)
+#cdef inline unicode _touni(char* s)
+#cdef inline unicode _ctouni(const_char_ptr s)
+#cdef inline char* _fruni(s)
+#cdef inline const_char_ptr _cfruni(s)

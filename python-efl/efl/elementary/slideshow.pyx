@@ -19,6 +19,8 @@
 include "widget_header.pxi"
 include "conversions.pxi"
 
+from layout_class cimport LayoutClass
+
 import traceback
 from general cimport PY_REFCOUNT
 from object_item cimport    _object_item_to_python, \

@@ -68,10 +68,10 @@ cdef class MenuItem(ObjectItem):
 
         """
         def __get__(self):
-            return Object_from_instance(elm_menu_item_object_get(self.item))
+            return object_from_instance(elm_menu_item_object_get(self.item))
 
     def object_get(self):
-        return Object_from_instance(elm_menu_item_object_get(self.item))
+        return object_from_instance(elm_menu_item_object_get(self.item))
 
     property icon_name:
         """The standard icon name of a menu item

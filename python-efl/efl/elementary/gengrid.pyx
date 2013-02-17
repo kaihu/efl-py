@@ -40,6 +40,8 @@
 
 include "widget_header.pxi"
 include "tooltips.pxi"
+
+from object cimport Object
 from object_item cimport    ObjectItem, \
                             _object_item_to_python, \
                             elm_object_item_widget_get, \
@@ -57,7 +59,7 @@ ELM_GENLIST_ITEM_SCROLLTO_IN = enums.ELM_GENLIST_ITEM_SCROLLTO_IN
 ELM_GENLIST_ITEM_SCROLLTO_TOP = enums.ELM_GENLIST_ITEM_SCROLLTO_TOP
 ELM_GENLIST_ITEM_SCROLLTO_MIDDLE = enums.ELM_GENLIST_ITEM_SCROLLTO_MIDDLE
 
-cdef _py_elm_gengrid_item_call(func, Evas_Object *obj, part, data) with gil:
+cdef _py_elm_gengrid_item_call(func, Evas_Object *obj, const_char *part, data) with gil:
     try:
         o = object_from_instance(obj)
         return func(o, _ctouni(part), data)
@@ -65,7 +67,7 @@ cdef _py_elm_gengrid_item_call(func, Evas_Object *obj, part, data) with gil:
         traceback.print_exc()
         return None
 
-cdef char *_py_elm_gengrid_item_text_get(void *data, Evas_Object *obj, const_char_ptr part) with gil:
+cdef char *_py_elm_gengrid_item_text_get(void *data, Evas_Object *obj, const_char *part) with gil:
     cdef GengridItem item = <object>data
     cdef object params = item.params
     cdef GengridItemClass itc = params[0]
@@ -80,7 +82,7 @@ cdef char *_py_elm_gengrid_item_text_get(void *data, Evas_Object *obj, const_cha
     else:
         return NULL
 
-cdef Evas_Object *_py_elm_gengrid_item_content_get(void *data, Evas_Object *obj, const_char_ptr part) with gil:
+cdef Evas_Object *_py_elm_gengrid_item_content_get(void *data, Evas_Object *obj, const_char *part) with gil:
     cdef GengridItem item = <object>data
     cdef object params = item.params
     cdef evasObject icon
@@ -101,7 +103,7 @@ cdef Evas_Object *_py_elm_gengrid_item_content_get(void *data, Evas_Object *obj,
     else:
         return NULL
 
-cdef Eina_Bool _py_elm_gengrid_item_state_get(void *data, Evas_Object *obj, const_char_ptr part) with gil:
+cdef Eina_Bool _py_elm_gengrid_item_state_get(void *data, Evas_Object *obj, const_char *part) with gil:
     cdef GengridItem item = <object>data
     cdef object params = item.params
     cdef GengridItemClass itc = params[0]
@@ -143,7 +145,7 @@ cdef void _py_elm_gengrid_item_func(void *data, Evas_Object *obj, void *event_in
 
     if func is not None:
         try:
-            o = Object_from_instance(obj)
+            o = object_from_instance(obj)
             func(item, o, item.params[1])
         except Exception as e:
             traceback.print_exc()

@@ -108,6 +108,8 @@
 include "widget_header.pxi"
 from cpython cimport PyMem_Malloc, PyMem_Free
 
+from layout_class cimport LayoutClass
+
 from datetime import date
 
 cimport enums
@@ -220,8 +222,8 @@ cdef class Calendar(LayoutClass):
 
         """
         def __get__(self):
-            cdef const_char_ptr *lst
-            cdef const_char_ptr weekday
+            cdef const_char **lst
+            cdef const_char *weekday
             ret = []
             lst = elm_calendar_weekdays_names_get(self.obj)
             for i from 0 <= i < 7:
@@ -239,7 +241,7 @@ cdef class Calendar(LayoutClass):
                 day_len = len(weekday)
                 days[i] = <char *>PyMem_Malloc(day_len + 1)
                 memcpy(days[i], weekday, day_len + 1)
-            elm_calendar_weekdays_names_set(self.obj, <const_char_ptr *>days)
+            elm_calendar_weekdays_names_set(self.obj, <const_char **>days)
 
     property min_max_year:
         """The minimum and maximum values for the year

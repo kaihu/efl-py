@@ -93,6 +93,8 @@
 """
 
 include "widget_header.pxi"
+
+from object cimport Object
 from object_item cimport    _object_item_callback, \
                             _object_item_to_python, \
                             _object_item_list_to_python
@@ -127,7 +129,7 @@ cdef class ListItem(ObjectItem):
 
     """
 
-    cdef const_char_ptr label
+    cdef const_char *label
     cdef Evas_Object *icon_obj
     cdef Evas_Object *end_obj
     cdef Evas_Smart_Cb cb
@@ -471,10 +473,10 @@ cdef class ListItem(ObjectItem):
 
         """
         def __get__(self):
-            return Object_from_instance(elm_list_item_object_get(self.item))
+            return object_from_instance(elm_list_item_object_get(self.item))
 
     def object_get(self):
-        return Object_from_instance(elm_list_item_object_get(self.item))
+        return object_from_instance(elm_list_item_object_get(self.item))
 
     property prev:
         """The item before this item in the list.
@@ -556,7 +558,6 @@ cdef class List(Object):
     """
 
     def __init__(self, evasObject parent):
-        Object.__init__(self, parent.evas)
         self._set_obj(elm_list_add(parent.obj))
 
     def go(self):

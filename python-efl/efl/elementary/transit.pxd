@@ -1,14 +1,9 @@
-from evas.general cimport Eina_Bool, Eina_List, const_Eina_List
-from evas.object cimport Evas_Object, Evas_Coord
+from efl.evas cimport Eina_Bool, Eina_List, const_Eina_List, Evas_Object, Evas_Coord
 from enums cimport Elm_Transit_Effect_Flip_Axis, Elm_Transit_Effect_Wipe_Dir, \
     Elm_Transit_Effect_Wipe_Type, Elm_Transit_Tween_Mode
 
-cdef extern from *:
-    ctypedef char* const_char_ptr "const char *"
-
 cdef extern from "Elementary.h":
 
-    #transit
     ctypedef struct Elm_Transit
     ctypedef struct Elm_Transit_Effect
 
@@ -16,7 +11,6 @@ cdef extern from "Elementary.h":
     ctypedef void            (*Elm_Transit_Effect_End_Cb)   (Elm_Transit_Effect *effect, Elm_Transit *transit)
     ctypedef void            (*Elm_Transit_Del_Cb)          (void *data, Elm_Transit *transit)
 
-    # Transit               (api:TODO  cb:TODO  test:TODO  doc:TODO  py3: TODO)
     Elm_Transit             *elm_transit_add()
     void                     elm_transit_del(Elm_Transit *transit)
     void                     elm_transit_effect_add(Elm_Transit *transit, Elm_Transit_Effect_Transition_Cb transition_cb, Elm_Transit_Effect *effect, Elm_Transit_Effect_End_Cb end_cb)

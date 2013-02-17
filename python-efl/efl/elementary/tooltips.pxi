@@ -16,13 +16,13 @@
 # along with python-elementary.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from evas.object cimport evas_object_data_get
+from efl.evas cimport evas_object_data_get
 
 cdef Evas_Object *_tooltip_content_create(void *data, Evas_Object *o, Evas_Object *t) with gil:
     cdef Object ret, obj, tooltip
 
     obj = <Object>evas_object_data_get(o, "python-evas")
-    tooltip = Object_from_instance(t)
+    tooltip = object_from_instance(t)
     (func, args, kargs) = <object>data
     ret = func(obj, tooltip, *args, **kargs)
     if not ret:
@@ -36,7 +36,7 @@ cdef Evas_Object *_tooltip_item_content_create(void *data, Evas_Object *o, Evas_
    cdef Object ret, obj, tooltip
 
    obj = <Object>evas_object_data_get(o, "python-evas")
-   tooltip = Object_from_instance(t)
+   tooltip = object_from_instance(t)
    (func, item, args, kargs) = <object>data
    ret = func(obj, item, *args, **kargs)
    if not ret:

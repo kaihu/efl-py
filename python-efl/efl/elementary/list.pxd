@@ -1,19 +1,9 @@
-from evas.general cimport Eina_Bool, Eina_List, Eina_Compare_Cb
-from evas.object cimport Evas_Object, Evas_Smart_Cb
-from object cimport Object
+from efl.evas cimport Eina_Bool, Eina_List, Eina_Compare_Cb, Evas_Object, Evas_Smart_Cb
 from object_item cimport Elm_Object_Item, ObjectItem
 from enums cimport Elm_List_Mode, Elm_Object_Select_Mode, Elm_Scroller_Policy
-
-cdef extern from *:
-    ctypedef char* const_char_ptr "const char *"
-
-cdef extern from "Python.h":
-    ctypedef struct PyTypeObject:
-        PyTypeObject *ob_type
+from libc.string cimport const_char
 
 cdef extern from "Elementary.h":
-
-    # List                  (api:TODO  cb:DONE  test:DONE  doc:DONE  py3:DONE)
     Evas_Object             *elm_list_add(Evas_Object *parent)
     void                     elm_list_go(Evas_Object *obj)
     void                     elm_list_multi_select_set(Evas_Object *obj, Eina_Bool multi)
@@ -28,11 +18,11 @@ cdef extern from "Elementary.h":
     void                     elm_list_bounce_get(Evas_Object *obj, Eina_Bool *h_bounce, Eina_Bool *v_bounce)
     void                     elm_list_scroller_policy_set(Evas_Object *obj, Elm_Scroller_Policy policy_h, Elm_Scroller_Policy policy_v)
     void                     elm_list_scroller_policy_get(Evas_Object *obj, Elm_Scroller_Policy *policy_h, Elm_Scroller_Policy *policy_v)
-    Elm_Object_Item         *elm_list_item_append(Evas_Object *obj, const_char_ptr label, Evas_Object *icon, Evas_Object *end, Evas_Smart_Cb func, void *data)
-    Elm_Object_Item         *elm_list_item_prepend(Evas_Object *obj, const_char_ptr label, Evas_Object *icon, Evas_Object *end, Evas_Smart_Cb func, void *data)
-    Elm_Object_Item         *elm_list_item_insert_before(Evas_Object *obj, Elm_Object_Item *before, const_char_ptr label, Evas_Object *icon, Evas_Object *end, Evas_Smart_Cb func, void *data)
-    Elm_Object_Item         *elm_list_item_insert_after(Evas_Object *obj, Elm_Object_Item *after, const_char_ptr label, Evas_Object *icon, Evas_Object *end, Evas_Smart_Cb func, void *data)
-    Elm_Object_Item         *elm_list_item_sorted_insert(Evas_Object *obj, const_char_ptr label, Evas_Object *icon, Evas_Object *end, Evas_Smart_Cb func, void *data, Eina_Compare_Cb cmp_func)
+    Elm_Object_Item         *elm_list_item_append(Evas_Object *obj, const_char *label, Evas_Object *icon, Evas_Object *end, Evas_Smart_Cb func, void *data)
+    Elm_Object_Item         *elm_list_item_prepend(Evas_Object *obj, const_char *label, Evas_Object *icon, Evas_Object *end, Evas_Smart_Cb func, void *data)
+    Elm_Object_Item         *elm_list_item_insert_before(Evas_Object *obj, Elm_Object_Item *before, const_char *label, Evas_Object *icon, Evas_Object *end, Evas_Smart_Cb func, void *data)
+    Elm_Object_Item         *elm_list_item_insert_after(Evas_Object *obj, Elm_Object_Item *after, const_char *label, Evas_Object *icon, Evas_Object *end, Evas_Smart_Cb func, void *data)
+    Elm_Object_Item         *elm_list_item_sorted_insert(Evas_Object *obj, const_char *label, Evas_Object *icon, Evas_Object *end, Evas_Smart_Cb func, void *data, Eina_Compare_Cb cmp_func)
     void                     elm_list_clear(Evas_Object *obj)
     Eina_List               *elm_list_items_get(Evas_Object *obj)
     Elm_Object_Item         *elm_list_selected_item_get(Evas_Object *obj)

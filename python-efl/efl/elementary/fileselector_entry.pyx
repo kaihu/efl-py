@@ -33,6 +33,8 @@
 include "widget_header.pxi"
 include "callbacks.pxi"
 
+from object cimport Object
+
 cimport enums
 
 ELM_FILESELECTOR_LIST = enums.ELM_FILESELECTOR_LIST

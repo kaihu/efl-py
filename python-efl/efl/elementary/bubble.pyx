@@ -40,6 +40,8 @@
 
 include "widget_header.pxi"
 
+from layout_class cimport LayoutClass
+
 cimport enums
 
 ELM_BUBBLE_POS_TOP_LEFT = enums.ELM_BUBBLE_POS_TOP_LEFT

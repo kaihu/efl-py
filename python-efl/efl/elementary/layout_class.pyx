@@ -272,7 +272,7 @@ cdef class LayoutClass(Object):
         :rtype: :py:class:`evas.object.Object`
 
         """
-        return Object_from_instance(elm_layout_box_remove(self.obj, _cfruni(part), child.obj))
+        return object_from_instance(elm_layout_box_remove(self.obj, _cfruni(part), child.obj))
 
     def box_remove_all(self, part, clear):
         """box_remove_all(unicode part, bool clear) -> bool

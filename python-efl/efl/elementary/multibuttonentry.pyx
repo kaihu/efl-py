@@ -16,16 +16,18 @@
 # along with this Python-EFL.  If not, see <http://www.gnu.org/licenses/>.
 
 include "widget_header.pxi"
+
+from object cimport Object
 import traceback
 from general cimport PY_REFCOUNT
 from object_item cimport    _object_item_callback, \
                             _object_item_to_python, \
                             _object_item_list_to_python
 
-cdef Eina_Bool _multibuttonentry_filter_callback(Evas_Object *obj, const_char_ptr item_label, void *item_data, void *data) with gil:
+cdef Eina_Bool _multibuttonentry_filter_callback(Evas_Object *obj, const_char *item_label, void *item_data, void *data) with gil:
     try:
         (mbe, callback, a, ka) = <object>data
-        ret = callback(mbe, item_label, *a, **ka)
+        ret = callback(mbe, _ctouni(item_label), *a, **ka)
         if isinstance(ret, str):
             # TODO this is BROKEN! the doc say should work, but it's a const char*  :/
             # free(<void*>item_label)

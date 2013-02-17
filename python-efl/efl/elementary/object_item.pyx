@@ -135,10 +135,10 @@ cdef class ObjectItem(object):
 
         """
         def __get__(self):
-            return Object_from_instance(elm_object_item_widget_get(self.item))
+            return object_from_instance(elm_object_item_widget_get(self.item))
 
     def widget_get(self):
-        return Object_from_instance(elm_object_item_widget_get(self.item))
+        return object_from_instance(elm_object_item_widget_get(self.item))
 
     def part_content_set(self, part, Object content not None):
         """part_content_set(unicode part, Object content)
@@ -172,7 +172,7 @@ cdef class ObjectItem(object):
         :rtype: :py:class:`evas.object.Object`
 
         """
-        return Object_from_instance(elm_object_item_part_content_get(self.item, _cfruni(part) if part is not None else NULL))
+        return object_from_instance(elm_object_item_part_content_get(self.item, _cfruni(part) if part is not None else NULL))
 
     def part_content_unset(self, part):
         """part_content_unset(unicode part)
@@ -186,7 +186,7 @@ cdef class ObjectItem(object):
         :type part: string
 
         """
-        return Object_from_instance(elm_object_item_part_content_unset(self.item, _cfruni(part) if part is not None else NULL))
+        return object_from_instance(elm_object_item_part_content_unset(self.item, _cfruni(part) if part is not None else NULL))
 
     property content:
         """The default content part of this ObjectItem."""
@@ -194,7 +194,7 @@ cdef class ObjectItem(object):
             elm_object_item_content_set(self.item, content.obj)
 
         def __get__(self):
-            return Object_from_instance(elm_object_item_content_get(self.item))
+            return object_from_instance(elm_object_item_content_get(self.item))
 
         def __del__(self):
             elm_object_item_content_unset(self.item)
@@ -202,9 +202,9 @@ cdef class ObjectItem(object):
     def content_set(self, Object content not None):
         elm_object_item_content_set(self.item, content.obj)
     def content_get(self):
-        return Object_from_instance(elm_object_item_content_get(self.item))
+        return object_from_instance(elm_object_item_content_get(self.item))
     def content_unset(self):
-        return Object_from_instance(elm_object_item_content_unset(self.item))
+        return object_from_instance(elm_object_item_content_unset(self.item))
 
     def part_text_set(self, part, text):
         """part_text_set(unicode part, unicode text)

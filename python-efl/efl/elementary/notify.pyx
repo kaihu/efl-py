@@ -59,6 +59,8 @@
 
 include "widget_header.pxi"
 
+from object cimport Object
+
 cimport enums
 
 ELM_NOTIFY_ORIENT_TOP = enums.ELM_NOTIFY_ORIENT_TOP

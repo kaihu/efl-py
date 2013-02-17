@@ -15,7 +15,6 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this Python-EFL.  If not, see <http://www.gnu.org/licenses/>.
 
-
 def need_efreet():
     """need_efreet() -> bool"""
     return bool(elm_need_efreet())

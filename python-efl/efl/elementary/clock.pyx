@@ -56,6 +56,8 @@
 
 include "widget_header.pxi"
 
+from layout_class cimport LayoutClass
+
 cimport enums
 
 ELM_CLOCK_EDIT_DEFAULT = enums.ELM_CLOCK_EDIT_DEFAULT

@@ -17,6 +17,8 @@
 
 include "widget_header.pxi"
 
+from object cimport Object
+
 cdef class Table(Object):
 
     """

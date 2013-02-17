@@ -1,22 +1,11 @@
-from evas.general cimport Eina_Bool
-from evas.object cimport Evas_Object
-from evas.general cimport Evas_Load_Error
-from object cimport Object
+from efl.evas cimport Eina_Bool, Evas_Object, Evas_Load_Error
 from enums cimport Elm_Photocam_Zoom_Mode
-
-cdef extern from *:
-    ctypedef char* const_char_ptr "const char *"
-
-cdef extern from "Python.h":
-    ctypedef struct PyTypeObject:
-        PyTypeObject *ob_type
+from libc.string cimport const_char
 
 cdef extern from "Elementary.h":
-
-    # Photocam              (api:DONE  cb:DONE  test:TODO  doc:DONE  py3:DONE)
     Evas_Object             *elm_photocam_add(Evas_Object *parent)
-    Evas_Load_Error          elm_photocam_file_set(Evas_Object *obj, const_char_ptr file)
-    const_char_ptr           elm_photocam_file_get(Evas_Object *obj)
+    Evas_Load_Error          elm_photocam_file_set(Evas_Object *obj, const_char *file)
+    const_char *             elm_photocam_file_get(Evas_Object *obj)
     void                     elm_photocam_zoom_set(Evas_Object *obj, double zoom)
     double                   elm_photocam_zoom_get(Evas_Object *obj)
     void                     elm_photocam_zoom_mode_set(Evas_Object *obj, Elm_Photocam_Zoom_Mode mode)
@@ -32,4 +21,3 @@ cdef extern from "Elementary.h":
     void                     elm_photocam_bounce_get(Evas_Object *obj, Eina_Bool *h_bounce, Eina_Bool *v_bounce)
     void                     elm_photocam_gesture_enabled_set(Evas_Object *obj, Eina_Bool gesture)
     Eina_Bool                elm_photocam_gesture_enabled_get(Evas_Object *obj)
-

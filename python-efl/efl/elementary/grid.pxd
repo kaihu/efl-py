@@ -1,17 +1,6 @@
-from evas.general cimport Eina_Bool, Eina_List
-from evas.object cimport Evas_Object, Evas_Coord
-from object cimport Object
-
-cdef extern from *:
-    ctypedef char* const_char_ptr "const char *"
-
-cdef extern from "Python.h":
-    ctypedef struct PyTypeObject:
-        PyTypeObject *ob_type
+from efl.evas cimport Eina_Bool, Eina_List, Evas_Object, Evas_Coord
 
 cdef extern from "Elementary.h":
-
-    # Grid                  (api:DONE  cb:N/A   test:TODO  doc:DONE)
     Evas_Object             *elm_grid_add(Evas_Object *parent)
     void                     elm_grid_size_set(Evas_Object *obj, Evas_Coord w, Evas_Coord h)
     void                     elm_grid_size_get(Evas_Object *obj, Evas_Coord *w, Evas_Coord *h)

@@ -1,19 +1,9 @@
-from evas.general cimport Eina_Bool, Eina_List
-from evas.object cimport Evas_Object, const_Evas_Object, Evas_Coord
-from object cimport Object
+from efl.evas cimport Eina_Bool, Eina_List, Evas_Object, const_Evas_Object, Evas_Coord
 from enums cimport Elm_Map_Overlay_Type, Elm_Map_Route_Method, \
     Elm_Map_Route_Type, Elm_Map_Source_Type, Elm_Map_Zoom_Mode
-
-cdef extern from *:
-    ctypedef char* const_char_ptr "const char *"
-
-cdef extern from "Python.h":
-    ctypedef struct PyTypeObject:
-        PyTypeObject *ob_type
+from libc.string cimport const_char
 
 cdef extern from "Elementary.h":
-
-    # Map                   (api:DONE  cb:DONE  doc:TODO  py3:TODO)
     ctypedef void *Elm_Map_Overlay
     ctypedef void *Elm_Map_Route
     ctypedef void *Elm_Map_Name
@@ -86,16 +76,16 @@ cdef extern from "Elementary.h":
     Elm_Map_Overlay         *elm_map_overlay_scale_add(Evas_Object *obj, Evas_Coord x, Evas_Coord y)
     Elm_Map_Overlay         *elm_map_overlay_route_add(Evas_Object *obj, Elm_Map_Route *route)
     void                     elm_map_tile_load_status_get(const_Evas_Object *obj, int *try_num, int *finish_num)
-    const_char_ptr          *elm_map_sources_get(const_Evas_Object *obj, Elm_Map_Source_Type type)
-    void                     elm_map_source_set(Evas_Object *obj, Elm_Map_Source_Type type, const_char_ptr source_name)
-    const_char_ptr           elm_map_source_get(const_Evas_Object *obj, Elm_Map_Source_Type type)
+    const_char *            *elm_map_sources_get(const_Evas_Object *obj, Elm_Map_Source_Type type)
+    void                     elm_map_source_set(Evas_Object *obj, Elm_Map_Source_Type type, const_char *source_name)
+    const_char *             elm_map_source_get(const_Evas_Object *obj, Elm_Map_Source_Type type)
     Elm_Map_Route           *elm_map_route_add(Evas_Object *obj, Elm_Map_Route_Type type, Elm_Map_Route_Method method, double flon, double flat, double tlon, double tlat, Elm_Map_Route_Cb route_cb, void *data)
     void                     elm_map_route_del(Elm_Map_Route *route)
     double                   elm_map_route_distance_get(Elm_Map_Route *route)
-    const_char_ptr           elm_map_route_node_get(Elm_Map_Route *route)
-    const_char_ptr           elm_map_route_waypoint_get(Elm_Map_Route *route)
-    Elm_Map_Name            *elm_map_name_add(const_Evas_Object *obj, const_char_ptr address, double lon, double lat, Elm_Map_Name_Cb name_cb, void *data)
+    const_char *             elm_map_route_node_get(Elm_Map_Route *route)
+    const_char *             elm_map_route_waypoint_get(Elm_Map_Route *route)
+    Elm_Map_Name            *elm_map_name_add(const_Evas_Object *obj, const_char *address, double lon, double lat, Elm_Map_Name_Cb name_cb, void *data)
     void                     elm_map_name_del(Elm_Map_Name *name)
-    const_char_ptr           elm_map_name_address_get(Elm_Map_Name *name)
+    const_char *             elm_map_name_address_get(Elm_Map_Name *name)
     void                     elm_map_name_region_get(Elm_Map_Name *name, double *lon, double *lat)
 

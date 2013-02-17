@@ -16,6 +16,7 @@
 # along with this Python-EFL.  If not, see <http://www.gnu.org/licenses/>.
 
 include "widget_header.pxi"
+from object cimport Object
 from object_item cimport ObjectItem, _object_item_callback, _object_item_to_python
 from object_item import _cb_object_item_conv
 from scroller cimport *

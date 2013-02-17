@@ -123,8 +123,9 @@
 
 include "widget_header.pxi"
 
-from evas.general cimport eina_list_free, eina_list_append
-from evas.object cimport evas_object_data_get
+from object cimport Object
+
+from efl.evas cimport eina_list_free, eina_list_append, evas_object_data_get
 import traceback
 
 cimport enums
@@ -246,17 +247,17 @@ cdef class MapRoute(object):
 
     property node:
         def __get__(self):
-            return elm_map_route_node_get(self.route)
+            return _ctouni(elm_map_route_node_get(self.route))
 
     def node_get(self):
-        return elm_map_route_node_get(self.route)
+        return _ctouni(elm_map_route_node_get(self.route))
 
     property waypoint:
         def __get__(self):
-            return elm_map_route_waypoint_get(self.route)
+            return _ctouni(elm_map_route_waypoint_get(self.route))
 
     def waypoint_get(self):
-        return elm_map_route_waypoint_get(self.route)
+        return _ctouni(elm_map_route_waypoint_get(self.route))
 
 cdef class MapName(object):
     cdef Elm_Map_Name *name
@@ -271,7 +272,7 @@ cdef class MapName(object):
 
         data = (self, func, args, kwargs)
         if address:
-            self.name = elm_map_name_add(map.obj, address, lon, lat,
+            self.name = elm_map_name_add(map.obj, _cfruni(address), lon, lat,
                                          _map_name_callback, <void *>data)
         else:
             self.name = elm_map_name_add(map.obj, NULL, lon, lat,
@@ -802,7 +803,7 @@ cdef public class Map(Object)[object PyElementaryMap, type PyElementaryMap_Type]
         return (try_num, finish_num)
 
     def sources_get(self, type):
-        cdef const_char_ptr *lst
+        cdef const_char **lst
 
         i = 0
         ret = []

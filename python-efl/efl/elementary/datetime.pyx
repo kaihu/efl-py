@@ -48,6 +48,8 @@
 
 include "widget_header.pxi"
 
+from object cimport Object
+
 from datetime import datetime
 
 cimport enums

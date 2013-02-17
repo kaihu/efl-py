@@ -1,19 +1,7 @@
-from evas.general cimport Eina_Bool
-from evas.object cimport Evas_Object, Evas_Coord
-from evas.events cimport Evas_Event_Flags
-from object cimport Object
+from efl.evas cimport Eina_Bool, Evas_Object, Evas_Coord, Evas_Event_Flags
 from enums cimport Elm_Gesture_State, Elm_Gesture_Type
 
-cdef extern from *:
-    ctypedef char* const_char_ptr "const char *"
-
-cdef extern from "Python.h":
-    ctypedef struct PyTypeObject:
-        PyTypeObject *ob_type
-
 cdef extern from "Elementary.h":
-
-    #gesture layer
     ctypedef struct Elm_Gesture_Taps_Info:
         Evas_Coord   x, y
         unsigned int n

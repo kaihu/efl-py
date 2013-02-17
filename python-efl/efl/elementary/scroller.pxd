@@ -1,20 +1,10 @@
-from evas.general cimport Eina_Bool
-from evas.object cimport Evas_Object, Evas_Coord
-from object cimport Object
+from efl.evas cimport Eina_Bool, Evas_Object, Evas_Coord
 from enums cimport Elm_Scroller_Policy
-
-cdef extern from *:
-    ctypedef char* const_char_ptr "const char *"
-
-cdef extern from "Python.h":
-    ctypedef struct PyTypeObject:
-        PyTypeObject *ob_type
+from libc.string cimport const_char
 
 cdef extern from "Elementary.h":
-
-    # Scroller              (api:DONE  cb:DONE  test:DONE  doc:DONE  py3:DONE)
     Evas_Object             *elm_scroller_add(Evas_Object *parent)
-    void                     elm_scroller_custom_widget_base_theme_set(Evas_Object *obj, const_char_ptr widget, const_char_ptr base)
+    void                     elm_scroller_custom_widget_base_theme_set(Evas_Object *obj, const_char *widget, const_char *base)
     void                     elm_scroller_content_min_limit(Evas_Object *obj, Eina_Bool w, Eina_Bool h)
     void                     elm_scroller_region_show(Evas_Object *obj, Evas_Coord x, Evas_Coord y, Evas_Coord w, Evas_Coord h)
     void                     elm_scroller_policy_set(Evas_Object *obj, Elm_Scroller_Policy policy_h, Elm_Scroller_Policy policy_v)

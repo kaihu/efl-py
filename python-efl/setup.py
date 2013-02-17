@@ -7,6 +7,7 @@ from distutils.extension import Extension
 
 try:
     from Cython.Distutils import build_ext
+    from Cython.Build import cythonize
     import Cython.Compiler.Options
 
     Cython.Compiler.Options.fast_fail = True # stop compilation on first error
@@ -179,5 +180,6 @@ if __name__ == "__main__":
         license = "GNU Lesser General Public License (LGPL)",
         packages = ["efl"],
         cmdclass = {"build_ext": build_ext},
-        ext_modules = modules
+        #ext_modules = modules
+        ext_modules = cythonize(modules, include_path=["include",], compiler_directives={"embedsignature": False}),
     )

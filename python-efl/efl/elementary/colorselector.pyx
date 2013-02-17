@@ -37,6 +37,7 @@
 include "widget_header.pxi"
 from object_item cimport ObjectItem
 from object_item import _cb_object_item_conv
+from layout_class cimport LayoutClass
 
 cimport enums
 
@@ -107,7 +108,6 @@ cdef class Colorselector(LayoutClass):
     """
 
     def __init__(self, evasObject parent):
-        Object.__init__(self, parent.evas)
         self._set_obj(elm_colorselector_add(parent.obj))
 
     property color:

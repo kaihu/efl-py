@@ -16,6 +16,9 @@
 # along with this Python-EFL.  If not, see <http://www.gnu.org/licenses/>.
 
 include "widget_header.pxi"
+
+from layout_class cimport LayoutClass
+
 from object_item cimport _object_item_callback, _object_item_to_python
 from object_item import _cb_object_item_conv
 

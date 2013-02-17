@@ -36,6 +36,8 @@
 
 include "widget_header.pxi"
 
+from object cimport Object
+
 cimport enums
 
 ELM_THUMB_ANIMATION_START = enums.ELM_THUMB_ANIMATION_START
@@ -127,7 +129,7 @@ cdef class Thumb(Object):
                                 _cfruni(file) if file is not None else NULL,
                                 _cfruni(key) if key is not None else NULL)
         def __get__(self):
-            cdef const_char_ptr file, key
+            cdef const_char *file, *key
             elm_thumb_file_get(self.obj, &file, &key)
             return(_ctouni(file), _ctouni(key))
 
@@ -146,7 +148,7 @@ cdef class Thumb(Object):
 
         """
         def __get__(self):
-            cdef const_char_ptr path, key
+            cdef const_char *path, *key
             elm_thumb_path_get(self.obj, &path, &key)
             return(_ctouni(path), _ctouni(key))
 

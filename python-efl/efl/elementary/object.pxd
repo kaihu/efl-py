@@ -144,9 +144,3 @@ cdef class Canvas(evasCanvas):
 cdef class Object(evasObject):
     cdef object _elmcallbacks
     cdef object _elm_event_cbs
-
-cdef object _elm_widget_type_mapping
-
-cdef void _install_metaclass(object cclass)
-cdef _elm_widget_type_register(name, cls)
-cdef _elm_widget_type_unregister(name)

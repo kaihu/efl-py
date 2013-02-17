@@ -155,7 +155,7 @@ from object_item cimport    ObjectItem, \
                             elm_object_item_data_get
 from object_item import _cb_object_item_conv
 from general cimport strdup, PY_REFCOUNT
-from evas.general cimport eina_list_remove_list
+from efl.evas cimport eina_list_remove_list
 from scroller cimport *
 cimport enums
 
@@ -192,7 +192,7 @@ ELM_SCROLLER_POLICY_AUTO = enums.ELM_SCROLLER_POLICY_AUTO
 ELM_SCROLLER_POLICY_ON = enums.ELM_SCROLLER_POLICY_ON
 ELM_SCROLLER_POLICY_OFF = enums.ELM_SCROLLER_POLICY_OFF
 
-cdef _py_elm_genlist_item_call(func, Evas_Object *obj, part, args) with gil:
+cdef _py_elm_genlist_item_call(func, Evas_Object *obj, const_char *part, args) with gil:
     try:
         o = object_from_instance(obj)
         return func(o, _ctouni(part), args)
@@ -200,7 +200,7 @@ cdef _py_elm_genlist_item_call(func, Evas_Object *obj, part, args) with gil:
         traceback.print_exc()
         return None
 
-cdef char *_py_elm_genlist_item_text_get(void *data, Evas_Object *obj, const_char_ptr part) with gil:
+cdef char *_py_elm_genlist_item_text_get(void *data, Evas_Object *obj, const_char *part) with gil:
     cdef GenlistItem item = <object>data
     cdef object params = item.params
     cdef GenlistItemClass itc = params[0]
@@ -215,7 +215,7 @@ cdef char *_py_elm_genlist_item_text_get(void *data, Evas_Object *obj, const_cha
     else:
         return NULL
 
-cdef Evas_Object *_py_elm_genlist_item_content_get(void *data, Evas_Object *obj, const_char_ptr part) with gil:
+cdef Evas_Object *_py_elm_genlist_item_content_get(void *data, Evas_Object *obj, const_char *part) with gil:
     cdef GenlistItem item = <object>data
     cdef object params = item.params
     cdef evasObject icon
@@ -236,7 +236,7 @@ cdef Evas_Object *_py_elm_genlist_item_content_get(void *data, Evas_Object *obj,
     else:
         return NULL
 
-cdef Eina_Bool _py_elm_genlist_item_state_get(void *data, Evas_Object *obj, const_char_ptr part) with gil:
+cdef Eina_Bool _py_elm_genlist_item_state_get(void *data, Evas_Object *obj, const_char *part) with gil:
     cdef GenlistItem item = <object>data
     cdef object params = item.params
     cdef GenlistItemClass itc = params[0]
@@ -291,7 +291,7 @@ class GenlistItemsCount(int):
         self.obj = obj
 
     def __call__(self):
-        _METHOD_DEPRECATED(self.obj, None, "Use items_count instead")
+        #_METHOD_DEPRECATED(self.obj, None, "Use items_count instead")
         return self.obj._items_count()
 
 cdef class GenlistItemClass(object):

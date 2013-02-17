@@ -42,10 +42,10 @@ from cpython cimport PyObject, Py_INCREF, Py_DECREF
 from cpython cimport PyMem_Malloc, PyMem_Free
 from cpython cimport bool
 
-from efl.eo cimport _touni, _fruni, _ctouni, _cfruni, PY_REFCOUNT
-from efl.eo cimport object_from_instance, _object_mapping_register
-from efl.eo cimport _strings_to_python, _strings_from_python
-from efl.eo cimport _object_list_to_python
+from efl.eo cimport _touni, _fruni, _ctouni, _cfruni
+#from efl.eo cimport object_from_instance, _object_mapping_register
+#from efl.eo cimport _strings_to_python, _strings_from_python
+#from efl.eo cimport _object_list_to_python
 # from efl.evas cimport Evas_Coord
 
 

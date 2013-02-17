@@ -17,6 +17,8 @@
 
 include "widget_header.pxi"
 
+from layout_class cimport LayoutClass
+
 cdef class Panes(LayoutClass):
 
     """The panes widget adds a draggable bar between two contents. When

@@ -1,23 +1,16 @@
-from evas.general cimport Eina_Bool
-from evas.object cimport Evas_Object
+from efl.evas cimport Eina_Bool, Evas_Object
 from object cimport Object
 from enums cimport Elm_Image_Orient
+from libc.string cimport const_char
 
 cdef extern from *:
-    ctypedef char* const_char_ptr "const char *"
     ctypedef void const_void "const void"
 
-cdef extern from "Python.h":
-    ctypedef struct PyTypeObject:
-        PyTypeObject *ob_type
-
 cdef extern from "Elementary.h":
-
-    # Image                 (api:DONE  cb:DONE  test:DONE  doc:DONE  py3:DONE)
     Evas_Object             *elm_image_add(Evas_Object *parent)
-    Eina_Bool                elm_image_memfile_set(Evas_Object *obj, const_void *img, size_t size, const_char_ptr format, const_char_ptr key)
-    Eina_Bool                elm_image_file_set(Evas_Object *obj, const_char_ptr file, const_char_ptr group)
-    void                     elm_image_file_get(Evas_Object *obj, const_char_ptr *file, const_char_ptr *group)
+    Eina_Bool                elm_image_memfile_set(Evas_Object *obj, const_void *img, size_t size, const_char *format, const_char *key)
+    Eina_Bool                elm_image_file_set(Evas_Object *obj, const_char *file, const_char *group)
+    void                     elm_image_file_get(Evas_Object *obj, const_char **file, const_char **group)
     void                     elm_image_smooth_set(Evas_Object *obj, Eina_Bool smooth)
     Eina_Bool                elm_image_smooth_get(Evas_Object *obj)
     void                     elm_image_object_size_get(Evas_Object *obj, int *w, int *h)

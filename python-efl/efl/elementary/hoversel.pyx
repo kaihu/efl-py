@@ -49,7 +49,7 @@ cdef class HoverselItem(ObjectItem):
 
     """
 
-    cdef const_char_ptr label, icon_file
+    cdef const_char *label, *icon_file
     cdef Elm_Icon_Type icon_type
     cdef Evas_Smart_Cb cb
 
@@ -130,7 +130,7 @@ cdef class HoverselItem(ObjectItem):
                 elm_hoversel_item_icon_set(self.item, _cfruni(icon_file), _cfruni(icon_group), icon_type)
 
         def __get__(self):
-            cdef const_char_ptr icon_file, icon_group
+            cdef const_char *icon_file, *icon_group
             cdef Elm_Icon_Type icon_type
             if self.item == NULL:
                 icon_file = self.icon_file
@@ -143,7 +143,7 @@ cdef class HoverselItem(ObjectItem):
     def icon_set(self, icon_file, icon_group, icon_type):
         elm_hoversel_item_icon_set(self.item, _cfruni(icon_file), _cfruni(icon_group), icon_type)
     def icon_get(self):
-        cdef const_char_ptr cicon_file, cicon_group
+        cdef const_char *cicon_file, *cicon_group
         cdef Elm_Icon_Type cicon_type
         elm_hoversel_item_icon_get(self.item, &cicon_file, &cicon_group, &cicon_type)
         return (_ctouni(cicon_file), _ctouni(cicon_group), cicon_type)

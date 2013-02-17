@@ -16,6 +16,7 @@
 # along with this Python-EFL.  If not, see <http://www.gnu.org/licenses/>.
 
 include "widget_header.pxi"
+from object cimport Object
 from object cimport _object_list_to_python
 
 cdef class Grid(Object):

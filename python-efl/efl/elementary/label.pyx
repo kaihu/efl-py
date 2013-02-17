@@ -40,6 +40,8 @@
 
 include "widget_header.pxi"
 
+from layout_class cimport LayoutClass
+
 cimport enums
 
 ELM_WRAP_NONE = enums.ELM_WRAP_NONE

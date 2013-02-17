@@ -177,6 +177,7 @@
 """
 
 include "widget_header.pxi"
+from object cimport Object
 from hover cimport Hover
 from scroller cimport *
 
@@ -223,19 +224,11 @@ ELM_WRAP_CHAR = enums.ELM_WRAP_CHAR
 ELM_WRAP_WORD = enums.ELM_WRAP_WORD
 ELM_WRAP_MIXED = enums.ELM_WRAP_MIXED
 
-def Entry_markup_to_utf8(str):
-    cdef const_char_ptr string
-    string = elm_entry_markup_to_utf8(str)
-    if string == NULL:
-        return None
-    return string
+def Entry_markup_to_utf8(string):
+    return _ctouni(elm_entry_markup_to_utf8(_fruni(str)))
 
-def Entry_utf8_to_markup(str):
-    cdef const_char_ptr string
-    string = elm_entry_utf8_to_markup(str)
-    if string == NULL:
-        return None
-    return string
+def Entry_utf8_to_markup(string):
+    return _ctouni(elm_entry_utf8_to_markup(_fruni(str)))
 
 class EntryAnchorInfo:
     def __init__(self):
@@ -659,14 +652,10 @@ cdef class Entry(Object):
 
         """
         def __get__(self):
-            cdef Evas_Object *o
-            o = elm_entry_textblock_get(self.obj)
-            return Object_from_instance(o)
+            return object_from_instance(elm_entry_textblock_get(self.obj))
 
     def textblock_get(self):
-        cdef Evas_Object *o
-        o = elm_entry_textblock_get(self.obj)
-        return Object_from_instance(o)
+        return object_from_instance(elm_entry_textblock_get(self.obj))
 
     def calc_force(self):
         """calc_force()
@@ -1036,7 +1025,7 @@ cdef class Entry(Object):
 
         """
         def __get__(self):
-            cdef const_char_ptr file
+            cdef const_char *file
             cdef Elm_Text_Format format
             elm_entry_file_get(self.obj, &file, &format)
             return (_ctouni(file), format)
@@ -1048,7 +1037,7 @@ cdef class Entry(Object):
     def file_set(self, file, format):
         return bool(elm_entry_file_set(self.obj, _cfruni(file), format))
     def file_get(self):
-        cdef const_char_ptr file
+        cdef const_char *file
         cdef Elm_Text_Format format
         elm_entry_file_get(self.obj, &file, &format)
         return (_ctouni(file), format)
@@ -1362,7 +1351,7 @@ cdef class Entry(Object):
         def __get__(self):
             cdef Evas_Object *anchor_hover_parent
             anchor_hover_parent = elm_entry_anchor_hover_parent_get(self.obj)
-            return Object_from_instance(anchor_hover_parent)
+            return object_from_instance(anchor_hover_parent)
 
         def __set__(self, evasObject anchor_hover_parent):
             elm_entry_anchor_hover_parent_set(self.obj, anchor_hover_parent.obj)
@@ -1372,7 +1361,7 @@ cdef class Entry(Object):
     def anchor_hover_parent_get(self):
         cdef Evas_Object *anchor_hover_parent
         anchor_hover_parent = elm_entry_anchor_hover_parent_get(self.obj)
-        return Object_from_instance(anchor_hover_parent)
+        return object_from_instance(anchor_hover_parent)
 
     property anchor_hover_style:
         """The style that the hover should use

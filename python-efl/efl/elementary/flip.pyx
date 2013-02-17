@@ -135,6 +135,8 @@
 
 include "widget_header.pxi"
 
+from object cimport Object
+
 cimport enums
 
 ELM_FLIP_DIRECTION_UP = enums.ELM_FLIP_DIRECTION_UP

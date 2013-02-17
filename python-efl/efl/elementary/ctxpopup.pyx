@@ -43,6 +43,7 @@
 """
 
 include "widget_header.pxi"
+from object cimport Object
 from object_item cimport ObjectItem, _object_item_callback
 
 cimport enums
@@ -119,7 +120,7 @@ cdef class Ctxpopup(Object):
 
         """
         def __get__(self):
-            return Object_from_instance(elm_ctxpopup_hover_parent_get(self.obj))
+            return object_from_instance(elm_ctxpopup_hover_parent_get(self.obj))
 
         def __set__(self, evasObject parent):
             elm_ctxpopup_hover_parent_set(self.obj, parent.obj)
@@ -127,7 +128,7 @@ cdef class Ctxpopup(Object):
     def hover_parent_set(self, evasObject parent):
         elm_ctxpopup_hover_parent_set(self.obj, parent.obj)
     def hover_parent_get(self):
-        return Object_from_instance(elm_ctxpopup_hover_parent_get(self.obj))
+        return object_from_instance(elm_ctxpopup_hover_parent_get(self.obj))
 
     def clear(self):
         """Clear all items in the given ctxpopup object."""

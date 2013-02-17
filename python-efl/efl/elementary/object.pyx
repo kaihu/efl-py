@@ -31,19 +31,19 @@
 """
 
 from cpython cimport PyObject, Py_INCREF, Py_DECREF, PyObject_GetAttr
-from efl.evas cimport Object as evasObject
-from efl.evas cimport Object_from_instance
-from general cimport _cfruni, _ctouni, _fruni, _touni
-from general cimport _METHOD_DEPRECATED
+
+include "widget_header.pxi"
 include "tooltips.pxi"
 
 from efl.evas cimport EventKeyDown, EventKeyUp, EventMouseWheel
 #from efl.evas cimport evas_object_data_get
 from efl.evas cimport evas_object_smart_callback_add
 from efl.evas cimport evas_object_smart_callback_del
+
 from efl.evas cimport EVAS_CALLBACK_KEY_DOWN
 from efl.evas cimport EVAS_CALLBACK_KEY_UP
 from efl.evas cimport EVAS_CALLBACK_MOUSE_WHEEL
+
 from efl.evas cimport eina_list_append
 #from efl.evas import _extended_object_mapping_register
 #from efl.evas import _object_mapping_register
@@ -60,53 +60,6 @@ cimport enums
 
 ELM_FOCUS_PREVIOUS = enums.ELM_FOCUS_PREVIOUS
 ELM_FOCUS_NEXT = enums.ELM_FOCUS_NEXT
-
-cdef object _elm_widget_type_mapping
-
-_elm_widget_type_mapping = {}
-
-cdef _elm_widget_type_register(name, cls):
-    if name in _elm_widget_type_mapping:
-        raise ValueError("object type name '%s' already registered." % name)
-    _elm_widget_type_mapping[name] = cls
-    # TODO: Widget types become evas object types as they are being ported
-    # to the new model. The class resolver can be removed when it's done.
-    _object_mapping_register("elm_"+name, cls)
-
-cdef _elm_widget_type_unregister(name):
-    _elm_widget_type_mapping.pop(name)
-    # TODO: Widget types become evas object types as they are being ported
-    # to the new model. The class resolver can be removed when it's done.
-    _object_mapping_unregister("elm_"+name)
-
-cdef extern from "Python.h":
-    ctypedef struct PyTypeObject:
-        PyTypeObject *ob_type
-
-cdef void _install_metaclass(object cclass):
-    Py_INCREF(ElementaryObjectMeta)
-    cdef PyTypeObject *ctype = <PyTypeObject *>cclass
-    ctype.ob_type = <PyTypeObject*>ElementaryObjectMeta
-
-class ElementaryObjectMeta(type):
-    def __init__(cls, name, bases, dict_):
-        type.__init__(cls, name, bases, dict_)
-        cls._fetch_evt_callbacks()
-
-    def _fetch_evt_callbacks(cls):
-        if "__evas_event_callbacks__" in cls.__dict__:
-            return
-
-        cls.__evas_event_callbacks__ = []
-        append = cls.__evas_event_callbacks__.append
-
-        for name in dir(cls):
-            val = getattr(cls, name)
-            if not callable(val) or not hasattr(val, "evas_event_callback"):
-                continue
-            evt = getattr(val, "evas_event_callback")
-            append((name, evt))
-
 
 #API XXX: Callbacks!
 cdef void _object_callback(void *data,
@@ -212,7 +165,7 @@ cdef _object_list_to_python(const_Eina_List *lst):
     ret = []
     while lst:
         o = <Evas_Object *>lst.data
-        obj = Object_from_instance(o)
+        obj = object_from_instance(o)
         ret.append(obj)
         lst = lst.next
     return ret

@@ -16,6 +16,8 @@
 # along with python-elementary.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+from efl.eo cimport const_char_ptr
+
 def _cb_string_conv(long addr):
     cdef const_char_ptr s = <const_char_ptr>addr
     if s == NULL:

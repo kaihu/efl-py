@@ -78,6 +78,8 @@
 """
 
 include "widget_header.pxi"
+
+from object cimport Object
 from object_item cimport    _object_item_callback, \
                             _object_item_to_python
 from general cimport PY_REFCOUNT

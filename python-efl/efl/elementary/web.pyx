@@ -62,6 +62,9 @@
 """
 
 include "widget_header.pxi"
+
+from object cimport Object
+
 include "conversions.pxi"
 include "callbacks.pxi"
 import traceback
@@ -93,25 +96,10 @@ def _web_load_frame_error_conv(long addr):
         "code": err.code,
         "is_cancellation": bool(err.is_cancellation),
         }
-    if err.domain:
-        ret["domain"] = err.domain
-    else:
-        ret["domain"] = None
-
-    if err.description:
-        ret["description"] = err.description
-    else:
-        ret["description"] = None
-
-    if err.failing_url:
-        ret["failing_url"] = err.failing_url
-    else:
-        ret["failing_url"] = None
-
-    if err.frame:
-        ret["frame"] = object_from_instance(err.frame)
-    else:
-        ret["frame"] = None
+    ret["domain"] = _ctouni(err.domain) if err.domain else None
+    ret["description"] = _ctouni(err.description) if err.description else None
+    ret["failing_url"] = _ctouni(err.failing_url) if err.failing_url else None
+    ret["frame"] = object_from_instance(err.frame) if err.frame else None
 
     return ret
 
@@ -121,33 +109,16 @@ def _web_link_hover_in_conv(long addr):
     if info == NULL:
         url = title = None
     else:
-        if info[0] == NULL:
-           url = None
-        else:
-           url = info[0]
-
-        if info[1] == NULL:
-           title = None
-        else:
-           title = info[1]
+        url = None if info[0] == NULL else info[0]
+        title = None if info[1] == NULL else info[1]
     return (url, title)
 
 
-cdef void _web_console_message_hook(void *data, Evas_Object *obj, const_char_ptr message, unsigned int line_number, const_char_ptr source_id) with gil:
+cdef void _web_console_message_hook(void *data, Evas_Object *obj, const_char *message, unsigned int line_number, const_char *source_id) with gil:
     cdef Web self = <Web>data
 
-    if message == NULL:
-        m = None
-    else:
-        m = message
-
-    if source_id == NULL:
-        s = None
-    else:
-        s = source_id
-
     try:
-        self._console_message_hook(self, m, line_number, s)
+        self._console_message_hook(self, _ctouni(message), line_number, _ctouni(source_id))
     except Exception, e:
         traceback.print_exc()
 
@@ -232,11 +203,7 @@ cdef class Web(Object):
         return bool(elm_web_uri_set(self.obj, uri))
 
     def uri_get(self):
-        cdef const_char_ptr l
-        l = elm_web_uri_get(self.obj)
-        if l == NULL:
-            return None
-        return l
+        return _ctouni(elm_web_uri_get(self.obj))
 
     property uri:
         def __get__(self):
@@ -246,11 +213,7 @@ cdef class Web(Object):
             self.uri_set(value)
 
     def useragent_get(self):
-        cdef const_char_ptr l
-        l = elm_web_useragent_get(self.obj)
-        if l == NULL:
-            return None
-        return l
+        return _ctouni(elm_web_useragent_get(self.obj))
 
     def zoom_get(self):
         return elm_web_zoom_get(self.obj)

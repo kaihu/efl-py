@@ -40,6 +40,8 @@
 
 include "widget_header.pxi"
 
+from layout_class cimport LayoutClass
+
 cimport enums
 
 ELM_BG_OPTION_CENTER = enums.ELM_BG_OPTION_CENTER
@@ -94,7 +96,7 @@ cdef class Background(LayoutClass):
 
         """
         def __get__(self):
-            cdef const_char_ptr filename, group
+            cdef const_char *filename, *group
             elm_bg_file_get(self.obj, &filename, &group)
             if filename == NULL:
                 filename = ""
@@ -113,7 +115,7 @@ cdef class Background(LayoutClass):
     def file_set(self, filename, group = ""):
         return bool(elm_bg_file_set(self.obj, _cfruni(filename), _cfruni(group)))
     def file_get(self):
-        cdef const_char_ptr filename, group
+        cdef const_char *filename, *group
         elm_bg_file_get(self.obj, &filename, &group)
         if filename == NULL:
             filename = ""

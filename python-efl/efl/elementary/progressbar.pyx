@@ -18,6 +18,8 @@
 
 include "widget_header.pxi"
 
+from layout_class cimport LayoutClass
+
 class ProgressbarPulseState(int):
     def __new__(cls, Object obj, int state):
         return int.__new__(cls, state)

@@ -81,6 +81,8 @@
 """
 
 include "widget_header.pxi"
+
+from object cimport Object
 from object_item cimport    _object_item_callback, \
                             _object_item_to_python
 from menu cimport Menu
@@ -146,7 +148,7 @@ cdef class ToolbarItem(ObjectItem):
 
         self.params = (callback, args, kargs)
 
-        item = elm_toolbar_item_append(toolbar.obj, icon, _cfruni(label), cb, <void*>self)
+        item = elm_toolbar_item_append(toolbar.obj, _cfruni(icon), _cfruni(label), cb, <void*>self)
 
         if item != NULL:
             self._set_obj(item)

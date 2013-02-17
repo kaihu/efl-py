@@ -16,7 +16,8 @@
 # along with this Python-EFL.  If not, see <http://www.gnu.org/licenses/>.
 
 from cpython cimport Py_INCREF, Py_DECREF
-from general cimport _cfruni, _ctouni, _fruni, _touni
+
+include "widget_header.pxi"
 include "conversions.pxi"
 
 cdef class Theme(object):
@@ -386,7 +387,7 @@ def theme_name_available_list():
 
 # for compatibility
 def theme_overlay_add(item):
-    elm_theme_overlay_add(NULL, item)
+    elm_theme_overlay_add(NULL, _cfruni(item))
 
 def theme_extension_add(item):
-    elm_theme_extension_add(NULL, item)
+    elm_theme_extension_add(NULL, _cfruni(item))

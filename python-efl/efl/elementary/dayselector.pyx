@@ -52,6 +52,8 @@
 
 include "widget_header.pxi"
 
+from layout_class cimport LayoutClass
+
 cimport enums
 
 ELM_DAYSELECTOR_SUN = enums.ELM_DAYSELECTOR_SUN

@@ -16,6 +16,9 @@
 # along with this Python-EFL.  If not, see <http://www.gnu.org/licenses/>.
 
 include "widget_header.pxi"
+
+from layout_class cimport LayoutClass
+
 from object_item cimport    _object_item_to_python, \
                             _object_item_list_to_python
 
@@ -179,7 +182,7 @@ cdef class NaviframeItem(ObjectItem):
             return None
 
     def item_pop_to(self):
-        _METHOD_DEPRECATED(self, "pop_to")
+        #_METHOD_DEPRECATED(self, "pop_to")
         elm_naviframe_item_pop_to(self.item)
 
     def pop_to(self):
@@ -191,7 +194,7 @@ cdef class NaviframeItem(ObjectItem):
         elm_naviframe_item_pop_to(self.item)
 
     def item_promote(self):
-        _METHOD_DEPRECATED(self, "promote")
+        #_METHOD_DEPRECATED(self, "promote")
         elm_naviframe_item_promote(self.item)
 
     def promote(self):
@@ -327,13 +330,13 @@ cdef class Naviframe(LayoutClass):
     def __init__(self, evasObject parent):
         self._set_obj(elm_naviframe_add(parent.obj))
 
-    def item_push(self, title_label, evasObject prev_btn, evasObject next_btn, evasObject content, const_char_ptr item_style):
+    def item_push(self, title_label, evasObject prev_btn, evasObject next_btn, evasObject content, item_style):
         return NaviframeItem(title_label, prev_btn, next_btn, content, item_style).push_to(self)
 
-    def item_insert_before(self, NaviframeItem before, title_label, evasObject prev_btn, evasObject next_btn, evasObject content, const_char_ptr item_style):
+    def item_insert_before(self, NaviframeItem before, title_label, evasObject prev_btn, evasObject next_btn, evasObject content, item_style):
         return NaviframeItem(title_label, prev_btn, next_btn, content, item_style).insert_before(before)
 
-    def item_insert_after(self, NaviframeItem after, title_label, evasObject prev_btn, evasObject next_btn, evasObject content, const_char_ptr item_style):
+    def item_insert_after(self, NaviframeItem after, title_label, evasObject prev_btn, evasObject next_btn, evasObject content, item_style):
         return NaviframeItem(title_label, prev_btn, next_btn, content, item_style).insert_after(after)
 
     def item_pop(self):

@@ -16,11 +16,9 @@
 # along with this Python-EFL.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from general cimport _ctouni, _cfruni
-from evas.general cimport eina_list_append
-from evas.object cimport Object_from_instance
+include "widget_header.pxi"
 
-include "conversions.pxi"
+from efl.eo cimport _strings_to_python
 
 cdef class Configuration(object):
 
@@ -422,7 +420,7 @@ cdef class Configuration(object):
         def __get__(self):
             cdef Eina_List *lst
             cdef Elm_Text_Class *data
-            cdef const_char_ptr name, desc
+            cdef const_char *name, *desc
             ret = []
             lst = elm_config_text_classes_list_get()
             while lst:
@@ -448,7 +446,7 @@ cdef class Configuration(object):
         def __get__(self):
             cdef const_Eina_List *lst
             cdef Elm_Font_Overlay *data
-            cdef const_char_ptr text_class, font
+            cdef const_char *text_class, *font
             cdef Evas_Font_Size size
             ret = []
             lst = elm_config_font_overlay_list_get()
@@ -675,7 +673,7 @@ def focus_highlight_animate_set(animate):
 def preferred_engine_get():
     return _ctouni(elm_config_preferred_engine_get())
 def preferred_engine_set(engine):
-    elm_config_preferred_engine_set(engine)
+    elm_config_preferred_engine_set(_cfruni(engine))
 
 def engine_get():
     return _ctouni(elm_config_engine_get())

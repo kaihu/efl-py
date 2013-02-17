@@ -1,14 +1,5 @@
-from evas.general cimport Eina_Bool, Eina_List, const_Eina_List
-from evas.object cimport Evas_Object, Evas_Coord
-from object cimport Object
+from efl.evas cimport Eina_Bool, Eina_List, const_Eina_List, Evas_Object, Evas_Coord
 from enums cimport Elm_Box_CLayout
-
-cdef extern from *:
-    ctypedef char* const_char_ptr "const char *"
-
-cdef extern from "Python.h":
-    ctypedef struct PyTypeObject:
-        PyTypeObject *ob_type
 
 cdef extern from "Ecore.h":
     ctypedef void (*Ecore_Cb)(void *data)
@@ -29,8 +20,6 @@ cdef extern from "Evas.h":
     void elm_box_layout_transition(Evas_Object *o, Evas_Object_Box_Data *priv, void *data)
 
 cdef extern from "Elementary.h":
-
-    # Box                   (api:DONE  cb:N/A   test:DONE  doc:DONE)
     Evas_Object             *elm_box_add(Evas_Object *parent)
     void                     elm_box_horizontal_set(Evas_Object *obj, Eina_Bool horizontal)
     Eina_Bool                elm_box_horizontal_get(Evas_Object *obj)
@@ -52,4 +41,3 @@ cdef extern from "Elementary.h":
     void                     elm_box_layout_set(Evas_Object *obj, Evas_Object_Box_Layout cb, void *data, Ecore_Cb free_data)
     Elm_Box_Transition      *elm_box_transition_new(double duration, Evas_Object_Box_Layout start_layout, void *start_layout_data, Ecore_Cb start_layout_free_data, Evas_Object_Box_Layout end_layout, void *end_layout_data, Ecore_Cb end_layout_free_data, Ecore_Cb transition_end_cb, void *transition_end_data)
     void                     elm_box_transition_free(void *data)
-

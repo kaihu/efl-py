@@ -16,15 +16,15 @@
 # along with python-elementary.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from evas.general cimport Eina_List, const_Eina_List, eina_list_append
-from evas.object cimport Evas_Object
-from evas.object cimport Object_from_instance
+from efl.evas cimport Eina_List, const_Eina_List, eina_list_append, Evas_Object
+from efl.eo cimport object_from_instance
+from libc.string cimport const_char
 
 cdef _strings_to_python(const_Eina_List *lst):
-    cdef const_char_ptr s
+    cdef const_char *s
     ret = []
     while lst:
-        s = <const_char_ptr>lst.data
+        s = <const_char *>lst.data
         if s != NULL:
             ret.append(_ctouni(s))
         lst = lst.next
@@ -41,7 +41,7 @@ cdef _object_list_to_python(const_Eina_List *lst):
     ret = []
     while lst:
         o = <Evas_Object *>lst.data
-        obj = Object_from_instance(o)
+        obj = object_from_instance(o)
         ret.append(obj)
         lst = lst.next
     return ret

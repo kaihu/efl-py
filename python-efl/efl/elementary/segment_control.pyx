@@ -16,6 +16,9 @@
 # along with this Python-EFL.  If not, see <http://www.gnu.org/licenses/>.
 
 include "widget_header.pxi"
+
+from layout_class cimport LayoutClass
+
 from object_item cimport _object_item_to_python
 from object_item import _cb_object_item_conv
 
@@ -48,7 +51,7 @@ cdef class SegmentControlItem(ObjectItem):
 
         """
         def __get__(self):
-            return Object_from_instance(elm_segment_control_item_object_get(self.item))
+            return object_from_instance(elm_segment_control_item_object_get(self.item))
 
     property selected:
         """Set the selected state of an item.

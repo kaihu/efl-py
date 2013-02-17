@@ -125,14 +125,14 @@ cdef class Image(Object):
             elm_image_file_set(self.obj, _cfruni(filename) if filename is not None else NULL, _cfruni(group) if group is not None else NULL)
 
         def __get__(self):
-            cdef const_char_ptr filename, group
+            cdef const_char *filename, *group
             elm_image_file_get(self.obj, &filename, &group)
             return (_ctouni(filename), _ctouni(group))
 
     def file_set(self, filename, group = None):
         elm_image_file_set(self.obj, _cfruni(filename) if filename is not None else NULL, _cfruni(group) if group is not None else NULL)
     def file_get(self):
-        cdef const_char_ptr filename, group
+        cdef const_char *filename, *group
         elm_image_file_get(self.obj, &filename, &group)
         return (_ctouni(filename), _ctouni(group))
 
@@ -354,10 +354,10 @@ cdef class Image(Object):
 
         """
         def __get__(self):
-            return Object_from_instance(elm_image_object_get(self.obj))
+            return object_from_instance(elm_image_object_get(self.obj))
 
     def object_get(self):
-        return Object_from_instance(elm_image_object_get(self.obj))
+        return object_from_instance(elm_image_object_get(self.obj))
 
     property aspect_fixed:
         """Whether the original aspect ratio of the image should be kept on

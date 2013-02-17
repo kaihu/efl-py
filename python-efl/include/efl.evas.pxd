@@ -41,7 +41,41 @@ cdef extern from "Evas.h":
         pass
 
     ctypedef enum Evas_Callback_Type:
-        pass
+        EVAS_CALLBACK_MOUSE_IN
+        EVAS_CALLBACK_MOUSE_OUT
+        EVAS_CALLBACK_MOUSE_DOWN
+        EVAS_CALLBACK_MOUSE_UP
+        EVAS_CALLBACK_MOUSE_MOVE
+        EVAS_CALLBACK_MOUSE_WHEEL
+        EVAS_CALLBACK_MULTI_DOWN
+        EVAS_CALLBACK_MULTI_UP
+        EVAS_CALLBACK_MULTI_MOVE
+        EVAS_CALLBACK_FREE
+        EVAS_CALLBACK_KEY_DOWN
+        EVAS_CALLBACK_KEY_UP
+        EVAS_CALLBACK_FOCUS_IN
+        EVAS_CALLBACK_FOCUS_OUT
+        EVAS_CALLBACK_SHOW
+        EVAS_CALLBACK_HIDE
+        EVAS_CALLBACK_MOVE
+        EVAS_CALLBACK_RESIZE
+        EVAS_CALLBACK_RESTACK
+        EVAS_CALLBACK_DEL
+        EVAS_CALLBACK_HOLD
+        EVAS_CALLBACK_CHANGED_SIZE_HINTS
+        EVAS_CALLBACK_IMAGE_PRELOADED
+        EVAS_CALLBACK_CANVAS_FOCUS_IN
+        EVAS_CALLBACK_CANVAS_FOCUS_OUT
+        EVAS_CALLBACK_RENDER_FLUSH_PRE
+        EVAS_CALLBACK_RENDER_FLUSH_POST
+        EVAS_CALLBACK_CANVAS_OBJECT_FOCUS_IN
+        EVAS_CALLBACK_CANVAS_OBJECT_FOCUS_OUT
+        EVAS_CALLBACK_IMAGE_UNLOADED
+        EVAS_CALLBACK_RENDER_PRE
+        EVAS_CALLBACK_RENDER_POST
+        EVAS_CALLBACK_IMAGE_RESIZE
+        EVAS_CALLBACK_DEVICE_CHANGED
+        EVAS_CALLBACK_LAST
 
 
     ctypedef enum Evas_Pixel_Format:
@@ -69,7 +103,8 @@ cdef extern from "Evas.h":
 
 
     ctypedef enum Evas_Event_Flags:
-        pass
+        EVAS_EVENT_FLAG_NONE
+        EVAS_EVENT_FLAG_ON_HOLD
 
 
     ctypedef enum Evas_Font_Hinting_Flags:
@@ -357,7 +392,7 @@ cdef extern from "Evas.h":
     Evas *evas_new()
     void evas_free(Evas *e)
     const_Eo_Class *evas_class_get()
-    
+
     int evas_render_method_lookup(const_char_ptr name)
     Eina_List *evas_render_method_list()
     void evas_render_method_list_free(Eina_List *list)
@@ -810,7 +845,7 @@ cdef class Rect:
 cdef class Canvas(Eo):
 #     cdef Evas *obj
     cdef object _callbacks
-# 
+#
 #     cdef int _set_obj(self, Evas *obj) except 0
 #     cdef int _unset_obj(self) except 0
 

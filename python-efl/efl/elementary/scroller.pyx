@@ -36,6 +36,8 @@
 
 include "widget_header.pxi"
 
+from object cimport Object
+
 cimport enums
 
 ELM_SCROLLER_POLICY_AUTO = enums.ELM_SCROLLER_POLICY_AUTO

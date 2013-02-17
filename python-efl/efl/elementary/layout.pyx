@@ -17,6 +17,8 @@
 
 include "widget_header.pxi"
 
+from layout_class cimport LayoutClass
+
 cdef class Layout(LayoutClass):
 
     """
@@ -182,7 +184,7 @@ cdef class Layout(LayoutClass):
         :return: The swallowed object or None if none or an error occurred
 
         """
-        return Object_from_instance(elm_layout_content_get(self.obj, _cfruni(swallow)))
+        return object_from_instance(elm_layout_content_get(self.obj, _cfruni(swallow)))
 
     def content_unset(self, swallow):
         """content_unset(unicode swallow)
@@ -197,7 +199,7 @@ cdef class Layout(LayoutClass):
         :rtype: :py:class:`elementary.object.Object`
 
         """
-        return Object_from_instance(elm_layout_content_unset(self.obj, _cfruni(swallow)))
+        return object_from_instance(elm_layout_content_unset(self.obj, _cfruni(swallow)))
 
     def text_set(self, part, text):
         """text_set(unicode part, unicode text)

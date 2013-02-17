@@ -59,7 +59,10 @@
 """
 
 include "widget_header.pxi"
-from evas.object cimport evas_object_data_get
+
+from object cimport Object
+
+from efl.evas cimport evas_object_data_get
 
 #~ ctypedef enum Elm_Box_CLayout:
 #~     ELM_BOX_LAYOUT_HORIZONTAL
@@ -102,7 +105,6 @@ cdef Evas_Object_Box_Layout _py_elm_box_layout_resolv(int layout) with gil:
     elif layout == ELM_BOX_LAYOUT_STACK:
         return evas_object_box_layout_stack
     return evas_object_box_layout_vertical
-
 
 cdef class Box(Object):
 
