@@ -27,11 +27,13 @@ def pkgconfig(*packages, **kw):
         kw[k] = list(set(v))
     return kw
 
+epdf_args = pkgconfig("epdf", "python-evas", "evas")
+
 ext_modules=[
-    Extension("epdf.general", ["epdf/general.pyx"], **pkgconfig("epdf", "python-evas")),
-    Extension("epdf.document", ["epdf/document.pyx"], **pkgconfig("epdf", "python-evas")),
-    Extension("epdf.page", ["epdf/page.pyx"], **pkgconfig("epdf", "python-evas")),
-    Extension("epdf.smart", ["epdf/smart.pyx"], **pkgconfig("epdf", "python-evas")),
+    Extension("epdf.general", ["epdf/general.pyx"], **epdf_args),
+    Extension("epdf.document", ["epdf/document.pyx"], **epdf_args),
+    Extension("epdf.page", ["epdf/page.pyx"], **epdf_args),
+    Extension("epdf.smart", ["epdf/smart.pyx"], **epdf_args),
 ]
 
 for e in ext_modules:
@@ -48,6 +50,6 @@ setup(
     packages = ["epdf"],
     ext_modules = cythonize(ext_modules, include_path=["/usr/include/python-evas"]),
     package_data = {"epdf": ["epdf/*.pxd"]},
-    requires = ["evas", "ecore", "edje"],
+    requires = ["evas"],
     provides = ["epdf"],
 )
